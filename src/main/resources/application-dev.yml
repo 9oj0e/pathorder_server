@@ -1,0 +1,37 @@
+server:
+  servlet:
+    encoding:
+      charset: utf-8
+      force: true
+    session:
+      timeout: 30m
+      tracking-modes: cookie
+  port: 8080
+
+spring:
+  mustache:
+    servlet:
+      expose-session-attributes: true
+      expose-request-attributes: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test;MODE=MySQL
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+  sql:
+    init:
+      data-locations:
+        - classpath:db/data.sql
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 10
+    defer-datasource-initialization: true
+    open-in-view: false
