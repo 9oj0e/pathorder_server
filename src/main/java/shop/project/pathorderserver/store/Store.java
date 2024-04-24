@@ -15,12 +15,10 @@ public class Store {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     // 회원 정보
-    private String username;
+    private String username; // 로그인 아이디
     private String password;
     @ColumnDefault("true")
-    private boolean status; // 계정 상태 (0 : 비활성, 1 : 활성)
-    @CreationTimestamp
-    private Timestamp registeredAt; // 가입일
+    private boolean status; // 계정 상태(0 : 비활성, 1 : 활성)
     // 사업자 정보
     private String ownerName; // 사업자 이름
     private String ownerTel;
@@ -39,4 +37,6 @@ public class Store {
     private double latitude; // 주소 좌표 위도
     @Column(nullable = true)
     private double longitude; // 주소 좌표 경도
+    @CreationTimestamp
+    private Timestamp registeredAt; // 가입일
 }
