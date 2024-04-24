@@ -8,16 +8,16 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "order_menu")
+@Table(name = "order_menu_tb")
 public class OrderMenu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne(fetch = FetchType.LAZY)
-    private Order order; // 하나의 주문은 여러 메뉴를 가진다.
-    private String name;
-    private int qty;
-    private int price;
+    private Order order; // 하나의 주문은 여러 메뉴를 가질 수 있음
+    private String name; // 메뉴의 이름
+    private int qty; // 수량
+    private int price; // 메뉴 하나의 가격
     @CreationTimestamp
     private Timestamp createdAt;
 }
