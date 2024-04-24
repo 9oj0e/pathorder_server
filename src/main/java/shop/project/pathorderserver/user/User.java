@@ -2,6 +2,7 @@ package shop.project.pathorderserver.user;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
@@ -17,7 +18,8 @@ public class User {
     private String password;
     private String nickname; // 회원 별명
     private boolean status; // 계정 상태 (0 : 비활성, 1 : 활성)
-    private Timestamp registered_at; // 가입일
+    @CreationTimestamp
+    private Timestamp registeredAt; // 가입일
     // 개인 정보
     private String name;
     private String tel; // 전화번호
