@@ -13,4 +13,9 @@ public class UserRequest {
     public static class LoginDTO {
 
     }
+
+    @Data
+    public static class UpdateDTO {
+
+    }
 }
