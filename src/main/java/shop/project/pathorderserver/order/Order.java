@@ -27,9 +27,13 @@ public class Order {
     private String request; // 요청 사항, ex) 연하게 해주세요, 캐리어에 담아주세요, 얼음 많이 넣어주세요.
     // 주문 정보
     private int totalAmount; // 총 가격
-    private boolean isAccepted; // 주문 수락 여부(0 : 거절, 1 : 수락)
-    @ColumnDefault("false")
-    private boolean status; // 조리 상태(0 : 조리중, 1 : 조리완료)
+    @Enumerated(EnumType.STRING)
+    @ColumnDefault("'접수대기'")
+    private OrderStatus status; // 조리 상태(0 : 조리중, 1 : 조리완료)
     @CreationTimestamp
     private Timestamp createdAt; // 주문 시간
+//
+//    public Order() {
+//        this.status = OrderStatus.접수대기;
+//    }
 }

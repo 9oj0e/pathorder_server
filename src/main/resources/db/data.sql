@@ -1,27 +1,31 @@
 -- user_tb
 INSERT INTO user_tb
-(username, password, nickname, name, tel, email, registered_at)
-VALUES
-    ('user1', '1234', '성재', '김성재', '01012345555', 'user1@gmail.com', now()),
-    ('user2', '1234', '정현', '조정현', '01012346666', 'user2@gmail.com', now()),
-    ('user3', '1234', '현정', '장현정', '01012347777', 'user3@gmail.com', now()),
-    ('user4', '1234', '윤정', '최윤정', '01012348888', 'user4@gmail.com', now()),
-    ('user5', '1234', '찬혁', '박찬혁', '01012349999', 'user5@gmail.com', now());
+    (username, password, nickname, name, tel, email, registered_at)
+VALUES ('user1', '1234', '성재', '김성재', '01012345555', 'user1@gmail.com', now()),
+       ('user2', '1234', '정현', '조정현', '01012346666', 'user2@gmail.com', now()),
+       ('user3', '1234', '현정', '장현정', '01012347777', 'user3@gmail.com', now()),
+       ('user4', '1234', '윤정', '최윤정', '01012348888', 'user4@gmail.com', now()),
+       ('user5', '1234', '찬혁', '박찬혁', '01012349999', 'user5@gmail.com', now());
 
 -- 매장
 INSERT INTO store_tb
-(username, password, owner_name, owner_tel, owner_email, biz_num, name, tel, intro, img_src, opening_time, closing_time, closed_day, address, registered_at)
-VALUES
-('조정현', '1234', 'david1234', '01012345678', 'david1234@gmail.com', '123-456-7890', '단밤 카페', '01012345678', '단밤 라떼 맛집', '사진.jpeg', '07:00', '20:00', '매주 월요일', '부산시 부산진구 서면문화로 1 302-40', NOW()),
-('김성재', '1234', 'jake1234', '01012345678', 'jake1234@gmail.com', '123-456-7890', '꿀밤 카페', '01012345678', '꿀밤 라떼 맛집', '사진.jpeg', '07:00', '20:00', '매주 화요일', '부산시 부산진구 서면문화로 2 302-40', NOW()),
-('박찬혁', '1234', 'hyeok1234', '01012345678', 'hyeok1234@gmail.com', '123-456-7890', '유자 카페', '01012345678', '유자 라떼 맛집', '사진.jpeg', '07:00', '20:00', '매주 수요일', '부산시 부산진구 서면문화로 3 302-40', NOW()),
-('장현정', '1234', 'hana1234', '01012345678', 'hana1234@gmail.com', '123-456-7890', '오렌지 카페', '01012345678', '오렌지 라떼 맛집', '사진.jpeg', '07:00', '20:00', '매주 목요일', '부산시 부산진구 서면문화로 4 302-40', NOW()),
-('최윤정', '1234', 'qty1234', '01012345678', 'qty1234@gmail.com', '123-456-7890', '군밤 카페', '01012345678', '군밤 라떼 맛집', '사진.jpeg', '07:00', '20:00', '매주 금요일', '부산시 부산진구 서면문화로 5 302-40', NOW());
+(username, password, owner_name, owner_tel, owner_email, biz_num, name, tel, intro, img_src, opening_time, closing_time,
+ closed_day, address, registered_at)
+VALUES ('조정현', '1234', 'david1234', '01012345678', 'david1234@gmail.com', '123-456-7890', '단밤 카페', '01012345678',
+        '단밤 라떼 맛집', '사진.jpeg', '07:00', '20:00', '매주 월요일', '부산시 부산진구 서면문화로 1 302-40', NOW()),
+       ('김성재', '1234', 'jake1234', '01012345678', 'jake1234@gmail.com', '123-456-7890', '꿀밤 카페', '01012345678',
+        '꿀밤 라떼 맛집', '사진.jpeg', '07:00', '20:00', '매주 화요일', '부산시 부산진구 서면문화로 2 302-40', NOW()),
+       ('박찬혁', '1234', 'hyeok1234', '01012345678', 'hyeok1234@gmail.com', '123-456-7890', '유자 카페', '01012345678',
+        '유자 라떼 맛집', '사진.jpeg', '07:00', '20:00', '매주 수요일', '부산시 부산진구 서면문화로 3 302-40', NOW()),
+       ('장현정', '1234', 'hana1234', '01012345678', 'hana1234@gmail.com', '123-456-7890', '오렌지 카페', '01012345678',
+        '오렌지 라떼 맛집', '사진.jpeg', '07:00', '20:00', '매주 목요일', '부산시 부산진구 서면문화로 4 302-40', NOW()),
+       ('최윤정', '1234', 'qty1234', '01012345678', 'qty1234@gmail.com', '123-456-7890', '군밤 카페', '01012345678',
+        '군밤 라떼 맛집', '사진.jpeg', '07:00', '20:00', '매주 금요일', '부산시 부산진구 서면문화로 5 302-40', NOW());
 
 
 -- menu_tb
 INSERT INTO menu_tb
-(store_id, category, name, price, description, released_at)
+    (store_id, category, name, price, description, released_at)
 VALUES
 -- 1번 매장 메뉴
 (1, 'coffee', '아메리카노', 3000, '현대인의 필수 카페인', NOW()),
@@ -57,7 +61,7 @@ VALUES
 
 -- 옵션
 INSERT INTO option_tb
-(menu_id, name, price, is_required)
+    (menu_id, name, price, is_required)
 VALUES
 -- 아이스, 샷추가, 설탕시럽, 바닐라시럽, 헤이즐넛시럽
 -- ice는 1이면 ice, 0이면 hot
@@ -241,3 +245,11 @@ VALUES
 (25, 'sugar syrup', 0, 0),
 (25, 'vanilla syrup', 500, 0),
 (25, 'hazelnut syrup', 500, 0);
+
+-- order_tb
+INSERT INTO order_tb
+(store_id, store_name, customer_id, customer_name, request, total_amount, status, created_at)
+VALUES (1, '단밤 카페', 1, '김성재', '얼음 많이 넣어주세요.', 3000, '조리중', now());
+INSERT INTO order_tb
+(store_id, store_name, customer_id, customer_name, request, total_amount, created_at)
+VALUES (1, '단밤 카페', 2, '조정현', '얼음 많이 넣어주세요.', 3000, now());
