@@ -21,8 +21,6 @@ public class Menu {
     private int price; // 메뉴 하나의 가격
     private String imgSrc;
     private String description; // 메뉴 설명
-    // TODO: 출시일을 넣기로 했나요?
-    private Timestamp releasedAt; // 메뉴 출시일
     @CreationTimestamp
     private Timestamp registeredAt; // 메뉴 등록일
 }

@@ -25,7 +25,7 @@ VALUES ('조정현', '1234', 'david1234', '01012345678', 'david1234@gmail.com', 
 
 -- menu_tb
 INSERT INTO menu_tb
-    (store_id, category, name, price, description, released_at)
+    (store_id, category, name, price, description, registered_at)
 VALUES
 -- 1번 매장 메뉴
 (1, 'coffee', '아메리카노', 3000, '현대인의 필수 카페인', NOW()),

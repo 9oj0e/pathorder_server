@@ -32,8 +32,5 @@ public class Order {
     private OrderStatus status; // 조리 상태(0 : 조리중, 1 : 조리완료)
     @CreationTimestamp
     private Timestamp createdAt; // 주문 시간
-//
-//    public Order() {
-//        this.status = OrderStatus.접수대기;
-//    }
+
 }
