@@ -2,9 +2,10 @@ package shop.project.pathorderserver.menu;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class MenuController {
     private final MenuService menuService;
 }
