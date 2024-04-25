@@ -2,7 +2,6 @@ package shop.project.pathorderserver.order;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import shop.project.pathorderserver.store.Store;
 import shop.project.pathorderserver.user.User;
@@ -28,7 +27,7 @@ public class Order {
     // 주문 정보
     private int totalAmount; // 총 가격
     // @ColumnDefault("접수 대기")
-    private boolean status; // enum("접수 대기", "주문 거절", "주문 완료", "조리 중", "조리 완료")
+    private boolean status; // enum ("접수 대기", "주문 거절", "주문 완료", "조리 중", "조리 완료")
     @CreationTimestamp
     private Timestamp createdAt; // 주문 시간
 }
