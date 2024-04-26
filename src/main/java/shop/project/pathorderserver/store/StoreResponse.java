@@ -2,8 +2,6 @@ package shop.project.pathorderserver.store;
 
 import jakarta.persistence.Column;
 import lombok.Data;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -16,7 +14,7 @@ public class StoreResponse {
         private int id;
         private String imgSrc;
         private String name;
-        // TODO: 주소 좌표로 거리를 계산할 수 있을 것인가? latitude, longitude 속성 활용?
+        // TODO: 주소 좌표로 거리를 계산할 수 있을 것인가? latitude, longitude 속성 활용? (지도 api가 알아서 해주길 바람..)
         private int distance;
         private int likeCount;
 
