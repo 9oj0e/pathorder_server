@@ -7,7 +7,7 @@ public class MenuResponse {
     // 매장 메뉴 DTO
     @Data
     public static class StoreMenuDTO {
-        private String menuName;
+        private String name;
         private String description;
         private int price;
         private String imgSrc;
