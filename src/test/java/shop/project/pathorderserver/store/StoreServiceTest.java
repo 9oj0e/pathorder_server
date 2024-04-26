@@ -1,5 +1,6 @@
 package shop.project.pathorderserver.store;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -17,7 +18,7 @@ class StoreServiceTest {
     @Test
     void findAll_test() {
         Optional<List<Store>> listings = Optional.of(storeRepository.findAll());
-        System.out.println("findAll_test: " + listings);
-
+        Assertions.assertThat(listings.get().size()).isEqualTo(5);
+        Assertions.assertThat(listings.get().getFirst().getName()).isEqualTo("단밤 카페");
     }
 }
