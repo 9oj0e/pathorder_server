@@ -20,5 +20,6 @@ class StoreServiceTest {
         Optional<List<Store>> listings = Optional.of(storeRepository.findAll());
         Assertions.assertThat(listings.get().size()).isEqualTo(5);
         Assertions.assertThat(listings.get().getFirst().getName()).isEqualTo("단밤 카페");
+        System.out.println(listings);
     }
 }
