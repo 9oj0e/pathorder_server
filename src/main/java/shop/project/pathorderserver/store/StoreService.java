@@ -17,6 +17,6 @@ public class StoreService {
     public List<StoreResponse.ListingsDTO> getStoreList() {
         Sort sort = Sort.by(Sort.Direction.DESC, "name");
         List<Store> stores = storeRepository.findAll(sort);
-        return stores.stream().map(store -> new StoreResponse.ListingsDTO(store)).toList();
+        return stores.stream().map(StoreResponse.ListingsDTO::new).toList();
     }
 }
