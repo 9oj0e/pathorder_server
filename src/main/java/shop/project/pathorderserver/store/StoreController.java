@@ -18,6 +18,7 @@ public class StoreController {
     @GetMapping("/api/stores")
     public ResponseEntity<?> listings() {
         List<StoreResponse.ListingsDTO> responseDTO = storeService.getStoreList();
+        
         return ResponseEntity.ok(new ApiUtil(responseDTO));
     }
 
