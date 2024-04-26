@@ -33,10 +33,10 @@ public class Store {
     private String closingTime; // 폐점 시간
     private String closedDay; // 휴무일
     private String address; // 주소
-    @ColumnDefault("0.0")
-    private double latitude; // 주소 좌표 위도
-    @ColumnDefault("0.0")
-    private double longitude; // 주소 좌표 경도
+    @Column(nullable = true)
+    private Double latitude; // 주소 좌표 위도
+    @Column(nullable = true)
+    private Double longitude; // 주소 좌표 경도
     @CreationTimestamp
     private Timestamp registeredAt; // 가입일
 }
