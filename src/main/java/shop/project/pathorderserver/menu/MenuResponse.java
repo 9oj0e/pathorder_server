@@ -13,7 +13,7 @@ public class MenuResponse {
         private String imgSrc;
 
         public StoreMenuDTO(Menu menu) {
-            this.menuName = menu.getName();
+            this.name = menu.getName();
             this.description = menu.getDescription();
             this.price = menu.getPrice();
             this.imgSrc = menu.getImgSrc();
