@@ -15,4 +15,10 @@ public class MenuService {
         List<Menu> menuList = menuRepository.findAllMenuByStoreId(storeId).get(); // TODO: orElseThrow
         return menuList.stream().map(menu -> new MenuResponse.StoreMenuDTO(menu)).toList();
     }
+
+    // 메뉴별 옵션 리스트
+    public List<MenuResponse.OptionDTO> getOption(int menuId) {
+        List<Option> optionList = menuRepository.findOptionByMenuId(menuId).get(); // TODO: orElseThrow
+        return optionList.stream().map(option -> new MenuResponse.OptionDTO(option)).toList();
+    }
 }
