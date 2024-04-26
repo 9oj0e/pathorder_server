@@ -9,7 +9,7 @@ VALUES ('user1', '1234', '성재', '김성재', '01012345555', 'user1@gmail.com'
 
 -- 매장
 INSERT INTO store_tb
-(username, password, owner_name, owner_tel, owner_email, biz_num, name, tel, intro, img_src, opening_time, closing_time,
+(username, password, owner_name, owner_tel, owner_email, biz_num, name, tel, intro, img_filename, opening_time, closing_time,
  closed_day, address, registered_at)
 VALUES ('조정현', '1234', 'david1234', '01012345678', 'david1234@gmail.com', '123-456-7890', '단밤 카페', '01012345678',
         '단밤 라떼 맛집', '사진.jpeg', '07:00', '20:00', '매주 월요일', '부산시 부산진구 서면문화로 1 302-40', NOW()),

@@ -23,4 +23,8 @@ public class UserResponse {
     public static class UpdateDTO {
 
     }
+
+    @Data
+    public class ImgDTO {
+    }
 }

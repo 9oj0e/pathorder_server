@@ -18,4 +18,10 @@ public class UserRequest {
     public static class UpdateDTO {
 
     }
+
+    @Data
+    public static class ImgDTO {
+        private String username;
+        private String encodedImg;
+    }
 }
