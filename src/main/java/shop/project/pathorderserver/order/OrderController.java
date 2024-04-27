@@ -10,6 +10,7 @@ import shop.project.pathorderserver._core.utils.ApiUtil;
 import shop.project.pathorderserver.menu.Menu;
 import shop.project.pathorderserver.menu.MenuResponse;
 import shop.project.pathorderserver.menu.MenuService;
+import shop.project.pathorderserver.store.StoreService;
 
 import java.util.List;
 
@@ -18,13 +19,13 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
     private final MenuService menuService;
+    private final StoreService storeService;
 
     // 매장별 메뉴 리스트
     @GetMapping("/api/stores/{storeId}/menus")
     private ResponseEntity<?> menuList(@PathVariable int storeId) {
-        List<MenuResponse.StoreMenuDTO> menuList = menuService.getAllStoreMenu(storeId);
-
-        return ResponseEntity.ok(new ApiUtil(menuList));
+        MenuResponse.StoreMenuDTO respDTO = menuService.getStoreNameAndStoreMenu(storeId);
+        return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
     // 메뉴별 옵션
