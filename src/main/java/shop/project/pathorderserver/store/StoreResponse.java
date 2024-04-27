@@ -7,7 +7,7 @@ public class StoreResponse {
     @Data
     public static class ListingsDTO {
         private int id;
-        private String filePath;
+        private String imgFilename;
         private String name;
         // TODO: 주소 좌표로 거리를 계산할 수 있을 것인가? latitude, longitude 속성 활용? (지도 api가 알아서 해주길 바람..)
         private int distance;
@@ -15,7 +15,7 @@ public class StoreResponse {
 
         public ListingsDTO(Store store) {
             this.id = store.getId();
-            this.filePath = store.getFilePath();
+            this.imgFilename = store.getImgFilename();
             this.name = store.getName();
             this.distance = 163;
             this.likeCount = 181;
@@ -25,7 +25,7 @@ public class StoreResponse {
     @Data
     public static class DetailDTO {
         private int id;
-        private String filePath;
+        private String imgFilename;
         private String name;
         private String intro;
         private String openingTime;
@@ -35,7 +35,7 @@ public class StoreResponse {
 
         public DetailDTO(Store store) {
             this.id = store.getId();
-            this.filePath = store.getFilePath();
+            this.imgFilename = store.getImgFilename();
             this.name = store.getName();
             this.intro = store.getIntro();
             this.openingTime = store.getOpeningTime();
