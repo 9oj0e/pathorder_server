@@ -11,4 +11,8 @@ public interface MenuRepository extends JpaRepository<Menu, Integer> {
     // 매장별 메뉴 리스트
     @Query("select m from Menu m where m.store.id = :storeId")
     Optional<List<Menu>> findAllMenuByStoreId(@Param("storeId") Integer storeId);
+
+    // 메뉴별 옵션
+    @Query("select o from Option o join fetch o.menu m where o.menu.id = :menuId")
+    Optional<List<Option>> findOptionByMenuId(@Param("menuId") Integer menuId);
 }
