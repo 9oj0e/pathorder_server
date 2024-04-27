@@ -28,15 +28,15 @@ public class Store {
     private String name;
     private String tel; // 매장 번호
     private String intro; // 매장 소개
-    private String filePath;
+    private String imgFilename;
     private String openingTime; // 개점 시간
     private String closingTime; // 폐점 시간
     private String closedDay; // 휴무일
     private String address; // 주소
     @Column(nullable = true)
-    private Double latitude; // 주소 좌표 위도
+    private double latitude; // 주소 좌표 위도
     @Column(nullable = true)
-    private Double longitude; // 주소 좌표 경도
+    private double longitude; // 주소 좌표 경도
     @CreationTimestamp
     private Timestamp registeredAt; // 가입일
 }
