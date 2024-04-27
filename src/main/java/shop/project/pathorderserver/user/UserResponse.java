@@ -25,6 +25,8 @@ public class UserResponse {
         // 개인 정보
         private String email;
         private String tel;
+        // 사진
+        private String imgFilePath;
     }
 
     @Data // 회원 정보 수정시
@@ -36,13 +38,9 @@ public class UserResponse {
         private String email;
         private String tel;
     }
-
-    @Data // 이미지
+    @Data // 사진 수정시
     public static class ImgDTO {
-        private String imgFilePath;
-
-        public ImgDTO(String imgFilePath) {
-            this.imgFilePath = imgFilePath;
-        }
+        // 사진
+        private String newImgFilePath;
     }
 }

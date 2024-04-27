@@ -52,8 +52,9 @@ public class UserService {
         */
         return null;
     }
-    @Transactional
-    public UserResponse.ImgDTO picUpload(UserRequest.ImgDTO reqDTO, int userId) throws IOException {
+
+    @Transactional // 사진 업로드
+    public void setImg(UserRequest.ImgDTO reqDTO, int userId) throws IOException {
         /*
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 유저입니다."));
@@ -64,8 +65,7 @@ public class UserService {
         Files.write(newFilePath, decodedByte);
         user.setImgFilename(newFilename);
 
-        return new UserResponse.PicDTO(reqDTO.getFileName(), newFilePath.toString());
+        return new UserResponse.ImgDTO(reqDTO.getFileName(), newFilePath.toString());
         */
-        return null;
     }
 }
