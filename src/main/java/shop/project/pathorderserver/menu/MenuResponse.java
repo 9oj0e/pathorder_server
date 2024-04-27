@@ -15,13 +15,6 @@ public class MenuResponse {
         private int storeId;
         private String storeName;
         private List<MenuDTO> menus;
-        /**
-         * 카테고리
-         * 메뉴이름
-         * 메뉴설명
-         * 가격
-         * 사진
-         */
 
         public StoreMenuDTO(Store store, List<Menu> menus) {
             this.storeId = store.getId();
