@@ -44,4 +44,13 @@ public class StoreResponse {
             this.address = store.getAddress();
         }
     }
+
+    @Data
+    public static class BizInfoDTO {
+        private String bizNum;
+
+        public BizInfoDTO(Store store) {
+            this.bizNum = store.getBizNum();
+        }
+    }
 }
