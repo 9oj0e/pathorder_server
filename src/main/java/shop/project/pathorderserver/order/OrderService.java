@@ -17,6 +17,7 @@ public class OrderService {
     private final MenuRepository menuRepository;
     private final StoreRepository storeRepository;
 
+    // 메뉴 옵션
     public OrderResponse.MenuOptionDTO getStoreNameAndMenuAndMenuOption(int storeId, int menuId) {
         // 매장 이름
         Store store = storeRepository.findById(storeId).get();
@@ -28,5 +29,11 @@ public class OrderService {
         List<Option> optionList = menuRepository.findOptionByMenuId(menuId).get();
 
         return new OrderResponse.MenuOptionDTO(store, menu, optionList);
+    }
+
+    // 주문내역 목록보기
+    public OrderResponse.OrderListDTO getOrderList(int userId) {
+        List<Order> orderList = orderRepository.findByUserId(userId).get();
+        return new OrderResponse.OrderListDTO(orderList);
     }
 }
