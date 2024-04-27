@@ -17,22 +17,24 @@ public class StoreController {
     // 매장 목록 보기
     @GetMapping("/api/stores")
     public ResponseEntity<?> listings() {
-        List<StoreResponse.ListingsDTO> responseDTO = storeService.getStoreList();
+        List<StoreResponse.ListingsDTO> respDTO = storeService.getStoreList();
         
-        return ResponseEntity.ok(new ApiUtil(responseDTO));
+        return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
     // 매장 상세 보기
     @GetMapping("/api/stores/{storeId}")
     public ResponseEntity<?> storeInfo(@PathVariable Integer storeId) {
-        StoreResponse.DetailDTO responseDTO = storeService.getStoreDetail(storeId);
-        return ResponseEntity.ok(new ApiUtil(responseDTO));
+        StoreResponse.DetailDTO respDTO = storeService.getStoreDetail(storeId);
+
+        return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
     // 매장 상세 보기
     @GetMapping("/api/stores/{storeId}/biz-info")
     public ResponseEntity<?> bizInfo(@PathVariable Integer storeId) {
-        StoreResponse.BizInfoDTO responseDTO = storeService.getBizInfo(storeId);
-        return ResponseEntity.ok(new ApiUtil(responseDTO));
+        StoreResponse.BizInfoDTO respDTO = storeService.getBizInfo(storeId);
+
+        return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 }
