@@ -3,8 +3,18 @@ package shop.project.pathorderserver.user;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import shop.project.pathorderserver._core.errors.exception.Exception400;
+import shop.project.pathorderserver._core.errors.exception.Exception401;
+import shop.project.pathorderserver._core.errors.exception.Exception404;
+import shop.project.pathorderserver._core.utils.JwtUtil;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Base64;
+import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -13,50 +23,66 @@ public class UserService {
 
     @Transactional // 회원 가입
     public UserResponse.JoinDTO createUser(UserRequest.JoinDTO reqDTO) {
-        /*
         Optional<User> userOp = userRepository.findByUsername(reqDTO.getUsername());
         if (userOp.isPresent()) {
-            throw new Exception400 ("중복된 유저입니다.");
+            throw new Exception400("중복된 유저입니다.");
         }
         User user = new User(reqDTO);
         userRepository.save(user);
-        */
-        return null;
+
+        return UserResponse.JoinDTO
+                .builder()
+                .username(user.getUsername())
+                .nickname(user.getNickname())
+                .build();
     }
 
     // 로그인 TODO: 암호화
     public UserResponse.LoginDTO getUser(UserRequest.LoginDTO reqDTO) {
-        /*
-        User user = userRepository.findByUsernameAndPassword(requestDTO.getUsername(), requestDTO.getPassword())
+        User user = userRepository.findByUsernameAndPassword(reqDTO.getUsername(), reqDTO.getPassword())
                 .orElseThrow(() -> new Exception401("아이디 또는 비밀번호가 틀렸습니다."));
         String jwt = JwtUtil.create(user);
-        */
-        return null;
+
+        return UserResponse.LoginDTO
+                .builder()
+                .id(user.getId())
+                .nickname(user.getNickname())
+                .build();
     }
 
     // 회원정보 보기
-    public UserResponse.UserDTO getUser(int userId) {
-        /*
-        User user = userRepository.findById(userId)
+    public UserResponse.UserDTO getUser(int sessionUserId) {
+        User user = userRepository.findById(sessionUserId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 유저입니다."));
-        */
-        return null;
+
+        return UserResponse.UserDTO
+                .builder()
+                .id(user.getId())
+                .nickname(user.getNickname())
+                .tel(user.getTel())
+                .email(user.getEmail())
+                .imgFilename(user.getImgFilename())
+                .build();
     }
 
     @Transactional // 회원정보 수정
-    public UserResponse.UpdateDTO setUser(UserRequest.UpdateDTO reqDTO) {
-        /*
-        User user = userRepository.findById(userId)
+    public UserResponse.UpdateDTO setUser(UserRequest.UpdateDTO reqDTO, int sessionUserId) {
+        User user = userRepository.findById(sessionUserId)
                 .orElseThrow(() -> new Exception404("회원 정보를 찾을 수 없습니다."));
         user.update(reqDTO);
-        */
-        return null;
+
+        return UserResponse.UpdateDTO
+                .builder()
+                .id(user.getId())
+                .nickname(user.getNickname())
+                .tel(user.getTel())
+                .email(user.getEmail())
+                .build();
     }
 
-    @Transactional // 사진 업로드
-    public void setImg(UserRequest.ImgDTO reqDTO, int userId) throws IOException {
-        /*
-        User user = userRepository.findById(userId)
+    @Transactional // 사진 업로드 (업로드/수정/삭제)
+    public UserResponse.ImgDTO setImg(UserRequest.ImgDTO reqDTO, int sessionUserId) throws IOException {
+        User user = userRepository.findById(sessionUserId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 유저입니다."));
         String encodedData = reqDTO.getEncodedImg();
         byte[] decodedByte = Base64.getDecoder().decode(encodedData);
@@ -65,7 +91,6 @@ public class UserService {
         Files.write(newFilePath, decodedByte);
         user.setImgFilename(newFilename);
 
-        return new UserResponse.ImgDTO(reqDTO.getFileName(), newFilePath.toString());
-        */
+        return new UserResponse.ImgDTO(newFilePath.toString());
     }
 }

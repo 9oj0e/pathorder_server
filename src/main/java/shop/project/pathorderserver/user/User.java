@@ -27,4 +27,19 @@ public class User {
     private String imgFilename;
     @CreationTimestamp
     private Timestamp registeredAt; // 가입일
+
+    public User(UserRequest.JoinDTO reqDTO) {
+        this.username = reqDTO.getUsername();
+        this.password = reqDTO.getPassword();
+        this.nickname = reqDTO.getNickname();
+        this.name = reqDTO.getName();
+        this.tel = reqDTO.getTel();
+        this.email = reqDTO.getEmail();
+    }
+
+    public void update(UserRequest.UpdateDTO reqDTO) {
+        this.nickname = reqDTO.getNickname();
+        this.tel = reqDTO.getTel();
+        this.email = reqDTO.getEmail();
+    }
 }
