@@ -10,7 +10,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginInterceptor());
-                //.addPathPatterns("/api/**"); // TODO: 로그인 및 JWT 검증시, 주석 제거하기
+        registry.addInterceptor(new LoginInterceptor())
+                .addPathPatterns("/api/**"); // TODO: 로그인 및 JWT 검증시, 주석 제거하기
     }
 }
