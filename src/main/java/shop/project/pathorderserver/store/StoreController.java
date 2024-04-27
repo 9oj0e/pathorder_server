@@ -25,7 +25,7 @@ public class StoreController {
     // 매장 상세 보기
     @GetMapping("/api/stores/{storeId}")
     public ResponseEntity<?> storeInfo(@PathVariable Integer storeId) {
-
-        return ResponseEntity.ok(new ApiUtil(null));
+        StoreResponse.DetailDTO responseDTO = storeService.getStoreDetail(storeId);
+        return ResponseEntity.ok(new ApiUtil(responseDTO));
     }
 }
