@@ -34,9 +34,9 @@ public class Store {
     private String closedDay; // 휴무일
     private String address; // 주소
     @Column(nullable = true)
-    private double latitude; // 주소 좌표 위도
+    private Double latitude; // 주소 좌표 위도
     @Column(nullable = true)
-    private double longitude; // 주소 좌표 경도
+    private Double longitude; // 주소 좌표 경도
     @CreationTimestamp
     private Timestamp registeredAt; // 가입일
 }
