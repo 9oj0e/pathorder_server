@@ -19,9 +19,8 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
     private final MenuService menuService;
-    private final StoreService storeService;
 
-    // 매장별 메뉴 리스트
+    // 매장 메뉴
     @GetMapping("/api/stores/{storeId}/menus")
     private ResponseEntity<?> menuList(@PathVariable int storeId) {
         MenuResponse.StoreMenuDTO respDTO = menuService.getStoreNameAndStoreMenu(storeId);

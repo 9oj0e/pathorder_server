@@ -6,7 +6,6 @@ import shop.project.pathorderserver.store.Store;
 
 import java.util.ArrayList;
 import java.util.List;
-
 public class MenuResponse {
 
     // 매장 메뉴 DTO
@@ -31,7 +30,7 @@ public class MenuResponse {
                 menuDTO.setName(menu.getName());
                 menuDTO.setDescription(menu.getDescription());
                 menuDTO.setPrice(menu.getPrice());
-                menuDTO.setImgSrc(menu.getImgSrc());
+                menuDTO.setImgFilename(menu.getImgFilename());
 
                 menuDTOList.add(menuDTO);
             }
@@ -45,7 +44,7 @@ public class MenuResponse {
             private String name;
             private String description;
             private int price;
-            private String imgSrc;
+            private String imgFilename;
         }
     }
 
