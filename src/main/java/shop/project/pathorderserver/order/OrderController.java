@@ -28,11 +28,10 @@ public class OrderController {
     }
 
     // 메뉴별 옵션
-    // menuId가 storeId를 가지고 있는데 storeId가 필요한가?
     @GetMapping("/api/stores/{storeId}/menus/{menuId}/options")
-    private ResponseEntity<?> option(@PathVariable int menuId) {
-        List<MenuResponse.OptionDTO> optionList = menuService.getOption(menuId);
+    private ResponseEntity<?> option(@PathVariable int storeId, @PathVariable int menuId) {
+        OrderResponse.MenuOptionDTO respDTO = orderService.getStoreNameAndMenuAndMenuOption(storeId, menuId);
 
-        return ResponseEntity.ok(new ApiUtil(optionList));
+        return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 }

@@ -13,6 +13,6 @@ public interface MenuRepository extends JpaRepository<Menu, Integer> {
     Optional<List<Menu>> findAllMenuByStoreId(@Param("storeId") Integer storeId);
 
     // 메뉴별 옵션
-    @Query("select o from Option o join fetch o.menu m where o.menu.id = :menuId")
+    @Query("select o from Option o where o.menu.id = :menuId")
     Optional<List<Option>> findOptionByMenuId(@Param("menuId") Integer menuId);
 }
