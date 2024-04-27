@@ -1,7 +1,9 @@
 package shop.project.pathorderserver.order;
 
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import shop.project.pathorderserver.menu.Menu;
 import shop.project.pathorderserver.menu.MenuRepository;
 import shop.project.pathorderserver.menu.Option;
@@ -35,5 +37,12 @@ public class OrderService {
     public OrderResponse.OrderListDTO getOrderList(int userId) {
         List<Order> orderList = orderRepository.findByUserId(userId).get();
         return new OrderResponse.OrderListDTO(orderList);
+    }
+
+    // 주문 상세보기
+    @Transactional
+    public OrderResponse.DetailDTO getOrderDetail(int orderId) {
+        Order order = orderRepository.findById(orderId).get();
+        return new OrderResponse.DetailDTO(order);
     }
 }

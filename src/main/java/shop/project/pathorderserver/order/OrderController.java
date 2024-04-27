@@ -41,4 +41,11 @@ public class OrderController {
         OrderResponse.OrderListDTO respDTO = orderService.getOrderList(userId);
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
+
+    // 주문 상세보기
+    @GetMapping("/api/users/{userId}/orders/{orderId}")
+    private ResponseEntity<?> orderDetail(@PathVariable int orderId) {
+        OrderResponse.DetailDTO respDTO = orderService.getOrderDetail(orderId);
+        return ResponseEntity.ok(new ApiUtil(respDTO));
+    }
 }

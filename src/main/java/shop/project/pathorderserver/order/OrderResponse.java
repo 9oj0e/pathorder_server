@@ -97,4 +97,22 @@ public class OrderResponse {
             }
         }
     }
+
+    // 주문내역 상세보기 DTO
+    @Data
+    public static class DetailDTO {
+        private String storeName;
+        private String storeTel;
+        private Timestamp orderTime;
+        private String request;
+        private int totalAmount;
+
+        public DetailDTO(Order order) {
+            this.storeName = order.getStoreName();
+            this.storeTel = order.getStore().getTel();
+            this.orderTime = order.getCreatedAt();
+            this.request = order.getRequest();
+            this.totalAmount = order.getTotalAmount();
+        }
+    }
 }
