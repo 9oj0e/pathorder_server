@@ -24,7 +24,6 @@ public class User {
     private String name;
     private String tel; // 전화번호
     private String email;
-    @ColumnDefault("avatar.jpg")
     private String imgFilename;
     @CreationTimestamp
     private Timestamp registeredAt; // 가입일
