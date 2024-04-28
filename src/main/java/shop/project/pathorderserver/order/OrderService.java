@@ -7,7 +7,6 @@ import shop.project.pathorderserver.menu.MenuRepository;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -30,12 +29,12 @@ public class OrderService {
         // 메뉴 리스트
         List<OrderMenu> orderMenuList = reqDTO.getOrderMenuList().stream()
                 .map(menu -> new OrderMenu(menu, savedOrder))
-                .collect(Collectors.toList());
+                .toList();
         // 옵션 리스트
         List<OrderOption> orderOptionList = reqDTO.getOrderOptionList() != null ?
                 reqDTO.getOrderOptionList().stream()
                         .map(option -> new OrderOption(option, savedOrder))
-                        .collect(Collectors.toList()) :
+                        .toList() :
                 Collections.emptyList();
 
         // 주문 메뉴 저장

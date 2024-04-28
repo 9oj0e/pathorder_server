@@ -18,6 +18,7 @@ public class OrderResponse {
         // etc
         private String request;
         private int totalAmount;
+        private OrderStatus status;
         // Menu
         private List<OrderMenuDTO> orderMenuList;
 
@@ -29,6 +30,7 @@ public class OrderResponse {
             this.customerName = order.getCustomerName();
             this.request = order.getRequest();
             this.totalAmount = order.getTotalAmount();
+            this.status = order.getStatus();
             this.orderMenuList = orderMenuList.stream().map(OrderMenuDTO::new).toList();
         }
 

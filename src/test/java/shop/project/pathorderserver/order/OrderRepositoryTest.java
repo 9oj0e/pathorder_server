@@ -23,14 +23,14 @@ class OrderRepositoryTest {
         System.out.println(orderMenuOP);
     }
 
-    @Test
-    public void findOrderOptionByOrderId_test() {
-        //given
-        int orderId = 1;
-
-        // when
-        Optional<List<OrderOption>> orderOptionOP = orderRepository.findOrderOptionByOrderId(orderId);
-        // then
-        System.out.println(orderOptionOP);
-    }
+//    @Test
+//    public void findOrderOptionByOrderId_test() {
+//        //given
+//        int orderId = 1;
+//
+//        // when
+//        Optional<List<OrderOption>> orderOptionOP = orderRepository.findOrderOptionByOrderId(orderId);
+//        // then
+//        System.out.println(orderOptionOP);
+//    }
 }

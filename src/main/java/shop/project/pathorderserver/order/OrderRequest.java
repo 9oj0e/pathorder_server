@@ -12,6 +12,7 @@ public class OrderRequest {
         private int customerId;
         private String customerName;
         private String request;
+        private OrderStatus status;
         private List<OrderMenuDTO> orderMenuList;
         private List<OrderOptionDTO> orderOptionList;
         @Data
