@@ -8,7 +8,6 @@ import shop.project.pathorderserver.order.OrderMenu;
 import shop.project.pathorderserver.order.OrderStatus;
 
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.util.List;
 
 public class UserResponse {
