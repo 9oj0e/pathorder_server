@@ -1,4 +1,4 @@
--- user_tb
+-- 회원
 INSERT INTO user_tb
     (username, password, nickname, name, tel, email, registered_at)
 VALUES ('user1', '1234', '성재', '김성재', '01012345555', 'user1@gmail.com', now()),
@@ -7,23 +7,22 @@ VALUES ('user1', '1234', '성재', '김성재', '01012345555', 'user1@gmail.com'
        ('user4', '1234', '윤정', '최윤정', '01012348888', 'user4@gmail.com', now()),
        ('user5', '1234', '찬혁', '박찬혁', '01012349999', 'user5@gmail.com', now());
 
--- 매장
+-- 매장 업주 회원
 INSERT INTO store_tb
-(username, password, owner_name, owner_tel, owner_email, biz_num, name, tel, intro, img_filename, opening_time, closing_time,
+(username, password, owner_name, owner_tel, owner_email, biz_num, name, tel, intro, opening_time, closing_time,
  closed_day, address, registered_at)
 VALUES ('david1234', '1234', '조정현', '01012345678', 'david1234@gmail.com', '123-456-7890', '단밤 카페', '01012345678',
-        '단밤 라떼 맛집', '사진.jpeg', '07:00', '20:00', '매주 월요일', '부산시 부산진구 서면문화로 1 302-40', NOW()),
+        '단밤 라떼 맛집', '07:00', '20:00', '매주 월요일', '부산시 부산진구 서면문화로 1 302-40', NOW()),
        ('jake1234', '1234', '김성', '01012345678', 'jake1234@gmail.com', '123-456-7890', '꿀밤 카페', '01012345678',
-        '꿀밤 라떼 맛집', '사진.jpeg', '07:00', '20:00', '매주 화요일', '부산시 부산진구 서면문화로 2 302-40', NOW()),
+        '꿀밤 라떼 맛집', '07:00', '20:00', '매주 화요일', '부산시 부산진구 서면문화로 2 302-40', NOW()),
        ('hyeok1234', '1234', '박찬혁', '01012345678', 'hyeok1234@gmail.com', '123-456-7890', '유자 카페', '01012345678',
-        '유자 라떼 맛집', '사진.jpeg', '07:00', '20:00', '매주 수요일', '부산시 부산진구 서면문화로 3 302-40', NOW()),
+        '유자 라떼 맛집', '07:00', '20:00', '매주 수요일', '부산시 부산진구 서면문화로 3 302-40', NOW()),
        ('hana1234', '1234', '장현정', '01012345678', 'hana1234@gmail.com', '123-456-7890', '오렌지 카페', '01012345678',
-        '오렌지 라떼 맛집', '사진.jpeg', '07:00', '20:00', '매주 목요일', '부산시 부산진구 서면문화로 4 302-40', NOW()),
+        '오렌지 라떼 맛집', '07:00', '20:00', '매주 목요일', '부산시 부산진구 서면문화로 4 302-40', NOW()),
        ('qty1234', '1234', '최윤정', '01012345678', 'qty1234@gmail.com', '123-456-7890', '군밤 카페', '01012345678',
-        '군밤 라떼 맛집', '사진.jpeg', '07:00', '20:00', '매주 금요일', '부산시 부산진구 서면문화로 5 302-40', NOW());
+        '군밤 라떼 맛집', '07:00', '20:00', '매주 금요일', '부산시 부산진구 서면문화로 5 302-40', NOW());
 
-
--- menu_tb
+-- 매장 메뉴
 INSERT INTO menu_tb
     (store_id, category, name, price, description, registered_at)
 VALUES
@@ -59,7 +58,7 @@ VALUES
 (5, 'coffee', '카라멜 마끼아또', 5300, '달콤한 카라멜과 진한 에스프레소가 만나는 환상적인 순간, 취향을 자극하는 끝내주는 음료.', NOW());
 
 
--- 옵션
+-- 매장 메뉴 옵션
 INSERT INTO option_tb
     (menu_id, name, price, is_required)
 VALUES

@@ -84,10 +84,13 @@ public class UserService {
                 .build();
     }
 
-    @Transactional // 사진 업로드 (TODO: 업로드/수정/삭제 한방 로직 추가하기)
+    @Transactional // 사진 업로드
     public UserResponse.ImgDTO setImg(UserRequest.ImgDTO reqDTO, int sessionUserId) throws IOException {
+        // 회원 조회
         User user = userRepository.findById(sessionUserId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 유저입니다."));
+        // 기본 파일 이름 설정 TODO: 파일 변경 시, 삭제 후, 기본 이미지로 변경하는 로직 추가하기
+        // String defaultImgFilename = "default/avatar.png";
         String encodedData = reqDTO.getEncodedImg();
         byte[] decodedByte = Base64.getDecoder().decode(encodedData);
         String newFilename = reqDTO.getUsername() + "_" + UUID.randomUUID() + ".jpg"; // username_UUID.jpg
