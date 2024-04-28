@@ -7,8 +7,6 @@ import shop.project.pathorderserver._core.utils.ApiUtil;
 import shop.project.pathorderserver.menu.MenuResponse;
 import shop.project.pathorderserver.menu.MenuService;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @RestController
 public class OrderController {
@@ -44,6 +42,7 @@ public class OrderController {
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
+    // TODO: 주문하기(테스트하려고 api뺌, 혹시 빠져있다면 넣어주삼)
     @PostMapping("/orders")
     public ResponseEntity<?> order(@RequestBody OrderRequest.SaveDTO reqDTO) {
         OrderResponse.SaveDTO respDTO = orderService.createOrder(reqDTO);

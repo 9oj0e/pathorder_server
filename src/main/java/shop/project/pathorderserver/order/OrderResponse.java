@@ -4,10 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
-
-import lombok.Data;
 import shop.project.pathorderserver.menu.Menu;
 import shop.project.pathorderserver.menu.Option;
 import shop.project.pathorderserver.store.Store;
@@ -53,6 +49,7 @@ public class OrderResponse {
         @AllArgsConstructor
         @Data
         public static class OrderMenuDTO {
+            private int menuId;
             private String name;
             private int qty;
             private int price;
@@ -60,11 +57,11 @@ public class OrderResponse {
 
             @Builder
             public OrderMenuDTO(OrderMenu orderMenu, List<OrderOption> orderOptionList) {
+                this.menuId = orderMenu.getId();
                 this.name = orderMenu.getName();
                 this.qty = orderMenu.getQty();
                 this.price = orderMenu.getPrice();
                 this.orderOptionList = orderOptionList.stream().map(OrderOptionDTO::new).toList();
-
             }
 
             @NoArgsConstructor

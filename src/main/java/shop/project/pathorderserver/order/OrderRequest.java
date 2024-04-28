@@ -13,6 +13,7 @@ public class OrderRequest {
         private String customerName;
         private String request;
         private OrderStatus status;
+        private int totalAmount;
         private List<OrderMenuDTO> orderMenuList;
 
         @Data

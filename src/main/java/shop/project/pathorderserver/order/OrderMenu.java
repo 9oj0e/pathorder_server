@@ -31,7 +31,4 @@ public class OrderMenu {
         this.qty = menu.getQuantity();
         this.price = menu.getPrice();
     }
-
-    public OrderMenu(int orderMenuId) {
-    }
 }
