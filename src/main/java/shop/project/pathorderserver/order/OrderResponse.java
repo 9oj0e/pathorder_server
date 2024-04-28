@@ -20,11 +20,9 @@ public class OrderResponse {
         private int totalAmount;
         // Menu
         private List<OrderMenuDTO> orderMenuList;
-        // Option
-        private List<OrderOptionDTO> orderOptionList;
 
         @Builder
-        public SaveDTO(Order order, List<OrderMenu> orderMenuList,List<OrderOption> orderOptionList) {
+        public SaveDTO(Order order, List<OrderMenu> orderMenuList, List<OrderOption> orderOptionList) {
             this.storeId = order.getStore().getId();
             this.storeName = order.getStoreName();
             this.customerId = order.getCustomer().getId();
@@ -32,7 +30,6 @@ public class OrderResponse {
             this.request = order.getRequest();
             this.totalAmount = order.getTotalAmount();
             this.orderMenuList = orderMenuList.stream().map(OrderMenuDTO::new).toList();
-            this.orderOptionList = orderOptionList.stream().map(OrderOptionDTO::new).toList();
         }
 
         @Data
@@ -47,18 +44,18 @@ public class OrderResponse {
                 this.name = orderMenu.getName();
                 this.qty = orderMenu.getQty();
                 this.price = orderMenu.getPrice();
-              //  this.orderOptionList = orderOptionList.stream().map(OrderOptionDTO::new).toList();
             }
-        }
-        @Data
-        public static class OrderOptionDTO {
-            private String name;
-            private int price;
 
-            @Builder
-            public OrderOptionDTO(OrderOption orderOption) {
-                this.name = orderOption.getName();
-                this.price = orderOption.getPrice();
+            @Data
+            public static class OrderOptionDTO {
+                private String name;
+                private int price;
+
+                @Builder
+                public OrderOptionDTO(OrderOption orderOption) {
+                    this.name = orderOption.getName();
+                    this.price = orderOption.getPrice();
+                }
             }
         }
     }
