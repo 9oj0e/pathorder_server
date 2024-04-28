@@ -2,13 +2,14 @@ package shop.project.pathorderserver.user;
 
 import lombok.Builder;
 import lombok.Data;
+import shop.project.pathorderserver._core.utils.FormatUtil;
 import shop.project.pathorderserver.order.Order;
 import shop.project.pathorderserver.order.OrderMenu;
 import shop.project.pathorderserver.order.OrderStatus;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class UserResponse {
 
@@ -55,6 +56,10 @@ public class UserResponse {
             this.email = email;
             this.tel = tel;
             this.imgFilename = imgFilename;
+        }
+
+        public String getTel() {
+            return FormatUtil.pNumFormatter(tel);
         }
     }
 
@@ -111,6 +116,14 @@ public class UserResponse {
                 this.status = order.getStatus();
                 this.orderMenuList = order.getOrderMenus().stream().map(OrderListDTO.OrderMenuDTO::new).toList();
             }
+
+            public String getTotalAmount() { // 19500 -> 19,500 변환
+                return FormatUtil.decimalFormatter(totalAmount);
+            }
+
+            public String getOrderTime() { // 월/일 시간:분:초
+                return FormatUtil.timeFormatter(orderTime);
+            }
         }
 
         @Data
@@ -139,6 +152,18 @@ public class UserResponse {
             this.orderTime = order.getCreatedAt();
             this.request = order.getRequest();
             this.totalAmount = order.getTotalAmount();
+        }
+
+        public String getStoreTel() {
+            return FormatUtil.pNumFormatter(storeTel);
+        }
+
+        public String getOrderTime() {
+            return FormatUtil.timeFormatter(orderTime);
+        }
+
+        public String getTotalAmount() { // 19500 -> 19,500 변환
+            return FormatUtil.decimalFormatter(totalAmount);
         }
     }
 }
