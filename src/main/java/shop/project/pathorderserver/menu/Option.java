@@ -18,7 +18,7 @@ public class Option {
     private Menu menu; // 하나의 메뉴는 여러개의 옵션을 참조
     private String name;
     private int price;
-    private boolean isRequired;
+    private boolean isRequired; // 필수 옵션 여부
     @CreationTimestamp
     private Timestamp createdAt;
 }
