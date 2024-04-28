@@ -9,6 +9,7 @@ import shop.project.pathorderserver.store.Store;
 import shop.project.pathorderserver.user.User;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @NoArgsConstructor
 @Data
@@ -44,4 +45,7 @@ public class Order {
         this.request = reqDTO.getRequest();
         this.status = reqDTO.getStatus() != null ? reqDTO.getStatus() : OrderStatus.접수대기;
     }
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+    private List<OrderMenu> orderMenus;
+
 }
