@@ -18,7 +18,7 @@ public class StoreOwnerController {
         return "";
     }
 
-    @GetMapping("/stores/{storeId}/menus/{menuId}") // TODO: 매장 메뉴 목록보기
+    @GetMapping("/stores/{storeId}/menus") // TODO: 매장 메뉴 목록보기
     private String menuList(@PathVariable int menuId) {
 
         return "";
