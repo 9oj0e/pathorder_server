@@ -14,26 +14,37 @@ import java.util.List;
 public class StoreController {
     private final StoreService storeService;
 
-    // 매장 목록 보기
     @GetMapping("/api/stores")
-    public ResponseEntity<?> listings() {
+    public ResponseEntity<?> listings() { // 매장 목록보기
         List<StoreResponse.ListingsDTO> respDTO = storeService.getStoreList();
-        
+
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
-    // 매장 상세 보기
-    @GetMapping("/api/stores/{storeId}")
-    public ResponseEntity<?> storeInfo(@PathVariable Integer storeId) {
+    @GetMapping("/api/stores/{storeId}") // 매장 상세보기
+    public ResponseEntity<?> storeInfo(@PathVariable int storeId) {
         StoreResponse.DetailDTO respDTO = storeService.getStoreDetail(storeId);
 
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
-    // 매장 상세 보기
-    @GetMapping("/api/stores/{storeId}/biz-info")
-    public ResponseEntity<?> bizInfo(@PathVariable Integer storeId) {
-        StoreResponse.BizInfoDTO respDTO = storeService.getBizInfo(storeId);
+    @GetMapping("/api/stores/{storeId}/biz-info") // 매장 상세보기 - 사업자 정보 TODO: 상세보기랑 합치기?
+    public ResponseEntity<?> bizInfo(@PathVariable int storeId) {
+        StoreResponse.BizInfoDTO respDTO = storeService.getStoreBizDetail(storeId);
+
+        return ResponseEntity.ok(new ApiUtil(respDTO));
+    }
+
+    @GetMapping("/api/stores/{storeId}/menus") // 매장 메뉴보기
+    private ResponseEntity<?> menuList(@PathVariable int storeId) {
+        StoreResponse.MenuListDTO respDTO = storeService.getStoreMenu(storeId);
+
+        return ResponseEntity.ok(new ApiUtil(respDTO));
+    }
+
+    @GetMapping("/api/stores/{storeId}/menus/{menuId}/options") // 매장 메뉴 옵션보기
+    private ResponseEntity<?> menuOptionList(@PathVariable int storeId, @PathVariable int menuId) {
+        StoreResponse.MenuOptionDTO respDTO = storeService.getStoreMenuOption(storeId, menuId);
 
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }

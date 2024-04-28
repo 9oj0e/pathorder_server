@@ -8,11 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MenuRepository extends JpaRepository<Menu, Integer> {
-    // 매장별 메뉴 리스트
-    @Query("select m from Menu m where m.store.id = :storeId")
+    @Query("SELECT m FROM Menu m WHERE m.store.id = :storeId") // 매장 메뉴 목록보기
     Optional<List<Menu>> findAllMenuByStoreId(@Param("storeId") Integer storeId);
 
-    // 메뉴별 옵션
-    @Query("select o from Option o where o.menu.id = :menuId")
+    @Query("SELECT o FROM Option o WHERE o.menu.id = :menuId") // 매장 메뉴 옵션보기
     Optional<List<Option>> findOptionByMenuId(@Param("menuId") Integer menuId);
 }
