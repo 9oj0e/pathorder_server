@@ -2,6 +2,13 @@ package shop.project.pathorderserver.user;
 
 import lombok.Builder;
 import lombok.Data;
+import shop.project.pathorderserver.order.Order;
+import shop.project.pathorderserver.order.OrderMenu;
+import shop.project.pathorderserver.order.OrderStatus;
+
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserResponse {
 
@@ -68,6 +75,7 @@ public class UserResponse {
             this.tel = tel;
         }
     }
+
     @Data // 사진 수정시
     public static class ImgDTO {
         // 사진
@@ -75,6 +83,69 @@ public class UserResponse {
 
         public ImgDTO(String newImgFilePath) {
             this.newImgFilePath = newImgFilePath;
+        }
+    }
+
+    @Data // 주문내역 목록보기 TODO: refactor
+    public static class OrderListDTO {
+        private List<OrderDTO> orders;
+
+        @Data
+        public static class OrderDTO {
+            private int orderId;
+            private Timestamp orderTime;
+            private String storeName;
+            private int totalAmount;
+            private OrderStatus status;
+            private List<OrderListDTO.OrderMenuDTO> orderMenus;
+
+            public OrderDTO(Order order) {
+                this.orderId = order.getId();
+                this.orderTime = order.getCreatedAt();
+                this.storeName = order.getStoreName();
+                this.totalAmount = order.getTotalAmount();
+                this.status = order.getStatus();
+                // TODO: stream.collect.reversed() -> Query "ORDER BY ASC" ?
+                this.orderMenus = order.getOrderMenus().stream().map(OrderListDTO.OrderMenuDTO::new).collect(Collectors.toList()).reversed();
+            }
+
+            @Data
+            public static class OrderMenuDTO {
+                private int menuId;
+                private String menuName;
+            }
+        }
+
+        public OrderListDTO(List<Order> orderList) {
+            this.orders = orderList.stream().map(OrderDTO::new).collect(Collectors.toList());
+        }
+
+        @Data
+        public static class OrderMenuDTO {
+            private int menuId;
+            private String menuName;
+
+            public OrderMenuDTO(OrderMenu orderMenu) {
+                this.menuId = orderMenu.getId();
+                this.menuName = orderMenu.getName();
+            }
+        }
+    }
+
+    @Data // 주문내역 상세보기
+    public static class OrderDetailDTO {
+        private String storeName;
+        private String storeTel;
+        private Timestamp orderTime;
+        private String request;
+        private int totalAmount;
+
+        public OrderDetailDTO(Order order) {
+            this.storeName = order.getStoreName();
+            this.storeTel = order.getStore().getTel();
+            this.orderTime = order.getCreatedAt();
+            this.request = order.getRequest();
+            this.totalAmount = order.getTotalAmount();
         }
     }
 }

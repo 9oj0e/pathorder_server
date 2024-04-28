@@ -40,6 +40,21 @@ public class UserController {
         return ResponseEntity.ok(new ApiUtil<>("로그아웃 완료"));
     }
 
+    @GetMapping("/api/users/{userId}/orders") // 회원 주문내역 목록보기
+    private ResponseEntity<?> orderList(@PathVariable int userId) {
+        UserResponse.OrderListDTO respDTO = userService.getOrderList(userId);
+
+        return ResponseEntity.ok(new ApiUtil(respDTO));
+    }
+
+    @GetMapping("/api/users/{userId}/orders/{orderId}") // 회원 주문내역 상세보기
+    private ResponseEntity<?> orderDetail(@PathVariable int orderId) {
+        UserResponse.OrderDetailDTO respDTO = userService.getOrderDetail(orderId);
+        // TODO: 주문 목록보기 (메뉴, 옵션)
+
+        return ResponseEntity.ok(new ApiUtil(respDTO));
+    }
+
     @PutMapping("/api/user/{userId}") // 회원정보 수정
     public ResponseEntity<?> update(@RequestBody UserRequest.UpdateDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");

@@ -7,12 +7,15 @@ import shop.project.pathorderserver._core.errors.exception.Exception400;
 import shop.project.pathorderserver._core.errors.exception.Exception401;
 import shop.project.pathorderserver._core.errors.exception.Exception404;
 import shop.project.pathorderserver._core.utils.JwtUtil;
+import shop.project.pathorderserver.order.Order;
+import shop.project.pathorderserver.order.OrderRepository;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -20,6 +23,7 @@ import java.util.UUID;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final OrderRepository orderRepository;
 
     @Transactional // 회원 가입
     public UserResponse.JoinDTO createUser(UserRequest.JoinDTO reqDTO) {
@@ -92,5 +96,22 @@ public class UserService {
         user.setImgFilename(newFilename);
 
         return new UserResponse.ImgDTO(newFilePath.toString());
+    }
+
+    // 주문내역 목록보기
+    public UserResponse.OrderListDTO getOrderList(int userId) {
+        List<Order> orders = orderRepository.findByUserId(userId)
+                .orElseThrow(() -> new Exception404("찾을 수 없는 주문입니다."));
+
+        return new UserResponse.OrderListDTO(orders);
+    }
+
+    // 주문 상세보기
+    @Transactional
+    public UserResponse.OrderDetailDTO getOrderDetail(int orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new Exception404("찾을 수 없는 주문입니다."));
+
+        return new UserResponse.OrderDetailDTO(order);
     }
 }
