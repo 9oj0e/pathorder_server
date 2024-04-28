@@ -28,6 +28,7 @@ public class Store {
     private String name;
     private String tel; // 매장 번호
     private String intro; // 매장 소개
+    @ColumnDefault("'default/store.jpeg'")
     private String imgFilename;
     private String openingTime; // 개점 시간
     private String closingTime; // 폐점 시간

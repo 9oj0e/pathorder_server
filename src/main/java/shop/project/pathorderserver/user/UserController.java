@@ -4,7 +4,10 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import shop.project.pathorderserver._core.errors.exception.Exception400;
 import shop.project.pathorderserver._core.utils.ApiUtil;
+
+import java.io.IOException;
 
 @RequiredArgsConstructor
 @RestController
@@ -22,6 +25,13 @@ public class UserController {
     @PostMapping("/login") // 로그인 TODO: 암호화 하기
     public ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO reqDTO) {
         UserResponse.LoginDTO respDTO = userService.getUser(reqDTO);
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
+
+    @PostMapping("/api/users/{userId}") // 사진 등록
+    public ResponseEntity<?> uploadImg(@PathVariable int userId, @RequestBody UserRequest.ImgDTO reqDTO) throws IOException {
+        UserResponse.ImgDTO respDTO = userService.setImg(reqDTO, userId); // TODO: userId -> sessionUserId
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
