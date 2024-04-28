@@ -42,8 +42,7 @@ public class OrderController {
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
-    // TODO: 주문하기(테스트하려고 api뺌, 혹시 빠져있다면 넣어주삼)
-    @PostMapping("/orders")
+    @PostMapping("/api/orders")
     public ResponseEntity<?> order(@RequestBody OrderRequest.SaveDTO reqDTO) {
         OrderResponse.SaveDTO respDTO = orderService.createOrder(reqDTO);
         return ResponseEntity.ok(new ApiUtil(respDTO));
