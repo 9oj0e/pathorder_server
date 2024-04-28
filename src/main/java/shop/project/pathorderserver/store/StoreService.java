@@ -39,7 +39,7 @@ public class StoreService {
     }
 
     // 매장 메뉴보기
-    public StoreResponse.MenuListDTO getStoreMenu(int storeId) {
+    public StoreResponse.MenuListDTO getStoreMenuList(int storeId) {
         Store store // 매장 정보
                 = storeRepository.findById(storeId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 매장입니다."));
@@ -51,7 +51,7 @@ public class StoreService {
     }
 
     // 매장 메뉴 옵션보기
-    public StoreResponse.MenuOptionDTO getStoreMenuOption(int storeId, int menuId) {
+    public StoreResponse.MenuOptionDTO getStoreMenuDetail(int storeId, int menuId) {
         Store store // 매장 정보
                 = storeRepository.findById(storeId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 매장입니다."));

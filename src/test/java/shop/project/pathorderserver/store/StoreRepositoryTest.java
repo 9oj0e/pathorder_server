@@ -15,9 +15,9 @@ class StoreRepositoryTest {
 
     @Test
     void findAll_test() {
-        Optional<List<Store>> listingsOP = Optional.of(storeRepository.findAll());
-        Assertions.assertThat(listingsOP.get().size()).isEqualTo(5);
-        Assertions.assertThat(listingsOP.get().getFirst().getName()).isEqualTo("단밤 카페");
+        Optional<List<Store>> storeList = Optional.of(storeRepository.findAll());
+        Assertions.assertThat(storeList.get().size()).isEqualTo(5);
+        Assertions.assertThat(storeList.get().getFirst().getName()).isEqualTo("단밤 카페");
     }
 
     @Test

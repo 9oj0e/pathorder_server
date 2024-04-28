@@ -84,7 +84,7 @@ public class UserService {
                 .build();
     }
 
-    @Transactional // 사진 업로드 (업로드/수정/삭제)
+    @Transactional // 사진 업로드 (TODO: 업로드/수정/삭제 한방 로직 추가하기)
     public UserResponse.ImgDTO setImg(UserRequest.ImgDTO reqDTO, int sessionUserId) throws IOException {
         User user = userRepository.findById(sessionUserId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 유저입니다."));
@@ -106,8 +106,7 @@ public class UserService {
         return new UserResponse.OrderListDTO(orders);
     }
 
-    // 주문 상세보기
-    @Transactional
+    @Transactional // 주문내역 상세보기
     public UserResponse.OrderDetailDTO getOrderDetail(int orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 주문입니다."));
