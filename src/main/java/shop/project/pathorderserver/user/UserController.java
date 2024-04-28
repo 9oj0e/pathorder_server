@@ -50,7 +50,6 @@ public class UserController {
     @GetMapping("/api/users/{userId}/orders/{orderId}") // 회원 주문내역 상세보기
     private ResponseEntity<?> orderDetail(@PathVariable int orderId) {
         UserResponse.OrderDetailDTO respDTO = userService.getOrderDetail(orderId);
-        // TODO: 주문 목록보기 (메뉴, 옵션)
 
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }

@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
-    @Query("SELECT o FROM Order o WHERE o.customer.id = :userId") // 주문내역 목록보기 (회원)
+    @Query("SELECT o FROM Order o WHERE o.customer.id = :userId ORDER BY o.id DESC") // 주문내역 목록보기 (회원)
     Optional<List<Order>> findByUserId(@Param("userId") Integer userId);
 }

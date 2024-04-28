@@ -34,7 +34,7 @@ public class Order {
     private OrderStatus status; // 조리 상태(0 : 조리중, 1 : 조리완료)
     @CreationTimestamp
     private Timestamp createdAt; // 주문 시간
-
+    // 주문 메뉴 정보
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     private List<OrderMenu> orderMenus;
 

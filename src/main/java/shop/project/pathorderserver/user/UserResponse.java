@@ -86,46 +86,39 @@ public class UserResponse {
         }
     }
 
-    @Data // 주문내역 목록보기 TODO: refactor
+    @Data // 주문내역 목록보기
     public static class OrderListDTO {
-        private List<OrderDTO> orders;
+        private List<OrderDTO> orderList;
+
+        public OrderListDTO(List<Order> orders) {
+            this.orderList = orders.stream().map(OrderDTO::new).toList();
+        }
 
         @Data
-        public static class OrderDTO {
+        private class OrderDTO {
             private int orderId;
             private Timestamp orderTime;
             private String storeName;
             private int totalAmount;
             private OrderStatus status;
-            private List<OrderListDTO.OrderMenuDTO> orderMenus;
+            private List<OrderListDTO.OrderMenuDTO> orderMenuList;
 
-            public OrderDTO(Order order) {
+            private OrderDTO(Order order) {
                 this.orderId = order.getId();
                 this.orderTime = order.getCreatedAt();
                 this.storeName = order.getStoreName();
                 this.totalAmount = order.getTotalAmount();
                 this.status = order.getStatus();
-                // TODO: stream.collect.reversed() -> Query "ORDER BY ASC" ?
-                this.orderMenus = order.getOrderMenus().stream().map(OrderListDTO.OrderMenuDTO::new).collect(Collectors.toList()).reversed();
+                this.orderMenuList = order.getOrderMenus().stream().map(OrderListDTO.OrderMenuDTO::new).toList();
             }
-
-            @Data
-            public static class OrderMenuDTO {
-                private int menuId;
-                private String menuName;
-            }
-        }
-
-        public OrderListDTO(List<Order> orderList) {
-            this.orders = orderList.stream().map(OrderDTO::new).collect(Collectors.toList());
         }
 
         @Data
-        public static class OrderMenuDTO {
+        private class OrderMenuDTO {
             private int menuId;
             private String menuName;
 
-            public OrderMenuDTO(OrderMenu orderMenu) {
+            private OrderMenuDTO(OrderMenu orderMenu) {
                 this.menuId = orderMenu.getId();
                 this.menuName = orderMenu.getName();
             }
