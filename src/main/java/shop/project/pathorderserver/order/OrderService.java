@@ -19,27 +19,31 @@ public class OrderService {
     @Transactional
     public OrderResponse.SaveDTO createOrder(OrderRequest.SaveDTO reqDTO) {
         Order order = new Order(reqDTO);
-
         // 주문 저장
         Order savedOrder = orderRepository.save(order);
 
-        // orderId
-        int orderId = order.getId();
+//        // orderId
+//        int orderId = order.getId();
 
         // 메뉴 리스트
-        List<OrderMenu> orderMenuList = reqDTO.getOrderMenuList().stream()
-                .map(menu -> new OrderMenu(menu, savedOrder))
-                .toList();
+        List<OrderMenu> orderMenuList = reqDTO.getOrderMenuList() != null ?
+                reqDTO.getOrderMenuList().stream()
+                        .map(menu -> new OrderMenu(menu, savedOrder))
+                        .toList() :
+                Collections.emptyList();
         // 옵션 리스트
-        List<OrderOption> orderOptionList = reqDTO.getOrderOptionList() != null ?
-                reqDTO.getOrderOptionList().stream()
-                        .map(option -> new OrderOption(option, savedOrder))
+        List<OrderOption> orderOptionList = reqDTO.getOrderMenuList() != null ?
+                reqDTO.getOrderMenuList().stream()
+                        .flatMap(menu -> {
+                            OrderMenu savedOrderMenu = orderMenuRepository.save(new OrderMenu(menu, savedOrder));
+                            return menu.getOrderOptionList().stream()
+                                    .map(optionDTO -> new OrderOption(optionDTO, savedOrder, savedOrderMenu));
+                        })
                         .toList() :
                 Collections.emptyList();
 
         // 주문 메뉴 저장
         orderMenuList.forEach(orderMenu -> orderMenuRepository.save(orderMenu));
-
         // 주문 옵션 저장
         orderOptionList.forEach(orderOption -> orderOptionRepository.save(orderOption));
 

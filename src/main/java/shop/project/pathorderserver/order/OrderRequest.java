@@ -14,7 +14,7 @@ public class OrderRequest {
         private String request;
         private OrderStatus status;
         private List<OrderMenuDTO> orderMenuList;
-        private List<OrderOptionDTO> orderOptionList;
+
         @Data
         public static class OrderMenuDTO {
             private String name;
@@ -25,6 +25,7 @@ public class OrderRequest {
 
         @Data
         public static class OrderOptionDTO {
+            private int orderMenuId;
             private String name;
             private int price;
         }

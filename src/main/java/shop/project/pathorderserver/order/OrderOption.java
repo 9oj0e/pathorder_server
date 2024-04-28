@@ -24,8 +24,9 @@ public class OrderOption {
     @CreationTimestamp
     private Timestamp createdAt;
 
-    public OrderOption(OrderRequest.SaveDTO.OrderOptionDTO option, Order savedOrder) {
+    public OrderOption(OrderRequest.SaveDTO.OrderOptionDTO option, Order savedOrder, OrderMenu orderMenu) {
         this.order = savedOrder;
+        this.orderMenu = orderMenu;
         this.name = option.getName();
         this.price = option.getPrice();
     }

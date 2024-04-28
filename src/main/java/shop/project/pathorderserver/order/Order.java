@@ -42,7 +42,6 @@ public class Order {
         this.customer = new User(reqDTO.getCustomerId());
         this.customerName = reqDTO.getCustomerName();
         this.request = reqDTO.getRequest();
-        this.status = reqDTO.getStatus();
         this.status = reqDTO.getStatus() != null ? reqDTO.getStatus() : OrderStatus.접수대기;
     }
 }

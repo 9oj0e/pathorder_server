@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
+
 @NoArgsConstructor
 @Data
 @Entity
@@ -29,5 +30,8 @@ public class OrderMenu {
         this.name = menu.getName();
         this.qty = menu.getQuantity();
         this.price = menu.getPrice();
+    }
+
+    public OrderMenu(int orderMenuId) {
     }
 }

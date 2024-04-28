@@ -1,12 +1,16 @@
 package shop.project.pathorderserver.order;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 public class OrderResponse {
 
+    @NoArgsConstructor
+    @AllArgsConstructor
     @Data
     public static class SaveDTO {
         // Store
@@ -31,9 +35,13 @@ public class OrderResponse {
             this.request = order.getRequest();
             this.totalAmount = order.getTotalAmount();
             this.status = order.getStatus();
-            this.orderMenuList = orderMenuList.stream().map(OrderMenuDTO::new).toList();
+            this.orderMenuList = orderMenuList.stream()
+                    .map(orderMenu -> new OrderMenuDTO(orderMenu, orderOptionList))
+                    .toList();
         }
 
+        @NoArgsConstructor
+        @AllArgsConstructor
         @Data
         public static class OrderMenuDTO {
             private String name;
@@ -42,12 +50,16 @@ public class OrderResponse {
             private List<OrderOptionDTO> orderOptionList;
 
             @Builder
-            public OrderMenuDTO(OrderMenu orderMenu) {
+            public OrderMenuDTO(OrderMenu orderMenu, List<OrderOption> orderOptionList) {
                 this.name = orderMenu.getName();
                 this.qty = orderMenu.getQty();
                 this.price = orderMenu.getPrice();
+                this.orderOptionList = orderOptionList.stream().map(OrderOptionDTO::new).toList();
+
             }
 
+            @NoArgsConstructor
+            @AllArgsConstructor
             @Data
             public static class OrderOptionDTO {
                 private String name;
