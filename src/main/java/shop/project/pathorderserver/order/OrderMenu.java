@@ -2,10 +2,12 @@ package shop.project.pathorderserver.order;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
+@NoArgsConstructor
 @Data
 @Entity
 @Table(name = "order_menu_tb")
@@ -21,4 +23,11 @@ public class OrderMenu {
     private int price; // 메뉴 하나의 가격
     @CreationTimestamp
     private Timestamp createdAt;
+
+    public OrderMenu(OrderRequest.SaveDTO.OrderMenuDTO menu, Order savedOrder) {
+        this.order = savedOrder;
+        this.name = menu.getName();
+        this.qty = menu.getQuantity();
+        this.price = menu.getPrice();
+    }
 }

@@ -246,10 +246,186 @@ VALUES
 (25, 'vanilla syrup', 500, 0),
 (25, 'hazelnut syrup', 500, 0);
 
--- order_tb
-INSERT INTO order_tb
-(store_id, store_name, customer_id, customer_name, request, total_amount, status, created_at)
-VALUES (1, '단밤 카페', 1, '김성재', '얼음 많이 넣어주세요.', 3000, '조리중', now());
+-- order_tb, order_menu_tb, order_option_tb
+-- order_id: 1
 INSERT INTO order_tb
 (store_id, store_name, customer_id, customer_name, request, total_amount, created_at)
-VALUES (1, '단밤 카페', 2, '조정현', '얼음 많이 넣어주세요.', 3000, now());
+VALUES (1, '단밤 카페', 1, '김성재', '바닐라라떼 얼음 많이 넣어주세요.', (3000 + (3000 + 500) + 4500), NOW());
+INSERT INTO order_menu_tb(order_id, name, qty, price, created_at)
+VALUES (1, '아메리카노', 1, 3000, NOW()), -- id: 1
+       (1, '아메리카노', 1, 3000, NOW()), -- id: 2
+       (1, '바닐라라떼', 1, 4500, NOW()); -- id: 3
+INSERT INTO order_option_tb(order_id, order_menu_id, name, price, created_at)
+VALUES (1, 1, 'ICE', 0, NOW()),
+       (1, 2, 'HOT', 0, NOW()),
+       (1, 2, 'vanilla syrup', 500, NOW()),
+       (1, 3, 'ICE', 0, NOW());
+
+-- order_id: 2
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_name, request, total_amount, created_at)
+VALUES (1, '단밤 카페', 2, '정현', '카라멜 마끼아또 얼음은 적게 넣어주세요.', ((4000) + (4500 + 500) + (4500 + 500) + (5000 + 500)), NOW());
+INSERT INTO order_menu_tb (order_id, name, qty, price, created_at)
+VALUES (2, '카페 라떼', 1, 4000, NOW()), -- id: 4
+       (2, '카페 모카', 1, 4500, NOW()), -- id: 5
+       (2, '카페 모카', 1, 4500, NOW()), -- id: 6
+       (2, '카라멜 마끼아또', 1, 5000, NOW()); -- id: 7
+INSERT INTO order_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (2, 4, 'HOT', 0, NOW()),
+       (2, 4, 'sugar syrup', 0, NOW()),
+       (2, 5, 'ICE', 0, NOW()),
+       (2, 5, 'shot', 500, NOW()),
+       (2, 6, 'ICE', 0, NOW()),
+       (2, 6, 'vanilla syrup', 500, NOW()),
+       (2, 7, 'ICE', 0, NOW()),
+       (2, 7, 'hazelnut syrup', 500, NOW());
+
+-- order_id: 3
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_name, request, total_amount, created_at)
+VALUES (2, '꿀밤 카페', 3, '현정', '후기 남길게요. 무료로 샷 추가해주세요.', ((3500 + 500) + (3500) + (4500 + 500) + (5000 + 500)), NOW());
+INSERT INTO order_menu_tb (order_id, name, qty, price, created_at)
+VALUES (3, '아메리카노', 1, 3500, NOW()),  -- id: 8
+       (3, '아메리카노', 1, 3500, NOW()),  -- id: 9
+       (3, '바닐라 라떼', 1, 4500, NOW()), -- id: 10
+       (3, '카페 모카', 1, 5000, NOW()); -- id: 11
+INSERT INTO order_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (3, 8, 'ICE', 0, NOW()),
+       (3, 8, 'shot', 500, NOW()),
+       (3, 9, 'HOT', 0, NOW()),
+       (3, 9, 'sugar syrup', 0, NOW()),
+       (3, 10, 'ICE', 0, NOW()),
+       (3, 10, 'vanilla syrup', 500, NOW()),
+       (3, 11, 'HOT', 0, NOW()),
+       (3, 11, 'hazelnut syrup', 500, NOW());
+
+-- order_id: 4
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_name, request, total_amount, created_at)
+VALUES (3, '유자 카페', 4, '윤정', '후기 쓸게요. 에스프레소 샷 추가해주삼.', ((3500 + 500) + (3500 + 500) + (3500) + (4500 + 500) + (5000)),
+        NOW());
+INSERT INTO order_menu_tb (order_id, name, qty, price, created_at)
+VALUES (4, '아메리카노', 1, 3500, NOW()), -- id: 12
+       (4, '아메리카노', 1, 3500, NOW()), -- id: 13
+       (4, '아메리카노', 1, 3500, NOW()), -- id: 14
+       (4, '카페 라떼', 1, 4500, NOW()), -- id: 15
+       (4, '카페 모카', 1, 5000, NOW()); -- id: 16
+INSERT INTO order_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (4, 12, 'ICE', 0, NOW()),
+       (4, 12, 'vanilla syrup', 500, NOW()),
+       (4, 13, 'ICE', 0, NOW()),
+       (4, 13, 'hazelnut syrup', 500, NOW()),
+       (4, 14, 'ICE', 0, NOW()),
+       (4, 15, 'HOT', 0, NOW()),
+       (4, 15, 'shot', 500, NOW()),
+       (4, 16, 'HOT', 0, NOW());
+
+-- order_id: 5
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_name, request, total_amount, created_at)
+VALUES (4, '오렌지 카페', 5, '찬혁', '뜨거운 아메리카노 엄청 뜨겁게 해주세요.', ((3600) + (3600) + (4700 + 500) + (5200 + 500) + (5200)),
+        NOW());
+INSERT INTO order_menu_tb (order_id, name, qty, price, created_at)
+VALUES (5, '아메리카노', 1, 3600, NOW()),  -- id: 17
+       (5, '아메리카노', 1, 3600, NOW()),  -- id: 18
+       (5, '바닐라 라떼', 1, 4700, NOW()), -- id: 19
+       (5, '카페 모카', 1, 5200, NOW()),  -- id: 20
+       (5, '카페 모카', 1, 5200, NOW()); -- id: 21
+INSERT INTO order_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (5, 17, 'ICE', 0, NOW()),
+       (5, 18, 'HOT', 0, NOW()),
+       (5, 19, 'ICE', 0, NOW()),
+       (5, 19, 'vanilla syrup', 500, NOW()),
+       (5, 20, 'ICE', 0, NOW()),
+       (5, 20, 'hazelnut syrup', 500, NOW()),
+       (5, 21, 'ICE', 0, NOW()),
+       (5, 21, 'sugar syrup', 0, NOW());
+
+-- order_id: 6
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_name, request, total_amount, created_at)
+VALUES (1, '단밤 카페', 4, '윤정', '뜨거운 아메리카노 반 샷만 넣어주세요.', ((3000 + 500) + (3000 + 500) + (4500 + 500)), NOW());
+INSERT INTO order_menu_tb (order_id, name, qty, price, created_at)
+VALUES (6, '아메리카노', 1, 3000, NOW()), -- id: 22
+       (6, '아메리카노', 1, 3000, NOW()), -- id: 23
+       (6, '바닐라라떼', 1, 4500, NOW()); -- id: 24
+INSERT INTO order_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (6, 22, 'HOT', 0, NOW()),
+       (6, 22, 'vanilla syrup', 500, NOW()),
+       (6, 23, 'ICE', 0, NOW()),
+       (6, 23, 'vanilla syrup', 500, NOW()),
+       (6, 24, 'ICE', 0, NOW()),
+       (6, 24, 'vanilla syrup', 500, NOW());
+
+-- order_id: 7(request 없음)
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_name, total_amount, created_at)
+VALUES (1, '단밤 카페', 5, '찬혁', ((3000 + 500) + (3000) + (4500 + 500)), NOW());
+INSERT INTO order_menu_tb (order_id, name, qty, price, created_at)
+VALUES (7, '아메리카노', 1, 3000, NOW()), -- id: 25
+       (7, '아메리카노', 1, 3000, NOW()), -- id: 26
+       (7, '바닐라 라떼', 1, 4500, NOW()); -- id: 27
+INSERT INTO order_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (7, 25, 'ice', 0, NOW()),
+       (7, 25, 'shot', 500, NOW()),
+       (7, 26, 'HOT', 0, NOW()),
+       (7, 26, 'sugar syrup', 0, NOW()),
+       (7, 27, 'ice', 0, NOW()),
+       (7, 27, 'vanilla syrup', 500, NOW());
+
+-- order_id: 8
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_name, request, total_amount, created_at)
+VALUES (1, '단밤 카페', 3, '현정', '캐리어에 담아주세요.', ((3000 + 500) + (3000 + 500) + (3000 + 500) + (4500 + 500)), NOW());
+INSERT INTO order_menu_tb (order_id, name, qty, price, created_at)
+VALUES (8, '아메리카노', 1, 3000, NOW()), -- id: 28
+       (8, '아메리카노', 1, 3000, NOW()), -- id: 29
+       (8, '아메리카노', 1, 3000, NOW()), -- id: 30
+       (8, '바닐라라떼', 1, 4500, NOW()); -- id: 31
+INSERT INTO order_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (8, 28, 'ICE', 0, NOW()),
+       (8, 28, 'vanilla syrup', 500, NOW()),
+       (8, 29, 'ICE', 0, NOW()),
+       (8, 29, 'vanilla syrup', 500, NOW()),
+       (8, 30, 'hot', 0, NOW()),
+       (8, 30, 'vanilla syrup', 500, NOW()),
+       (8, 31, 'ICE', 0, NOW()),
+       (8, 31, 'vanilla syrup', 500, NOW());
+
+-- order_id: 9(request 없음)
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_name, total_amount, created_at)
+VALUES (4, '오렌지 카페', 2, '정현', ((3000 + 500) + (3000) + (4500 + 500)), NOW());
+INSERT INTO order_menu_tb (order_id, name, qty, price, created_at)
+VALUES (9, '아메리카노', 1, 3000, NOW()), -- id: 32
+       (9, '아메리카노', 1, 3000, NOW()), -- id: 33
+       (9, '바닐라 라떼', 1, 4500, NOW()); -- id: 34
+INSERT INTO order_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (9, 32, 'ICE', 0, NOW()),
+       (9, 32, 'shot', 500, NOW()),
+       (9, 33, 'HOT', 0, NOW()),
+       (9, 33, 'sugar syrup', 0, NOW()),
+       (9, 34, 'ICE', 0, NOW()),
+       (9, 34, 'vanilla syrup', 500, NOW());
+
+-- order_id: 10(request 없음)
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_name, total_amount, created_at)
+VALUES (3, '유자 카페', 5, '찬혁', ((3000 + 500) + (3000) + (4500 + 500)), NOW());
+INSERT INTO order_menu_tb (order_id, name, qty, price, created_at)
+VALUES (10, '아메리카노', 1, 3000, NOW()), -- id: 35
+       (10, '아메리카노', 1, 3000, NOW()), -- id: 36
+       (10, '바닐라 라떼', 1, 4500, NOW()); -- id: 37
+INSERT INTO order_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (10, 35, 'ICE', 0, NOW()),
+       (10, 35, 'shot', 500, NOW()),
+       (10, 36, 'HOT', 0, NOW()),
+       (10, 36, 'sugar syrup', 0, NOW()),
+       (10, 37, 'ICE', 0, NOW()),
+       (10, 37, 'vanilla syrup', 500, NOW());
+
+-- order_id: 11(request 없음)
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_name, total_amount, created_at)
+VALUES (2, '꿀밤 카페', 5, '찬혁', ((3500 + 500) + (3500) + (5000 + 500)), NOW());
+INSERT INTO order_menu_tb (order_id, name, qty, price, created_at)
+VALUES (11, '아메리카노', 1, 3500, NOW()), -- id: 38
+       (11, '아메리카노', 1, 3500, NOW()), -- id: 39
+       (11, '카페 모카', 1, 5000, NOW()); -- id: 40
+INSERT INTO order_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (11, 38, 'ICE', 0, NOW()),
+       (11, 38, 'shot', 500, NOW()),
+       (11, 39, 'HOT', 0, NOW()),
+       (11, 39, 'sugar syrup', 0, NOW()),
+       (11, 40, 'HOT', 0, NOW()),
+       (11, 40, 'vanilla syrup', 500, NOW());

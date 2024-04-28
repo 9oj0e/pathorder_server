@@ -2,6 +2,7 @@ package shop.project.pathorderserver.order;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import shop.project.pathorderserver.store.Store;
@@ -9,6 +10,7 @@ import shop.project.pathorderserver.user.User;
 
 import java.sql.Timestamp;
 
+@NoArgsConstructor
 @Data
 @Entity
 @Table(name = "order_tb")
@@ -34,4 +36,12 @@ public class Order {
     @CreationTimestamp
     private Timestamp createdAt; // 주문 시간
 
+    public Order(OrderRequest.SaveDTO reqDTO) {
+        this.store = new Store(reqDTO.getStoreId());
+        this.storeName = reqDTO.getStoreName();
+        this.customer = new User(reqDTO.getCustomerId());
+        this.customerName = reqDTO.getCustomerName();
+        this.request = reqDTO.getRequest();
+      //  this.status = status;
+    }
 }

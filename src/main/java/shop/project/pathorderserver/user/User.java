@@ -2,11 +2,13 @@ package shop.project.pathorderserver.user;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
+@NoArgsConstructor
 @Data
 @Entity
 @Table(name = "user_tb")
@@ -27,4 +29,8 @@ public class User {
     private String imgFilename;
     @CreationTimestamp
     private Timestamp registeredAt; // 가입일
+
+    public User(int id) {
+        this.id = id;
+    }
 }

@@ -1,16 +1,11 @@
 package shop.project.pathorderserver.order;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import shop.project.pathorderserver._core.utils.ApiUtil;
-import shop.project.pathorderserver.menu.Menu;
 import shop.project.pathorderserver.menu.MenuResponse;
 import shop.project.pathorderserver.menu.MenuService;
-import shop.project.pathorderserver.store.StoreService;
 
 import java.util.List;
 
@@ -34,5 +29,11 @@ public class OrderController {
         List<MenuResponse.OptionDTO> optionList = menuService.getOption(menuId);
 
         return ResponseEntity.ok(new ApiUtil(optionList));
+    }
+
+    @PostMapping("/orders")
+    public ResponseEntity<?> order(@RequestBody OrderRequest.SaveDTO reqDTO) {
+        OrderResponse.SaveDTO respDTO = orderService.createOrder(reqDTO);
+        return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 }

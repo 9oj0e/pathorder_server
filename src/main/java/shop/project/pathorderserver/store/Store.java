@@ -1,12 +1,16 @@
 package shop.project.pathorderserver.store;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Entity
 @Table(name = "store_tb")
@@ -34,9 +38,13 @@ public class Store {
     private String closedDay; // 휴무일
     private String address; // 주소
     @Column(nullable = true)
-    private double latitude; // 주소 좌표 위도
+    private Double latitude; // 주소 좌표 위도
     @Column(nullable = true)
-    private double longitude; // 주소 좌표 경도
+    private Double longitude; // 주소 좌표 경도
     @CreationTimestamp
     private Timestamp registeredAt; // 가입일
+
+    public Store(int id) {
+        this.id = id;
+    }
 }
