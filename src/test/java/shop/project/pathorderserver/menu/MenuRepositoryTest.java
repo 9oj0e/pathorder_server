@@ -12,13 +12,15 @@ import java.util.Optional;
 class MenuRepositoryTest {
     @Autowired
     MenuRepository menuRepository;
+    @Autowired
+    MenuOptionRepository menuOptionRepository;
 
     @Test
     void findAllMenuByStoreId_test() {
         // given
         Integer storeId = 1;
         // when
-        Optional<List<Menu>> menuList = menuRepository.findAllMenuByStoreId(storeId);
+        Optional<List<Menu>> menuList = menuRepository.findAllByStoreId(storeId);
         // then
         Assertions.assertThat(menuList.get().size()).isEqualTo(5);
     }
@@ -28,7 +30,7 @@ class MenuRepositoryTest {
         // given
         Integer menuId = 1;
         // when
-        Optional<List<MenuOption>> optionOP = menuRepository.findOptionByMenuId(menuId);
+        Optional<List<MenuOption>> optionOP = menuOptionRepository.findByMenuId(menuId);
         // then
         Assertions.assertThat(optionOP.get().size()).isEqualTo(6);
     }
