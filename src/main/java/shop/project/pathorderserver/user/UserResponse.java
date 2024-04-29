@@ -5,7 +5,7 @@ import lombok.Data;
 import shop.project.pathorderserver._core.utils.FormatUtil;
 import shop.project.pathorderserver.order.Order;
 import shop.project.pathorderserver.order.OrderMenu;
-import shop.project.pathorderserver.order.OrderOption;
+import shop.project.pathorderserver.order.OrderMenuOption;
 import shop.project.pathorderserver.order.OrderStatus;
 
 import java.sql.Timestamp;
@@ -162,15 +162,15 @@ public class UserResponse {
             private String menuName;
             private int menuPrice;
             private int totalPrice;
-            private List<OrderOptionDTO> menuOptionList;
+            private List<OrderOptionDTO> orderMenuOptionList;
 
             public OrderMenuDTO(OrderMenu orderMenu) {
                 this.menuId = orderMenu.getId();
                 this.menuName = orderMenu.getName();
                 this.menuPrice = orderMenu.getPrice();
                 this.totalPrice = orderMenu.getPrice();
-                this.menuOptionList = orderMenu.getOrderOption().stream().map(OrderOptionDTO::new).toList();
-                List<Integer> optionPriceList = menuOptionList.stream().map(orderOptionDTO -> orderOptionDTO.getPrice()).toList();
+                this.orderMenuOptionList = orderMenu.getOrderMenuOption().stream().map(OrderOptionDTO::new).toList();
+                List<Integer> optionPriceList = orderMenuOptionList.stream().map(orderMenuOptionDTO -> orderMenuOptionDTO.getPrice()).toList();
                 for (int optionPrice : optionPriceList) {
                     totalPrice += optionPrice;
                 }
@@ -182,10 +182,10 @@ public class UserResponse {
                 private String name;
                 private int price;
 
-                public OrderOptionDTO(OrderOption orderOption) {
-                    this.id = orderOption.getOrderMenu().getId();
-                    this.name = orderOption.getName();
-                    this.price = orderOption.getPrice();
+                public OrderOptionDTO(OrderMenuOption orderMenuOption) {
+                    this.id = orderMenuOption.getOrderMenu().getId();
+                    this.name = orderMenuOption.getName();
+                    this.price = orderMenuOption.getPrice();
                 }
             }
             /*

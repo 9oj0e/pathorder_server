@@ -28,7 +28,7 @@ class MenuRepositoryTest {
         // given
         Integer menuId = 1;
         // when
-        Optional<List<Option>> optionOP = menuRepository.findOptionByMenuId(menuId);
+        Optional<List<MenuOption>> optionOP = menuRepository.findOptionByMenuId(menuId);
         // then
         Assertions.assertThat(optionOP.get().size()).isEqualTo(6);
     }

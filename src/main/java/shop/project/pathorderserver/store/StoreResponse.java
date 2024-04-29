@@ -3,7 +3,7 @@ package shop.project.pathorderserver.store;
 import lombok.Data;
 import shop.project.pathorderserver._core.utils.FormatUtil;
 import shop.project.pathorderserver.menu.Menu;
-import shop.project.pathorderserver.menu.Option;
+import shop.project.pathorderserver.menu.MenuOption;
 
 import java.util.List;
 
@@ -115,7 +115,7 @@ public class StoreResponse {
         // 옵션 정보
         private List<OptionDTO> optionList;
 
-        public MenuOptionDTO(Store store, Menu menu, List<Option> options) {
+        public MenuOptionDTO(Store store, Menu menu, List<MenuOption> options) {
             this.storeId = store.getId();
             this.storeName = store.getName();
             this.menuId = menu.getId();
@@ -132,7 +132,7 @@ public class StoreResponse {
             private int price;
             private boolean isRequired;
 
-            public OptionDTO(Option option) {
+            public OptionDTO(MenuOption option) {
                 this.id = option.getId();
                 this.name = option.getName();
                 this.price = option.getPrice();

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import shop.project.pathorderserver._core.errors.exception.Exception404;
 import shop.project.pathorderserver.menu.Menu;
 import shop.project.pathorderserver.menu.MenuRepository;
-import shop.project.pathorderserver.menu.Option;
+import shop.project.pathorderserver.menu.MenuOption;
 
 import java.util.List;
 
@@ -58,7 +58,7 @@ public class StoreService {
         Menu menu // 매장 메뉴 정보
                 = menuRepository.findById(menuId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 메뉴입니다."));
-        List<Option> optionList // 매장 메뉴 옵션 정보
+        List<MenuOption> optionList // 매장 메뉴 옵션 정보
                 = menuRepository.findOptionByMenuId(menuId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 옵션입니다."));
 

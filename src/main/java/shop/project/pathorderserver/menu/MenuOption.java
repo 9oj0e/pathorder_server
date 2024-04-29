@@ -9,8 +9,8 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "option_tb")
-public class Option {
+@Table(name = "menu_option_tb")
+public class MenuOption {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

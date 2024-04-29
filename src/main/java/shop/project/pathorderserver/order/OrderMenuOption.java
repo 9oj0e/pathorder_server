@@ -8,8 +8,8 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "order_option_tb")
-public class OrderOption {
+@Table(name = "order_menu_option_tb")
+public class OrderMenuOption {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
