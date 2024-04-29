@@ -10,13 +10,13 @@ public class OrderRequest {
         private int storeId;
         private String storeName;
         private int customerId;
-        private String customerName;
+        private String customerNickname;
         private String request;
-        private int totalPrice;
         private List<OrderMenuDTO> orderMenuList;
 
         @Data
         public static class OrderMenuDTO {
+            private int menuId;
             private String name;
             private int price;
             private List<OrderMenuOptionDTO> orderMenuOptionList;

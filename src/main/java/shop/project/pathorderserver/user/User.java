@@ -16,6 +16,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     // 회원 정보
     private String username; // 로그인 아이디
     private String password;
@@ -28,6 +29,7 @@ public class User {
     private String email;
     @ColumnDefault("'default/avatar.png'")
     private String imgFilename;
+
     @CreationTimestamp
     private Timestamp registeredAt; // 가입일
 
