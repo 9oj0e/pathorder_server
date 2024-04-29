@@ -112,7 +112,7 @@ public class UserResponse {
                 this.orderId = order.getId();
                 this.orderTime = order.getCreatedAt();
                 this.storeName = order.getStoreName();
-                this.totalAmount = order.getTotalAmount();
+                this.totalAmount = order.getTotalPrice();
                 this.status = order.getStatus();
                 this.orderMenuList = order.getOrderMenus().stream().map(OrderListDTO.OrderMenuDTO::new).toList();
             }
@@ -152,7 +152,7 @@ public class UserResponse {
             this.storeTel = order.getStore().getTel();
             this.orderTime = order.getCreatedAt();
             this.request = order.getRequest();
-            this.totalAmount = order.getTotalAmount();
+            this.totalAmount = order.getTotalPrice();
             this.orderMenuList = orderMenus.stream().map(OrderMenuDTO::new).toList();
         }
 

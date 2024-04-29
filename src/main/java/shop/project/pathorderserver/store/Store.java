@@ -14,6 +14,7 @@ public class Store {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     // 회원 정보
     private String username; // 로그인 아이디
     private String password;
@@ -38,6 +39,7 @@ public class Store {
     private Double latitude; // 주소 좌표 위도
     @Column(nullable = true)
     private Double longitude; // 주소 좌표 경도
+
     @CreationTimestamp
     private Timestamp registeredAt; // 가입일
 }

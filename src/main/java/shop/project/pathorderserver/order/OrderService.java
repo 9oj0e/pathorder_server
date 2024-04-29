@@ -3,6 +3,11 @@ package shop.project.pathorderserver.order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import shop.project.pathorderserver._core.errors.exception.Exception404;
+import shop.project.pathorderserver.store.Store;
+import shop.project.pathorderserver.store.StoreRepository;
+import shop.project.pathorderserver.user.User;
+import shop.project.pathorderserver.user.UserRepository;
 
 import java.util.List;
 
@@ -12,18 +17,34 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderMenuRepository orderMenuRepository;
     private final OrderMenuOptionRepository orderMenuOptionRepository;
+    private final UserRepository userRepository;
+    private final StoreRepository storeRepository;
+
     @Transactional
     public OrderResponse.OrderDTO createOrder(OrderRequest.OrderDTO reqDTO) {
-        /*
-        Order order = orderRepository.save(new Order(reqDTO)); // 주문 생성
-        List<OrderRequest.OrderDTO.OrderMenuDTO> orderMenuList = reqDTO.getOrderMenuList();
+        User customer // 유저 번호로 유저 조회
+                = userRepository.findById(reqDTO.getCustomerId())
+                .orElseThrow(() -> new Exception404("찾을 수 없는 유저입니다."));
+        Store store // 매장 번호로 업주 조회
+                = storeRepository.findById(reqDTO.getStoreId())
+                .orElseThrow(() -> new Exception404("찾을 수 없는 매장 번호입니다."));
+        Order order // 주문 생성 TODO: status 기본 값 'null'
+                = new Order(reqDTO, customer, store);
+
+        List<OrderRequest.OrderDTO.OrderMenuDTO> orderMenuList // 재사용 편의를 위해 'orderMenuList'라 정의
+                = reqDTO.getOrderMenuList();
         for (int i = 0; i < orderMenuList.size(); i++) {
-            int orderMenuId = orderMenuRepository.save(new OrderMenu(orderMenuList.get(i), order)).getId();
+            OrderMenu orderMenu = orderMenuRepository
+                    .save(new OrderMenu(orderMenuList.get(i), order));
+            order.updateTotalPrice(orderMenuList.get(i).getPrice()); // 메뉴별 금액
             for (int j = 0; j < orderMenuList.get(i).getOrderMenuOptionList().size(); j++) {
-                orderMenuOptionRepository.save(new OrderMenuOption(orderMenuList.get(i).getOrderMenuOptionList().get(j), order, orderMenuId));
+                orderMenuOptionRepository
+                        .save(new OrderMenuOption(orderMenuList.get(i).getOrderMenuOptionList().get(j), order, orderMenu));
+                order.updateTotalPrice(orderMenuList.get(i).getOrderMenuOptionList().get(j).getPrice()); // 옵션별 금액
             }
         }
-        */
+        orderRepository.save(order);
+
         return null; // TODO: 응답 결과 return
     }
     // TODO: 주문 수정 (매장 측: 주문 상태 변경)
