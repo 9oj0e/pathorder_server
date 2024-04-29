@@ -9,7 +9,7 @@ import shop.project.pathorderserver.menu.Option;
 import shop.project.pathorderserver.store.Store;
 import shop.project.pathorderserver.store.StoreRepository;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -20,6 +20,7 @@ public class OrderService {
     private final StoreRepository storeRepository;
     private final OrderMenuRepository orderMenuRepository;
     private final OrderOptionRepository orderOptionRepository;
+
     // 메뉴 옵션
     public OrderResponse.MenuOptionDTO getStoreNameAndMenuAndMenuOption(int storeId, int menuId) {
         // 매장 이름
@@ -49,32 +50,26 @@ public class OrderService {
 
     @Transactional
     public OrderResponse.SaveDTO createOrder(OrderRequest.SaveDTO reqDTO) {
-        Order order = new Order(reqDTO);
-        // 주문 저장
-        Order savedOrder = orderRepository.save(order);
+        Order order = orderRepository.save(new Order(reqDTO)); // 주문 생성
 
-        // 메뉴 리스트
-        List<OrderMenu> orderMenuList = reqDTO.getOrderMenuList() != null ?
-                reqDTO.getOrderMenuList().stream()
-                        .map(menu -> new OrderMenu(menu, savedOrder))
-                        .toList() :
-                Collections.emptyList();
-        // 옵션 리스트
-        List<OrderOption> orderOptionList = reqDTO.getOrderMenuList() != null ?
-                reqDTO.getOrderMenuList().stream()
-                        .flatMap(menu -> {
-                            OrderMenu savedOrderMenu = orderMenuRepository.save(new OrderMenu(menu, savedOrder));
-                            return menu.getOrderOptionList().stream()
-                                    .map(optionDTO -> new OrderOption(optionDTO, savedOrder, savedOrderMenu));
-                        })
-                        .toList() :
-                Collections.emptyList();
+        List<OrderMenu> orderMenuList // 주문 메뉴 리스트 생성
+                = reqDTO.getOrderMenuList() != null
+                ? reqDTO.getOrderMenuList().stream()
+                .map(orderMenuDTO // 주문 메뉴 리스트 DB 저장
+                        -> orderMenuRepository.save(new OrderMenu(orderMenuDTO, order)))
+                .toList()
+                : new ArrayList<>();
+        List<OrderOption> orderOptionList // 주문 메뉴 옵션 리스트 TODO: menuIdList를 가져와서 매핑
+                = reqDTO.getOrderMenuList() != null
+                ? reqDTO.getOrderMenuList().stream()
+                .flatMap(orderMenuDTO -> orderMenuDTO.getOrderOptionList().stream() // ㅈ문 메뉴 옵션 리스트
+                        .map(orderOptionDTO -> new OrderOption(orderOptionDTO, order))
+                ).toList()
+                : new ArrayList<>();
 
-        // 주문 메뉴 저장
-        orderMenuList.forEach(orderMenu -> orderMenuRepository.save(orderMenu));
-        // 주문 옵션 저장
-        orderOptionList.forEach(orderOption -> orderOptionRepository.save(orderOption));
-
-        return new OrderResponse.SaveDTO(savedOrder, orderMenuList, orderOptionList);
+        orderOptionList.stream().forEach(System.out::println);
+        orderMenuList.stream().map(orderMenu -> orderMenu.getId());
+        //orderOptionRepository.save()
+        return null;
     }
 }

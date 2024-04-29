@@ -26,7 +26,7 @@ public class Order {
     // 손님 정보
     @ManyToOne(fetch = FetchType.LAZY)
     private User customer; // 한 명의 손님은 여러 건의 주문을 할 수 있음
-    private String customerName; // 주문자 닉네임 (주문 번호 생성 로직이 복잡함..)
+    private String customerNickname; // 주문자 닉네임 (주문 번호 생성 로직이 복잡함..)
     @ColumnDefault("'요청 사항이 없습니다.'")
     private String request; // 요청 사항, ex) 연하게 해주세요, 캐리어에 담아주세요, 얼음 많이 넣어주세요.
     // 주문 정보
@@ -36,16 +36,19 @@ public class Order {
     private OrderStatus status; // 조리 상태(0 : 조리중, 1 : 조리완료)
     @CreationTimestamp
     private Timestamp createdAt; // 주문 시간
-
-    public Order(OrderRequest.SaveDTO reqDTO) {
-        this.store = new Store(reqDTO.getStoreId());
-        this.storeName = reqDTO.getStoreName();
-        this.customer = new User(reqDTO.getCustomerId());
-        this.customerName = reqDTO.getCustomerName();
-        this.request = reqDTO.getRequest();
-        this.status = reqDTO.getStatus() != null ? reqDTO.getStatus() : OrderStatus.접수대기;
-    }
+    // 주문 메뉴 정보
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     private List<OrderMenu> orderMenus;
 
+    public Order(OrderRequest.SaveDTO reqDTO) {
+        this.store = new Store(reqDTO.getStoreId()); // 재고 필요
+        this.storeName = reqDTO.getStoreName();
+        this.customer = new User(reqDTO.getCustomerId()); // 재고 필요
+        this.customerNickname = reqDTO.getCustomerName();
+        this.request = reqDTO.getRequest();
+    }
+
+    public Order(int id) {
+        this.id = id;
+    }
 }

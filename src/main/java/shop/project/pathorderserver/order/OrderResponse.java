@@ -1,9 +1,7 @@
 package shop.project.pathorderserver.order;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import shop.project.pathorderserver.menu.Menu;
 import shop.project.pathorderserver.menu.Option;
 import shop.project.pathorderserver.store.Store;
@@ -14,8 +12,6 @@ import java.util.stream.Collectors;
 
 public class OrderResponse {
 
-    @NoArgsConstructor
-    @AllArgsConstructor
     @Data
     public static class SaveDTO {
         // Store
@@ -36,7 +32,7 @@ public class OrderResponse {
             this.storeId = order.getStore().getId();
             this.storeName = order.getStoreName();
             this.customerId = order.getCustomer().getId();
-            this.customerName = order.getCustomerName();
+            this.customerName = order.getCustomerNickname();
             this.request = order.getRequest();
             this.totalAmount = order.getTotalAmount();
             this.status = order.getStatus();
@@ -45,8 +41,6 @@ public class OrderResponse {
                     .toList();
         }
 
-        @NoArgsConstructor
-        @AllArgsConstructor
         @Data
         public static class OrderMenuDTO {
             private int menuId;
@@ -59,13 +53,10 @@ public class OrderResponse {
             public OrderMenuDTO(OrderMenu orderMenu, List<OrderOption> orderOptionList) {
                 this.menuId = orderMenu.getId();
                 this.name = orderMenu.getName();
-                this.qty = orderMenu.getQty();
                 this.price = orderMenu.getPrice();
                 this.orderOptionList = orderOptionList.stream().map(OrderOptionDTO::new).toList();
             }
 
-            @NoArgsConstructor
-            @AllArgsConstructor
             @Data
             public static class OrderOptionDTO {
                 private String name;
