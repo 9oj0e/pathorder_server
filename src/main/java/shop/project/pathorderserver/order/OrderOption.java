@@ -26,8 +26,9 @@ public class OrderOption {
     private Timestamp createdAt;
 
     @Builder
-    public OrderOption(OrderRequest.SaveDTO.OrderOptionDTO option, Order order) {
+    public OrderOption(OrderRequest.SaveDTO.OrderOptionDTO option, Order order, int orderMenuId) {
         this.order = order;
+        this.orderMenu = new OrderMenu(orderMenuId);
         this.name = option.getName();
         this.price = option.getPrice();
     }

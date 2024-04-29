@@ -51,7 +51,7 @@ public class OrderService {
     @Transactional
     public OrderResponse.SaveDTO createOrder(OrderRequest.SaveDTO reqDTO) {
         Order order = orderRepository.save(new Order(reqDTO)); // 주문 생성
-
+        /*
         List<OrderMenu> orderMenuList // 주문 메뉴 리스트 생성
                 = reqDTO.getOrderMenuList() != null
                 ? reqDTO.getOrderMenuList().stream()
@@ -66,10 +66,15 @@ public class OrderService {
                         .map(orderOptionDTO -> new OrderOption(orderOptionDTO, order))
                 ).toList()
                 : new ArrayList<>();
+        */
 
-        orderOptionList.stream().forEach(System.out::println);
-        orderMenuList.stream().map(orderMenu -> orderMenu.getId());
-        //orderOptionRepository.save()
-        return null;
+        List<OrderRequest.SaveDTO.OrderMenuDTO> orderMenuList = reqDTO.getOrderMenuList();
+        for (int i = 0; i < orderMenuList.size(); i++) {
+            int orderMenuId = orderMenuRepository.save(new OrderMenu(orderMenuList.get(i), order)).getId();
+            for (int j = 0; j < orderMenuList.get(i).getOrderOptionList().size(); j++) {
+                orderOptionRepository.save(new OrderOption(orderMenuList.get(i).getOrderOptionList().get(j), order, orderMenuId));
+            }
+        }
+        return null; // TODO: 응답 결과 return
     }
 }

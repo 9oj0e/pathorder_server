@@ -28,4 +28,8 @@ public class OrderMenu {
         this.name = menu.getName();
         this.price = menu.getPrice();
     }
+
+    public OrderMenu(int id) {
+        this.id = id;
+    }
 }
