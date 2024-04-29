@@ -5,6 +5,7 @@ import lombok.Data;
 import shop.project.pathorderserver._core.utils.FormatUtil;
 import shop.project.pathorderserver.order.Order;
 import shop.project.pathorderserver.order.OrderMenu;
+import shop.project.pathorderserver.order.OrderOption;
 import shop.project.pathorderserver.order.OrderStatus;
 
 import java.sql.Timestamp;
@@ -143,14 +144,59 @@ public class UserResponse {
         private String storeTel;
         private Timestamp orderTime;
         private String request;
+        private List<OrderMenuDTO> orderMenuList;
         private int totalAmount;
 
-        public OrderDetailDTO(Order order) {
+        public OrderDetailDTO(Order order, List<OrderMenu> orderMenus) {
             this.storeName = order.getStoreName();
             this.storeTel = order.getStore().getTel();
             this.orderTime = order.getCreatedAt();
             this.request = order.getRequest();
             this.totalAmount = order.getTotalAmount();
+            this.orderMenuList = orderMenus.stream().map(OrderMenuDTO::new).toList();
+        }
+
+        @Data
+        private class OrderMenuDTO {
+            private int menuId;
+            private String menuName;
+            private int menuPrice;
+            private int totalPrice;
+            private List<OrderOptionDTO> menuOptionList;
+
+            public OrderMenuDTO(OrderMenu orderMenu) {
+                this.menuId = orderMenu.getId();
+                this.menuName = orderMenu.getName();
+                this.menuPrice = orderMenu.getPrice();
+                this.totalPrice = orderMenu.getPrice();
+                this.menuOptionList = orderMenu.getOrderOption().stream().map(OrderOptionDTO::new).toList();
+                List<Integer> optionPriceList = menuOptionList.stream().map(orderOptionDTO -> orderOptionDTO.getPrice()).toList();
+                for (int optionPrice : optionPriceList) {
+                    totalPrice += optionPrice;
+                }
+            }
+
+            @Data
+            private class OrderOptionDTO {
+                private int id;
+                private String name;
+                private int price;
+
+                public OrderOptionDTO(OrderOption orderOption) {
+                    this.id = orderOption.getOrderMenu().getId();
+                    this.name = orderOption.getName();
+                    this.price = orderOption.getPrice();
+                }
+            }
+            /*
+            public void setTotalPrice() { // 총액 계산
+                this.totalPrice += menuPrice;
+                List<Integer> optionPriceList = menuOptionList.stream().map(orderOptionDTO -> orderOptionDTO.getPrice()).toList();
+                for (int optionPrice : optionPriceList) {
+                    totalPrice += optionPrice;
+                }
+            }
+            */
         }
 
         public String getStoreTel() {
