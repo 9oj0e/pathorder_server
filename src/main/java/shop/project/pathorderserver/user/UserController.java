@@ -4,8 +4,8 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import shop.project.pathorderserver._core.errors.exception.Exception400;
 import shop.project.pathorderserver._core.utils.ApiUtil;
+import shop.project.pathorderserver.order.OrderService;
 
 import java.io.IOException;
 
@@ -14,6 +14,7 @@ import java.io.IOException;
 public class UserController {
     private final HttpSession session;
     private final UserService userService;
+    private final OrderService orderService;
 
     @PostMapping("/join") // 회원가입
     public ResponseEntity<?> join(@RequestBody UserRequest.JoinDTO reqDTO) {
@@ -36,6 +37,13 @@ public class UserController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    @PostMapping("/api/users/{userId}/orders") // 주문하기
+    public ResponseEntity<?> order(@RequestBody UserRequest.OrderDTO reqDTO) {
+        UserResponse.OrderDTO respDTO = orderService.createOrder(reqDTO);
+
+        return ResponseEntity.ok(new ApiUtil(respDTO));
+    }
+
     @GetMapping("/api/users/{userId}") // 회원정보 조회
     public ResponseEntity<?> profile(@PathVariable int userId) {
         UserResponse.UserDTO respDTO = userService.getUser(userId);
@@ -52,22 +60,21 @@ public class UserController {
 
     @GetMapping("/api/users/{userId}/orders") // 회원 주문내역 목록보기
     private ResponseEntity<?> orderList(@PathVariable int userId) {
-        UserResponse.OrderListDTO respDTO = userService.getOrderList(userId);
+        UserResponse.OrderListDTO respDTO = orderService.getOrderList(userId);
 
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
     @GetMapping("/api/users/{userId}/orders/{orderId}") // 회원 주문내역 상세보기
     private ResponseEntity<?> orderDetail(@PathVariable int orderId) {
-        UserResponse.OrderDetailDTO respDTO = userService.getOrderDetail(orderId);
+        UserResponse.OrderDetailDTO respDTO = orderService.getOrderDetail(orderId);
 
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
-    @PutMapping("/api/user/{userId}") // 회원정보 수정
-    public ResponseEntity<?> update(@RequestBody UserRequest.UpdateDTO reqDTO) {
-        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        UserResponse.UpdateDTO respDTO = userService.setUser(reqDTO, sessionUser.getId());
+    @PutMapping("/api/users/{userId}") // 회원정보 수정
+    public ResponseEntity<?> update(@RequestBody UserRequest.UpdateDTO reqDTO, @PathVariable int userId) {
+        UserResponse.UpdateDTO respDTO = userService.setUser(reqDTO, userId);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }

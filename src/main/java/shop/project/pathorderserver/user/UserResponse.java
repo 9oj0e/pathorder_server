@@ -9,6 +9,7 @@ import shop.project.pathorderserver.order.OrderMenuOption;
 import shop.project.pathorderserver.order.OrderStatus;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserResponse {
@@ -104,7 +105,7 @@ public class UserResponse {
             private int orderId;
             private Timestamp orderTime;
             private String storeName;
-            private int totalAmount;
+            private int totalPrice;
             private OrderStatus status;
             private List<OrderListDTO.OrderMenuDTO> orderMenuList;
 
@@ -112,13 +113,13 @@ public class UserResponse {
                 this.orderId = order.getId();
                 this.orderTime = order.getCreatedAt();
                 this.storeName = order.getStoreName();
-                this.totalAmount = order.getTotalPrice();
+                this.totalPrice = order.getTotalPrice();
                 this.status = order.getStatus();
                 this.orderMenuList = order.getOrderMenus().stream().map(OrderListDTO.OrderMenuDTO::new).toList();
             }
 
-            public String getTotalAmount() { // 19500 -> 19,500 변환
-                return FormatUtil.decimalFormatter(totalAmount);
+            public String getTotalPrice() { // 19500 -> 19,500 변환
+                return FormatUtil.decimalFormatter(totalPrice);
             }
 
             public String getOrderTime() { // 월/일 시간:분:초
@@ -170,7 +171,7 @@ public class UserResponse {
                 this.menuPrice = orderMenu.getPrice();
                 this.totalPrice = orderMenu.getPrice();
                 this.orderMenuOptionList = orderMenu.getOrderMenuOptions().stream().map(OrderMenuOptionDTO::new).toList();
-                List<Integer> optionPriceList = orderMenuOptionList.stream().map(orderMenuOptionDTO -> orderMenuOptionDTO.getPrice()).toList();
+                List<Integer> optionPriceList = orderMenuOptionList.stream().map(OrderMenuOptionDTO::getPrice).toList();
                 for (int optionPrice : optionPriceList) {
                     totalPrice += optionPrice;
                 }
@@ -207,7 +208,75 @@ public class UserResponse {
             return FormatUtil.timeFormatter(orderTime);
         }
 
-        public String getTotalAmount() { // 19500 -> 19,500 변환
+        public String getTotalPrice() { // 19500 -> 19,500 변환
+            return FormatUtil.decimalFormatter(totalPrice);
+        }
+    }
+
+    @Data // 주문하기
+    public static class OrderDTO {
+        private int storeId;
+        private String storeName;
+        private int customerId;
+        private String customerNickname;
+        private String request;
+        private int totalPrice;
+        private OrderStatus status;
+        private List<OrderMenuDTO> orderMenuList;
+
+        public OrderDTO(Order order, List<OrderMenu> orderMenus, List<OrderMenuOption> orderMenuOptions) {
+            this.storeId = order.getStore().getId();
+            this.storeName = order.getStoreName();
+            this.customerId = order.getCustomer().getId();
+            this.customerNickname = order.getCustomerNickname();
+            this.request = order.getRequest();
+            this.totalPrice = order.getTotalPrice();
+            this.status = order.getStatus();
+            this.orderMenuList = orderMenus.stream()
+                    .map(orderMenu -> new OrderMenuDTO(orderMenu, orderMenuOptions))
+                    .toList();
+        }
+
+        @Data
+        public static class OrderMenuDTO {
+            private int id;
+            // private int menuId;
+            private String name;
+            private int price;
+            private List<OrderMenuOptionDTO> orderMenuOptionList = new ArrayList<>();
+
+            public OrderMenuDTO(OrderMenu orderMenu, List<OrderMenuOption> orderMenuOptions) {
+                this.id = orderMenu.getId();
+                this.name = orderMenu.getName();
+                this.price = orderMenu.getPrice();
+                for (int i = 0; i < orderMenuOptions.size(); i++) {
+                    OrderMenuOptionDTO orderMenuOption = new OrderMenuOptionDTO(orderMenuOptions.get(i));
+                    if (id == orderMenuOptions.get(i).getOrderMenu().getId()) {
+                        // this.orderMenuOptionList = orderMenuOptions.stream().map(OrderMenuOptionDTO::new).toList();
+                        this.orderMenuOptionList.add(orderMenuOption);
+                    }
+                }
+            }
+
+            @Data
+            public static class OrderMenuOptionDTO {
+                private String name;
+                private int price;
+
+                public OrderMenuOptionDTO(OrderMenuOption orderMenuOption) {
+                    this.name = orderMenuOption.getName();
+                    this.price = orderMenuOption.getPrice();
+                }
+
+                public String getPrice() {
+                    return FormatUtil.decimalFormatter(price);
+                }
+            }
+            public String getPrice() {
+                return FormatUtil.decimalFormatter(price);
+            }
+        }
+        public String getTotalPrice() {
             return FormatUtil.decimalFormatter(totalPrice);
         }
     }

@@ -7,6 +7,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import shop.project.pathorderserver.store.Store;
 import shop.project.pathorderserver.user.User;
+import shop.project.pathorderserver.user.UserRequest;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -42,7 +43,7 @@ public class Order {
     @CreationTimestamp
     private Timestamp createdAt; // 주문 시간
 
-    public Order(OrderRequest.OrderDTO reqDTO, User customer, Store store) {
+    public Order(UserRequest.OrderDTO reqDTO, User customer, Store store) {
         this.customer = customer;
         this.store = store;
         this.storeName = reqDTO.getStoreName();

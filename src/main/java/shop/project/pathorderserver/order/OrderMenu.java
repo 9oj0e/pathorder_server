@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import shop.project.pathorderserver.user.UserRequest;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class OrderMenu {
     @CreationTimestamp
     private Timestamp createdAt;
 
-    public OrderMenu(OrderRequest.OrderDTO.OrderMenuDTO reqDTO, Order order) {
+    public OrderMenu(UserRequest.OrderDTO.OrderMenuDTO reqDTO, Order order) {
         this.order = order;
         // this.menuId = reqDTO.getMenuId();
         this.name = reqDTO.getName();
