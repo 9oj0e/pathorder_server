@@ -13,17 +13,19 @@ public class SessionUser {
     private Integer id;
     // 회원 정보
     private String username;
-    private Timestamp createdAt;
+    private String nickname;
 
     @Builder
-    public SessionUser(int id, String username) {
+    public SessionUser(int id, String username, String nickname) {
         this.id = id;
         this.username = username;
+        this.nickname = nickname;
     }
 
     public SessionUser(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
+        this.nickname = user.getNickname();
     }
 }
 
