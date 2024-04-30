@@ -104,7 +104,7 @@ public class UserResponse {
             private int orderId;
             private Timestamp orderTime;
             private String storeName;
-            private int totalAmount;
+            private int totalPrice;
             private OrderStatus status;
             private List<OrderListDTO.OrderMenuDTO> orderMenuList;
 
@@ -112,13 +112,13 @@ public class UserResponse {
                 this.orderId = order.getId();
                 this.orderTime = order.getCreatedAt();
                 this.storeName = order.getStoreName();
-                this.totalAmount = order.getTotalPrice();
+                this.totalPrice = order.getTotalPrice();
                 this.status = order.getStatus();
                 this.orderMenuList = order.getOrderMenus().stream().map(OrderListDTO.OrderMenuDTO::new).toList();
             }
 
-            public String getTotalAmount() { // 19500 -> 19,500 변환
-                return FormatUtil.decimalFormatter(totalAmount);
+            public String getTotalPrice() { // 19500 -> 19,500 변환
+                return FormatUtil.decimalFormatter(totalPrice);
             }
 
             public String getOrderTime() { // 월/일 시간:분:초
@@ -170,7 +170,7 @@ public class UserResponse {
                 this.menuPrice = orderMenu.getPrice();
                 this.totalPrice = orderMenu.getPrice();
                 this.orderMenuOptionList = orderMenu.getOrderMenuOptions().stream().map(OrderMenuOptionDTO::new).toList();
-                List<Integer> optionPriceList = orderMenuOptionList.stream().map(orderMenuOptionDTO -> orderMenuOptionDTO.getPrice()).toList();
+                List<Integer> optionPriceList = orderMenuOptionList.stream().map(OrderMenuOptionDTO::getPrice).toList();
                 for (int optionPrice : optionPriceList) {
                     totalPrice += optionPrice;
                 }
@@ -207,7 +207,7 @@ public class UserResponse {
             return FormatUtil.timeFormatter(orderTime);
         }
 
-        public String getTotalAmount() { // 19500 -> 19,500 변환
+        public String getTotalPrice() { // 19500 -> 19,500 변환
             return FormatUtil.decimalFormatter(totalPrice);
         }
     }
