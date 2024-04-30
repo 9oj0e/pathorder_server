@@ -39,16 +39,12 @@ public class UserService {
     }
 
     // 로그인 TODO: 암호화
-    public UserResponse.LoginDTO getUser(UserRequest.LoginDTO reqDTO) {
+    public String getUser(UserRequest.LoginDTO reqDTO) {
         User user = userRepository.findByUsernameAndPassword(reqDTO.getUsername(), reqDTO.getPassword())
                 .orElseThrow(() -> new Exception401("아이디 또는 비밀번호가 틀렸습니다."));
         String jwt = JwtUtil.create(user);
 
-        return UserResponse.LoginDTO // TODO: jwt return
-                .builder()
-                .id(user.getId())
-                .nickname(user.getNickname())
-                .build();
+        return jwt;
     }
 
     // 회원정보 보기
@@ -67,18 +63,12 @@ public class UserService {
     }
 
     @Transactional // 회원정보 수정
-    public UserResponse.UpdateDTO setUser(UserRequest.UpdateDTO reqDTO, int sessionUserId) {
+    public SessionUser setUser(UserRequest.UpdateDTO reqDTO, int sessionUserId) {
         User user = userRepository.findById(sessionUserId)
                 .orElseThrow(() -> new Exception404("회원 정보를 찾을 수 없습니다."));
         user.update(reqDTO);
 
-        return UserResponse.UpdateDTO
-                .builder()
-                .id(user.getId())
-                .nickname(user.getNickname())
-                .tel(user.getTel())
-                .email(user.getEmail())
-                .build();
+        return new SessionUser(user);
     }
 
     @Transactional // 사진 업로드

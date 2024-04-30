@@ -22,11 +22,11 @@ public class UserController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    @PostMapping("/login") // 로그인 TODO: 암호화 하기
+    @PostMapping("/login") // 로그인 TODO: 비밀번호 암호화 하기
     public ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO reqDTO) {
-        UserResponse.LoginDTO respDTO = userService.getUser(reqDTO);
+        String jwt = userService.getUser(reqDTO);
 
-        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+        return ResponseEntity.ok().header("Authorization", "Bearer + jwt").body(new ApiUtil<>(null));
     }
 
     @PostMapping("/api/users/{userId}") // 사진 등록
@@ -67,8 +67,9 @@ public class UserController {
     @PutMapping("/api/users/{userId}") // 회원정보 수정
     public ResponseEntity<?> update(@RequestBody UserRequest.UpdateDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        UserResponse.UpdateDTO respDTO = userService.setUser(reqDTO, sessionUser.getId());
+        SessionUser newSessionUser = userService.setUser(reqDTO, sessionUser.getId());
+        session.setAttribute("sessionUser", newSessionUser);
 
-        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+        return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
     }
 }
