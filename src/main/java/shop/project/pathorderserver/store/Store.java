@@ -42,4 +42,20 @@ public class Store {
 
     @CreationTimestamp
     private Timestamp registeredAt; // 가입일
+
+    public Store(StoreRequest.매장등록 reqDTO) {
+        this.username = reqDTO.getUsername();
+        this.password = reqDTO.getPassword();
+        this.ownerName = reqDTO.getOwnerName();
+        this.ownerTel = reqDTO.getOwnerTel();
+        this.ownerEmail = reqDTO.getOwnerEmail();
+        this.bizNum = reqDTO.getBizNum();
+        this.name = reqDTO.getName();
+        this.tel = reqDTO.getTel();
+        this.intro = reqDTO.getIntro();
+        this.openingTime = reqDTO.getOpeningTime();
+        this.closingTime = reqDTO.getClosingTime();
+        this.closedDay = reqDTO.getClosedDay();
+        this.address = reqDTO.getAddress();
+    }
 }

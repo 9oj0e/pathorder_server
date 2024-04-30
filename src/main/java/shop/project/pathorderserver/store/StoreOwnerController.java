@@ -1,12 +1,25 @@
 package shop.project.pathorderserver.store;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
+@RequiredArgsConstructor
 @Controller
 public class StoreOwnerController {
+    private final StoreService storeService;
+
+    // 매장등록
+    @PostMapping("/stores/join") // TODO: 이름 고치기, return
+    public String join(StoreRequest.매장등록 reqDTO) {
+        storeService.매장등록(reqDTO);
+
+        return "";
+    }
+
     @GetMapping("/stores/{storeId}/orders") // TODO: 매장 주문내역 목록보기
     private String orderList(@PathVariable int storeId) {
 

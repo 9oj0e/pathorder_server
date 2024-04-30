@@ -17,6 +17,14 @@ public class StoreService {
     private final MenuRepository menuRepository;
     private final MenuOptionRepository menuOptionRepository;
 
+    // 매장 등록
+    public Store 매장등록(StoreRequest.매장등록 reqDTO) {
+        Store store = new Store(reqDTO);
+        storeRepository.save(store);
+
+        return store;
+    }
+
     // 매장 목록보기
     public List<StoreResponse.ListingsDTO> getStoreList() {
         List<Store> stores = storeRepository.findAll();
