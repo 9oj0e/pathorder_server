@@ -26,7 +26,7 @@ public class OrderMenu {
     @ManyToOne(fetch = FetchType.LAZY)
     private Order order; // 하나의 주문은 여러 메뉴를 가질 수 있음
     @OneToMany(mappedBy = "orderMenu")
-    private List<OrderMenuOption> orderMenuOption = new ArrayList<>();
+    private List<OrderMenuOption> orderMenuOptions = new ArrayList<>();
 
     @CreationTimestamp
     private Timestamp createdAt;

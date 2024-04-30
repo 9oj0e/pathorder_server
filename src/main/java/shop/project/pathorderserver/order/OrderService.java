@@ -9,6 +9,7 @@ import shop.project.pathorderserver.store.StoreRepository;
 import shop.project.pathorderserver.user.User;
 import shop.project.pathorderserver.user.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -33,19 +34,26 @@ public class OrderService {
 
         List<OrderRequest.OrderDTO.OrderMenuDTO> orderMenuList // 재사용 편의를 위해 'orderMenuList'라 정의
                 = reqDTO.getOrderMenuList();
+
+        List<OrderMenu> orderMenus // 응답할 주문 메뉴 리스트 생성
+                = new ArrayList<>();
+        List<OrderMenuOption> orderMenuOptions // 응답할 주문 메뉴 옵션 리스트 생성
+                = new ArrayList<>();
         for (int i = 0; i < orderMenuList.size(); i++) {
-            OrderMenu orderMenu = orderMenuRepository
-                    .save(new OrderMenu(orderMenuList.get(i), order));
+            OrderMenu orderMenu
+                    = orderMenuRepository.save(new OrderMenu(orderMenuList.get(i), order));
             order.updateTotalPrice(orderMenuList.get(i).getPrice()); // 메뉴별 금액
             for (int j = 0; j < orderMenuList.get(i).getOrderMenuOptionList().size(); j++) {
-                orderMenuOptionRepository
-                        .save(new OrderMenuOption(orderMenuList.get(i).getOrderMenuOptionList().get(j), order, orderMenu));
+                OrderMenuOption orderMenuOption
+                        = orderMenuOptionRepository.save(new OrderMenuOption(orderMenuList.get(i).getOrderMenuOptionList().get(j), order, orderMenu));
                 order.updateTotalPrice(orderMenuList.get(i).getOrderMenuOptionList().get(j).getPrice()); // 옵션별 금액
+                orderMenuOptions.add(orderMenuOption); // 추가
             }
+            orderMenus.add(orderMenu); // 추가
         }
-        orderRepository.save(order);
+        orderRepository.save(order); // DB insert
 
-        return null; // TODO: 응답 결과 return
+        return new OrderResponse.OrderDTO(order, orderMenus, orderMenuOptions);
     }
     // TODO: 주문 수정 (매장 측: 주문 상태 변경)
 }
