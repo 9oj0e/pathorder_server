@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 import shop.project.pathorderserver.store.Store;
 import shop.project.pathorderserver.user.User;
 import shop.project.pathorderserver.user.UserRequest;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @Data
+@DynamicInsert
 @Entity
 @Table(name = "order_tb")
 public class Order {

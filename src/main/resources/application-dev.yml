@@ -27,7 +27,7 @@ spring:
         - classpath:db/data.sql
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     show-sql: true
     properties:
       hibernate:
