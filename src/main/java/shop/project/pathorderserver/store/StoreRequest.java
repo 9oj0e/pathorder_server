@@ -24,6 +24,12 @@ public class StoreRequest {
         private String closedDay;
         private String address;
     }
+
+    @Data
+    public static class 로그인 {
+        private String username;
+        private String password;
+    }
     // TODO: 매장 정보 수정
     // TODO: 매장 메뉴 등록
     // TODO: 매장 메뉴 수정

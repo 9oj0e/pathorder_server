@@ -1,7 +1,9 @@
 package shop.project.pathorderserver.store;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,11 +13,21 @@ import org.springframework.web.bind.annotation.PutMapping;
 @Controller
 public class StoreOwnerController {
     private final StoreService storeService;
+    private final HttpSession session;
 
     // 매장등록
     @PostMapping("/stores/join") // TODO: 이름 고치기, return
     public String join(StoreRequest.매장등록 reqDTO) {
         storeService.매장등록(reqDTO);
+
+        return "";
+    }
+
+    // 점주 로그인
+    @PostMapping("/stores/login")
+    public String login(StoreRequest.로그인 reqDTO) {
+        Store sessionUser = storeService.로그인(reqDTO);
+        session.setAttribute("sessionUser", sessionUser);
 
         return "";
     }

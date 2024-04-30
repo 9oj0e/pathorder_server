@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -33,5 +35,17 @@ class StoreServiceTest {
         Store store = storeService.매장등록(reqDTO);
         // then
         Assertions.assertThat(store.getOwnerName()).isEqualTo("성재");
+    }
+
+    @Test
+    void 로그인() {
+        // given
+        StoreRequest.로그인 reqDTO = new StoreRequest.로그인();
+        reqDTO.setUsername("jake1234");
+        reqDTO.setPassword("1234");
+        // when
+        Store store = storeService.로그인(reqDTO);
+        // then
+        Assertions.assertThat(store.getUsername()).isEqualTo("jake1");
     }
 }

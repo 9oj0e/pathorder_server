@@ -27,4 +27,17 @@ class StoreRepositoryTest {
         Assertions.assertThat(storeOP.get().getName()).isEqualTo("단밤 카페");
         Assertions.assertThat(storeOP.get().getUsername()).isEqualTo("조정현");
     }
+
+    @Test
+    public void findByUsernameAndPassword_test() {
+        //given
+        String username = "jake1234";
+        String password = "1234";
+        //when
+        Optional<Store> storeOP = storeRepository.findByUsernameAndPassword(username, password);
+
+        //then
+        System.out.println("findByUsernameAndPassword_test:" + storeOP);
+
+    }
 }

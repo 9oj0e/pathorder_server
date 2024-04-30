@@ -2,6 +2,8 @@ package shop.project.pathorderserver.store;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import shop.project.pathorderserver._core.errors.exception.Exception400;
+import shop.project.pathorderserver._core.errors.exception.Exception401;
 import shop.project.pathorderserver._core.errors.exception.Exception404;
 import shop.project.pathorderserver.menu.Menu;
 import shop.project.pathorderserver.menu.MenuOptionRepository;
@@ -9,6 +11,7 @@ import shop.project.pathorderserver.menu.MenuRepository;
 import shop.project.pathorderserver.menu.MenuOption;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -21,6 +24,14 @@ public class StoreService {
     public Store 매장등록(StoreRequest.매장등록 reqDTO) {
         Store store = new Store(reqDTO);
         storeRepository.save(store);
+
+        return store;
+    }
+
+    // 점주 로그인
+    public Store 로그인(StoreRequest.로그인 reqDTO) {
+        Store store = storeRepository.findByUsernameAndPassword(reqDTO.getUsername(), reqDTO.getPassword())
+                .orElseThrow(() -> new Exception401("유저네임 또는 패스워드가 일치하지 않습니다."));
 
         return store;
     }
