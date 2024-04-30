@@ -145,14 +145,14 @@ public class UserResponse {
         private Timestamp orderTime;
         private String request;
         private List<OrderMenuDTO> orderMenuList;
-        private int totalAmount;
+        private int totalPrice;
 
         public OrderDetailDTO(Order order, List<OrderMenu> orderMenus) {
             this.storeName = order.getStoreName();
             this.storeTel = order.getStore().getTel();
             this.orderTime = order.getCreatedAt();
             this.request = order.getRequest();
-            this.totalAmount = order.getTotalPrice();
+            this.totalPrice = order.getTotalPrice();
             this.orderMenuList = orderMenus.stream().map(OrderMenuDTO::new).toList();
         }
 
@@ -162,14 +162,14 @@ public class UserResponse {
             private String menuName;
             private int menuPrice;
             private int totalPrice;
-            private List<OrderOptionDTO> orderMenuOptionList;
+            private List<OrderMenuOptionDTO> orderMenuOptionList;
 
             public OrderMenuDTO(OrderMenu orderMenu) {
                 this.menuId = orderMenu.getId();
                 this.menuName = orderMenu.getName();
                 this.menuPrice = orderMenu.getPrice();
                 this.totalPrice = orderMenu.getPrice();
-                this.orderMenuOptionList = orderMenu.getOrderMenuOption().stream().map(OrderOptionDTO::new).toList();
+                this.orderMenuOptionList = orderMenu.getOrderMenuOptions().stream().map(OrderMenuOptionDTO::new).toList();
                 List<Integer> optionPriceList = orderMenuOptionList.stream().map(orderMenuOptionDTO -> orderMenuOptionDTO.getPrice()).toList();
                 for (int optionPrice : optionPriceList) {
                     totalPrice += optionPrice;
@@ -177,12 +177,12 @@ public class UserResponse {
             }
 
             @Data
-            private class OrderOptionDTO {
+            private class OrderMenuOptionDTO {
                 private int id;
                 private String name;
                 private int price;
 
-                public OrderOptionDTO(OrderMenuOption orderMenuOption) {
+                public OrderMenuOptionDTO(OrderMenuOption orderMenuOption) {
                     this.id = orderMenuOption.getOrderMenu().getId();
                     this.name = orderMenuOption.getName();
                     this.price = orderMenuOption.getPrice();
@@ -208,7 +208,7 @@ public class UserResponse {
         }
 
         public String getTotalAmount() { // 19500 -> 19,500 변환
-            return FormatUtil.decimalFormatter(totalAmount);
+            return FormatUtil.decimalFormatter(totalPrice);
         }
     }
 }
