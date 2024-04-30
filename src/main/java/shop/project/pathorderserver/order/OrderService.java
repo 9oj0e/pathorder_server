@@ -8,6 +8,8 @@ import shop.project.pathorderserver.store.Store;
 import shop.project.pathorderserver.store.StoreRepository;
 import shop.project.pathorderserver.user.User;
 import shop.project.pathorderserver.user.UserRepository;
+import shop.project.pathorderserver.user.UserRequest;
+import shop.project.pathorderserver.user.UserResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +23,8 @@ public class OrderService {
     private final UserRepository userRepository;
     private final StoreRepository storeRepository;
 
-    @Transactional
-    public OrderResponse.OrderDTO createOrder(OrderRequest.OrderDTO reqDTO) {
+    @Transactional // 주문하기
+    public UserResponse.OrderDTO createOrder(UserRequest.OrderDTO reqDTO) {
         User customer // 유저 번호로 유저 조회
                 = userRepository.findById(reqDTO.getCustomerId())
                 .orElseThrow(() -> new Exception404("찾을 수 없는 유저입니다."));
@@ -32,7 +34,7 @@ public class OrderService {
         Order order // 주문 생성 TODO: status 기본 값 'null'
                 = new Order(reqDTO, customer, store);
 
-        List<OrderRequest.OrderDTO.OrderMenuDTO> orderMenuList // 재사용 편의를 위해 'orderMenuList'라 정의
+        List<UserRequest.OrderDTO.OrderMenuDTO> orderMenuList // 재사용 편의를 위해 'orderMenuList'라 정의
                 = reqDTO.getOrderMenuList();
 
         List<OrderMenu> orderMenus // 응답할 주문 메뉴 리스트 생성
@@ -53,7 +55,37 @@ public class OrderService {
         }
         orderRepository.save(order); // DB insert
 
-        return new OrderResponse.OrderDTO(order, orderMenus, orderMenuOptions);
+        return new UserResponse.OrderDTO(order, orderMenus, orderMenuOptions);
+    }
+
+    // 주문내역 목록보기 (손님)
+    public UserResponse.OrderListDTO getOrderList(int userId) {
+        List<Order> orders = orderRepository.findByUserId(userId)
+                .orElseThrow(() -> new Exception404("찾을 수 없는 주문입니다."));
+
+        return new UserResponse.OrderListDTO(orders);
+    }
+
+    @Transactional // 주문내역 상세보기 (손님)
+    public UserResponse.OrderDetailDTO getOrderDetail(int orderId) {
+        Order order // 단일 주문 내역 조회
+                = orderRepository.findById(orderId)
+                .orElseThrow(() -> new Exception404("찾을 수 없는 주문입니다."));
+        List<OrderMenu> orderMenus // 주문 내역의 메뉴 목록.
+                = orderMenuRepository.findAllByOrderId(orderId)
+                .orElseThrow(() -> new Exception404("찾을 수 없는 주문입니다."));
+        /* 양방향 매핑으로 변경.
+        List<Integer> orderMenuIdList; // 34, 35, 36
+        orderMenuIdList // 주문 메뉴별 Id 추출
+                = orderMenus.stream().map(orderMenu -> orderMenu.getId()).toList();
+        for (int orderMenuId : orderMenuIdList) {
+            List<OrderOption> orderOptions // 주문 메뉴별 옵션 목록 조회
+                    = orderMenuRepository.findAllOptionByMenuId(orderMenuId)
+                            .orElse(null); // 없으면 null
+            orderMenus.get(orderMenuId).setOrderOption(orderOptions);
+        }
+        */
+        return new UserResponse.OrderDetailDTO(order, orderMenus);
     }
     // TODO: 주문 수정 (매장 측: 주문 상태 변경)
 }

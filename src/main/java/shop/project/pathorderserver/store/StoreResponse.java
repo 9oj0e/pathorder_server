@@ -140,4 +140,5 @@ public class StoreResponse {
             }
         }
     }
+    // TODO: 수정된 주문 내용 (매장 측: 주문 상태 변경)
 }
