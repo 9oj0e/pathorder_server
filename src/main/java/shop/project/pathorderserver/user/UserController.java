@@ -27,7 +27,7 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO reqDTO) {
         String jwt = userService.getUser(reqDTO);
 
-        return ResponseEntity.ok().header("Authorization", "Bearer + jwt").body(new ApiUtil<>(null));
+        return ResponseEntity.ok().header("Authorization", "Bearer" + jwt).body(new ApiUtil<>(null));
     }
 
     @PostMapping("/api/users/{userId}") // 사진 등록
