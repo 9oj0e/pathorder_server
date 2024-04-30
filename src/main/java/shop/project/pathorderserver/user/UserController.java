@@ -64,7 +64,7 @@ public class UserController {
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
-    @PutMapping("/api/user/{userId}") // 회원정보 수정
+    @PutMapping("/api/users/{userId}") // 회원정보 수정
     public ResponseEntity<?> update(@RequestBody UserRequest.UpdateDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         UserResponse.UpdateDTO respDTO = userService.setUser(reqDTO, sessionUser.getId());
