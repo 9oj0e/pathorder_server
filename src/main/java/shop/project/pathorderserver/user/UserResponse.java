@@ -212,7 +212,8 @@ public class UserResponse {
             return FormatUtil.decimalFormatter(totalPrice);
         }
     }
-    @Data
+
+    @Data // 주문하기
     public static class OrderDTO {
         private int storeId;
         private String storeName;
@@ -241,7 +242,6 @@ public class UserResponse {
             private int id;
             // private int menuId;
             private String name;
-            private int qty;
             private int price;
             private List<OrderMenuOptionDTO> orderMenuOptionList = new ArrayList<>();
 
@@ -267,7 +267,17 @@ public class UserResponse {
                     this.name = orderMenuOption.getName();
                     this.price = orderMenuOption.getPrice();
                 }
+
+                public String getPrice() {
+                    return FormatUtil.decimalFormatter(price);
+                }
             }
+            public String getPrice() {
+                return FormatUtil.decimalFormatter(price);
+            }
+        }
+        public String getTotalPrice() {
+            return FormatUtil.decimalFormatter(totalPrice);
         }
     }
 }
