@@ -8,6 +8,7 @@ import shop.project.pathorderserver.store.Store;
 import shop.project.pathorderserver.store.StoreRepository;
 import shop.project.pathorderserver.user.User;
 import shop.project.pathorderserver.user.UserRepository;
+import shop.project.pathorderserver.user.UserRequest;
 import shop.project.pathorderserver.user.UserResponse;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class OrderService {
     private final StoreRepository storeRepository;
 
     @Transactional // 주문하기
-    public OrderResponse.OrderDTO createOrder(OrderRequest.OrderDTO reqDTO) {
+    public UserResponse.OrderDTO createOrder(UserRequest.OrderDTO reqDTO) {
         User customer // 유저 번호로 유저 조회
                 = userRepository.findById(reqDTO.getCustomerId())
                 .orElseThrow(() -> new Exception404("찾을 수 없는 유저입니다."));
@@ -33,7 +34,7 @@ public class OrderService {
         Order order // 주문 생성 TODO: status 기본 값 'null'
                 = new Order(reqDTO, customer, store);
 
-        List<OrderRequest.OrderDTO.OrderMenuDTO> orderMenuList // 재사용 편의를 위해 'orderMenuList'라 정의
+        List<UserRequest.OrderDTO.OrderMenuDTO> orderMenuList // 재사용 편의를 위해 'orderMenuList'라 정의
                 = reqDTO.getOrderMenuList();
 
         List<OrderMenu> orderMenus // 응답할 주문 메뉴 리스트 생성
@@ -54,7 +55,7 @@ public class OrderService {
         }
         orderRepository.save(order); // DB insert
 
-        return new OrderResponse.OrderDTO(order, orderMenus, orderMenuOptions);
+        return new UserResponse.OrderDTO(order, orderMenus, orderMenuOptions);
     }
 
     // 주문내역 목록보기 (손님)
