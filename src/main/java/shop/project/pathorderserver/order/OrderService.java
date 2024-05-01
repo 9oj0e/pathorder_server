@@ -41,18 +41,27 @@ public class OrderService {
                 = new ArrayList<>();
         List<OrderMenuOption> orderMenuOptions // 응답할 주문 메뉴 옵션 리스트 생성
                 = new ArrayList<>();
-        for (int i = 0; i < orderMenuList.size(); i++) {
-            OrderMenu orderMenu
-                    = orderMenuRepository.save(new OrderMenu(orderMenuList.get(i), order));
-            order.updateTotalPrice(orderMenuList.get(i).getPrice()); // 메뉴별 금액
-            for (int j = 0; j < orderMenuList.get(i).getOrderMenuOptionList().size(); j++) {
-                OrderMenuOption orderMenuOption
-                        = orderMenuOptionRepository.save(new OrderMenuOption(orderMenuList.get(i).getOrderMenuOptionList().get(j), order, orderMenu));
-                order.updateTotalPrice(orderMenuList.get(i).getOrderMenuOptionList().get(j).getPrice()); // 옵션별 금액
-                // orderMenu.updateTotalPrice(orderMenuList.get(i).getOrderMenuOptionList().get(j).getPrice());
-                orderMenuOptions.add(orderMenuOption); // 추가
+        for (int om = 0; om < orderMenuList.size(); om++) {
+            OrderMenu orderMenu // 주문 메뉴 엔티티 생성 및 INSERT
+                    = orderMenuRepository.save(new OrderMenu(orderMenuList.get(om), order));
+            for (int omo = 0; omo < orderMenuList.get(om).getOrderMenuOptionList().size(); omo++) {
+                OrderMenuOption orderMenuOption // 주문 메뉴 옵션 엔티티 생성 및 INSERT
+                        = orderMenuOptionRepository.save(new OrderMenuOption(orderMenuList.get(om).getOrderMenuOptionList().get(omo), order, orderMenu));
+                orderMenu // 주문 메뉴 옵션 금액 추가 (옵션)
+                        .updateTotalPrice(orderMenuOption.getPrice());
+                order // 주문 총액 업데이트 (메뉴 옵션)
+                        .updateTotalPrice(orderMenuOption.getPrice()); // 옵션별 금액
+                orderMenuOptions // 주문 메뉴 옵션 컬랙션 생성 (주문 + 메뉴 옵션)
+                        .add(orderMenuOption);
             }
-            orderMenus.add(orderMenu); // 추가
+            orderMenu // 주문 메뉴 금액 추가 (메뉴)
+                    .updateTotalPrice(orderMenu.getPrice());
+            order // 주문 총액 업데이트 (메뉴)
+                    .updateTotalPrice(orderMenu.getPrice());
+            orderMenu // 주문 메뉴 총액 업데이트 (갯수 처리)
+                    .setTotalPrice(orderMenu.getTotalPrice() * orderMenu.getQty());
+            orderMenus // 주문 메뉴 컬랙션 생성 (주문 + 메뉴)
+                    .add(orderMenu);
         }
         orderRepository.save(order); // DB insert
 
