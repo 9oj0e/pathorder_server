@@ -49,6 +49,7 @@ public class OrderService {
                 OrderMenuOption orderMenuOption
                         = orderMenuOptionRepository.save(new OrderMenuOption(orderMenuList.get(i).getOrderMenuOptionList().get(j), order, orderMenu));
                 order.updateTotalPrice(orderMenuList.get(i).getOrderMenuOptionList().get(j).getPrice()); // 옵션별 금액
+                // orderMenu.updateTotalPrice(orderMenuList.get(i).getOrderMenuOptionList().get(j).getPrice());
                 orderMenuOptions.add(orderMenuOption); // 추가
             }
             orderMenus.add(orderMenu); // 추가

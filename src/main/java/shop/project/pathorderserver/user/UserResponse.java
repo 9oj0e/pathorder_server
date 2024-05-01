@@ -168,8 +168,8 @@ public class UserResponse {
             public OrderMenuDTO(OrderMenu orderMenu) {
                 this.menuId = orderMenu.getId();
                 this.menuName = orderMenu.getName();
-                this.menuPrice = orderMenu.getPrice();
-                this.totalPrice = orderMenu.getPrice();
+                this.menuPrice = orderMenu.getTotalPrice();
+                this.totalPrice = orderMenu.getTotalPrice();
                 this.orderMenuOptionList = orderMenu.getOrderMenuOptions().stream().map(OrderMenuOptionDTO::new).toList();
                 List<Integer> optionPriceList = orderMenuOptionList.stream().map(OrderMenuOptionDTO::getPrice).toList();
                 for (int optionPrice : optionPriceList) {
@@ -250,7 +250,7 @@ public class UserResponse {
             public OrderMenuDTO(OrderMenu orderMenu, List<OrderMenuOption> orderMenuOptions) {
                 this.id = orderMenu.getId();
                 this.name = orderMenu.getName();
-                this.price = orderMenu.getPrice();
+                this.price = orderMenu.getTotalPrice();
                 for (int i = 0; i < orderMenuOptions.size(); i++) {
                     OrderMenuOptionDTO orderMenuOption = new OrderMenuOptionDTO(orderMenuOptions.get(i));
                     if (id == orderMenuOptions.get(i).getOrderMenu().getId()) {
