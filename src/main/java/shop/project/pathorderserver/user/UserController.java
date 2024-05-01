@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import shop.project.pathorderserver._core.utils.ApiUtil;
-import shop.project.pathorderserver.order.OrderService;
 
 import java.io.IOException;
 
@@ -14,7 +13,6 @@ import java.io.IOException;
 public class UserController {
     private final HttpSession session;
     private final UserService userService;
-    private final OrderService orderService;
 
     @PostMapping("/join") // 회원가입
     public ResponseEntity<?> join(@RequestBody UserRequest.JoinDTO reqDTO) {
@@ -39,7 +37,7 @@ public class UserController {
 
     @PostMapping("/api/users/{userId}/orders") // 주문하기
     public ResponseEntity<?> order(@RequestBody UserRequest.OrderDTO reqDTO) {
-        UserResponse.OrderDTO respDTO = orderService.createOrder(reqDTO);
+        UserResponse.OrderDTO respDTO = userService.createOrder(reqDTO);
 
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }

@@ -119,4 +119,6 @@ public class StoreService {
 
         return new StoreResponse.OwnerMenuListDTO(menuList);
     }
+
+    // TODO: 주문 수정 (매장 측: 주문 상태 변경)
 }
