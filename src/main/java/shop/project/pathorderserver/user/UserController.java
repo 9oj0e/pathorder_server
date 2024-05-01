@@ -28,6 +28,29 @@ public class UserController {
         return ResponseEntity.ok().header("Authorization", "Bearer" + jwt).body(new ApiUtil<>(null));
     }
 
+    @GetMapping("/logout")
+    public ResponseEntity<?> logout() { // 로그아웃
+        session.invalidate();
+
+        return ResponseEntity.ok(new ApiUtil<>("로그아웃 완료"));
+    }
+
+    @GetMapping("/api/users/{userId}") // 회원정보 조회
+    public ResponseEntity<?> profile(@PathVariable int userId) {
+        UserResponse.UserDTO respDTO = userService.getUser(userId);
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
+
+    @PutMapping("/api/users/{userId}") // 회원정보 수정
+    public ResponseEntity<?> update(@RequestBody UserRequest.UpdateDTO reqDTO) {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        SessionUser newSessionUser = userService.setUser(reqDTO, sessionUser.getId());
+        session.setAttribute("sessionUser", newSessionUser);
+
+        return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
+    }
+
     @PostMapping("/api/users/{userId}") // 사진 등록
     public ResponseEntity<?> uploadImg(@PathVariable int userId, @RequestBody UserRequest.ImgDTO reqDTO) throws IOException {
         UserResponse.ImgDTO respDTO = userService.setImg(reqDTO, userId); // TODO: userId -> sessionUserId
@@ -42,20 +65,6 @@ public class UserController {
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
-    @GetMapping("/api/users/{userId}") // 회원정보 조회
-    public ResponseEntity<?> profile(@PathVariable int userId) {
-        UserResponse.UserDTO respDTO = userService.getUser(userId);
-
-        return ResponseEntity.ok(new ApiUtil<>(respDTO));
-    }
-
-    @GetMapping("/logout")
-    public ResponseEntity<?> logout() { // 로그아웃
-        session.invalidate();
-
-        return ResponseEntity.ok(new ApiUtil<>("로그아웃 완료"));
-    }
-
     @GetMapping("/api/users/{userId}/orders") // 회원 주문내역 목록보기
     private ResponseEntity<?> orderList(@PathVariable int userId) {
         UserResponse.OrderListDTO respDTO = userService.getOrderList(userId);
@@ -68,14 +77,5 @@ public class UserController {
         UserResponse.OrderDetailDTO respDTO = userService.getOrderDetail(orderId);
 
         return ResponseEntity.ok(new ApiUtil(respDTO));
-    }
-
-    @PutMapping("/api/users/{userId}") // 회원정보 수정
-    public ResponseEntity<?> update(@RequestBody UserRequest.UpdateDTO reqDTO) {
-        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        SessionUser newSessionUser = userService.setUser(reqDTO, sessionUser.getId());
-        session.setAttribute("sessionUser", newSessionUser);
-
-        return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
     }
 }
