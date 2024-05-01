@@ -10,11 +10,11 @@ class StoreServiceTest {
     @Autowired
     StoreService storeService;
 
-    @Test
+    @Test // 점주 회원가입
     void createStore_test() {
         // given
         StoreRequest.JoinDTO reqDTO = new StoreRequest.JoinDTO();
-        reqDTO.setUsername("유저네임");
+        reqDTO.setUsername("아이디");
         reqDTO.setPassword("1234");
         reqDTO.setOwnerName("김성재");
         reqDTO.setOwnerTel("전화번호");
@@ -30,10 +30,10 @@ class StoreServiceTest {
         // when
         StoreResponse.JoinDTO respDTO = storeService.createStore(reqDTO);
         // then
-        Assertions.assertThat(respDTO.getOwnerName()).isEqualTo("성재");
+        Assertions.assertThat(respDTO.getOwnerName()).isEqualTo("김성재");
     }
 
-    @Test
+    @Test // 점주 로그인
     void getStore_test() {
         // given
         StoreRequest.LoginDTO reqDTO = new StoreRequest.LoginDTO();
@@ -42,31 +42,30 @@ class StoreServiceTest {
         // when
         SessionStore sessionStore = storeService.getStore(reqDTO);
         // then
-        Assertions.assertThat(sessionStore.getUsername()).isEqualTo("jake1");
+        Assertions.assertThat(sessionStore.getUsername()).isEqualTo("jake1234");
     }
 
-    @Test
+    @Test // 점주 주문내역 목록보기
     void getOrderList_test() {
         // given
         int storeId = 1;
         // when
         StoreResponse.OrderListDTO respDTO = storeService.getOrderList(storeId);
         // then
-        Assertions.assertThat(respDTO.getOrderList().size()).isEqualTo(1);
+        Assertions.assertThat(respDTO.getOrderList().size()).isEqualTo(5);
     }
 
-    @Test // Transaction(readOnly = true) 안하면 터짐. Lazy Initialization Exception
-    void getOrderDetail_test() {
+    @Test // 점주 주문내역 상세보기
+    void getOrderDetail_test() { // Transaction(readOnly = true) 필수. Or Lazy Initialization Exception
         // given
         int orderId = 1;
         // when
         StoreResponse.OrderDetailDTO respDTO = storeService.getOrderDetail(orderId);
-        System.out.println(respDTO.getOrderMenuList().size());
         // then
         Assertions.assertThat(respDTO.getOrderMenuList().size()).isEqualTo(3);
     }
 
-    @Test
+    @Test // 점주 메뉴 목록보기
     void getOwnerMenuList_test() {
         // given
         int storeId = 1;

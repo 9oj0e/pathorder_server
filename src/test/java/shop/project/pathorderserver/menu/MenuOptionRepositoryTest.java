@@ -9,18 +9,18 @@ import shop.project.pathorderserver._core.errors.exception.Exception404;
 import java.util.List;
 
 @DataJpaTest
-class MenuRepositoryTest {
+public class MenuOptionRepositoryTest {
     @Autowired
-    MenuRepository menuRepository;
+    MenuOptionRepository menuOptionRepository;
 
-    @Test // 매장 메뉴 목록보기
-    void findAllMenuByStoreId_test() {
+    @Test // 매장 메뉴 옵션보기
+    void findAllByMenuId_test() {
         // given
-        Integer storeId = 1;
+        Integer menuId = 1;
         // when
-        List<Menu> menus = menuRepository.findAllByStoreId(storeId)
-                .orElseThrow(() -> new Exception404("찾을 수 없는 메뉴"));
+        List<MenuOption> menuOptions = menuOptionRepository.findByMenuId(menuId)
+                .orElseThrow(() -> new Exception404("찾을 수 없는 메뉴 옵션"));
         // then
-        Assertions.assertThat(menus.size()).isEqualTo(5);
+        Assertions.assertThat(menuOptions.size()).isEqualTo(6);
     }
 }
