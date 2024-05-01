@@ -36,7 +36,7 @@ public class StoreOwnerController {
     @GetMapping("/stores/{storeId}/orders")
     private String orderList(@PathVariable int storeId, Model model) {
         StoreResponse.OrderListDTO orderList = storeService.getOrderList(storeId);
-        model.addAttribute("OrderList", orderList);
+        model.addAttribute("orderList", orderList);
 
         return "";
     }
@@ -51,7 +51,9 @@ public class StoreOwnerController {
     }
 
     @GetMapping("/stores/{storeId}/menus") // TODO: 매장 메뉴 목록보기
-    private String menuList(@PathVariable int menuId) {
+    private String menuList(@PathVariable int storeId, Model model) {
+        StoreResponse.OwnerMenuListDTO respDTO = storeService.getOwnerMenuList(storeId);
+        model.addAttribute("ownerMenuList", respDTO);
 
         return "";
     }

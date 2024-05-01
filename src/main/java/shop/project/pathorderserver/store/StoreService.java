@@ -26,22 +26,6 @@ public class StoreService {
     private final OrderRepository orderRepository;
     private final OrderMenuRepository orderMenuRepository;
 
-    // 매장 등록
-    public Store 매장등록(StoreRequest.매장등록 reqDTO) {
-        Store store = new Store(reqDTO);
-        storeRepository.save(store);
-
-        return store;
-    }
-
-    // 점주 로그인
-    public Store 로그인(StoreRequest.로그인 reqDTO) {
-        Store store = storeRepository.findByUsernameAndPassword(reqDTO.getUsername(), reqDTO.getPassword())
-                .orElseThrow(() -> new Exception401("유저네임 또는 패스워드가 일치하지 않습니다."));
-
-        return store;
-    }
-
     // 매장 목록보기
     public List<StoreResponse.ListingsDTO> getStoreList() {
         List<Store> stores = storeRepository.findAll();
@@ -92,7 +76,24 @@ public class StoreService {
         return new StoreResponse.MenuOptionDTO(store, menu, optionList);
     }
 
-    // 주문내역 목록보기 - 점주
+    // -------------------점주-------------------
+    // 매장 등록
+    public Store 매장등록(StoreRequest.매장등록 reqDTO) {
+        Store store = new Store(reqDTO);
+        storeRepository.save(store);
+
+        return store;
+    }
+
+    // 점주 로그인
+    public Store 로그인(StoreRequest.로그인 reqDTO) {
+        Store store = storeRepository.findByUsernameAndPassword(reqDTO.getUsername(), reqDTO.getPassword())
+                .orElseThrow(() -> new Exception401("유저네임 또는 패스워드가 일치하지 않습니다."));
+
+        return store;
+    }
+
+    // 주문내역 목록보기
     public StoreResponse.OrderListDTO getOrderList(int storeId) {
         List<Order> orderList = orderRepository.findByStoreId(storeId)
                 .orElseThrow(() -> new Exception404("주문 내역이 없습니다."));
@@ -100,7 +101,7 @@ public class StoreService {
         return new StoreResponse.OrderListDTO(orderList);
     }
 
-    // 주문내역 상세보기 - 점주
+    // 주문내역 상세보기
     public StoreResponse.OrderDetailDTO getOrderDetail(int orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 주문입니다."));
@@ -109,5 +110,13 @@ public class StoreService {
                 .orElseThrow(() -> new Exception404("찾을 수 없는 메뉴입니다."));
 
         return new StoreResponse.OrderDetailDTO(order, orderMenuList);
+    }
+
+    // 매장 메뉴보기
+    public StoreResponse.OwnerMenuListDTO getOwnerMenuList(int storeId) {
+        List<Menu> menuList = menuRepository.findAllByStoreId(storeId)
+                .orElseThrow(() -> new Exception404("메뉴를 찾을 수 없습니다."));
+
+        return new StoreResponse.OwnerMenuListDTO(menuList);
     }
 }

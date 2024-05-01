@@ -223,4 +223,28 @@ public class StoreResponse {
             }
         }
     }
+
+    @Data // 매장 메뉴보기 - 점주
+    public static class OwnerMenuListDTO {
+        private List<MenuDTO> menus;
+
+        public OwnerMenuListDTO(List<Menu> menus) {
+            this.menus = menus.stream().map(MenuDTO::new).toList();
+        }
+
+        @Data
+        private static class MenuDTO {
+            private int id;
+            private String imgFilename;
+            private String name;
+            private int price;
+
+            public MenuDTO(Menu menu) {
+                this.id = menu.getId();
+                this.imgFilename = menu.getImgFilename();
+                this.name = menu.getName();
+                this.price = menu.getPrice();
+            }
+        }
+    }
 }

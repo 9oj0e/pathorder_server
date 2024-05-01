@@ -67,4 +67,13 @@ class StoreServiceTest {
         storeService.getOrderDetail(orderId);
         // then
     }
+
+    @Test
+    void getOwnerMenuList_test() {
+        // given
+        int storeId = 1;
+        // when
+        storeService.getOwnerMenuList(storeId);
+        // then
+    }
 }
