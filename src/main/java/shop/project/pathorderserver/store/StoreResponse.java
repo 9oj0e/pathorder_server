@@ -4,7 +4,11 @@ import lombok.Data;
 import shop.project.pathorderserver._core.utils.FormatUtil;
 import shop.project.pathorderserver.menu.Menu;
 import shop.project.pathorderserver.menu.MenuOption;
+import shop.project.pathorderserver.order.Order;
+import shop.project.pathorderserver.order.OrderMenu;
+import shop.project.pathorderserver.order.OrderStatus;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class StoreResponse {
@@ -141,4 +145,30 @@ public class StoreResponse {
         }
     }
     // TODO: 수정된 주문 내용 (매장 측: 주문 상태 변경)
+
+    @Data // 주문내역 목록보기 - 점주
+    public static class OrderListDTO {
+        private List<OrderDTO> orders;
+
+        public OrderListDTO(List<Order> orders) {
+            this.orders = orders.stream().map(OrderDTO::new).toList();
+        }
+
+        @Data
+        public class OrderDTO {
+            private OrderStatus status;
+            private Timestamp createdAt;
+            private List<OrderMenu> orderMenus;
+            private int totalPrice;
+            private String customerNickname;
+
+            public OrderDTO(Order order) {
+                this.status = order.getStatus();
+                this.createdAt = order.getCreatedAt();
+                this.orderMenus = order.getOrderMenus();
+                this.totalPrice = order.getTotalPrice();
+                this.customerNickname = order.getCustomerNickname();
+            }
+        }
+    }
 }

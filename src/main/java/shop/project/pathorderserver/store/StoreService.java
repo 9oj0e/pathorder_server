@@ -9,6 +9,8 @@ import shop.project.pathorderserver.menu.Menu;
 import shop.project.pathorderserver.menu.MenuOptionRepository;
 import shop.project.pathorderserver.menu.MenuRepository;
 import shop.project.pathorderserver.menu.MenuOption;
+import shop.project.pathorderserver.order.Order;
+import shop.project.pathorderserver.order.OrderRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +21,7 @@ public class StoreService {
     private final StoreRepository storeRepository;
     private final MenuRepository menuRepository;
     private final MenuOptionRepository menuOptionRepository;
+    private final OrderRepository orderRepository;
 
     // 매장 등록
     public Store 매장등록(StoreRequest.매장등록 reqDTO) {
@@ -84,5 +87,13 @@ public class StoreService {
                 .orElseThrow(() -> new Exception404("찾을 수 없는 옵션입니다."));
 
         return new StoreResponse.MenuOptionDTO(store, menu, optionList);
+    }
+
+    // 주문내역 목록보기 - 점주
+    public StoreResponse.OrderListDTO getOrderList(int storeId) {
+        List<Order> orderList = orderRepository.findByStoreId(storeId)
+                .orElseThrow(() -> new Exception404("주문 내역이 없습니다."));
+
+        return new StoreResponse.OrderListDTO(orderList);
     }
 }

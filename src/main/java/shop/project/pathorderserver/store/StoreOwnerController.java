@@ -33,7 +33,9 @@ public class StoreOwnerController {
     }
 
     @GetMapping("/stores/{storeId}/orders") // TODO: 매장 주문내역 목록보기
-    private String orderList(@PathVariable int storeId) {
+    private String orderList(@PathVariable int storeId, Model model) {
+        StoreResponse.OrderListDTO orderList = storeService.getOrderList(storeId);
+        model.addAttribute("OrderList", orderList);
 
         return "";
     }
