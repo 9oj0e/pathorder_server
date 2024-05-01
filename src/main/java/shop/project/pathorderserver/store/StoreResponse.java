@@ -192,7 +192,7 @@ public class StoreResponse {
         }
 
         @Data
-        private class OrderMenuDTO {
+        private static class OrderMenuDTO {
             private String menuName;
             private int qty;
             private List<OrderMenuOptionDTO> orderMenuOptionList;
@@ -202,19 +202,19 @@ public class StoreResponse {
                 this.menuName = orderMenu.getName();
                 this.qty = orderMenu.getQty();
                 this.orderMenuOptionList = orderMenuOptions.stream().map(OrderMenuOptionDTO::new).toList();
-                this.menuAndOptionPrice = addmenuAndOptionPrice(orderMenu);
+                this.menuAndOptionPrice = addMenuAndOptionPrice(orderMenu);
             }
 
             @Data
-            public class OrderMenuOptionDTO {
-                private String OPtionName;
+            public static class OrderMenuOptionDTO {
+                private String OptionName;
 
                 public OrderMenuOptionDTO(OrderMenuOption orderMenuOption) {
-                    this.OPtionName = orderMenuOption.getName();
+                    this.OptionName = orderMenuOption.getName();
                 }
             }
 
-            private int addmenuAndOptionPrice(OrderMenu orderMenu) {
+            private int addMenuAndOptionPrice(OrderMenu orderMenu) {
                 int totalPrice = orderMenu.getPrice();
                 for (OrderMenuOption option : orderMenu.getOrderMenuOptions()) {
                     totalPrice += option.getPrice();

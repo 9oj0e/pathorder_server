@@ -41,7 +41,8 @@ public class StoreOwnerController {
         return "";
     }
 
-    @GetMapping("/stores/{storeId}/orders/{orderId}") // TODO: 매장 주문내역 상세보기
+    // 매장 주문내역 상세보기
+    @GetMapping("/stores/{storeId}/orders/{orderId}")
     private String orderDetail(@PathVariable int orderId, Model model) {
         StoreResponse.OrderDetailDTO orderDetail = storeService.getOrderDetail(orderId);
         model.addAttribute("orderDetail", orderDetail);
