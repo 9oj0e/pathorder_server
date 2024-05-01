@@ -215,6 +215,7 @@ public class UserResponse {
 
     @Data // 주문하기
     public static class OrderDTO {
+        private int id;
         private int storeId;
         private String storeName;
         private int customerId;
@@ -225,6 +226,7 @@ public class UserResponse {
         private List<OrderMenuDTO> orderMenuList;
 
         public OrderDTO(Order order, List<OrderMenu> orderMenus, List<OrderMenuOption> orderMenuOptions) {
+            this.id = order.getId();
             this.storeId = order.getStore().getId();
             this.storeName = order.getStoreName();
             this.customerId = order.getCustomer().getId();
