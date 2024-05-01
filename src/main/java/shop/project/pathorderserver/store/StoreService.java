@@ -78,17 +78,18 @@ public class StoreService {
 
     // -------------------점주-------------------
     // 매장 등록
-    public Store createStore(StoreRequest.JoinDTO reqDTO) {
+    public StoreResponse.JoinDTO createStore(StoreRequest.JoinDTO reqDTO) {
         Store store = new Store(reqDTO);
         storeRepository.save(store);
 
-        return store;
+        return new StoreResponse.JoinDTO(store);
     }
 
     // 점주 로그인
     public Store getStore(StoreRequest.LoginDTO reqDTO) {
         Store store = storeRepository.findByUsernameAndPassword(reqDTO.getUsername(), reqDTO.getPassword())
                 .orElseThrow(() -> new Exception401("유저네임 또는 패스워드가 일치하지 않습니다."));
+
 
         return store;
     }

@@ -13,6 +13,23 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class StoreResponse {
+    @Data
+    public static class JoinDTO {
+        // 회원 정보
+        private String username;
+        // 사업자 정보
+        private String ownerName;
+        private String bizNum;
+        // 매장 정보
+        private String name;
+
+        public JoinDTO(Store store) {
+            this.username = store.getUsername();
+            this.ownerName = store.getOwnerName();
+            this.bizNum = store.getBizNum();
+            this.name = store.getName();
+        }
+    }
 
     @Data // 매장 목록보기
     public static class ListingsDTO {
@@ -147,7 +164,7 @@ public class StoreResponse {
     }
     // TODO: 수정된 주문 내용 (매장 측: 주문 상태 변경)
 
-    @Data // 주문내역 목록보기 - 점주
+    @Data // 주문내역 목록보기
     public static class OrderListDTO {
         private List<OrderDTO> orders;
 
@@ -157,11 +174,13 @@ public class StoreResponse {
 
         @Data
         public class OrderDTO {
+            // 손님 정보
+            private String customerNickname;
+            // 주문 정보
             private OrderStatus status;
             private Timestamp createdAt;
             private List<OrderMenu> orderMenus;
             private int totalPrice;
-            private String customerNickname;
 
             public OrderDTO(Order order) {
                 this.status = order.getStatus();
@@ -175,9 +194,12 @@ public class StoreResponse {
 
     @Data // 주문내역 상세보기 - 점주
     public static class OrderDetailDTO {
-        private Timestamp createdAt;
+        // 손님 정보
+        private int customerId;
         private String customerNickname;
-        private String tel;
+        private String customerTel;
+        // 주문 정보
+        private Timestamp createdAt;
         private OrderStatus status;
         private List<OrderMenuDTO> orderMenuList;
         private int totalPrice;
@@ -185,7 +207,7 @@ public class StoreResponse {
         public OrderDetailDTO(Order order, List<OrderMenu> orderMenus) {
             this.createdAt = order.getCreatedAt();
             this.customerNickname = order.getCustomerNickname();
-            this.tel = order.getCustomer().getTel();
+            this.customerTel = order.getCustomer().getTel();
             this.status = order.getStatus();
             this.orderMenuList = orderMenus.stream().map(orderMenu -> new OrderMenuDTO(orderMenu, orderMenu.getOrderMenuOptions())).toList();
             this.totalPrice = order.getTotalPrice();
@@ -193,43 +215,39 @@ public class StoreResponse {
 
         @Data
         private static class OrderMenuDTO {
-            private String menuName;
-            private int qty;
+            private String name;
+            private int price;
             private List<OrderMenuOptionDTO> orderMenuOptionList;
-            private int menuAndOptionPrice;
+            private int qty;
+            private int totalPrice;
 
             public OrderMenuDTO(OrderMenu orderMenu, List<OrderMenuOption> orderMenuOptions) {
-                this.menuName = orderMenu.getName();
+                this.name = orderMenu.getName();
+                this.price = orderMenu.getPrice();
                 this.qty = orderMenu.getQty();
                 this.orderMenuOptionList = orderMenuOptions.stream().map(OrderMenuOptionDTO::new).toList();
-                this.menuAndOptionPrice = addMenuAndOptionPrice(orderMenu);
+                this.totalPrice = orderMenu.getTotalPrice();
             }
 
             @Data
             public static class OrderMenuOptionDTO {
-                private String OptionName;
+                private String name;
+                private int price;
 
                 public OrderMenuOptionDTO(OrderMenuOption orderMenuOption) {
-                    this.OptionName = orderMenuOption.getName();
+                    this.name = orderMenuOption.getName();
+                    this.price = orderMenuOption.getPrice();
                 }
-            }
-
-            private int addMenuAndOptionPrice(OrderMenu orderMenu) {
-                int totalPrice = orderMenu.getPrice();
-                for (OrderMenuOption option : orderMenu.getOrderMenuOptions()) {
-                    totalPrice += option.getPrice();
-                }
-                return totalPrice;
             }
         }
     }
 
     @Data // 매장 메뉴보기 - 점주
     public static class OwnerMenuListDTO {
-        private List<MenuDTO> menus;
+        private List<MenuDTO> menuList;
 
         public OwnerMenuListDTO(List<Menu> menus) {
-            this.menus = menus.stream().map(MenuDTO::new).toList();
+            this.menuList = menus.stream().map(MenuDTO::new).toList();
         }
 
         @Data

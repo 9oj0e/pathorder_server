@@ -10,12 +10,15 @@ import java.sql.Timestamp;
 public class StoreRequest {
     @Data
     public static class JoinDTO {
+        // 회원 정보
         private String username;
         private String password;
+        // 사업자 정보
         private String ownerName;
         private String ownerTel;
         private String ownerEmail;
         private String bizNum;
+        // 매장 정보
         private String name;
         private String tel;
         private String intro;
