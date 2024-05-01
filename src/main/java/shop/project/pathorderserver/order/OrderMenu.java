@@ -22,6 +22,8 @@ public class OrderMenu {
     // 메뉴 정보
     private String name; // 메뉴의 이름
     private int price; // 메뉴 하나의 가격
+    private int totalPrice = 0; // 옵션을 더한 가격
+    private int qty; // 개수
     // 참조 정보
     // private int menuId; // 참조할 메뉴의 아이디 (reqDTO, db, service 수정 필요)
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,5 +39,9 @@ public class OrderMenu {
         // this.menuId = reqDTO.getMenuId();
         this.name = reqDTO.getName();
         this.price = reqDTO.getPrice();
+        this.qty = reqDTO.getQty();
+    }
+    public void updateTotalPrice(int price) {
+        this.totalPrice += price;
     }
 }
