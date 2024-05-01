@@ -5,10 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 
 import java.sql.Timestamp;
 @NoArgsConstructor
 @Data
+@DynamicInsert
 @Entity
 @Table(name = "store_tb")
 public class Store {

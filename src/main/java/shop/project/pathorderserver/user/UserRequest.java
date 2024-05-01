@@ -53,9 +53,10 @@ public class UserRequest {
 
         @Data
         public static class OrderMenuDTO {
-            private int menuId;
+            // private int menuId; 참조한 메뉴 id?
             private String name;
             private int price;
+            private int qty;
             private List<OrderMenuOptionDTO> orderMenuOptionList;
         }
 

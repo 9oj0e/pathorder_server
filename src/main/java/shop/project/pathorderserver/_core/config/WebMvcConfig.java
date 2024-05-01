@@ -11,8 +11,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor())
-                //.addPathPatterns("/api/**") // TODO: 로그인 및 JWT 검증시, 주석 제거
-                //.addPathPatterns("/stores/**") // TODO: 로그인 및 JWT 검증시, 주석 제거
-                .excludePathPatterns("/**");
+                .addPathPatterns("/api/**")
+                .addPathPatterns("/stores/**"); // 점주 관리 페이지
     }
 }
