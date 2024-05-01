@@ -22,7 +22,7 @@ public class OrderMenu {
     // 메뉴 정보
     private String name; // 메뉴의 이름
     private int price; // 메뉴 하나의 가격
-    private int totalPrice; // 옵션을 더한 가격
+    // private int totalPrice; // 옵션을 더한 가격
     private int qty; // 개수
     // 참조 정보
     // private int menuId; // 참조할 메뉴의 아이디 (reqDTO, db, service 수정 필요)

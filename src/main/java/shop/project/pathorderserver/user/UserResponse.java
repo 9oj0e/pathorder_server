@@ -131,10 +131,14 @@ public class UserResponse {
         private class OrderMenuDTO {
             private int menuId;
             private String menuName;
+            private int menuPrice;
+            // private int totalPrice; // TODO: 메뉴의 총 가격으로 바꾸기
 
             private OrderMenuDTO(OrderMenu orderMenu) {
                 this.menuId = orderMenu.getId();
                 this.menuName = orderMenu.getName();
+                this.menuPrice = orderMenu.getPrice();
+                // this.totalPrice = orderMenu.getPrice(); // TODO: 총 가격 구하기
             }
         }
     }
@@ -162,14 +166,14 @@ public class UserResponse {
             private int menuId;
             private String menuName;
             private int menuPrice;
-            private int totalPrice;
+            // private int totalPrice; // TODO: 총 가격 구하기
             private List<OrderMenuOptionDTO> orderMenuOptionList;
 
             public OrderMenuDTO(OrderMenu orderMenu) {
                 this.menuId = orderMenu.getId();
                 this.menuName = orderMenu.getName();
-                this.menuPrice = orderMenu.getTotalPrice();
-                this.totalPrice = orderMenu.getTotalPrice();
+                this.menuPrice = orderMenu.getPrice();
+                // this.totalPrice = orderMenu.getTotalPrice(); // TODO: 총 가격 구하기
                 this.orderMenuOptionList = orderMenu.getOrderMenuOptions().stream().map(OrderMenuOptionDTO::new).toList();
                 List<Integer> optionPriceList = orderMenuOptionList.stream().map(OrderMenuOptionDTO::getPrice).toList();
                 for (int optionPrice : optionPriceList) {
@@ -250,7 +254,8 @@ public class UserResponse {
             public OrderMenuDTO(OrderMenu orderMenu, List<OrderMenuOption> orderMenuOptions) {
                 this.id = orderMenu.getId();
                 this.name = orderMenu.getName();
-                this.price = orderMenu.getTotalPrice();
+                this.price = orderMenu.getPrice();
+                // this.totalPrice TODO: 총 가격 구하기
                 for (int i = 0; i < orderMenuOptions.size(); i++) {
                     OrderMenuOptionDTO orderMenuOption = new OrderMenuOptionDTO(orderMenuOptions.get(i));
                     if (id == orderMenuOptions.get(i).getOrderMenu().getId()) {
