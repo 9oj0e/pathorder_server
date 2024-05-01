@@ -18,7 +18,7 @@ class StoreServiceTest {
     @Test
     void 매장등록_test() {
         // given
-        StoreRequest.매장등록 reqDTO = new StoreRequest.매장등록();
+        StoreRequest.JoinDTO reqDTO = new StoreRequest.JoinDTO();
         reqDTO.setUsername("유저네임");
         reqDTO.setPassword("1234");
         reqDTO.setOwnerName("김성재");
@@ -33,7 +33,7 @@ class StoreServiceTest {
         reqDTO.setClosedDay("휴무일");
         reqDTO.setAddress("주소");
         // when
-        Store store = storeService.매장등록(reqDTO);
+        Store store = storeService.createStore(reqDTO);
         // then
         Assertions.assertThat(store.getOwnerName()).isEqualTo("성재");
     }
@@ -41,11 +41,11 @@ class StoreServiceTest {
     @Test
     void 로그인() {
         // given
-        StoreRequest.로그인 reqDTO = new StoreRequest.로그인();
+        StoreRequest.LoginDTO reqDTO = new StoreRequest.LoginDTO();
         reqDTO.setUsername("jake1234");
         reqDTO.setPassword("1234");
         // when
-        Store store = storeService.로그인(reqDTO);
+        Store store = storeService.getStore(reqDTO);
         // then
         Assertions.assertThat(store.getUsername()).isEqualTo("jake1");
     }
