@@ -102,16 +102,20 @@ public class UserResponse {
 
         @Data
         private class OrderDTO {
-            private int id;
-            private Timestamp createdAt;
+            // 매장 정보
+            private int storeId;
             private String storeName;
-            private int totalPrice;
+            // 주문 정보
+            private int id;
             private OrderStatus status;
+            private Timestamp createdAt;
             private List<OrderListDTO.OrderMenuDTO> orderMenuList;
+            private int totalPrice;
 
             private OrderDTO(Order order) {
                 this.id = order.getId();
                 this.createdAt = order.getCreatedAt();
+                this.storeId = order.getStore().getId();
                 this.storeName = order.getStoreName();
                 this.totalPrice = order.getTotalPrice();
                 this.status = order.getStatus();
@@ -122,7 +126,7 @@ public class UserResponse {
                 return FormatUtil.decimalFormatter(totalPrice);
             }
 
-            public String getOrderTime() { // 월/일 시간:분:초
+            public String getCreatedAt() { // 월/일 시간:분:초
                 return FormatUtil.timeFormatter(createdAt);
             }
         }
@@ -131,18 +135,12 @@ public class UserResponse {
         private class OrderMenuDTO {
             private int id;
             private String name;
-            private int price;
             private int totalPrice;
 
             private OrderMenuDTO(OrderMenu orderMenu) {
                 this.id = orderMenu.getId();
                 this.name = orderMenu.getName();
-                this.price = orderMenu.getPrice();
                 this.totalPrice = orderMenu.getTotalPrice();
-            }
-
-            public String getPrice() { // 19500 -> 19,500 변환
-                return FormatUtil.decimalFormatter(price);
             }
 
             public String getTotalPrice() { // 19500 -> 19,500 변환
@@ -153,10 +151,13 @@ public class UserResponse {
 
     @Data // 주문내역 상세보기
     public static class OrderDetailDTO {
+        // 매장 정보
         private String storeName;
         private String storeTel;
-        private Timestamp createdAt;
+        // 주문 정보
         private String request;
+        private Timestamp createdAt;
+        private OrderStatus status;
         private List<OrderMenuDTO> orderMenuList;
         private int totalPrice;
 
@@ -164,6 +165,7 @@ public class UserResponse {
             this.storeName = order.getStoreName();
             this.storeTel = order.getStore().getTel();
             this.createdAt = order.getCreatedAt();
+            this.status = order.getStatus();
             this.request = order.getRequest();
             this.totalPrice = order.getTotalPrice();
             this.orderMenuList = orderMenus.stream().map(OrderMenuDTO::new).toList();
@@ -174,9 +176,9 @@ public class UserResponse {
             private int id;
             private String name;
             private int price;
+            private List<OrderMenuOptionDTO> orderMenuOptionList;
             private int qty;
             private int totalPrice;
-            private List<OrderMenuOptionDTO> orderMenuOptionList;
 
             public OrderMenuDTO(OrderMenu orderMenu) {
                 this.id = orderMenu.getId();
@@ -234,18 +236,18 @@ public class UserResponse {
 
     @Data // 주문하기
     public static class OrderDTO {
-        // 주문 정보
-        private int id;
-        private String request;
-        private int totalPrice;
-        private OrderStatus status;
-        private List<OrderMenuDTO> orderMenuList;
-        // 매장 정보
-        private int storeId;
-        private String storeName;
         // 손님 정보
         private int customerId;
         private String customerNickname;
+        // 매장 정보
+        private int storeId;
+        private String storeName;
+        // 주문 정보
+        private int id;
+        private String request;
+        private OrderStatus status;
+        private List<OrderMenuDTO> orderMenuList;
+        private int totalPrice;
 
         public OrderDTO(Order order, List<OrderMenu> orderMenus, List<OrderMenuOption> orderMenuOptions) {
             this.id = order.getId();
@@ -267,9 +269,9 @@ public class UserResponse {
             // private int menuId;
             private String name;
             private int price;
+            private List<OrderMenuOptionDTO> orderMenuOptionList = new ArrayList<>();
             private int qty;
             private int totalPrice;
-            private List<OrderMenuOptionDTO> orderMenuOptionList = new ArrayList<>();
 
             public OrderMenuDTO(OrderMenu orderMenu, List<OrderMenuOption> orderMenuOptions) {
                 this.id = orderMenu.getId();
