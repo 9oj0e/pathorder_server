@@ -4,11 +4,6 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import shop.project.pathorderserver.order.OrderRepository;
-
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class StoreServiceTest {
@@ -16,7 +11,7 @@ class StoreServiceTest {
     StoreService storeService;
 
     @Test
-    void 매장등록_test() {
+    void createStore_test() {
         // given
         StoreRequest.JoinDTO reqDTO = new StoreRequest.JoinDTO();
         reqDTO.setUsername("유저네임");
@@ -33,21 +28,21 @@ class StoreServiceTest {
         reqDTO.setClosedDay("휴무일");
         reqDTO.setAddress("주소");
         // when
-        Store store = storeService.createStore(reqDTO);
+        StoreResponse.JoinDTO respDTO = storeService.createStore(reqDTO);
         // then
-        Assertions.assertThat(store.getOwnerName()).isEqualTo("성재");
+        Assertions.assertThat(respDTO.getOwnerName()).isEqualTo("성재");
     }
 
     @Test
-    void 로그인() {
+    void getStore_test() {
         // given
         StoreRequest.LoginDTO reqDTO = new StoreRequest.LoginDTO();
         reqDTO.setUsername("jake1234");
         reqDTO.setPassword("1234");
         // when
-        Store store = storeService.getStore(reqDTO);
+        SessionStore sessionStore = storeService.getStore(reqDTO);
         // then
-        Assertions.assertThat(store.getUsername()).isEqualTo("jake1");
+        Assertions.assertThat(sessionStore.getUsername()).isEqualTo("jake1");
     }
 
     @Test
@@ -55,17 +50,20 @@ class StoreServiceTest {
         // given
         int storeId = 1;
         // when
-        StoreResponse.OrderListDTO store = storeService.getOrderList(storeId);
+        StoreResponse.OrderListDTO respDTO = storeService.getOrderList(storeId);
         // then
+        Assertions.assertThat(respDTO.getOrderList().size()).isEqualTo(1);
     }
 
-    @Test
+    @Test // Transaction(readOnly = true) 안하면 터짐. Lazy Initialization Exception
     void getOrderDetail_test() {
         // given
         int orderId = 1;
         // when
-        storeService.getOrderDetail(orderId);
+        StoreResponse.OrderDetailDTO respDTO = storeService.getOrderDetail(orderId);
+        System.out.println(respDTO.getOrderMenuList().size());
         // then
+        Assertions.assertThat(respDTO.getOrderMenuList().size()).isEqualTo(3);
     }
 
     @Test
@@ -73,7 +71,8 @@ class StoreServiceTest {
         // given
         int storeId = 1;
         // when
-        storeService.getOwnerMenuList(storeId);
+        StoreResponse.OwnerMenuListDTO respDTO = storeService.getOwnerMenuList(storeId);
         // then
+        Assertions.assertThat(respDTO.getMenuList().size()).isEqualTo(5);
     }
 }

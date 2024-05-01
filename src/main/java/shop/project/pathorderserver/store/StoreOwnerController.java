@@ -26,8 +26,8 @@ public class StoreOwnerController {
     // 점주 로그인
     @PostMapping("/stores/login")
     public String login(StoreRequest.LoginDTO reqDTO) {
-        Store sessionUser = storeService.getStore(reqDTO);
-        session.setAttribute("sessionUser", sessionUser);
+        SessionStore sessionStore = storeService.getStore(reqDTO);
+        session.setAttribute("sessionStore", sessionStore);
 
         return "";
     }

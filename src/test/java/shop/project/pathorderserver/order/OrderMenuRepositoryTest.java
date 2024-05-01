@@ -14,6 +14,6 @@ class OrderMenuRepositoryTest {
     @Test
     void findMenusById() {
         int orderId = 1;
-        orderMenuRepository.findMenusById(orderId);
+        orderMenuRepository.findAllByOrderId(orderId);
     }
 }

@@ -2,9 +2,11 @@ package shop.project.pathorderserver.store;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import shop.project.pathorderserver._core.errors.exception.Exception400;
 import shop.project.pathorderserver._core.errors.exception.Exception401;
 import shop.project.pathorderserver._core.errors.exception.Exception404;
+import shop.project.pathorderserver._core.utils.JwtUtil;
 import shop.project.pathorderserver.menu.Menu;
 import shop.project.pathorderserver.menu.MenuOptionRepository;
 import shop.project.pathorderserver.menu.MenuRepository;
@@ -86,12 +88,11 @@ public class StoreService {
     }
 
     // 점주 로그인
-    public Store getStore(StoreRequest.LoginDTO reqDTO) {
+    public SessionStore getStore(StoreRequest.LoginDTO reqDTO) {
         Store store = storeRepository.findByUsernameAndPassword(reqDTO.getUsername(), reqDTO.getPassword())
                 .orElseThrow(() -> new Exception401("유저네임 또는 패스워드가 일치하지 않습니다."));
 
-
-        return store;
+        return new SessionStore(store);
     }
 
     // 주문내역 목록보기
@@ -102,12 +103,12 @@ public class StoreService {
         return new StoreResponse.OrderListDTO(orderList);
     }
 
-    // 주문내역 상세보기
+    @Transactional(readOnly = true)// 주문내역 상세보기
     public StoreResponse.OrderDetailDTO getOrderDetail(int orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 주문입니다."));
 
-        List<OrderMenu> orderMenuList = orderMenuRepository.findMenusById(orderId)
+        List<OrderMenu> orderMenuList = orderMenuRepository.findAllByOrderId(orderId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 메뉴입니다."));
 
         return new StoreResponse.OrderDetailDTO(order, orderMenuList);

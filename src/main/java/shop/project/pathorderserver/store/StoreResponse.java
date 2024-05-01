@@ -166,10 +166,10 @@ public class StoreResponse {
 
     @Data // 주문내역 목록보기
     public static class OrderListDTO {
-        private List<OrderDTO> orders;
+        private List<OrderDTO> orderList;
 
         public OrderListDTO(List<Order> orders) {
-            this.orders = orders.stream().map(OrderDTO::new).toList();
+            this.orderList = orders.stream().map(OrderDTO::new).toList();
         }
 
         @Data
