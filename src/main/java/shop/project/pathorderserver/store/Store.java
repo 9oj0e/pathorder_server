@@ -44,7 +44,7 @@ public class Store {
     @CreationTimestamp
     private Timestamp registeredAt; // 가입일
 
-    public Store(StoreRequest.매장등록 reqDTO) {
+    public Store(StoreRequest.JoinDTO reqDTO) {
         this.username = reqDTO.getUsername();
         this.password = reqDTO.getPassword();
         this.ownerName = reqDTO.getOwnerName();

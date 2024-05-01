@@ -16,17 +16,17 @@ public class StoreOwnerController {
     private final HttpSession session;
 
     // 매장등록
-    @PostMapping("/stores/join") // TODO: 이름 고치기, return
-    public String join(StoreRequest.매장등록 reqDTO) {
-        storeService.매장등록(reqDTO);
+    @PostMapping("/stores/join")
+    public String join(StoreRequest.JoinDTO reqDTO) {
+        storeService.createStore(reqDTO);
 
         return "";
     }
 
     // 점주 로그인
     @PostMapping("/stores/login")
-    public String login(StoreRequest.로그인 reqDTO) {
-        Store sessionUser = storeService.로그인(reqDTO);
+    public String login(StoreRequest.LoginDTO reqDTO) {
+        Store sessionUser = storeService.getStore(reqDTO);
         session.setAttribute("sessionUser", sessionUser);
 
         return "";
@@ -50,7 +50,8 @@ public class StoreOwnerController {
         return "";
     }
 
-    @GetMapping("/stores/{storeId}/menus") // TODO: 매장 메뉴 목록보기
+    // 매장 메뉴 목록보기
+    @GetMapping("/stores/{storeId}/menus")
     private String menuList(@PathVariable int storeId, Model model) {
         StoreResponse.OwnerMenuListDTO respDTO = storeService.getOwnerMenuList(storeId);
         model.addAttribute("ownerMenuList", respDTO);

@@ -78,7 +78,7 @@ public class StoreService {
 
     // -------------------점주-------------------
     // 매장 등록
-    public Store 매장등록(StoreRequest.매장등록 reqDTO) {
+    public Store createStore(StoreRequest.JoinDTO reqDTO) {
         Store store = new Store(reqDTO);
         storeRepository.save(store);
 
@@ -86,7 +86,7 @@ public class StoreService {
     }
 
     // 점주 로그인
-    public Store 로그인(StoreRequest.로그인 reqDTO) {
+    public Store getStore(StoreRequest.LoginDTO reqDTO) {
         Store store = storeRepository.findByUsernameAndPassword(reqDTO.getUsername(), reqDTO.getPassword())
                 .orElseThrow(() -> new Exception401("유저네임 또는 패스워드가 일치하지 않습니다."));
 
@@ -112,7 +112,7 @@ public class StoreService {
         return new StoreResponse.OrderDetailDTO(order, orderMenuList);
     }
 
-    // 매장 메뉴보기
+    // 매장 메뉴 목록보기
     public StoreResponse.OwnerMenuListDTO getOwnerMenuList(int storeId) {
         List<Menu> menuList = menuRepository.findAllByStoreId(storeId)
                 .orElseThrow(() -> new Exception404("메뉴를 찾을 수 없습니다."));

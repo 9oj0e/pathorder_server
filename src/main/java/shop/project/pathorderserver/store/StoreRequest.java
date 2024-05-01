@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 
 public class StoreRequest {
     @Data
-    public static class 매장등록 { // TODO: 매장 등록
+    public static class JoinDTO {
         private String username;
         private String password;
         private String ownerName;
@@ -26,7 +26,7 @@ public class StoreRequest {
     }
 
     @Data
-    public static class 로그인 {
+    public static class LoginDTO {
         private String username;
         private String password;
     }
