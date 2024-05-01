@@ -6,6 +6,7 @@ import shop.project.pathorderserver.menu.Menu;
 import shop.project.pathorderserver.menu.MenuOption;
 import shop.project.pathorderserver.order.Order;
 import shop.project.pathorderserver.order.OrderMenu;
+import shop.project.pathorderserver.order.OrderMenuOption;
 import shop.project.pathorderserver.order.OrderStatus;
 
 import java.sql.Timestamp;
@@ -168,6 +169,57 @@ public class StoreResponse {
                 this.orderMenus = order.getOrderMenus();
                 this.totalPrice = order.getTotalPrice();
                 this.customerNickname = order.getCustomerNickname();
+            }
+        }
+    }
+
+    @Data // 주문내역 상세보기 - 점주
+    public static class OrderDetailDTO {
+        private Timestamp createdAt;
+        private String customerNickname;
+        private String tel;
+        private OrderStatus status;
+        private List<OrderMenuDTO> orderMenuList;
+        private int totalPrice;
+
+        public OrderDetailDTO(Order order, List<OrderMenu> orderMenus) {
+            this.createdAt = order.getCreatedAt();
+            this.customerNickname = order.getCustomerNickname();
+            this.tel = order.getCustomer().getTel();
+            this.status = order.getStatus();
+            this.orderMenuList = orderMenus.stream().map(orderMenu -> new OrderMenuDTO(orderMenu, orderMenu.getOrderMenuOptions())).toList();
+            this.totalPrice = order.getTotalPrice();
+        }
+
+        @Data
+        private class OrderMenuDTO {
+            private String menuName;
+            private int qty;
+            private List<OrderMenuOptionDTO> orderMenuOptionList;
+            private int menuAndOptionPrice;
+
+            public OrderMenuDTO(OrderMenu orderMenu, List<OrderMenuOption> orderMenuOptions) {
+                this.menuName = orderMenu.getName();
+                this.qty = orderMenu.getQty();
+                this.orderMenuOptionList = orderMenuOptions.stream().map(OrderMenuOptionDTO::new).toList();
+                this.menuAndOptionPrice = addmenuAndOptionPrice(orderMenu);
+            }
+
+            @Data
+            public class OrderMenuOptionDTO {
+                private String OPtionName;
+
+                public OrderMenuOptionDTO(OrderMenuOption orderMenuOption) {
+                    this.OPtionName = orderMenuOption.getName();
+                }
+            }
+
+            private int addmenuAndOptionPrice(OrderMenu orderMenu) {
+                int totalPrice = orderMenu.getPrice();
+                for (OrderMenuOption option : orderMenu.getOrderMenuOptions()) {
+                    totalPrice += option.getPrice();
+                }
+                return totalPrice;
             }
         }
     }

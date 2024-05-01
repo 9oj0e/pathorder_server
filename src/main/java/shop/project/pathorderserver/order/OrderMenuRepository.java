@@ -12,4 +12,8 @@ public interface OrderMenuRepository extends JpaRepository<OrderMenu, Integer> {
 
     @Query("SELECT o FROM OrderMenuOption o WHERE o.orderMenu.id = :orderMenuId")
     Optional<List<OrderMenuOption>> findAllOptionByMenuId(@Param("orderMenuId")int orderMenuId);
+
+    // orderMenuList
+    @Query("select o from OrderMenu o where o.id = :orderId")
+    Optional<List<OrderMenu>> findMenusById(@Param("orderId") Integer orderId);
 }

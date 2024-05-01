@@ -58,4 +58,13 @@ class StoreServiceTest {
         StoreResponse.OrderListDTO store = storeService.getOrderList(storeId);
         // then
     }
+
+    @Test
+    void getOrderDetail_test() {
+        // given
+        int orderId = 1;
+        // when
+        storeService.getOrderDetail(orderId);
+        // then
+    }
 }

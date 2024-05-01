@@ -32,7 +32,8 @@ public class StoreOwnerController {
         return "";
     }
 
-    @GetMapping("/stores/{storeId}/orders") // TODO: 매장 주문내역 목록보기
+    // 매장 주문내역 목록보기
+    @GetMapping("/stores/{storeId}/orders")
     private String orderList(@PathVariable int storeId, Model model) {
         StoreResponse.OrderListDTO orderList = storeService.getOrderList(storeId);
         model.addAttribute("OrderList", orderList);
@@ -41,7 +42,9 @@ public class StoreOwnerController {
     }
 
     @GetMapping("/stores/{storeId}/orders/{orderId}") // TODO: 매장 주문내역 상세보기
-    private String orderDetail(@PathVariable int orderId) {
+    private String orderDetail(@PathVariable int orderId, Model model) {
+        StoreResponse.OrderDetailDTO orderDetail = storeService.getOrderDetail(orderId);
+        model.addAttribute("orderDetail", orderDetail);
 
         return "";
     }
