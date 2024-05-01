@@ -152,9 +152,11 @@ public class UserResponse {
     @Data // 주문내역 상세보기
     public static class OrderDetailDTO {
         // 매장 정보
+        private int storeId;
         private String storeName;
         private String storeTel;
         // 주문 정보
+        private int id;
         private String request;
         private Timestamp createdAt;
         private OrderStatus status;
@@ -162,7 +164,9 @@ public class UserResponse {
         private int totalPrice;
 
         public OrderDetailDTO(Order order, List<OrderMenu> orderMenus) {
+            this.id = order.getId();
             this.storeName = order.getStoreName();
+            this.storeId = order.getStore().getId();
             this.storeTel = order.getStore().getTel();
             this.createdAt = order.getCreatedAt();
             this.status = order.getStatus();
