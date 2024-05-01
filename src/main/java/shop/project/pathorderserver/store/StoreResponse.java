@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class StoreResponse {
-    @Data
+    @Data // 매장 등록
     public static class JoinDTO {
         // 회원 정보
         private String username;
@@ -264,5 +264,45 @@ public class StoreResponse {
                 this.price = menu.getPrice();
             }
         }
+    }
+
+    @Data
+    public static class StoreDTO {
+        // TODO: 매장 정보 조회
+    }
+
+    @Data
+    public static class UpdateDTO {
+        // TODO: 매장 정보 수정
+    }
+
+    @Data
+    public static class MenuDTO {
+        // TODO: 매장 메뉴 등록
+    }
+
+    @Data
+    public static class CreateMenuDTO {
+        // TODO: 매장 메뉴 등록
+    }
+
+    @Data
+    public static class UpdateMenuDTO {
+        // TODO: 매장 메뉴 수정
+    }
+
+    @Data
+    public static class CreateMenuOptionDTO {
+        // TODO: 매장 메뉴 옵션 등록
+    }
+
+    @Data
+    public static class UpdateMenuOptionDTO {
+        // TODO: 매장 메뉴 옵션 수정
+    }
+
+    @Data
+    public static class UpdateOrderDTO {
+        // TODO: 주문 수정 (매장 측: 주문 상태 변경)
     }
 }

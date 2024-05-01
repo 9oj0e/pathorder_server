@@ -1,11 +1,6 @@
 package shop.project.pathorderserver.store;
 
-import jakarta.persistence.Column;
 import lombok.Data;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.CreationTimestamp;
-
-import java.sql.Timestamp;
 
 public class StoreRequest {
     @Data
@@ -33,12 +28,34 @@ public class StoreRequest {
         private String username;
         private String password;
     }
-    // TODO: 매장 정보 수정
-    // TODO: 매장 메뉴 등록
-    // TODO: 매장 메뉴 수정
-    // TODO: 매장 메뉴 삭제
-    // TODO: 매장 메뉴옵션 등록
-    // TODO: 매장 메뉴옵션 수정
-    // TODO: 매장 메뉴옵션 삭제
-    // TODO: 주문 수정 (매장 측: 주문 상태 변경)
+
+    @Data
+    public static class UpdateDTO {
+        // TODO: 매장 정보 수정
+    }
+
+    @Data
+    public static class CreateMenuDTO {
+        // TODO: 매장 메뉴 등록
+    }
+
+    @Data
+    public static class UpdateMenuDTO {
+        // TODO: 매장 메뉴 수정
+    }
+
+    @Data
+    public static class CreateMenuOptionDTO {
+        // TODO: 매장 메뉴 옵션 등록
+    }
+
+    @Data
+    public static class UpdateMenuOptionDTO {
+        // TODO: 매장 메뉴 옵션 수정
+    }
+
+    @Data
+    public static class UpdateOrderDTO {
+        // TODO: 주문 수정 (매장 측: 주문 상태 변경)
+    }
 }
