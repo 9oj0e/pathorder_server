@@ -27,15 +27,33 @@ public class UserResponse {
         }
     }
 
-    @Data // 로그인시
+    @Data
     public static class LoginDTO {
-        private int id;
-        private String nickname; // 닉네임 응답
+        private UserDTO user;
+        private String jwt;
 
-        @Builder
-        public LoginDTO(int id, String nickname) {
-            this.id = id;
-            this.nickname = nickname;
+        public LoginDTO(User user, String jwt) {
+            this.user = new UserDTO(user);
+            this.jwt = jwt;
+        }
+
+        @Data // 로그인시
+        public static class UserDTO {
+            private int id;
+            private String nickname;
+            private String name;
+            private String tel;
+            private String email;
+            private String imgFilename;
+
+            public UserDTO(User user) {
+                this.id = user.getId();
+                this.nickname = user.getNickname();
+                this.name = user.getName();
+                this.tel = user.getTel();
+                this.email = user.getEmail();
+                this.imgFilename = user.getImgFilename();
+            }
         }
     }
 
