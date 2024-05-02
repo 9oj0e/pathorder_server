@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class StoreServiceTest {
     @Autowired
     StoreService storeService;
+    @Autowired
+    StoreRepository storeRepository;
 
     @Test // 점주 회원가입
     void createStore_test() {
@@ -83,5 +85,20 @@ class StoreServiceTest {
         StoreResponse.StoreDTO respDTO = storeService.getStoreDetail(storeId);
         // then
         Assertions.assertThat(respDTO.getName()).isEqualTo("단밤 카페");
+    }
+
+    @Test // 매장정보 수정하기
+    void updateStore_test() {
+        // given
+        int sessionId = 1;
+        StoreRequest.UpdateDTO reqDTO = new StoreRequest.UpdateDTO();
+        reqDTO.setUsername("1234");
+        // when
+        // 변경 전 확인
+        // Store store = storeRepository.findById(sessionId).get();
+        // System.out.println("_test: " + store.getUsername());
+        SessionStore sessionStore = storeService.updateStore(sessionId, reqDTO);
+        // then
+        Assertions.assertThat(sessionStore.getUsername()).isEqualTo("1234");
     }
 }
