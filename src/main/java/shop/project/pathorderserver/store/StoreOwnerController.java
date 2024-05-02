@@ -30,10 +30,19 @@ public class StoreOwnerController {
     @GetMapping("/stores/{storeId}") // TODO: 매장 관리자 - 매장 정보 보기
     public String detail(@PathVariable int storeId) {
         // TODO: 권한 처리
-        SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
-        storeService.getStoreDetail(sessionStore.getId());
+//        SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
+//        storeService.getStoreDetail(sessionStore.getId());
 
-        return "";
+        return "store-info";
+    }
+
+    @GetMapping("/stores/{storeId}/update-form") // TODO: 매장 관리자 - 매장 정보 보기
+    public String updateForm(@PathVariable int storeId) {
+        // TODO: 권한 처리
+//        SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
+//        storeService.getStoreDetail(sessionStore.getId());
+
+        return "update-store-info-form";
     }
 
     @PutMapping("/stores/{storeId}") // TODO: 매장 관리자 - 매장 정보 수정
@@ -60,7 +69,7 @@ public class StoreOwnerController {
         StoreResponse.OwnerMenuListDTO respDTO = storeService.getMenuList(storeId);
         model.addAttribute("ownerMenuList", respDTO);
 
-        return "";
+        return "menus";
     }
 
     @GetMapping("/stores/{storeId}/menus/{menuId}") // TODO: 매장 관리자 - 메뉴 상세보기
@@ -121,13 +130,20 @@ public class StoreOwnerController {
         return "";
     }
 
+    @GetMapping("/") // TODO: 매장 관리자 - 현재 접수된 주문
+    private String orders() {
+        // TODO: 권한 처리
+
+        return "index";
+    }
+
     @GetMapping("/stores/{storeId}/orders") // TODO: 매장 관리자 - 주문내역 목록보기
     private String orderList(@PathVariable int storeId, Model model) {
         // TODO: 권한 처리
         StoreResponse.OrderListDTO respDTO = storeService.getOrderList(storeId);
         model.addAttribute("orderList", respDTO);
 
-        return "";
+        return "order-history";
     }
 
     @GetMapping("/stores/{storeId}/orders/{orderId}") // TODO: 매장 관리자 - 주문내역 상세보기
