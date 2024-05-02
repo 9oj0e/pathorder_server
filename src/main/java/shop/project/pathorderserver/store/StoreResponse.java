@@ -166,6 +166,7 @@ public class StoreResponse {
     /*------------------------------------------------------------------------------------- 매장 관리자 -----------------*/
     @Data // 매장 관리자 - 매장 정보 보기
     public static class StoreDTO {
+        private int id;
         // 매장 정보
         private String imgFilename;
         private String name;
@@ -185,6 +186,7 @@ public class StoreResponse {
         private String password;
 
         public StoreDTO(Store store) {
+            this.id = store.getId();
             this.imgFilename = store.getImgFilename();
             this.name = store.getName();
             this.tel = store.getTel();
