@@ -23,9 +23,9 @@ public class UserController {
 
     @PostMapping("/login") // 로그인 TODO: 비밀번호 암호화 하기
     public ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO reqDTO) {
-        String jwt = userService.getUser(reqDTO);
+        UserResponse.LoginDTO respDTO = userService.getUser(reqDTO);
 
-        return ResponseEntity.ok().header("Authorization", "Bearer" + jwt).body(new ApiUtil<>(null));
+        return ResponseEntity.ok().header("Authorization", "Bearer" + respDTO.getJwt()).body(new ApiUtil<>(respDTO.getUser()));
     }
 
     @GetMapping("/logout")

@@ -43,12 +43,12 @@ public class UserService {
     }
 
     // 로그인 TODO: 암호화
-    public String getUser(UserRequest.LoginDTO reqDTO) {
+    public UserResponse.LoginDTO getUser(UserRequest.LoginDTO reqDTO) {
         User user = userRepository.findByUsernameAndPassword(reqDTO.getUsername(), reqDTO.getPassword())
                 .orElseThrow(() -> new Exception401("아이디 또는 비밀번호가 틀렸습니다."));
         String jwt = JwtUtil.create(user);
 
-        return jwt;
+        return new UserResponse.LoginDTO(user, jwt);
     }
 
     // 회원정보 보기
