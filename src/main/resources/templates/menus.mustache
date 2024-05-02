@@ -1,20 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta name="description" content=""/>
-    <meta name="author" content=""/>
-    <title>패스오더점주</title>
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet"/>
-    <link href="/css/styles.css" rel="stylesheet"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-</head>
-
-<body class="sb-nav-fixed">
+{{>layout/header}}
 <!-- 메뉴 수정 모달 시작 -->
 <div class="modal fade" id="editMenuModal" tabindex="-1" aria-labelledby="editMenuModalLabel"
      data-bs-backdrop="static" aria-hidden="true">
@@ -111,41 +95,6 @@
     </div>
 </div>
 <!-- 메뉴 추가 모달 끝 -->
-<nav class="sb-topnav navbar navbar-expand navbar-dark navbar-custom d-flex justify-content-between">
-    <!-- Navbar Brand-->
-    <div class="navbar-btns d-flex align-items-end">
-        <div id="changeStoreStatusBtn" class="navbar-brand store-open-btn"
-             style="margin-right: 10px;padding:5.5px 10px; cursor: pointer; background-color: black;">
-            <div class="icon">
-                <i class="fa-solid fa-door-open"></i>
-            </div>
-            <div class="btn-title" id="storeStatusBtnText">매장 닫기</div>
-        </div>
-        <div>
-            <div class="d-flex align-items-center" style="margin-bottom: 5px;">
-                <div id="storeStateColor"
-                     style="background-color: rgb(93, 232, 50); width: 5px;height: 5px;border-radius: 50%; margin-right: 5px; color: rgba(255, 250, 250, 0);">
-                    .
-                </div>
-                <div id="storeStateText" style="font-size: 10px;">영업중</div>
-            </div>
-
-            <div class="navbar-brand d-flex refresh-btn align-items-center justify-content-between"
-                 style="border: 1px solid orange;border-radius: 10px;padding: 0 5px;margin-bottom: 5px; background-color: white;color: black; cursor: pointer;"
-                 id="refreshBtn">
-                <i class="fa-solid fa-arrows-rotate" style="width: 10px;"></i>
-                <div class="btn-title">새로고침</div>
-            </div>
-        </div>
-    </div>
-    <script>
-
-    </script>
-    <div class="digital-clock" style="padding-right: 10px;">
-        <div id="time" class="time"></div>
-    </div>
-    <!-- Navbar-->
-</nav>
 <div id="layoutSidenav">
     <div id="layoutSidenav_nav">
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion" style="position: relative;">
@@ -153,7 +102,7 @@
                 <div class="nav d-flex align-items-center" style="font-size: 20px;">
                     <div class="d-flex justify-content-center"
                          style="position: relative;border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px;">
-                        <a class="nav-link" href="#" style="padding: 20px;margin-right: 5px;">
+                        <a class="nav-link" href="/" style="padding: 20px;margin-right: 5px;">
                             주문
                         </a>
                         <div class="new-popup-count hidden" id="newPopupCount"
@@ -163,19 +112,22 @@
                     </div>
                     <div class="d-flex justify-content-center"
                          style="border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px;">
-                        <a class="nav-link" href="#">
+                        <!-- TODO: 매핑 1로 되어있음 -->
+                        <a class="nav-link" href="/stores/1/orders">
                             지난 주문
                         </a>
                     </div>
                     <div class="d-flex justify-content-center"
-                         style="border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px;background-color: rgb(5, 5, 43);">
-                        <a class="nav-link" href="#" style="color: #e6e6e6;">
+                         style="border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px; background-color: rgb(5, 5, 43); ">
+                        <!-- TODO: 매핑 1로 되어있음 -->
+                        <a class="nav-link" href="/stores/1/menus" style=" color: #e6e6e6;">
                             메뉴
                         </a>
                     </div>
                     <div class="d-flex justify-content-center"
                          style="border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px;">
-                        <a class="nav-link" href="#">
+                        <!-- TODO: 매핑 1로 되어있음 -->
+                        <a class="nav-link" href="/stores/1">
                             매장정보
                         </a>
                     </div>

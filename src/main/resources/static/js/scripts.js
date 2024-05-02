@@ -20,10 +20,10 @@ function setClock() {
 function modifyNumber(time) {
     if (parseInt(time) < 10) {
         return "0" + time;
-    }
-    else
+    } else
         return time;
 }
+
 $(function () {
     setClock();
     setInterval(setClock, 1000);
@@ -54,10 +54,11 @@ $(document).ready(function () {
 });
 
 // 주문 상세 모달
-$('#orderDetailModal').on('shown.bs.modal', function () {
-    $('#orderDetaiInput').focus();
-})
-
+$(document).ready(function () {
+    $('#orderDetailModal').on('shown.bs.modal', function () {
+        $('#orderDetaiInput').focus();
+    })
+});
 $(document).ready(function () {
     // 메뉴 추가 모달의 옵션 추가 기능
     $('#addOptionInAdd').on('click', function () {
