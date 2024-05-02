@@ -2,12 +2,13 @@ package shop.project.pathorderserver.store;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 
 import java.sql.Timestamp;
-
+@NoArgsConstructor
 @Data
 @DynamicInsert
 @Entity
@@ -44,4 +45,20 @@ public class Store {
 
     @CreationTimestamp
     private Timestamp registeredAt; // 가입일
+
+    public Store(StoreRequest.JoinDTO reqDTO) {
+        this.username = reqDTO.getUsername();
+        this.password = reqDTO.getPassword();
+        this.ownerName = reqDTO.getOwnerName();
+        this.ownerTel = reqDTO.getOwnerTel();
+        this.ownerEmail = reqDTO.getOwnerEmail();
+        this.bizNum = reqDTO.getBizNum();
+        this.name = reqDTO.getName();
+        this.tel = reqDTO.getTel();
+        this.intro = reqDTO.getIntro();
+        this.openingTime = reqDTO.getOpeningTime();
+        this.closingTime = reqDTO.getClosingTime();
+        this.closedDay = reqDTO.getClosedDay();
+        this.address = reqDTO.getAddress();
+    }
 }

@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import shop.project.pathorderserver._core.utils.ApiUtil;
-import shop.project.pathorderserver.order.OrderService;
 
 import java.io.IOException;
 
@@ -14,7 +13,6 @@ import java.io.IOException;
 public class UserController {
     private final HttpSession session;
     private final UserService userService;
-    private final OrderService orderService;
 
     @PostMapping("/join") // 회원가입
     public ResponseEntity<?> join(@RequestBody UserRequest.JoinDTO reqDTO) {
@@ -30,18 +28,11 @@ public class UserController {
         return ResponseEntity.ok().header("Authorization", "Bearer" + jwt).body(new ApiUtil<>(null));
     }
 
-    @PostMapping("/api/users/{userId}") // 사진 등록
-    public ResponseEntity<?> uploadImg(@PathVariable int userId, @RequestBody UserRequest.ImgDTO reqDTO) throws IOException {
-        UserResponse.ImgDTO respDTO = userService.setImg(reqDTO, userId); // TODO: userId -> sessionUserId
+    @GetMapping("/logout")
+    public ResponseEntity<?> logout() { // 로그아웃
+        session.invalidate();
 
-        return ResponseEntity.ok(new ApiUtil<>(respDTO));
-    }
-
-    @PostMapping("/api/users/{userId}/orders") // 주문하기
-    public ResponseEntity<?> order(@RequestBody UserRequest.OrderDTO reqDTO) {
-        UserResponse.OrderDTO respDTO = orderService.createOrder(reqDTO);
-
-        return ResponseEntity.ok(new ApiUtil(respDTO));
+        return ResponseEntity.ok(new ApiUtil<>("로그아웃 완료"));
     }
 
     @GetMapping("/api/users/{userId}") // 회원정보 조회
@@ -51,27 +42,6 @@ public class UserController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    @GetMapping("/logout")
-    public ResponseEntity<?> logout() { // 로그아웃
-        session.invalidate();
-
-        return ResponseEntity.ok(new ApiUtil<>("로그아웃 완료"));
-    }
-
-    @GetMapping("/api/users/{userId}/orders") // 회원 주문내역 목록보기
-    private ResponseEntity<?> orderList(@PathVariable int userId) {
-        UserResponse.OrderListDTO respDTO = orderService.getOrderList(userId);
-
-        return ResponseEntity.ok(new ApiUtil(respDTO));
-    }
-
-    @GetMapping("/api/users/{userId}/orders/{orderId}") // 회원 주문내역 상세보기
-    private ResponseEntity<?> orderDetail(@PathVariable int orderId) {
-        UserResponse.OrderDetailDTO respDTO = orderService.getOrderDetail(orderId);
-
-        return ResponseEntity.ok(new ApiUtil(respDTO));
-    }
-
     @PutMapping("/api/users/{userId}") // 회원정보 수정
     public ResponseEntity<?> update(@RequestBody UserRequest.UpdateDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
@@ -79,5 +49,33 @@ public class UserController {
         session.setAttribute("sessionUser", newSessionUser);
 
         return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
+    }
+
+    @PostMapping("/api/users/{userId}") // 사진 등록
+    public ResponseEntity<?> uploadImg(@PathVariable int userId, @RequestBody UserRequest.ImgDTO reqDTO) throws IOException {
+        UserResponse.ImgDTO respDTO = userService.setImg(reqDTO, userId); // TODO: userId -> sessionUserId
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
+
+    @PostMapping("/api/users/{userId}/orders") // 주문하기
+    public ResponseEntity<?> order(@RequestBody UserRequest.OrderDTO reqDTO) {
+        UserResponse.OrderDTO respDTO = userService.createOrder(reqDTO);
+
+        return ResponseEntity.ok(new ApiUtil(respDTO));
+    }
+
+    @GetMapping("/api/users/{userId}/orders") // 회원 주문내역 목록보기
+    private ResponseEntity<?> orderList(@PathVariable int userId) {
+        UserResponse.OrderListDTO respDTO = userService.getOrderList(userId);
+
+        return ResponseEntity.ok(new ApiUtil(respDTO));
+    }
+
+    @GetMapping("/api/users/{userId}/orders/{orderId}") // 회원 주문내역 상세보기
+    private ResponseEntity<?> orderDetail(@PathVariable int orderId) {
+        UserResponse.OrderDetailDTO respDTO = userService.getOrderDetail(orderId);
+
+        return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 }

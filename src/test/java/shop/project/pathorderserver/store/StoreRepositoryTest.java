@@ -4,27 +4,45 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import shop.project.pathorderserver._core.errors.exception.Exception404;
 
 import java.util.List;
-import java.util.Optional;
 
 @DataJpaTest
 class StoreRepositoryTest {
     @Autowired
     private StoreRepository storeRepository;
 
-    @Test
+    @Test // 매장 목록보기
     void findAll_test() {
-        Optional<List<Store>> storeList = Optional.of(storeRepository.findAll());
-        Assertions.assertThat(storeList.get().size()).isEqualTo(5);
-        Assertions.assertThat(storeList.get().getFirst().getName()).isEqualTo("단밤 카페");
+        // when
+        List<Store> stores = storeRepository.findAll();
+        // then
+        Assertions.assertThat(stores.size()).isEqualTo(5);
+        Assertions.assertThat(stores.getFirst().getName()).isEqualTo("단밤 카페");
+    }
+
+    @Test // 매장 정보보기
+    public void findById_test() {
+        // given
+        int storeId = 1;
+        // when
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new Exception404("찾을 수 없는 매장"));
+        // then
+        Assertions.assertThat(store.getName()).isEqualTo("단밤 카페");
+        Assertions.assertThat(store.getOwnerName()).isEqualTo("조정현");
     }
 
     @Test
-    public void findById_test() {
-        int storeId = 1;
-        Optional<Store> storeOP = storeRepository.findById(storeId);
-        Assertions.assertThat(storeOP.get().getName()).isEqualTo("단밤 카페");
-        Assertions.assertThat(storeOP.get().getUsername()).isEqualTo("조정현");
+    public void findByUsernameAndPassword_test() {
+        //given
+        String username = "jake1234";
+        String password = "1234";
+        //when
+        Store store = storeRepository.findByUsernameAndPassword(username, password)
+                .orElseThrow(() -> new Exception404("찾을 수 없는 계정"));
+        //then
+        Assertions.assertThat(store.getUsername()).isEqualTo("jake1234");
     }
 }
