@@ -164,8 +164,42 @@ public class StoreResponse {
     }
 
     /*------------------------------------------------------------------------------------- 매장 관리자 -----------------*/
-    @Data // TODO: 매장 관리자 - 매장 정보 보기
+    @Data // 매장 관리자 - 매장 정보 보기
     public static class StoreDTO {
+        // 매장 정보
+        private String imgFilename;
+        private String name;
+        private String tel;
+        private String intro;
+        private String openingTime;
+        private String closingTime;
+        private String closedDay;
+        private String address;
+        // 사업자 정보
+        private String ownerName;
+        private String ownerTel;
+        private String ownerEmail;
+        private String bizNum;
+        // 로그인 정보
+        private String username;
+        private String password;
+
+        public StoreDTO(Store store) {
+            this.imgFilename = store.getImgFilename();
+            this.name = store.getName();
+            this.tel = store.getTel();
+            this.intro = store.getIntro();
+            this.openingTime = store.getOpeningTime();
+            this.closingTime = store.getClosingTime();
+            this.closedDay = store.getClosedDay();
+            this.address = store.getAddress();
+            this.ownerName = store.getOwnerName();
+            this.ownerTel = store.getOwnerTel();
+            this.ownerEmail = store.getOwnerEmail();
+            this.bizNum = store.getBizNum();
+            this.username = store.getUsername();
+            this.password = store.getPassword();
+        }
     }
 
     @Data // TODO: 매장 메뉴 등록

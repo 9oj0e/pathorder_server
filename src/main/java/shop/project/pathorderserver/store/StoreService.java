@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.project.pathorderserver._core.errors.exception.Exception401;
+import shop.project.pathorderserver._core.errors.exception.Exception403;
 import shop.project.pathorderserver._core.errors.exception.Exception404;
 import shop.project.pathorderserver.menu.Menu;
 import shop.project.pathorderserver.menu.MenuOption;
@@ -94,8 +95,10 @@ public class StoreService {
 
     // TODO: 매장 관리자 - 매장 정보 보기
     public StoreResponse.StoreDTO getStoreDetail(int storeId) {
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new Exception403("조회할 권한이 없습니다."));
 
-        return new StoreResponse.StoreDTO();
+        return new StoreResponse.StoreDTO(store);
     }
 
     @Transactional // TODO: 매장 관리자 - 매장 정보 수정하기
