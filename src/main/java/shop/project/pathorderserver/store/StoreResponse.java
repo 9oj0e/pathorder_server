@@ -32,14 +32,14 @@ public class StoreResponse {
     }
 
     @Data // 매장 목록보기
-    public static class ListingsDTO {
+    public static class StoreListDTO {
         private int id;
         private String imgFilename;
         private String name;
         private int distance; // 거리 계산 TODO: 지도 api
         private int likeCount;
 
-        public ListingsDTO(Store store) {
+        public StoreListDTO(Store store) {
             this.id = store.getId();
             this.imgFilename = store.getImgFilename();
             this.name = store.getName();
@@ -49,7 +49,7 @@ public class StoreResponse {
     }
 
     @Data // 매장 상세보기
-    public static class InfoDTO {
+    public static class StoreInfoDTO {
         private int id;
         private String imgFilename;
         private String name;
@@ -59,7 +59,7 @@ public class StoreResponse {
         private String closedDay;
         private String address;
 
-        public InfoDTO(Store store) {
+        public StoreInfoDTO(Store store) {
             this.id = store.getId();
             this.imgFilename = store.getImgFilename();
             this.name = store.getName();
@@ -72,13 +72,13 @@ public class StoreResponse {
     }
 
     @Data // 매장 상세보기 - 사업자 정보
-    public static class BizInfoDTO {
+    public static class StoreBizInfoDTO {
         private String ownerName;
         private String ownerTel;
         private String ownerEmail;
         private String bizNum;
 
-        public BizInfoDTO(Store store) {
+        public StoreBizInfoDTO(Store store) {
             this.ownerName = store.getOwnerName();
             this.ownerTel = store.getTel();
             this.ownerEmail = store.getOwnerEmail();
@@ -91,14 +91,14 @@ public class StoreResponse {
     }
 
     @Data // 매장 메뉴 목록보기
-    public static class MenuListDTO {
+    public static class StoreMenuListDTO {
         // 매장 정보
         private int storeId;
         private String storeName;
         // 메뉴 정보
         private List<MenuDTO> menuList;
 
-        public MenuListDTO(Store store, List<Menu> menus) {
+        public StoreMenuListDTO(Store store, List<Menu> menus) {
             this.storeId = store.getId();
             this.storeName = store.getName();
             this.menuList = menus.stream().map(MenuDTO::new).toList();
@@ -125,7 +125,7 @@ public class StoreResponse {
     }
 
     @Data // 메뉴 옵션보기
-    public static class MenuOptionDTO {
+    public static class StoreMenuOptionDTO {
         // 매장 정보
         private int storeId;
         private String storeName;
@@ -137,7 +137,7 @@ public class StoreResponse {
         // 옵션 정보
         private List<OptionDTO> optionList;
 
-        public MenuOptionDTO(Store store, Menu menu, List<MenuOption> options) {
+        public StoreMenuOptionDTO(Store store, Menu menu, List<MenuOption> options) {
             this.storeId = store.getId();
             this.storeName = store.getName();
             this.menuId = menu.getId();
@@ -162,18 +162,16 @@ public class StoreResponse {
             }
         }
     }
-    /*------------------------------------------------------------------------------------- 매장 관리자 -----------------*/
-    @Data // TODO: 매장 정보 조회
-    public static class StoreDTO {
-    }
 
-    @Data // TODO: 매장 정보 수정
-    public static class UpdateDTO {
+    /*------------------------------------------------------------------------------------- 매장 관리자 -----------------*/
+    @Data // TODO: 매장 관리자 - 매장 정보 보기
+    public static class StoreDTO {
     }
 
     @Data // TODO: 매장 메뉴 등록
     public static class CreateMenuDTO {
     }
+
     @Data // 매장 관리자 - 메뉴 목록보기
     public static class OwnerMenuListDTO {
         private List<MenuDTO> menuList;
@@ -196,6 +194,10 @@ public class StoreResponse {
                 this.price = menu.getPrice();
             }
         }
+    }
+
+    @Data // TODO: 매장 메뉴 수정
+    public static class MenuDTO {
     }
 
     @Data // TODO: 매장 메뉴 수정

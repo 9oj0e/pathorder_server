@@ -6,9 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 import shop.project.pathorderserver._core.errors.exception.Exception401;
 import shop.project.pathorderserver._core.errors.exception.Exception404;
 import shop.project.pathorderserver.menu.Menu;
+import shop.project.pathorderserver.menu.MenuOption;
 import shop.project.pathorderserver.menu.MenuOptionRepository;
 import shop.project.pathorderserver.menu.MenuRepository;
-import shop.project.pathorderserver.menu.MenuOption;
 import shop.project.pathorderserver.order.Order;
 import shop.project.pathorderserver.order.OrderMenu;
 import shop.project.pathorderserver.order.OrderMenuRepository;
@@ -26,30 +26,30 @@ public class StoreService {
     private final OrderMenuRepository orderMenuRepository;
 
     // 매장 목록보기
-    public List<StoreResponse.ListingsDTO> getStoreList() {
+    public List<StoreResponse.StoreListDTO> getStoreList() {
         List<Store> stores = storeRepository.findAll();
 
-        return stores.stream().map(StoreResponse.ListingsDTO::new).toList();
+        return stores.stream().map(StoreResponse.StoreListDTO::new).toList();
     }
 
     // 매장 상세보기
-    public StoreResponse.InfoDTO getStoreInfo(int storeId) {
+    public StoreResponse.StoreInfoDTO getStoreInfo(int storeId) {
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 매장입니다."));
 
-        return new StoreResponse.InfoDTO(store);
+        return new StoreResponse.StoreInfoDTO(store);
     }
 
     // 매장 상세보기 - 사업자 정보
-    public StoreResponse.BizInfoDTO getStoreBizInfo(int storeId) {
+    public StoreResponse.StoreBizInfoDTO getStoreBizInfo(int storeId) {
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 매장입니다."));
 
-        return new StoreResponse.BizInfoDTO(store);
+        return new StoreResponse.StoreBizInfoDTO(store);
     }
 
     // 매장 메뉴보기
-    public StoreResponse.MenuListDTO getStoreMenuList(int storeId) {
+    public StoreResponse.StoreMenuListDTO getStoreMenuList(int storeId) {
         Store store // 매장 정보
                 = storeRepository.findById(storeId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 매장입니다."));
@@ -57,11 +57,11 @@ public class StoreService {
                 = menuRepository.findAllByStoreId(storeId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 메뉴입니다."));
 
-        return new StoreResponse.MenuListDTO(store, menus);
+        return new StoreResponse.StoreMenuListDTO(store, menus);
     }
 
     // 매장 메뉴 옵션보기
-    public StoreResponse.MenuOptionDTO getStoreMenuDetail(int storeId, int menuId) {
+    public StoreResponse.StoreMenuOptionDTO getStoreMenuDetail(int storeId, int menuId) {
         Store store // 매장 정보
                 = storeRepository.findById(storeId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 매장입니다."));
@@ -72,7 +72,7 @@ public class StoreService {
                 = menuOptionRepository.findByMenuId(menuId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 옵션입니다."));
 
-        return new StoreResponse.MenuOptionDTO(store, menu, optionList);
+        return new StoreResponse.StoreMenuOptionDTO(store, menu, optionList);
     }
 
     /*------------------------------------------------------------------------------------- 매장 관리자 -----------------*/
@@ -92,16 +92,22 @@ public class StoreService {
         return new SessionStore(store);
     }
 
-    // TODO: 매장 관리자 정보 보기
-    public void getStoreDetail(int storeId) {
+    // TODO: 매장 관리자 - 매장 정보 보기
+    public StoreResponse.StoreDTO getStoreDetail(int storeId) {
+
+        return new StoreResponse.StoreDTO();
     }
 
-    @Transactional // TODO: 매장 관리자 정보 수정하기
-    public void updateStore(StoreRequest.UpdateDTO reqDTO) {
+    @Transactional // TODO: 매장 관리자 - 매장 정보 수정하기
+    public SessionStore updateStore(int sessionStoreId, StoreRequest.UpdateDTO reqDTO) {
+
+        return new SessionStore();
     }
 
     @Transactional // TODO: 매장 관리자 - 메뉴 등록하기
-    public void createMenu() {
+    public StoreResponse.CreateMenuDTO createMenu(StoreRequest.CreateMenuDTO reqDTO) {
+
+        return new StoreResponse.CreateMenuDTO();
     }
 
     // 매장 관리자 - 메뉴 목록보기
@@ -112,32 +118,41 @@ public class StoreService {
         return new StoreResponse.OwnerMenuListDTO(menuList);
     }
 
-    // TODO: 매장 관리자 - 메뉴 상세보기
-    public void getMenuDetail() {
+    // TODO: 매장 관리자 - 메뉴 정보 및 옵션 보기
+    public StoreResponse.MenuDTO getMenuDetail(int menuId) {
+
+        return new StoreResponse.MenuDTO();
     }
 
     @Transactional // TODO: 매장 관리자 - 메뉴 수정하기
-    public void updateMenu() {
+    public StoreResponse.UpdateMenuDTO updateMenu(StoreRequest.UpdateMenuDTO reqDTO) {
+
+        return new StoreResponse.UpdateMenuDTO();
     }
 
     @Transactional // TODO: 매장 관리자 - 메뉴 삭제하기
-    public void deleteMenu() {
+    public void deleteMenu(int menuId) {
     }
 
     @Transactional // TODO: 매장 관리자 - 메뉴 옵션 등록하기
-    public void createMenuOption() {
+    public StoreResponse.CreateMenuOptionDTO createMenuOption(StoreRequest.CreateMenuOptionDTO reqDTO) {
+
+        return new StoreResponse.CreateMenuOptionDTO();
     }
 
+    /* 메뉴 옵션은 메뉴 상세보기에서 처리?
     // TODO: 매장 관리자 - 메뉴 옵션 목록보기
-    public void getMenuOptionList() {
+    public void getMenuOptionList(int menuId) {
     }
-
+    */
     @Transactional // TODO: 매장 관리자 - 메뉴 옵션 수정하기
-    public void updateMenuOption() {
+    public StoreResponse.UpdateMenuOptionDTO updateMenuOption(StoreRequest.UpdateMenuOptionDTO reqDTO) {
+
+        return new StoreResponse.UpdateMenuOptionDTO();
     }
 
     @Transactional // TODO: 매장 관리자 - 메뉴 옵션 삭제하기
-    public void deleteMenuOption() {
+    public void deleteMenuOption(int menuOptionId) {
     }
 
     // 매장 관리자 - 주문내역 목록보기
@@ -160,6 +175,8 @@ public class StoreService {
     }
 
     @Transactional // TODO: 매장 관리자 - 주문 업데이트
-    public void updateOrder() {
+    public StoreResponse.UpdateOrderDTO updateOrder(StoreRequest.UpdateOrderDTO reqDTO) {
+
+        return new StoreResponse.UpdateOrderDTO();
     }
 }
