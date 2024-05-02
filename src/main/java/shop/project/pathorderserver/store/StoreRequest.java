@@ -14,6 +14,7 @@ public class StoreRequest {
         private String ownerEmail;
         private String bizNum;
         // 매장 정보
+        private String imgFilename;
         private String name;
         private String tel;
         private String intro;
@@ -40,6 +41,7 @@ public class StoreRequest {
         private String ownerEmail;
         private String bizNum;
         // 매장 정보
+        private String imgFilename;
         private String name;
         private String tel;
         private String intro;
