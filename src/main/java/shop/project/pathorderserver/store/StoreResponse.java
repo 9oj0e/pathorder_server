@@ -326,7 +326,8 @@ public class StoreResponse {
         }
     }
 
-    @Data // TODO: 매장 주문 업데이트
+    @Data // 매장 주문 업데이트
     public static class UpdateOrderDTO {
+        private OrderStatus status;
     }
 }
