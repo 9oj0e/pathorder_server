@@ -28,10 +28,10 @@ public class StoreOwnerController {
     }
 
     @GetMapping("/stores/{storeId}") // TODO: 매장 관리자 - 매장 정보 보기
-    public String detail(@PathVariable int storeId) {
+    public String detail(@PathVariable int storeId, Model model) {
         // TODO: 권한 처리
-//        SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
-//        storeService.getStoreDetail(sessionStore.getId());
+        StoreResponse.StoreDTO respDTO = storeService.getStoreDetail(storeId);
+        model.addAttribute("storeDetail", respDTO);
 
         return "store-info";
     }
@@ -45,7 +45,7 @@ public class StoreOwnerController {
         return "update-store-info-form";
     }
 
-    @PutMapping("/stores/{storeId}") // TODO: 매장 관리자 - 매장 정보 수정
+    @PostMapping("/stores/{storeId}") // TODO: 매장 관리자 - 매장 정보 수정
     public String update(@PathVariable int storeId, StoreRequest.UpdateDTO reqDTO) {
         // TODO: 권한 처리
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");

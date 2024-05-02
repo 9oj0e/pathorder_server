@@ -74,4 +74,14 @@ class StoreServiceTest {
         // then
         Assertions.assertThat(respDTO.getMenuList().size()).isEqualTo(5);
     }
+
+    @Test // 점주 매장 정보 상세보기
+    void getStoreDetail() {
+        // given
+        int storeId = 1;
+        // when
+        StoreResponse.StoreDTO respDTO = storeService.getStoreDetail(storeId);
+        // then
+        Assertions.assertThat(respDTO.getName()).isEqualTo("단밤 카페");
+    }
 }
