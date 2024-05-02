@@ -1,6 +1,7 @@
 package shop.project.pathorderserver.store;
 
 import lombok.Data;
+import shop.project.pathorderserver.order.OrderStatus;
 
 public class StoreRequest {
     @Data // 매장 관리자 등록하기
@@ -69,5 +70,6 @@ public class StoreRequest {
 
     @Data // TODO: 매장 관리자 - 주문 업데이트
     public static class UpdateOrderDTO {
+        private OrderStatus status;
     }
 }
