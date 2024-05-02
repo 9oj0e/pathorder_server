@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>패스오더점주</title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark navbar-custom d-flex justify-content-between">
+        <!-- Navbar Brand-->
+        <div class="navbar-btns d-flex align-items-end">
+            <div id="changeStoreStatusBtn" class="navbar-brand store-open-btn"
+                style="margin-right: 10px;padding:5.5px 10px; cursor: pointer; background-color: black;">
+                <div class="icon">
+                    <i class="fa-solid fa-door-open"></i>
+                </div>
+                <div class="btn-title" id="storeStatusBtnText">매장 닫기</div>
+            </div>
+            <div>
+                <div class="d-flex align-items-center" style="margin-bottom: 5px;">
+                    <div id="storeStateColor"
+                        style="background-color: rgb(93, 232, 50); width: 5px;height: 5px;border-radius: 50%; margin-right: 5px; color: rgba(255, 250, 250, 0);">
+                        .
+                    </div>
+                    <div id="storeStateText" style="font-size: 10px;">영업중</div>
+                </div>
+
+                <div class="navbar-brand d-flex refresh-btn align-items-center justify-content-between"
+                    style="border: 1px solid orange;border-radius: 10px;padding: 0 5px;margin-bottom: 5px; background-color: white;color: black; cursor: pointer;"
+                    id="refreshBtn">
+                    <i class="fa-solid fa-arrows-rotate" style="width: 10px;"></i>
+                    <div class="btn-title">새로고침</div>
+                </div>
+            </div>
+        </div>
+        <div class="digital-clock" style="padding-right: 10px;">
+            <div id="time" class="time"></div>
+        </div>
+        <!-- Navbar-->
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion" style="position: relative;">
+                <div class="sb-sidenav-menu">
+                    <div class="nav d-flex align-items-center" style="font-size: 20px;">
+                        <div class="d-flex justify-content-center"
+                            style="border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px;">
+                            <a class="nav-link" href="#">
+                                주문
+                            </a>
+                            <div class="new-popup-count hidden" id="newPopupCount"
+                                style="position: absolute;top: 50px;right: 70px;background-color: orange;border-radius: 5px;padding: 0 4px;font-size: 10px;color: black;">
+                                17</div>
+                        </div>
+                        <div class="d-flex justify-content-center"
+                            style="border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px;">
+                            <a class="nav-link" href="#">
+                                지난 주문
+                            </a>
+                        </div>
+                        <div class="d-flex justify-content-center"
+                            style="border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px;">
+                            <a class="nav-link" href="#">
+                                메뉴
+                            </a>
+                        </div>
+                        <div class="d-flex justify-content-center"
+                            style="position: relative;border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px; background-color: rgb(5, 5, 43); ">
+                            <a class="nav-link" href="#" style="padding: 20px;margin-right: 5px; color: #e6e6e6;">
+                                매장정보
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+
+                <head>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                </head>
+                <div class="container d-flex">
+                    <div class=" mx-2 pb-4 w-100">
+                        <div class="border border-tertiary p-5 rounded shadow" style="background-color: white;">
+                            <div class="d-flex justify-content-between">
+                                <h1>정보수정</h1>
+                            </div>
+                            <hr />
+                            <div>
+                                <div class="container text ">
+                                    <form action="" method="post" enctype="multipart/form-data">
+                                        <input type="hidden" id="id" name="id" value="1">
+                                        <div class="px-5">
+                                            <h4 class="border-bottom pb-4">매장 정보</h4>
+                                            <br>
+                                            <!-- 이미지 업로드 시작 -->
+                                            <div class="upload d-flex justify-content-center mb-3">
+                                                <div class=" d-flex d-flex justify-content-center align-items-center"
+                                                    style="width: 200px; height: 260px; border: 1px solid #e6e6e6; color: #e6e6e6;"
+                                                    id="imgfilePreview"><img src="" style="width: 100%; height: 100%;">
+                                                </div>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <input type="file" class="form-control mt-2" accept="image/*"
+                                                    name="imgFilename" id="imgFilename" value="" multiple required />
+                                                <script>
+                                                    $('#imgFilename').change(function () {
+                                                        let input = this;
+                                                        if (input.files && input.files[0]) {
+                                                            let reader = new FileReader();
+
+                                                            reader.onload = function (e) {
+                                                                $('#imgfilePreview').html('<img src="' + e.target.result + '" style="max-width: 100%;">');
+                                                            };
+
+                                                            reader.readAsDataURL(input.files[0]);
+
+                                                            let fileName = input.files[0].name;
+                                                            $('#imgFilename').val(fileName);
+                                                            console.log(fileName);
+                                                        }
+                                                    });
+                                                </script>
+                                            </div>
+                                            <!-- 이미지 업로드 끝  -->
+
+                                            <div class="input-group mb-3">
+                                                <span
+                                                    class="input-group-text init_color justify-content-center hs_span_size hs_span">상호명</span>
+                                                <input type="text" class="form-control" value="store.name" name="name"
+                                                    id="" required>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span
+                                                    class="input-group-text init_color justify-content-center hs_span_size hs_span">매장
+                                                    전화번호</span>
+                                                <input type="text" class="form-control" value="store.tel" name="text"
+                                                    id="" required>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span
+                                                    class="input-group-text init_color justify-content-center hs_span_size hs_span">매장소개</span>
+                                                <input type="text" class="form-control" maxlength="11"
+                                                    value="store.intro" name="text" id="" required>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span
+                                                    class="input-group-text init_color justify-content-center hs_span_size hs_span">개점시간</span>
+                                                <input type="time" class="form-control" value="store.openingTime"
+                                                    name="address" id="" required>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span
+                                                    class="input-group-text init_color justify-content-center hs_span_size hs_span">폐점시간</span>
+                                                <input type="time" class="form-control" value="store.closingTime"
+                                                    name="email" id="" required>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span
+                                                    class="input-group-text init_color justify-content-center hs_span_size hs_span">휴무일</span>
+                                                <input type="date" class="form-control" value="store.closedDay"
+                                                    name="birth" id="" required>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span
+                                                    class="input-group-text init_color justify-content-center hs_span_size hs_span">매장
+                                                    주소</span>
+                                                <input type="text" class="form-control" value="store.adress"
+                                                    name="email" id="" required>
+                                            </div>
+                                            <div>지도</div>
+                                            <div class="mt-5">
+                                                <h4 class="border-bottom pb-4">사업자 정보</h4>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span
+                                                    class="input-group-text init_color justify-content-center hs_span_size hs_span">사업주
+                                                    이름</span>
+                                                <input type="text" class="form-control" value="store.ownerName"
+                                                    name="name" id="" required>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span
+                                                    class="input-group-text init_color justify-content-center hs_span_size hs_span">사업주
+                                                    연락처</span>
+                                                <input type="tel" class="form-control" value="store.ownerTel"
+                                                    name="ownerTel" id="" required>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span
+                                                    class="input-group-text init_color justify-content-center hs_span_size hs_span">사업주
+                                                    이메일</span>
+                                                <input type="email" class="form-control" value="store.ownerEmail"
+                                                    name="ownerEmail" id="" required>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span
+                                                    class="input-group-text init_color justify-content-center hs_span_size hs_span">사업자
+                                                    번호</span>
+                                                <input type="text" class="form-control" value="store.bizNum"
+                                                    name="bizNum" id="" required>
+                                            </div>
+                                            <div class="mt-5">
+                                                <h4 class="border-bottom pb-4">비밀번호 수정</h4>
+                                            </div>
+                                            <br>
+                                            <div class="company-password">
+                                                <div class="input-group mb-3">
+                                                    <span
+                                                        class="input-group-text  justify-content-center hs_span_size init_color">비밀번호</span>
+                                                    <input type="password" class="form-control" value="1234"
+                                                        id="password" name="password" readonly>
+                                                </div>
+                                                <div class="input-group mb-3">
+                                                    <span
+                                                        class="input-group-text  justify-content-center hs_span_size init_color">비밀번호
+                                                        확인</span>
+                                                    <input type="password" class="form-control" name="checkPassword"
+                                                        id="checkPassword" placeholder="기존 비밀번호 입력">
+                                                </div>
+                                                <div class="d-flex justify-content-center" style="width: 100%;">
+                                                    <div style="width: 100%;">
+                                                        <button type="submit" class="btn btn-outline-success mb-3"
+                                                            style="width: 100%">확인
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-group mb-3 mt-3">
+                                                <span
+                                                    class="input-group-text  justify-content-center hs_span_size init_color">변경
+                                                    비밀번호</span>
+                                                <input type="password" class="form-control" id="newPassword"
+                                                    name="newPassword">
+                                            </div>
+
+
+                                            <script>
+                                                $('.company-password button[type="submit"]').click(function (e) {
+                                                    e.preventDefault();
+                                                    let oldPassword = $('input[name="password"]').val();
+                                                    let confirmPassword = $('input[name="checkPassword"]').val();
+
+                                                    if (oldPassword !== confirmPassword) {
+                                                        alert('기존 비밀번호와 확인 비밀번호가 일치하지 않습니다.');
+                                                    } else {
+                                                        alert('비밀번호가 일치합니다. 변경하실 수 있습니다.');
+                                                    }
+                                                });
+
+                                                $('button[type="submit"]:not(.company-password button)').click(function (e) {
+                                                    e.preventDefault();
+
+                                                    let oldPassword = $('input[name="password"]').val();
+                                                    let confirmPassword = $('input[name="checkPassword"]').val();
+                                                    let newPassword = $('input[name="newPassword"]').val();
+
+                                                    if (oldPassword !== confirmPassword) {
+                                                        alert('기존 비밀번호와 확인 비밀번호가 일치하지 않습니다.');
+                                                    } else {
+                                                        $('input[name="password"]').val(newPassword);
+
+                                                        $('form').submit();
+                                                    }
+                                                });
+                                            </script>
+                                            <div class="d-flex justify-content-center mt-5" style="width: 100%;">
+                                                <div style="width: 100%;">
+                                                    <button type="submit" class="btn btn-outline-success mb-3"
+                                                        style="width: 100%">수정완료
+                                                    </button>
+                                                </div>
+                                                <div class="d-flex justify-content-center" style="width: 100%">
+                                                    <a href="/person/info" class="btn btn-outline-danger mb-3"
+                                                        style="width: 100%">취소</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+        crossorigin="anonymous"></script>
+    <script>
+        storeStatus();
+        setClock();
+    </script>
+</body>
+
+</html>
