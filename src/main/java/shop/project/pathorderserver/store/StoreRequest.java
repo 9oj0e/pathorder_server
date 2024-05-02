@@ -23,6 +23,26 @@ public class StoreRequest {
         private String address;
     }
 
+    @Data // 매장 정보 수정하기
+    public static class UpdateDTO {
+        // 회원 정보
+        private String username;
+        private String password;
+        // 사업자 정보
+        private String ownerName;
+        private String ownerTel;
+        private String ownerEmail;
+        private String bizNum;
+        // 매장 정보
+        private String name;
+        private String tel;
+        private String intro;
+        private String openingTime;
+        private String closingTime;
+        private String closedDay;
+        private String address;
+    }
+
     @Data // 매장 관리자 로그인
     public static class LoginDTO {
         private String username;
