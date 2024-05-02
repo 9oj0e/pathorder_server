@@ -105,9 +105,12 @@ public class StoreService {
     }
 
     @Transactional // TODO: 매장 관리자 - 메뉴 등록하기
-    public StoreResponse.CreateMenuDTO createMenu(StoreRequest.CreateMenuDTO reqDTO) {
+    public StoreResponse.CreateMenuDTO createMenu(int storeId, StoreRequest.CreateMenuDTO reqDTO) {
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new Exception404("찾을 수 없는 매장입니다."));
+        Menu menu = new Menu(reqDTO, store);
 
-        return new StoreResponse.CreateMenuDTO();
+        return new StoreResponse.CreateMenuDTO(menuRepository.save(menu));
     }
 
     // 매장 관리자 - 메뉴 목록보기

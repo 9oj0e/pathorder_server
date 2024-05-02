@@ -14,6 +14,12 @@ public class FormatUtil {
         return timestamp.toLocalDateTime().format(formatter);
     }
 
+    public static String dateFormatter(Timestamp timestamp) { // 시간 표기 방식
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy/MM/dd");
+
+        return timestamp.toLocalDateTime().format(formatter);
+    }
+
     public static String decimalFormatter(int decimalNum) { // 숫자 표기 방식
         DecimalFormat formatter = new DecimalFormat("###,###");
 

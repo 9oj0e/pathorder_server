@@ -57,7 +57,7 @@ public class StoreOwnerController {
     @PostMapping("/stores/{storeId}/menus") // TODO: 매장 관리자 - 메뉴 등록하기
     private String addMenu(@PathVariable int storeId, StoreRequest.CreateMenuDTO reqDTO, Model model) {
         // TODO: 권한 처리
-        StoreResponse.CreateMenuDTO respDTO = storeService.createMenu(reqDTO);
+        StoreResponse.CreateMenuDTO respDTO = storeService.createMenu(storeId, reqDTO);
         model.addAttribute("menu", respDTO);
 
         return "";
