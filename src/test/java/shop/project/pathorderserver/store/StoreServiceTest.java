@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import shop.project.pathorderserver.order.OrderStatus;
 
 @SpringBootTest
 class StoreServiceTest {
@@ -100,5 +101,17 @@ class StoreServiceTest {
         SessionStore sessionStore = storeService.updateStore(sessionId, reqDTO);
         // then
         Assertions.assertThat(sessionStore.getUsername()).isEqualTo("1234");
+    }
+
+    @Test // 주문 처리
+    void updateOrder_test() {
+        // given
+        int orderId = 1;
+        StoreRequest.UpdateOrderDTO reqDTO = new StoreRequest.UpdateOrderDTO();
+        reqDTO.setStatus(OrderStatus.조리완료);
+        // when
+        StoreResponse.UpdateOrderDTO respDTO = storeService.updateOrder(orderId, reqDTO);
+        // then
+        Assertions.assertThat(respDTO.getStatus()).isEqualTo(OrderStatus.조리완료);
     }
 }

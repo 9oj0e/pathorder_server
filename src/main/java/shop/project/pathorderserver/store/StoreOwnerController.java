@@ -158,7 +158,6 @@ public class StoreOwnerController {
     @PutMapping("/stores/{storeId}/orders/{orderId}") // TODO: 매장 관리자 - 주문 업데이트
     private String updateOrder(@PathVariable int storeId, @PathVariable int orderId, StoreRequest.UpdateOrderDTO reqDTO) {
         // TODO: 권한 처리
-        StoreResponse.UpdateOrderDTO respDTO = storeService.updateOrder(reqDTO);
 
         return "";
     }

@@ -197,8 +197,13 @@ public class StoreService {
     }
 
     @Transactional // TODO: 매장 관리자 - 주문 업데이트
-    public StoreResponse.UpdateOrderDTO updateOrder(StoreRequest.UpdateOrderDTO reqDTO) {
+    public StoreResponse.UpdateOrderDTO updateOrder(int orderId, StoreRequest.UpdateOrderDTO reqDTO) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new Exception404("주문이 없습니다."));
 
-        return new StoreResponse.UpdateOrderDTO();
+        order.setStatus(reqDTO.getStatus());
+
+        StoreResponse.UpdateOrderDTO respDTO = new StoreResponse.UpdateOrderDTO(order);
+        return respDTO;
     }
 }
