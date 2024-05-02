@@ -45,6 +45,21 @@ class StoreServiceTest {
         Assertions.assertThat(sessionStore.getUsername()).isEqualTo("jake1234");
     }
 
+    @Test // 메뉴 등록
+    void createMenu_Test() {
+        // given
+        int storeId = 1;
+        StoreRequest.CreateMenuDTO reqDTO = new StoreRequest.CreateMenuDTO();
+        reqDTO.setPrice(3000);
+        reqDTO.setCategory("과일 음료");
+        reqDTO.setName("자몽에이드");
+        reqDTO.setDescription("내가 제일 좋아함");
+        // when
+        StoreResponse.CreateMenuDTO respDTO = storeService.createMenu(storeId, reqDTO);
+        // then
+        Assertions.assertThat(respDTO.getName()).isEqualTo("자몽에이드");
+    }
+
     @Test // 점주 주문내역 목록보기
     void getOrderList_test() {
         // given

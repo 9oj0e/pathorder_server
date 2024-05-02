@@ -33,9 +33,9 @@ class UserServiceTest {
         reqDTO.setUsername("user2");
         reqDTO.setPassword("1234");
         // when
-        String jwt = userService.getUser(reqDTO);
+        UserResponse.LoginDTO respDTO = userService.getUser(reqDTO);
         // then
-        SessionUser sessionUser = JwtUtil.verify(jwt);
+        SessionUser sessionUser = JwtUtil.verify(respDTO.getJwt());
         Assertions.assertThat(sessionUser.getUsername()).isEqualTo("user2");
     }
 

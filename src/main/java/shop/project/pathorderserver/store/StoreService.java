@@ -108,6 +108,7 @@ public class StoreService {
     public StoreResponse.CreateMenuDTO createMenu(int storeId, StoreRequest.CreateMenuDTO reqDTO) {
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 매장입니다."));
+        // TODO: 이미지 base64디코딩
         Menu menu = new Menu(reqDTO, store);
 
         return new StoreResponse.CreateMenuDTO(menuRepository.save(menu));

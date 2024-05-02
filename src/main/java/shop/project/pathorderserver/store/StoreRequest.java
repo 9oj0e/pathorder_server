@@ -39,6 +39,7 @@ public class StoreRequest {
         private String category; // 각 메뉴가 포함되는 카테고리, 점주가 직접 작성
         private String name; // 메뉴 이름
         private String imgFilename;
+        // private String encodedImg; // TODO: 사진 파일 업로드
         private String description; // 메뉴 설명
     }
 
