@@ -3,10 +3,8 @@ package shop.project.pathorderserver.store;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import shop.project.pathorderserver._core.errors.exception.Exception400;
 import shop.project.pathorderserver._core.errors.exception.Exception401;
 import shop.project.pathorderserver._core.errors.exception.Exception404;
-import shop.project.pathorderserver._core.utils.JwtUtil;
 import shop.project.pathorderserver.menu.Menu;
 import shop.project.pathorderserver.menu.MenuOptionRepository;
 import shop.project.pathorderserver.menu.MenuRepository;
@@ -17,7 +15,6 @@ import shop.project.pathorderserver.order.OrderMenuRepository;
 import shop.project.pathorderserver.order.OrderRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -36,15 +33,15 @@ public class StoreService {
     }
 
     // 매장 상세보기
-    public StoreResponse.DetailDTO getStoreDetail(int storeId) {
+    public StoreResponse.InfoDTO getStoreInfo(int storeId) {
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 매장입니다."));
 
-        return new StoreResponse.DetailDTO(store);
+        return new StoreResponse.InfoDTO(store);
     }
 
     // 매장 상세보기 - 사업자 정보
-    public StoreResponse.BizInfoDTO getStoreBizDetail(int storeId) {
+    public StoreResponse.BizInfoDTO getStoreBizInfo(int storeId) {
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 매장입니다."));
 
@@ -78,8 +75,8 @@ public class StoreService {
         return new StoreResponse.MenuOptionDTO(store, menu, optionList);
     }
 
-    // -------------------점주-------------------
-    // 매장 등록
+    /*------------------------------------------------------------------------------------- 매장 관리자 -----------------*/
+    // 매장 관리자 등록
     public StoreResponse.JoinDTO createStore(StoreRequest.JoinDTO reqDTO) {
         Store store = new Store(reqDTO);
         storeRepository.save(store);
@@ -87,7 +84,7 @@ public class StoreService {
         return new StoreResponse.JoinDTO(store);
     }
 
-    // 점주 로그인
+    // 매장 관리자 로그인
     public SessionStore getStore(StoreRequest.LoginDTO reqDTO) {
         Store store = storeRepository.findByUsernameAndPassword(reqDTO.getUsername(), reqDTO.getPassword())
                 .orElseThrow(() -> new Exception401("유저네임 또는 패스워드가 일치하지 않습니다."));
@@ -95,7 +92,55 @@ public class StoreService {
         return new SessionStore(store);
     }
 
-    // 주문내역 목록보기
+    // TODO: 매장 관리자 정보 보기
+    public void getStoreDetail(int storeId) {
+    }
+
+    @Transactional // TODO: 매장 관리자 정보 수정하기
+    public void updateStore(StoreRequest.UpdateDTO reqDTO) {
+    }
+
+    @Transactional // TODO: 매장 관리자 - 메뉴 등록하기
+    public void createMenu() {
+    }
+
+    // 매장 관리자 - 메뉴 목록보기
+    public StoreResponse.OwnerMenuListDTO getMenuList(int storeId) {
+        List<Menu> menuList = menuRepository.findAllByStoreId(storeId)
+                .orElseThrow(() -> new Exception404("메뉴를 찾을 수 없습니다."));
+
+        return new StoreResponse.OwnerMenuListDTO(menuList);
+    }
+
+    // TODO: 매장 관리자 - 메뉴 상세보기
+    public void getMenuDetail() {
+    }
+
+    @Transactional // TODO: 매장 관리자 - 메뉴 수정하기
+    public void updateMenu() {
+    }
+
+    @Transactional // TODO: 매장 관리자 - 메뉴 삭제하기
+    public void deleteMenu() {
+    }
+
+    @Transactional // TODO: 매장 관리자 - 메뉴 옵션 등록하기
+    public void createMenuOption() {
+    }
+
+    // TODO: 매장 관리자 - 메뉴 옵션 목록보기
+    public void getMenuOptionList() {
+    }
+
+    @Transactional // TODO: 매장 관리자 - 메뉴 옵션 수정하기
+    public void updateMenuOption() {
+    }
+
+    @Transactional // TODO: 매장 관리자 - 메뉴 옵션 삭제하기
+    public void deleteMenuOption() {
+    }
+
+    // 매장 관리자 - 주문내역 목록보기
     public StoreResponse.OrderListDTO getOrderList(int storeId) {
         List<Order> orderList = orderRepository.findByStoreId(storeId)
                 .orElseThrow(() -> new Exception404("주문 내역이 없습니다."));
@@ -103,7 +148,7 @@ public class StoreService {
         return new StoreResponse.OrderListDTO(orderList);
     }
 
-    @Transactional(readOnly = true)// 주문내역 상세보기
+    @Transactional(readOnly = true)// 매장 관리자 - 주문내역 상세보기
     public StoreResponse.OrderDetailDTO getOrderDetail(int orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 주문입니다."));
@@ -114,13 +159,7 @@ public class StoreService {
         return new StoreResponse.OrderDetailDTO(order, orderMenuList);
     }
 
-    // 매장 메뉴 목록보기
-    public StoreResponse.OwnerMenuListDTO getOwnerMenuList(int storeId) {
-        List<Menu> menuList = menuRepository.findAllByStoreId(storeId)
-                .orElseThrow(() -> new Exception404("메뉴를 찾을 수 없습니다."));
-
-        return new StoreResponse.OwnerMenuListDTO(menuList);
+    @Transactional // TODO: 매장 관리자 - 주문 업데이트
+    public void updateOrder() {
     }
-
-    // TODO: 주문 수정 (매장 측: 주문 상태 변경)
 }

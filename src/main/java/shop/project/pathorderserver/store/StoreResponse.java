@@ -49,7 +49,7 @@ public class StoreResponse {
     }
 
     @Data // 매장 상세보기
-    public static class DetailDTO {
+    public static class InfoDTO {
         private int id;
         private String imgFilename;
         private String name;
@@ -59,7 +59,7 @@ public class StoreResponse {
         private String closedDay;
         private String address;
 
-        public DetailDTO(Store store) {
+        public InfoDTO(Store store) {
             this.id = store.getId();
             this.imgFilename = store.getImgFilename();
             this.name = store.getName();
@@ -162,9 +162,55 @@ public class StoreResponse {
             }
         }
     }
-    // TODO: 수정된 주문 내용 (매장 측: 주문 상태 변경)
+    /*------------------------------------------------------------------------------------- 매장 관리자 -----------------*/
+    @Data // TODO: 매장 정보 조회
+    public static class StoreDTO {
+    }
 
-    @Data // 주문내역 목록보기
+    @Data // TODO: 매장 정보 수정
+    public static class UpdateDTO {
+    }
+
+    @Data // TODO: 매장 메뉴 등록
+    public static class CreateMenuDTO {
+    }
+    @Data // 매장 관리자 - 메뉴 목록보기
+    public static class OwnerMenuListDTO {
+        private List<MenuDTO> menuList;
+
+        public OwnerMenuListDTO(List<Menu> menus) {
+            this.menuList = menus.stream().map(MenuDTO::new).toList();
+        }
+
+        @Data
+        private static class MenuDTO {
+            private int id;
+            private String imgFilename;
+            private String name;
+            private int price;
+
+            public MenuDTO(Menu menu) {
+                this.id = menu.getId();
+                this.imgFilename = menu.getImgFilename();
+                this.name = menu.getName();
+                this.price = menu.getPrice();
+            }
+        }
+    }
+
+    @Data // TODO: 매장 메뉴 수정
+    public static class UpdateMenuDTO {
+    }
+
+    @Data // TODO: 매장 메뉴 옵션 등록
+    public static class CreateMenuOptionDTO {
+    }
+
+    @Data // TODO: 매장 메뉴 옵션 수정
+    public static class UpdateMenuOptionDTO {
+    }
+
+    @Data // 매장 관리자 - 주문내역 목록보기
     public static class OrderListDTO {
         private List<OrderDTO> orderList;
 
@@ -192,7 +238,7 @@ public class StoreResponse {
         }
     }
 
-    @Data // 주문내역 상세보기 - 점주
+    @Data // 매장 관리자 - 주문내역 상세보기
     public static class OrderDetailDTO {
         // 손님 정보
         private int customerId;
@@ -242,67 +288,7 @@ public class StoreResponse {
         }
     }
 
-    @Data // 매장 메뉴보기 - 점주
-    public static class OwnerMenuListDTO {
-        private List<MenuDTO> menuList;
-
-        public OwnerMenuListDTO(List<Menu> menus) {
-            this.menuList = menus.stream().map(MenuDTO::new).toList();
-        }
-
-        @Data
-        private static class MenuDTO {
-            private int id;
-            private String imgFilename;
-            private String name;
-            private int price;
-
-            public MenuDTO(Menu menu) {
-                this.id = menu.getId();
-                this.imgFilename = menu.getImgFilename();
-                this.name = menu.getName();
-                this.price = menu.getPrice();
-            }
-        }
-    }
-
-    @Data
-    public static class StoreDTO {
-        // TODO: 매장 정보 조회
-    }
-
-    @Data
-    public static class UpdateDTO {
-        // TODO: 매장 정보 수정
-    }
-
-    @Data
-    public static class MenuDTO {
-        // TODO: 매장 메뉴 등록
-    }
-
-    @Data
-    public static class CreateMenuDTO {
-        // TODO: 매장 메뉴 등록
-    }
-
-    @Data
-    public static class UpdateMenuDTO {
-        // TODO: 매장 메뉴 수정
-    }
-
-    @Data
-    public static class CreateMenuOptionDTO {
-        // TODO: 매장 메뉴 옵션 등록
-    }
-
-    @Data
-    public static class UpdateMenuOptionDTO {
-        // TODO: 매장 메뉴 옵션 수정
-    }
-
-    @Data
+    @Data // TODO: 매장 주문 업데이트
     public static class UpdateOrderDTO {
-        // TODO: 주문 수정 (매장 측: 주문 상태 변경)
     }
 }

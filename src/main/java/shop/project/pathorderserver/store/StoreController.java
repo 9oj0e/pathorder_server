@@ -23,14 +23,14 @@ public class StoreController {
 
     @GetMapping("/api/stores/{storeId}") // 매장 상세보기
     public ResponseEntity<?> storeDetail(@PathVariable int storeId) {
-        StoreResponse.DetailDTO respDTO = storeService.getStoreDetail(storeId);
+        StoreResponse.InfoDTO respDTO = storeService.getStoreInfo(storeId);
 
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
     @GetMapping("/api/stores/{storeId}/biz-info") // 매장 상세보기 - 사업자 정보 TODO: 상세보기랑 합치기?
     public ResponseEntity<?> storeBizDetail(@PathVariable int storeId) {
-        StoreResponse.BizInfoDTO respDTO = storeService.getStoreBizDetail(storeId);
+        StoreResponse.BizInfoDTO respDTO = storeService.getStoreBizInfo(storeId);
 
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }

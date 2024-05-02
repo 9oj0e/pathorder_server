@@ -3,7 +3,7 @@ package shop.project.pathorderserver.store;
 import lombok.Data;
 
 public class StoreRequest {
-    @Data
+    @Data // 매장 관리자 등록하기
     public static class JoinDTO {
         // 회원 정보
         private String username;
@@ -23,39 +23,33 @@ public class StoreRequest {
         private String address;
     }
 
-    @Data
+    @Data // 매장 관리자 로그인
     public static class LoginDTO {
         private String username;
         private String password;
     }
 
-    @Data
+    @Data // TODO: 매장 관리자 정보 수정
     public static class UpdateDTO {
-        // TODO: 매장 정보 수정
     }
 
-    @Data
+    @Data // TODO: 매장 관리자 - 메뉴 등록
     public static class CreateMenuDTO {
-        // TODO: 매장 메뉴 등록
     }
 
-    @Data
+    @Data // TODO: 매장 관리자 - 메뉴 수정
     public static class UpdateMenuDTO {
-        // TODO: 매장 메뉴 수정
     }
 
-    @Data
+    @Data // TODO: 매장 관리자 - 메뉴 옵션 등록
     public static class CreateMenuOptionDTO {
-        // TODO: 매장 메뉴 옵션 등록
     }
 
-    @Data
+    @Data // TODO: 매장 관리자 - 메뉴 옵션 수정
     public static class UpdateMenuOptionDTO {
-        // TODO: 매장 메뉴 옵션 수정
     }
 
-    @Data
+    @Data // TODO: 매장 관리자 - 주문 업데이트
     public static class UpdateOrderDTO {
-        // TODO: 주문 수정 (매장 측: 주문 상태 변경)
     }
 }

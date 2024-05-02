@@ -70,7 +70,7 @@ class StoreServiceTest {
         // given
         int storeId = 1;
         // when
-        StoreResponse.OwnerMenuListDTO respDTO = storeService.getOwnerMenuList(storeId);
+        StoreResponse.OwnerMenuListDTO respDTO = storeService.getMenuList(storeId);
         // then
         Assertions.assertThat(respDTO.getMenuList().size()).isEqualTo(5);
     }
