@@ -195,6 +195,7 @@ public class StoreService {
 
     @Transactional // TODO: 매장 관리자 - 메뉴 옵션 삭제하기
     public void deleteMenuOption(int menuOptionId) {
+        menuOptionRepository.deleteById(menuOptionId);
     }
 
     // 매장 관리자 - 주문내역 목록보기

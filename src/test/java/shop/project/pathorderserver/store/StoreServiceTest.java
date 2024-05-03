@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import shop.project.pathorderserver.menu.Menu;
+import shop.project.pathorderserver.menu.MenuOption;
+import shop.project.pathorderserver.menu.MenuOptionRepository;
 import shop.project.pathorderserver.menu.MenuRepository;
 import shop.project.pathorderserver.order.OrderStatus;
 
@@ -21,6 +23,8 @@ class StoreServiceTest {
     StoreRepository storeRepository;
     @Autowired
     MenuRepository menuRepository;
+    @Autowired
+    MenuOptionRepository menuOptionRepository;
 
     @Test // 점주 회원가입
     void createStore_test() {
@@ -173,5 +177,17 @@ class StoreServiceTest {
         List<Menu> menuList = menuRepository.findAllByStoreId(storeId).get();
         // then
         Assertions.assertThat(menuList.size()).isEqualTo(4);
+    }
+
+    @Test
+    void deleteMenuOption() {
+        // given
+        int menuOptionId = 1;
+        int menuId = 1;
+        // when
+        storeService.deleteMenuOption(menuOptionId);
+        List<MenuOption> menuOptionList = menuOptionRepository.findByMenuId(menuId).get();
+        // then
+        Assertions.assertThat(menuOptionList.size()).isEqualTo(5);
     }
 }
