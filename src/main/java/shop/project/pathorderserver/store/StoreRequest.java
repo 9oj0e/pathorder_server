@@ -1,6 +1,7 @@
 package shop.project.pathorderserver.store;
 
 import lombok.Data;
+import shop.project.pathorderserver.order.OrderStatus;
 
 public class StoreRequest {
     @Data // 매장 관리자 등록하기
@@ -14,6 +15,7 @@ public class StoreRequest {
         private String ownerEmail;
         private String bizNum;
         // 매장 정보
+        private String imgFilename;
         private String name;
         private String tel;
         private String intro;
@@ -29,8 +31,25 @@ public class StoreRequest {
         private String password;
     }
 
-    @Data // TODO: 매장 관리자 정보 수정
+    @Data // 매장 관리자 정보 수정
     public static class UpdateDTO {
+        // 회원 정보
+        private String username;
+        private String password;
+        // 사업자 정보
+        private String ownerName;
+        private String ownerTel;
+        private String ownerEmail;
+        private String bizNum;
+        // 매장 정보
+        private String imgFilename;
+        private String name;
+        private String tel;
+        private String intro;
+        private String openingTime;
+        private String closingTime;
+        private String closedDay;
+        private String address;
     }
 
     @Data // TODO: 매장 관리자 - 메뉴 등록
@@ -57,5 +76,6 @@ public class StoreRequest {
 
     @Data // TODO: 매장 관리자 - 주문 업데이트
     public static class UpdateOrderDTO {
+        private OrderStatus status;
     }
 }

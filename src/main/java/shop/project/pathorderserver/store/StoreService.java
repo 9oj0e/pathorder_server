@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.project.pathorderserver._core.errors.exception.Exception401;
+import shop.project.pathorderserver._core.errors.exception.Exception403;
 import shop.project.pathorderserver._core.errors.exception.Exception404;
 import shop.project.pathorderserver.menu.Menu;
 import shop.project.pathorderserver.menu.MenuOption;
@@ -95,14 +96,35 @@ public class StoreService {
 
     // TODO: 매장 관리자 - 매장 정보 보기
     public StoreResponse.StoreDTO getStoreDetail(int storeId) {
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new Exception403("조회할 권한이 없습니다."));
 
-        return new StoreResponse.StoreDTO();
+        return new StoreResponse.StoreDTO(store);
     }
 
     @Transactional // TODO: 매장 관리자 - 매장 정보 수정하기
     public SessionStore updateStore(int sessionStoreId, StoreRequest.UpdateDTO reqDTO) {
+        Store store = storeRepository.findById(sessionStoreId)
+                .orElseThrow(() -> new Exception403("수정할 권한이 없습니다."));
 
-        return new SessionStore();
+        store.setUsername(reqDTO.getUsername());
+        store.setPassword(reqDTO.getPassword());
+        store.setOwnerName(reqDTO.getOwnerName());
+        store.setOwnerTel(reqDTO.getOwnerTel());
+        store.setOwnerEmail(reqDTO.getOwnerEmail());
+        store.setBizNum(reqDTO.getBizNum());
+        store.setImgFilename(reqDTO.getImgFilename());
+        store.setName(reqDTO.getName());
+        store.setTel(reqDTO.getTel());
+        store.setIntro(reqDTO.getIntro());
+        store.setOpeningTime(reqDTO.getOpeningTime());
+        store.setClosingTime(reqDTO.getClosingTime());
+        store.setClosedDay(reqDTO.getClosedDay());
+        store.setAddress(reqDTO.getAddress());
+
+        SessionStore sessionStore = new SessionStore(store);
+
+        return sessionStore;
     }
 
     @Transactional // 매장 관리자 - 매장 메뉴 등록하기
@@ -184,8 +206,13 @@ public class StoreService {
     }
 
     @Transactional // TODO: 매장 관리자 - 주문 업데이트
-    public StoreResponse.UpdateOrderDTO updateOrder(StoreRequest.UpdateOrderDTO reqDTO) {
+    public StoreResponse.UpdateOrderDTO updateOrder(int orderId, StoreRequest.UpdateOrderDTO reqDTO) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new Exception404("주문이 없습니다."));
 
-        return new StoreResponse.UpdateOrderDTO();
+        order.setStatus(reqDTO.getStatus());
+
+        StoreResponse.UpdateOrderDTO respDTO = new StoreResponse.UpdateOrderDTO(order);
+        return respDTO;
     }
 }
