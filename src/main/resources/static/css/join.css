@@ -24,7 +24,7 @@
     margin-bottom: 10px;
 }
 .join form ul .addr_li input {
-    width: 49%;
+    width: 49% !important;
     margin-bottom: 10px;
 }
 .join form ul .addr_li input#sample4_postcode {

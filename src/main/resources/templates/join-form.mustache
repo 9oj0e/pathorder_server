@@ -43,11 +43,13 @@
                             <label for="">사용자 이름</label>
                         </div>
                         <div class="form-group form-floating m-3 mx-auto">
-                            <input type="tel" name="ownerTel" class="form-control" id="tel" value="01012345678" required>
+                            <input type="tel" name="ownerTel" class="form-control" id="tel" value="01012345678"
+                                   required>
                             <label for="">전화번호</label>
                         </div>
                         <div class="form-group form-floating m-3 mx-auto">
-                            <input type="email" name="ownerEmail" class="form-control" value="jhjhjhjhj@nate.com" id="email"
+                            <input type="email" name="ownerEmail" class="form-control" value="jhjhjhjhj@nate.com"
+                                   id="email"
                                    required>
                             <label for="">Email</label>
                         </div>
@@ -69,41 +71,50 @@
                         <div class="form-group form-floating m-3 mx-auto addr_li">
                             <input type="text" name="address" class="form-control" id="address" value="부산광역시" required>
                             <label class="title" for="user_addr">주소</label>
-                            <div class="post_code">
+                            <div class="post_code d-flex justify-content-start">
                                 <input
+                                        class="form-control"
                                         type="text"
                                         id="sample4_postcode"
                                         placeholder=" 우편번호"
                                 />
                                 <input
-                                        class="search_btn"
+                                        class="search_btn btn btn-outline-primary"
                                         type="button"
                                         onclick="sample4_execDaumPostcode()"
                                         value=" 우편번호 찾기"
                                 /><br/>
                             </div>
                             <div class="address">
-                                <input
-                                        type="text"
-                                        id="sample4_roadAddress"
-                                        placeholder=" 도로명주소"
-                                />
-                                <input
-                                        type="text"
-                                        id="sample4_detailAddress"
-                                        placeholder=" 상세주소"
-                                />
-                                <input
-                                        type="text"
-                                        id="sample4_jibunAddress"
-                                        placeholder=" 지번주소"
-                                />
-                                <span id="guide" style="color: #999; display: none"></span>
-                                <input
-                                        type="text"
-                                        id="sample4_extraAddress"
-                                        placeholder=" 참고항목"
-                                />
+                                <div class="d-flex justify-content-start">
+                                    <input
+                                            class="form-control"
+                                            type="text"
+                                            id="sample4_roadAddress"
+                                            placeholder=" 도로명주소"
+                                    />
+                                    <input
+                                            class="form-control"
+                                            type="text"
+                                            id="sample4_detailAddress"
+                                            placeholder=" 상세주소"
+                                    />
+                                </div>
+                               <div>
+                                   <input
+                                           class="form-control"
+                                           type="text"
+                                           id="sample4_jibunAddress"
+                                           placeholder=" 지번주소"
+                                   />
+                                   <span id="guide" style="color: #999; display: none"></span>
+                                   <input
+                                           class="form-control"
+                                           type="text"
+                                           id="sample4_extraAddress"
+                                           placeholder=" 참고항목"
+                                   />
+                               </div>
                             </div>
                         </div>
                         <div style="width: 100%;">
