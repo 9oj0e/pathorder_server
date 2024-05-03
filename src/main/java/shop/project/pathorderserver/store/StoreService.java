@@ -107,20 +107,7 @@ public class StoreService {
         Store store = storeRepository.findById(sessionStoreId)
                 .orElseThrow(() -> new Exception403("수정할 권한이 없습니다."));
 
-        store.setUsername(reqDTO.getUsername());
-        store.setPassword(reqDTO.getPassword());
-        store.setOwnerName(reqDTO.getOwnerName());
-        store.setOwnerTel(reqDTO.getOwnerTel());
-        store.setOwnerEmail(reqDTO.getOwnerEmail());
-        store.setBizNum(reqDTO.getBizNum());
-        store.setImgFilename(reqDTO.getImgFilename());
-        store.setName(reqDTO.getName());
-        store.setTel(reqDTO.getTel());
-        store.setIntro(reqDTO.getIntro());
-        store.setOpeningTime(reqDTO.getOpeningTime());
-        store.setClosingTime(reqDTO.getClosingTime());
-        store.setClosedDay(reqDTO.getClosedDay());
-        store.setAddress(reqDTO.getAddress());
+        store.update(reqDTO);
 
         SessionStore sessionStore = new SessionStore(store);
 
