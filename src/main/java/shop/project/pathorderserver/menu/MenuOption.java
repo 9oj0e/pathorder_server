@@ -22,7 +22,6 @@ public class MenuOption {
     // 참조 정보 - 메뉴
     @ManyToOne(fetch = FetchType.LAZY)
     private Menu menu; // 하나의 메뉴는 여러개의 옵션을 참조
-
-    @CreationTimestamp
-    private Timestamp createdAt;
+    // @CreationTimestamp
+    // private Timestamp createdAt;
 }
