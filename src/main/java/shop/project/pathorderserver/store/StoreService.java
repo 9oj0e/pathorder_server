@@ -156,9 +156,18 @@ public class StoreService {
     }
 
     @Transactional // TODO: 매장 관리자 - 메뉴 수정하기
-    public StoreResponse.UpdateMenuDTO updateMenu(StoreRequest.UpdateMenuDTO reqDTO) {
+    public StoreResponse.UpdateMenuDTO updateMenu(int menuId, StoreRequest.UpdateMenuDTO reqDTO) {
+        Menu menu = menuRepository.findById(menuId)
+                .orElseThrow(() -> new Exception404("찾을 수 없는 메뉴입니다."));
 
-        return new StoreResponse.UpdateMenuDTO();
+        menu.setPrice(reqDTO.getPrice());
+        menu.setCategory(reqDTO.getCategory());
+        menu.setName(reqDTO.getName());
+        menu.setImgFilename(reqDTO.getImgFilename());
+        menu.setDescription(reqDTO.getDescription());
+
+        StoreResponse.UpdateMenuDTO respDTO = new StoreResponse.UpdateMenuDTO(menu);
+        return respDTO;
     }
 
     @Transactional // TODO: 매장 관리자 - 메뉴 삭제하기
