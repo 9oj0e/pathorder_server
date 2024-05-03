@@ -102,7 +102,7 @@ public class StoreOwnerController {
     @PutMapping("/stores/{storeId}/menus/{menuId}") // TODO: 매장 관리자 - 메뉴 수정하기
     private String updateMenu(@PathVariable int storeId, @PathVariable int menuId, StoreRequest.UpdateMenuDTO reqDTO, Model model) {
         // TODO: 권한 처리
-        StoreResponse.UpdateMenuDTO respDTO = storeService.updateMenu(reqDTO);
+        StoreResponse.UpdateMenuDTO respDTO = storeService.updateMenu(menuId, reqDTO);
         model.addAttribute("menu", respDTO);
 
         return "";
