@@ -143,4 +143,16 @@ class StoreServiceTest {
         // then
         Assertions.assertThat(respDTO.getStatus()).isEqualTo(OrderStatus.조리완료);
     }
+
+    @Test
+    void updateMenu_test() {
+        // given
+        int menuId = 1;
+        StoreRequest.UpdateMenuDTO reqDTO = new StoreRequest.UpdateMenuDTO();
+        reqDTO.setPrice(10000);
+        // when
+        StoreResponse.UpdateMenuDTO respDTO = storeService.updateMenu(menuId, reqDTO);
+        // then
+        Assertions.assertThat(respDTO.getPrice()).isEqualTo(10000);
+    }
 }
