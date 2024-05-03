@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>회원가입 - 로그인 화면 구현</title>
+    <link rel="stylesheet" href="/css/join.css"/>
+    <script src="/js/join.js"></script>
+</head>
+
+<body>
+<div class="join_ex">
+    <div class="join">
+        <h1>회원가입</h1>
+        <p>* 표시된 정보는 필수 입력 항목입니다.</p>
+        <form action="/stores/join" method="post">
+            <ul>
+                <li class="email_li">
+                    <label class="title" for="user_email"
+                    >* 가입할 이메일 (아이디로 사용합니다.)</label
+                    ><br/>
+                    <input
+                            type="email"
+                            id="user_email"
+                            placeholder=""
+                            autofocus
+                            required
+                    />
+                    <label for="">@</label>
+
+                    <input class="box" id="domain-txt" type="text"/>
+                    <select class="box" id="domain-list">
+                        <option value="type">직접 입력</option>
+                        <option value="naver.com">naver.com</option>
+                        <option value="gmail.com">gmail.com</option>
+                        <option value="hanmail.net">hanmail.net</option>
+                        <option value="nate.com">nate.com</option>
+                        <option value="kakao.com">kakao.com</option>
+                    </select>
+                </li>
+                <li class="password_li">
+                    <label class="title" for="user_pw1">* 비밀번호</label>
+                    <br/>
+                    <input
+                            type="password"
+                            id="user_pw1"
+                            placeholder="정확히 입력해 주세요. (4~16자 입력)"
+                            required
+                    />
+                </li>
+                <li class="password_li">
+                    <label class="title" for="user_pw2">* 비밀번호 확인</label><br/>
+                    <input
+                            type="password"
+                            id="user_pw2"
+                            placeholder="정확히 입력해 주세요. (4~16자 입력)"
+                            required
+                    /><br/>
+                    <button type="button" class="pw_btn" id="pw_btn">
+                        비밀번호 확인
+                    </button>
+                </li>
+                <li class="name_li">
+                    <label class="title" for="user_name">* 이름</label><br/>
+                    <input type="text" id="user_name" required autofocus/>
+                </li>
+                <li class="birth_li">
+                    <label class="title" for="info__birth">생년월일</label>
+                    <div class="info" id="info__birth">
+                        <select class="box" id="birth-year">
+                            <option disabled selected>출생 연도</option>
+                        </select>
+                        <select class="box" id="birth-month">
+                            <option disabled selected>월</option>
+                        </select>
+                        <select class="box" id="birth-day">
+                            <option disabled selected>일</option>
+                        </select>
+                    </div>
+                </li>
+                <li class="tel_li">
+                    <label class="title" for="user_tel">* 전화번호</label><br/>
+                    <select name="" id="tel_first">
+                        <option value="010">010</option>
+                        <option value="011">011</option>
+                    </select>
+                    <label for="">-</label>
+                    <input type="text" id="tel_second" size="4"/>
+                    <label for="">-</label>
+                    <input type="text" id="tel_third" size="4"/>
+                </li>
+
+                <li class="addr_li">
+                    <label class="title" for="user_addr">주소</label><br/>
+                    <div class="post_code">
+                        <input
+                                type="text"
+                                id="sample4_postcode"
+                                placeholder=" 우편번호"
+                        />
+                        <input
+                                class="search_btn"
+                                type="button"
+                                onclick="sample4_execDaumPostcode()"
+                                value=" 우편번호 찾기"
+                        /><br/>
+                    </div>
+                    <div class="address">
+                        <input
+                                type="text"
+                                id="sample4_roadAddress"
+                                placeholder=" 도로명주소"
+                        />
+                        <input
+                                type="text"
+                                id="sample4_detailAddress"
+                                placeholder=" 상세주소"
+                        />
+                        <input
+                                type="text"
+                                id="sample4_jibunAddress"
+                                placeholder=" 지번주소"
+                        />
+                        <span id="guide" style="color: #999; display: none"></span>
+                        <input
+                                type="text"
+                                id="sample4_extraAddress"
+                                placeholder=" 참고항목"
+                        />
+                    </div>
+                </li>
+            </ul>
+            <button id="join_btn" class="join_btn" type="submit">가입하기</button>
+        </form>
+    </div>
+    <!--join-->
+</div>
+<!--join_ex-->
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+</body>
+</html>

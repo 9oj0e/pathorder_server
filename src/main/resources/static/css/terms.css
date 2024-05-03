@@ -1,0 +1,85 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.terms_ex {
+    background-color: #EFE8DA;
+    width: 100vw;
+    height: 100vh;
+}
+
+form {
+    width: 460px;
+    margin: 0 auto;
+}
+form h1 {
+    text-align: center;
+    padding: 30px 0;
+}
+form ul {
+    width: 100%;
+}
+form ul li {
+    margin-bottom: 30px;
+}
+form ul li label {
+    font-size: 14px;
+}
+form ul li label img {
+    width: 25px;
+}
+form ul li label b {
+    color: #FD8234;
+}
+form ul label:hover {
+    font-weight: bold;
+}
+form ul li:nth-child(1) {
+    text-decoration: underline;
+}
+form ul li:nth-child(2) p,
+form ul li:nth-child(3) p {
+    height: 250px;
+    overflow: auto;
+    padding-top: 10px;
+}
+form .join_btn {
+    height: 60px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+form .join_btn .disagree {
+    width: calc((100% - 15px) / 2);
+    height: 100%;
+    margin-right: 15px;
+    line-height: 60px;
+    float: left;
+    background-color: #e6e6e6;
+}
+form .join_btn .disagree a {
+    display: block;
+}
+form .join_btn .agree {
+    width: calc((100% - 15px) / 2);
+    height: 100%;
+    line-height: 60px;
+    float: left;
+    background-color: #FD8234;
+}
+form .join_btn .agree a {
+    display: block;
+}
+form .join_btn .disagree:hover,
+form .join_btn .agree:hover {
+    font-weight: bold;
+}
