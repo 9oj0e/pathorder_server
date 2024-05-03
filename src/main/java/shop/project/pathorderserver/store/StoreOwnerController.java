@@ -12,6 +12,24 @@ public class StoreOwnerController {
     private final HttpSession session;
     private final StoreService storeService;
 
+    @GetMapping("/") // index
+    private String index(Model model) {
+        SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
+
+        if (sessionStore != null) {
+            /*
+            int storeId = sessionStore.getId();
+            StoreResponse.OrderListDTO respDTO = storeService.getOrderList(storeId);
+            model.addAttribute("orders", respDTO);
+
+            return "orders";
+            */
+            return "redirect:/stores/" + sessionStore.getId() + "/orders";
+        } else {
+            return "login-form";
+        }
+    }
+
     @PostMapping("/stores/join") // TODO: 매장 관리자 회원가입
     public String join(StoreRequest.JoinDTO reqDTO) {
         storeService.createStore(reqDTO);
@@ -130,7 +148,7 @@ public class StoreOwnerController {
         return "";
     }
 
-    @GetMapping("/") // TODO: 매장 관리자 - 현재 접수된 주문
+    @GetMapping("/stores/{storeId}/orders") // TODO: 매장 관리자 - 현재 접수된 주문
     private String orders() { // index
         /*
         // TODO: 권한 처리
@@ -144,7 +162,7 @@ public class StoreOwnerController {
         return "orders";
     }
 
-    @GetMapping("/stores/{storeId}/orders") // TODO: 매장 관리자 - 주문내역 목록보기
+    @GetMapping("/stores/{storeId}/orders/history") // TODO: 매장 관리자 - 주문내역 목록보기
     private String orderList(@PathVariable int storeId, Model model) {
         // TODO: 권한 처리
         StoreResponse.OrderListDTO respDTO = storeService.getOrderList(storeId);

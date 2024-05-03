@@ -296,12 +296,21 @@ public class StoreResponse {
     public static class UpdateMenuDTO {
     }
 
-    @Data // TODO: 매장 메뉴 옵션 등록
+    @Data // 매장 관리자 - 매장 메뉴 옵션 등록
     public static class CreateMenuOptionDTO {
+        // 메뉴 정보
+        private int menuId;
+        // 옵션 정보
+        private int price;
+        private String name;
+        private boolean isRequired;
     }
 
-    @Data // TODO: 매장 메뉴 옵션 수정
+    @Data // 매장 관리자 - 매장 메뉴 옵션 수정
     public static class UpdateMenuOptionDTO {
+        private int price;
+        private String name;
+        private boolean isRequired;
     }
 
     @Data // 매장 관리자 - 주문내역 목록보기
