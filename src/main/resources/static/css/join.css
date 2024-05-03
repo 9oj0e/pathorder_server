@@ -1,0 +1,33 @@
+
+.join form ul .addr_li .post_code #sample4_postcode {
+    width: 100px;
+}
+.join form ul .addr_li .post_code .search_btn {
+    width: 100px;
+}
+.join form ul .addr_li .post_code .search_btn:hover {
+    font-weight: bold;
+}
+.join form ul .addr_li .address {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.join form ul .addr_li .address #sample4_roadAddress,
+.join form ul .addr_li .address #sample4_jibunAddress,
+.join form ul .addr_li .address #sample4_detailAddress,
+.join form ul .addr_li .address #sample4_extraAddress {
+    width: 49%;
+}
+.join form ul .addr_li label.title {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.join form ul .addr_li input {
+    width: 49% !important;
+    margin-bottom: 10px;
+}
+.join form ul .addr_li input#sample4_postcode {
+    width: 25%;
+    margin-right: 10px;
+}

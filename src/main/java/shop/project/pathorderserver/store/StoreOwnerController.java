@@ -12,6 +12,20 @@ public class StoreOwnerController {
     private final HttpSession session;
     private final StoreService storeService;
 
+    @GetMapping("/stores/join-terms") // TODO: 매장 관리자 회원가입폼
+    public String joinTermsForm() {
+//        storeService.createStore(reqDTO);
+
+        return "join-terms";
+    }
+
+    @GetMapping("/stores/join-form") // TODO: 매장 관리자 회원가입폼
+    public String joinForm() {
+//        storeService.createStore(reqDTO);
+
+        return "join-form";
+    }
+
     @GetMapping("/") // index
     private String index(Model model) {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
@@ -34,7 +48,15 @@ public class StoreOwnerController {
     public String join(StoreRequest.JoinDTO reqDTO) {
         storeService.createStore(reqDTO);
 
-        return "";
+        return "login-form";
+    }
+
+    @GetMapping("/stores/login-form") // TODO: 매장 관리자 - 로그인폼
+    public String loginForm() {
+//        SessionStore sessionStore = storeService.getStore(reqDTO);
+//        session.setAttribute("sessionStore", sessionStore);
+
+        return "login-form";
     }
 
     @PostMapping("/stores/login") // TODO: 매장 관리자 - 로그인
@@ -42,7 +64,7 @@ public class StoreOwnerController {
         SessionStore sessionStore = storeService.getStore(reqDTO);
         session.setAttribute("sessionStore", sessionStore);
 
-        return "";
+        return "orders";
     }
 
     @GetMapping("/stores/{storeId}") // TODO: 매장 관리자 - 매장 정보 보기
