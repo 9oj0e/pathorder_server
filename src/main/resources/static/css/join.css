@@ -81,7 +81,10 @@ a {
 .join form ul .password_li .pw_btn {
     margin-top: 5px;
 }
-.join form ul .name_li #user_name {
+.join form ul .name_li #user_name,
+.join form ul .username_li #username,
+.join form ul .owner_name_li #ownerName
+{
     width: 100%;
 }
 .join form ul .birth_li {
@@ -101,18 +104,22 @@ a {
 .join form ul .birth_li .box:nth-child(3) {
     margin-right: 0;
 }
-.join form ul .tel_li {
+.join form ul .tel_li,.join form ul .biz_num_li {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
-.join form ul .tel_li .title {
+.join form ul .tel_li .title, .join form ul .biz_num_li .title {
     width: 100%;
     margin-bottom: 10px;
 }
 .join form ul .tel_li #tel_first,
 .join form ul .tel_li #tel_second,
-.join form ul .tel_li #tel_third {
+.join form ul .tel_li #tel_third,
+.join form ul .biz_num_li #biz_num_first,
+.join form ul .biz_num_li #biz_num_second,
+.join form ul .biz_num_li #biz_num_third
+{
     height: 30px;
     width: 30%;
     text-align: center;
