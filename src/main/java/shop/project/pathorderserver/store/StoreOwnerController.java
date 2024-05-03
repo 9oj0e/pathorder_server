@@ -33,7 +33,7 @@ public class StoreOwnerController {
         StoreResponse.StoreDTO respDTO = storeService.getStoreDetail(storeId);
         model.addAttribute("storeDetail", respDTO);
 
-        return "store-info";
+        return "store";
     }
 
     @GetMapping("/stores/{storeId}/update-form") // TODO: 매장 관리자 - 매장 정보 보기
@@ -42,7 +42,7 @@ public class StoreOwnerController {
 //        SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
 //        storeService.getStoreDetail(sessionStore.getId());
 
-        return "update-store-info-form";
+        return "store-update-form";
     }
 
     @PostMapping("/stores/{storeId}") // TODO: 매장 관리자 - 매장 정보 수정
@@ -134,7 +134,7 @@ public class StoreOwnerController {
     private String orders() {
         // TODO: 권한 처리
 
-        return "index";
+        return "orders";
     }
 
     @GetMapping("/stores/{storeId}/orders") // TODO: 매장 관리자 - 주문내역 목록보기
@@ -143,7 +143,7 @@ public class StoreOwnerController {
         StoreResponse.OrderListDTO respDTO = storeService.getOrderList(storeId);
         model.addAttribute("orderList", respDTO);
 
-        return "order-history";
+        return "orders-list";
     }
 
     @GetMapping("/stores/{storeId}/orders/{orderId}") // TODO: 매장 관리자 - 주문내역 상세보기
