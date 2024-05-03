@@ -131,9 +131,16 @@ public class StoreOwnerController {
     }
 
     @GetMapping("/") // TODO: 매장 관리자 - 현재 접수된 주문
-    private String orders() {
+    private String orders() { // index
+        /*
         // TODO: 권한 처리
-
+        SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
+        if (sessionStore != null) {
+            return "orders";
+        } else {
+            return "login-form";
+        }
+        */
         return "orders";
     }
 
