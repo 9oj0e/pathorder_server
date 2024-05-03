@@ -26,7 +26,7 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO reqDTO) {
         UserResponse.LoginDTO respDTO = userService.getUser(reqDTO);
 
-        return ResponseEntity.ok().header("Authorization", "Bearer" + respDTO.getJwt()).body(new ApiUtil<>(respDTO.getUser()));
+        return ResponseEntity.ok().header("Authorization", "Bearer " + respDTO.getJwt()).body(new ApiUtil<>(respDTO.getUser()));
     }
 
     @GetMapping("/logout")

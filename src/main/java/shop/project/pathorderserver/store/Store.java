@@ -61,4 +61,21 @@ public class Store {
         this.closedDay = reqDTO.getClosedDay();
         this.address = reqDTO.getAddress();
     }
+
+    public void update(StoreRequest.UpdateDTO reqDTO) {
+        setUsername(reqDTO.getUsername());
+        setPassword(reqDTO.getPassword());
+        setOwnerName(reqDTO.getOwnerName());
+        setOwnerTel(reqDTO.getOwnerTel());
+        setOwnerEmail(reqDTO.getOwnerEmail());
+        setBizNum(reqDTO.getBizNum());
+        setImgFilename(reqDTO.getImgFilename());
+        setName(reqDTO.getName());
+        setTel(reqDTO.getTel());
+        setIntro(reqDTO.getIntro());
+        setOpeningTime(reqDTO.getOpeningTime());
+        setClosingTime(reqDTO.getClosingTime());
+        setClosedDay(reqDTO.getClosedDay());
+        setAddress(reqDTO.getAddress());
+    }
 }

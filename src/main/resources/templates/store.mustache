@@ -1,5 +1,7 @@
 {{>layout/header}}
 <div id="layoutSidenav" style="display: flex">
+    {{>layout/sidebar}}
+    <!--
     <div id="layoutSidenav_nav d-flex" style="width: 260px; z-index: 1038;">
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion"
              style="position: relative; background-color: #e6e6e6; height: 100vh;">
@@ -7,7 +9,7 @@
                 <div class="nav d-flex align-items-center" style="font-size: 20px;">
                     <div class="d-flex justify-content-center"
                          style="position: relative;border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px; ">
-                        <a class="nav-link" href="/" style="padding: 20px;margin-right: 5px;">
+                        <a class="nav-link" href="/stores/1/orders" style="padding: 20px;margin-right: 5px;">
                             주문
                         </a>
                         <div class="new-popup-count hidden" id="newPopupCount"
@@ -17,21 +19,21 @@
                     </div>
                     <div class="d-flex justify-content-center"
                          style="border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px;">
-                        <!-- TODO: 매핑 1로 되어있음 -->
-                        <a class="nav-link" href="/stores/1/orders">
+                        &lt;!&ndash; TODO: 매핑 1로 되어있음 &ndash;&gt;
+                        <a class="nav-link" href="/stores/1/orders/history">
                             지난 주문
                         </a>
                     </div>
                     <div class="d-flex justify-content-center"
                          style="border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px;">
-                        <!-- TODO: 매핑 1로 되어있음 -->
+                        &lt;!&ndash; TODO: 매핑 1로 되어있음 &ndash;&gt;
                         <a class="nav-link" href="/stores/1/menus">
                             메뉴
                         </a>
                     </div>
                     <div class="d-flex justify-content-center"
                          style="border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px; background-color: rgb(5, 5, 43);">
-                        <!-- TODO: 매핑 1로 되어있음 -->
+                        &lt;!&ndash; TODO: 매핑 1로 되어있음 &ndash;&gt;
                         <a class="nav-link" href="/stores/1" style=" color: #e6e6e6!important;">
                             매장정보
                         </a>
@@ -40,6 +42,7 @@
             </div>
         </nav>
     </div>
+    -->
     <main style="padding: 50px; background-color: rgb(5, 5, 43); width: 100%;">
         <div class="container d-flex">
             <div class=" mx-2 pb-4 w-100">
@@ -51,119 +54,117 @@
 
                     <div>
                         <div class="container mt-5 text ">
-                            <form action="#">
-                                <div class="mt-5">
-                                    <h4 class="border-bottom pb-4">매장 정보</h4>
-                                </div>
-                                <br>
-                                <div class="d-flex justify-content-center mb5
+                            <div class="mt-5">
+                                <h4 class="border-bottom pb-4">매장 정보</h4>
+                            </div>
+                            <br>
+                            <div class="d-flex justify-content-center mb5
                                         ">
-                                            <div
-                                                style="width: 240px;height: 300px; border: 1px solid #e6e6e6;margin-bottom: 20px;">
-                                                <img src="{{storeDetail.imgFilename}}" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                        <div class="input-group mb-3">
+                                <div
+                                        style="width: 240px;height: 300px; border: 1px solid #e6e6e6;margin-bottom: 20px;">
+                                    <img src="{{storeDetail.imgFilename}}" style="width: 100%;">
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
                                             <span
-                                                class="input-group-text justify-content-center hs_span_size init_color hs_span">상호명</span>
-                                            <input type="text" class="form-control" value="{{storeDetail.name}}" readonly>
-                                        </div>
-                                        <div class="input-group mb-3">
+                                                    class="input-group-text justify-content-center hs_span_size init_color hs_span">상호명</span>
+                                <input type="text" class="form-control" value="{{storeDetail.name}}" readonly>
+                            </div>
+                            <div class="input-group mb-3">
                                             <span
-                                                class="input-group-text  justify-content-center hs_span_size init_color hs_span">매장
+                                                    class="input-group-text  justify-content-center hs_span_size init_color hs_span">매장
                                                 전화번호</span>
-                                            <input type="text" class="form-control" value="{{storeDetail.tel}}" readonly>
-                                        </div>
-                                        <div class="input-group mb-3">
+                                <input type="text" class="form-control" value="{{storeDetail.tel}}" readonly>
+                            </div>
+                            <div class="input-group mb-3">
                                             <span
-                                                class="input-group-text justify-content-center hs_span_size init_color hs_span">매장
+                                                    class="input-group-text justify-content-center hs_span_size init_color hs_span">매장
                                                 소개</span>
-                                            <input type="text" class="form-control" value="{{storeDetail.intro}}" readonly>
-                                        </div>
-                                        <div class="input-group mb-3">
+                                <input type="text" class="form-control" value="{{storeDetail.intro}}" readonly>
+                            </div>
+                            <div class="input-group mb-3">
                                             <span
-                                                class="input-group-text justify-content-center hs_span_size init_color hs_span">개점시간</span>
-                                            <input type="text" class="form-control" value="{{storeDetail.openingTime}}" readonly>
-                                        </div>
-                                        <div class="input-group mb-3">
+                                                    class="input-group-text justify-content-center hs_span_size init_color hs_span">개점시간</span>
+                                <input type="text" class="form-control" value="{{storeDetail.openingTime}}" readonly>
+                            </div>
+                            <div class="input-group mb-3">
                                             <span
-                                                class="input-group-text justify-content-center hs_span_size init_color hs_span">폐점시간</span>
-                                            <input type="text" class="form-control" value="{{storeDetail.closingTime}}" readonly>
-                                        </div>
-                                        <div class="input-group mb-3">
+                                                    class="input-group-text justify-content-center hs_span_size init_color hs_span">폐점시간</span>
+                                <input type="text" class="form-control" value="{{storeDetail.closingTime}}" readonly>
+                            </div>
+                            <div class="input-group mb-3">
                                             <span
-                                                class="input-group-text justify-content-center hs_span_size init_color hs_span">휴무일</span>
-                                            <input type="text" class="form-control" value="{{storeDetail.closedDay}}" readonly>
-                                        </div>
-                                        <div class="input-group mb-3">
+                                                    class="input-group-text justify-content-center hs_span_size init_color hs_span">휴무일</span>
+                                <input type="text" class="form-control" value="{{storeDetail.closedDay}}" readonly>
+                            </div>
+                            <div class="input-group mb-3">
                                             <span
                                                     class="input-group-text justify-content-center hs_span_size init_color hs_span">매장
                                                 주소</span>
-                                            <input type="text" class="form-control" value="{{storeDetail.address}}" readonly>
-                                        </div>
+                                <input type="text" class="form-control" value="{{storeDetail.address}}" readonly>
+                            </div>
 
-                                <div class="mt-5">
-                                    <h4 class="border-bottom pb-4">사업자 정보</h4>
-                                </div>
-                                <br>
-                                <div class="input-group mb-3">
+                            <div class="mt-5">
+                                <h4 class="border-bottom pb-4">사업자 정보</h4>
+                            </div>
+                            <br>
+                            <div class="input-group mb-3">
                                             <span
                                                     class="input-group-text  justify-content-center hs_span_size init_color hs_span">사업주
                                                 이름</span>
-                                            <input type="text" class="form-control" value="{{storeDetail.ownerName}}" readonly>
-                                        </div>
-                                        <div class="input-group mb-3">
+                                <input type="text" class="form-control" value="{{storeDetail.ownerName}}" readonly>
+                            </div>
+                            <div class="input-group mb-3">
                                             <span
                                                     class="input-group-text  justify-content-center hs_span_size init_color hs_span">사업주
                                                 연락처</span>
-                                            <input type="text" class="form-control" value="{{storeDetail.ownerTel}}" readonly>
-                                        </div>
-                                        <div class="input-group mb-3">
+                                <input type="text" class="form-control" value="{{storeDetail.ownerTel}}" readonly>
+                            </div>
+                            <div class="input-group mb-3">
                                             <span
                                                     class="input-group-text  justify-content-center hs_span_size init_color hs_span">사업주
                                                 이메일</span>
-                                            <input type="text" class="form-control" value="{{storeDetail.ownerEmail}}" readonly>
-                                        </div>
-                                        <div class="input-group mb-3">
+                                <input type="text" class="form-control" value="{{storeDetail.ownerEmail}}" readonly>
+                            </div>
+                            <div class="input-group mb-3">
                                             <span
                                                     class="input-group-text justify-content-center hs_span_size init_color hs_span">사업자
                                                 번호</span>
-                                            <input type="text" class="form-control" value="{{storeDetail.bizNum}}" readonly>
-                                        </div>
-                                        <div class="mt-5">
-                                            <h4 class="border-bottom pb-4">로그인 정보</h4>
-                                        </div>
-                                        <br>
-                                        <div class="input-group mb-3">
+                                <input type="text" class="form-control" value="{{storeDetail.bizNum}}" readonly>
+                            </div>
+                            <div class="mt-5">
+                                <h4 class="border-bottom pb-4">로그인 정보</h4>
+                            </div>
+                            <br>
+                            <div class="input-group mb-3">
                                             <span
-                                                class="input-group-text  justify-content-center hs_span_size init_color hs_span">아이디</span>
-                                            <input type="text" class="form-control" value="{{storeDetail.username}}" readonly>
-                                        </div>
-                                        <div class="input-group mb-3">
+                                                    class="input-group-text  justify-content-center hs_span_size init_color hs_span">아이디</span>
+                                <input type="text" class="form-control" value="{{storeDetail.username}}" readonly>
+                            </div>
+                            <div class="input-group mb-3">
                                             <span
-                                                class="input-group-text  justify-content-center hs_span_size init_color hs_span">비밀번호</span>
-                                            <input type="text" class="form-control" value="{{storeDetail.password}}" readonly>
-                                        </div>
-                                        <div id="checkAlertBox"></div>
-                                        <hr class="my-4">
-                                        <div style="width: 100%;">
-                                            <form action="/stores/{{storeDetail.id}}" method="get">
-                                                <button type="submit" class="btn btn-outline-success mb-3"
-                                                        style="width: 100%">수정하기
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </form>
-                                </div>
+                                                    class="input-group-text  justify-content-center hs_span_size init_color hs_span">비밀번호</span>
+                                <input type="text" class="form-control" value="{{storeDetail.password}}" readonly>
+                            </div>
+                            <div id="checkAlertBox"></div>
+                            <hr class="my-4">
+                            <div style="width: 100%;">
+                                <form action="/stores/{{storeDetail.id}}/update-form" method="get">
+                                    <button type="submit" class="btn btn-outline-success mb-3"
+                                            style="width: 100%">수정하기
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    <!-- list-group( 오른쪽 바로가기) 시작 -->
                 </div>
-            </main>
+            </div>
+            <!-- list-group( 오른쪽 바로가기) 시작 -->
         </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    </main>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 <script src="/js/scripts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

@@ -1,0 +1,65 @@
+<style>
+    .nav-link-active {
+        color: #e6e6e6 !important;
+    }
+
+    .nav-item-active {
+        background-color: rgb(5, 5, 43) !important;
+    }
+</style>
+<div id="layoutSidenav_nav d-flex" style="width: 260px; z-index: 1038;">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion"
+         style="position: relative; background-color: #e6e6e6; height: 100vh;">
+        <div class="sb-sidenav-menu">
+            <div class="nav d-flex align-items-center" style="font-size: 20px;">
+                <div id="nav-item" class="d-flex justify-content-center"
+                     style="border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px;">
+                    <a id="nav-link" class="nav-link" href="/stores/1/orders">
+                        주문
+                    </a>
+                    <div class="new-popup-count hidden" id="newPopupCount"
+                         style="position: absolute;top: 50px;right: 70px;background-color: orange;border-radius: 5px;padding: 0 4px;font-size: 10px;color: black;">
+                        17
+                    </div>
+                </div>
+                <div id="nav-item" class="d-flex justify-content-center"
+                     style="border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px;">
+                    <!-- TODO: 매핑 1로 되어있음 -->
+                    <a id="nav-link" class="nav-link" href="/stores/1/orders/history">
+                        지난 주문
+                    </a>
+                </div>
+                <div id="nav-item" class="d-flex justify-content-center"
+                     style="border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px;">
+                    <!-- TODO: 매핑 1로 되어있음 -->
+                    <a id="nav-link" class="nav-link" href="/stores/1/menus">
+                        메뉴
+                    </a>
+                </div>
+                <div id="nav-item" class="d-flex justify-content-center"
+                     style="border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px;">
+                    <!-- TODO: 매핑 1로 되어있음 -->
+                    <a id="nav-link" class="nav-link" href="/stores/1">
+                        매장정보
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const currentPath = window.location.pathname;
+        const sidebarItems = document.querySelectorAll('#nav-item');
+        const sidebarLinks = document.querySelectorAll('#nav-link');
+
+        sidebarLinks.forEach(link => {
+            const linkPath = link.getAttribute('href');
+            const regexPattern = new RegExp(`^${linkPath}(/|$)`);
+            if (currentPath.match(regexPattern)) {
+                link.classList.add('nav-link-active');
+                sidebarItems.classList.add('nav-item-active');
+            }
+        });
+    });
+</script>

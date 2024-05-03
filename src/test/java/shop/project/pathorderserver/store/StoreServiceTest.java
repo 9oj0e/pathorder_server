@@ -5,7 +5,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import shop.project.pathorderserver.menu.Menu;
+import shop.project.pathorderserver.menu.MenuOption;
+import shop.project.pathorderserver.menu.MenuOptionRepository;
+import shop.project.pathorderserver.menu.MenuRepository;
 import shop.project.pathorderserver.order.OrderStatus;
+
+import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 @Transactional
@@ -14,8 +21,12 @@ class StoreServiceTest {
     StoreService storeService;
     @Autowired
     StoreRepository storeRepository;
+    @Autowired
+    MenuRepository menuRepository;
+    @Autowired
+    MenuOptionRepository menuOptionRepository;
 
-    @Test // 점주 회원가입
+    @Test // 매장 관리자 - 회원가입
     void createStore_test() {
         // given
         StoreRequest.JoinDTO reqDTO = new StoreRequest.JoinDTO();
@@ -38,7 +49,7 @@ class StoreServiceTest {
         Assertions.assertThat(respDTO.getOwnerName()).isEqualTo("김성재");
     }
 
-    @Test // 점주 로그인
+    @Test // 매장 관리자 - 로그인
     void getStore_test() {
         // given
         StoreRequest.LoginDTO reqDTO = new StoreRequest.LoginDTO();
@@ -50,64 +61,7 @@ class StoreServiceTest {
         Assertions.assertThat(sessionStore.getUsername()).isEqualTo("jake1234");
     }
 
-    @Test // 메뉴 등록
-    void createMenu_Test() {
-        // given
-        int storeId = 1;
-        StoreRequest.CreateMenuDTO reqDTO = new StoreRequest.CreateMenuDTO();
-        reqDTO.setPrice(3000);
-        reqDTO.setCategory("과일 음료");
-        reqDTO.setName("자몽에이드");
-        reqDTO.setDescription("내가 제일 좋아함");
-        // when
-        StoreResponse.CreateMenuDTO respDTO = storeService.createMenu(storeId, reqDTO);
-        // then
-        Assertions.assertThat(respDTO.getName()).isEqualTo("자몽에이드");
-    }
-
-    @Test
-    void getMenuDetail_test() {
-        // given
-        int menuId = 1;
-        // when
-        StoreResponse.MenuDetailDTO respDTO = storeService.getMenuDetail(menuId);
-        // then
-        Assertions.assertThat(respDTO.getName()).isEqualTo("아메리카노");
-        Assertions.assertThat(respDTO.getMenuOptionList().size()).isEqualTo(6);
-        Assertions.assertThat(respDTO.getMenuOptionList().get(5).getPrice()).isEqualTo(500);
-    }
-
-    @Test // 점주 주문내역 목록보기
-    void getOrderList_test() {
-        // given
-        int storeId = 1;
-        // when
-        StoreResponse.OrderListDTO respDTO = storeService.getOrderList(storeId);
-        // then
-        Assertions.assertThat(respDTO.getOrderList().size()).isEqualTo(5);
-    }
-
-    @Test // 점주 주문내역 상세보기
-    void getOrderDetail_test() { // Transaction(readOnly = true) 필수. Or Lazy Initialization Exception
-        // given
-        int orderId = 1;
-        // when
-        StoreResponse.OrderDetailDTO respDTO = storeService.getOrderDetail(orderId);
-        // then
-        Assertions.assertThat(respDTO.getOrderMenuList().size()).isEqualTo(3);
-    }
-
-    @Test // 점주 메뉴 목록보기
-    void getMenuList_test() {
-        // given
-        int storeId = 1;
-        // when
-        StoreResponse.MenuListDTO respDTO = storeService.getMenuList(storeId);
-        // then
-        Assertions.assertThat(respDTO.getMenuList().size()).isEqualTo(5);
-    }
-
-    @Test // 점주 매장 정보 상세보기
+    @Test // 매장 관리자 - 매장 정보 상세보기
     void getStoreDetail() {
         // given
         int storeId = 1;
@@ -117,7 +71,7 @@ class StoreServiceTest {
         Assertions.assertThat(respDTO.getName()).isEqualTo("단밤 카페");
     }
 
-    @Test // 매장정보 수정하기
+    @Test // 매장 관리자 - 매장 정보 수정하기
     void updateStore_test() {
         // given
         int sessionId = 1;
@@ -132,7 +86,112 @@ class StoreServiceTest {
         Assertions.assertThat(sessionStore.getUsername()).isEqualTo("1234");
     }
 
-    @Test // 주문 처리
+    @Test // 매장 관리자 - 메뉴 등록하기
+    void createMenu_Test() {
+        // given
+        int storeId = 1;
+        StoreRequest.CreateMenuDTO reqDTO = new StoreRequest.CreateMenuDTO();
+        reqDTO.setPrice(3000);
+        reqDTO.setCategory("과일 음료");
+        reqDTO.setName("자몽에이드");
+        reqDTO.setDescription("내가 제일 좋아함");
+        // when
+        StoreResponse.CreateMenuDTO respDTO = storeService.createMenu(storeId, reqDTO);
+        // then
+        Assertions.assertThat(respDTO.getName()).isEqualTo("자몽에이드");
+    }
+
+    @Test // 매장 관리자 - 메뉴 상세보기
+    void getMenuDetail_test() {
+        // given
+        int menuId = 1;
+        // when
+        StoreResponse.MenuDetailDTO respDTO = storeService.getMenuDetail(menuId);
+        // then
+        Assertions.assertThat(respDTO.getName()).isEqualTo("아메리카노");
+        Assertions.assertThat(respDTO.getMenuOptionList().size()).isEqualTo(6);
+        Assertions.assertThat(respDTO.getMenuOptionList().get(5).getPrice()).isEqualTo(500);
+    }
+
+    @Test // 매장 관리자 - 메뉴 목록보기
+    void getMenuList_test() {
+        // given
+        int storeId = 1;
+        // when
+        StoreResponse.MenuListDTO respDTO = storeService.getMenuList(storeId);
+        // then
+        Assertions.assertThat(respDTO.getMenuList().size()).isEqualTo(5);
+    }
+
+    @Test // 매장 관리자 - 메뉴 수정하기
+    void updateMenu_test() {
+        // given
+        int menuId = 1;
+        StoreRequest.UpdateMenuDTO reqDTO = new StoreRequest.UpdateMenuDTO();
+        reqDTO.setPrice(10000);
+        // when
+        StoreResponse.UpdateMenuDTO respDTO = storeService.updateMenu(menuId, reqDTO);
+        // then
+        Assertions.assertThat(respDTO.getPrice()).isEqualTo(10000);
+    }
+
+    @Test // 매장 관리자 - 메뉴 삭제하기
+    void deleteMenu_test() {
+        // given
+        int menuId = 1;
+        int storeId = 1;
+        // when
+        storeService.deleteMenu(menuId);
+        List<Menu> menuList = menuRepository.findAllByStoreId(storeId).get();
+        // then
+        Assertions.assertThat(menuList.size()).isEqualTo(4);
+    }
+
+    @Test // 매장 관리자 - 메뉴 옵션 등록하기
+    void createMenuOption_test() {
+        // given
+        int menuId = 1;
+        StoreRequest.CreateMenuOptionDTO reqDTO = new StoreRequest.CreateMenuOptionDTO();
+        reqDTO.setName("testMenu");
+        reqDTO.setRequired(true);
+        reqDTO.setPrice(9999);
+        // when
+        StoreResponse.CreateMenuOptionDTO respDTO = storeService.createMenuOption(menuId, reqDTO);
+        // then
+        Assertions.assertThat(respDTO.getName()).isEqualTo("testMenu");
+        Assertions.assertThat(respDTO.isRequired()).isEqualTo(true);
+        Assertions.assertThat(respDTO.getPrice()).isEqualTo(9999);
+    }
+
+    @Test // 매장 관리자 - 메뉴 옵션 수정하기
+    void updateMenuOption_test() {
+        // given
+        int optionId = 1;
+        StoreRequest.UpdateMenuOptionDTO reqDTO = new StoreRequest.UpdateMenuOptionDTO();
+        reqDTO.setName("testMenuOption");
+        reqDTO.setPrice(999);
+        reqDTO.setRequired(true);
+        // when
+        StoreResponse.UpdateMenuOptionDTO respDTO = storeService.updateMenuOption(optionId, reqDTO);
+        // then
+        Assertions.assertThat(respDTO.getName()).isEqualTo("testMenuOption");
+        Assertions.assertThat(respDTO.getPrice()).isEqualTo(999);
+        Assertions.assertThat(respDTO.isRequired()).isEqualTo(true);
+    }
+
+    @Test // 매장 관리자 - 메뉴 옵션 삭제하기
+    void deleteMenuOption() {
+        // given
+        int menuOptionId = 1;
+        int menuId = 1;
+        // when
+        storeService.deleteMenuOption(menuOptionId);
+        List<MenuOption> menuOptionList = menuOptionRepository.findByMenuId(menuId).get();
+        // then
+        Assertions.assertThat(menuOptionList.size()).isEqualTo(5);
+    }
+
+    @Test // 매장 관리자 - 주문 처리
     void updateOrder_test() {
         // given
         int orderId = 1;
@@ -142,5 +201,25 @@ class StoreServiceTest {
         StoreResponse.UpdateOrderDTO respDTO = storeService.updateOrder(orderId, reqDTO);
         // then
         Assertions.assertThat(respDTO.getStatus()).isEqualTo(OrderStatus.조리완료);
+    }
+
+    @Test // 매장 관리자 - 주문내역 목록보기
+    void getOrderList_test() {
+        // given
+        int storeId = 1;
+        // when
+        StoreResponse.OrderListDTO respDTO = storeService.getOrderList(storeId);
+        // then
+        Assertions.assertThat(respDTO.getOrderList().size()).isEqualTo(5);
+    }
+
+    @Test // 매장 관리자 - 주문내역 상세보기
+    void getOrderDetail_test() { // Transaction(readOnly = true) 필수. Or Lazy Initialization Exception
+        // given
+        int orderId = 1;
+        // when
+        StoreResponse.OrderDetailDTO respDTO = storeService.getOrderDetail(orderId);
+        // then
+        Assertions.assertThat(respDTO.getOrderMenuList().size()).isEqualTo(3);
     }
 }

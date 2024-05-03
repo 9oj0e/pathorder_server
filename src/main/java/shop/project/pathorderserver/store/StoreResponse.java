@@ -1,6 +1,7 @@
 package shop.project.pathorderserver.store;
 
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 import shop.project.pathorderserver._core.utils.FormatUtil;
 import shop.project.pathorderserver.menu.Menu;
 import shop.project.pathorderserver.menu.MenuOption;
@@ -292,16 +293,59 @@ public class StoreResponse {
         }
     }
 
-    @Data // TODO: 매장 메뉴 수정
+    @Data // 매장 메뉴 수정
     public static class UpdateMenuDTO {
+        private int price; // 메뉴 하나의 가격
+        private String category; // 각 메뉴가 포함되는 카테고리, 점주가 직접 작성
+        private String name; // 메뉴 이름
+        private String imgFilename;
+        private String description; // 메뉴 설명
+
+        public UpdateMenuDTO(Menu menu) {
+            this.price = menu.getPrice();
+            this.category = menu.getCategory();
+            this.name = menu.getName();
+            this.imgFilename = menu.getImgFilename();
+            this.description = menu.getDescription();
+        }
     }
 
-    @Data // TODO: 매장 메뉴 옵션 등록
+    @Data // 매장 관리자 - 매장 메뉴 옵션 등록
     public static class CreateMenuOptionDTO {
+        // 메뉴 정보
+        private int menuId;
+        // 옵션 정보
+        private int id;
+        private int price;
+        private String name;
+        private boolean isRequired;
+
+        public CreateMenuOptionDTO(int menuId, MenuOption menuOption) {
+            this.menuId = menuId;
+            this.id = menuOption.getId();
+            this.price = menuOption.getPrice();
+            this.name = menuOption.getName();
+            this.isRequired = menuOption.isRequired();
+        }
     }
 
-    @Data // TODO: 매장 메뉴 옵션 수정
+    @Data // 매장 관리자 - 매장 메뉴 옵션 수정
     public static class UpdateMenuOptionDTO {
+        // 메뉴 정보
+        private int menuId;
+        // 옵션 정보
+        private int id;
+        private int price;
+        private String name;
+        private boolean isRequired;
+
+        public UpdateMenuOptionDTO(MenuOption menuOption) {
+            setMenuId(menuOption.getMenu().getId());
+            setId(menuOption.getId());
+            setPrice(menuOption.getPrice());
+            setName(menuOption.getName());
+            setRequired(menuOption.isRequired());
+        }
     }
 
     @Data // 매장 관리자 - 주문내역 목록보기
