@@ -7,7 +7,7 @@
                 <div class="nav d-flex align-items-center" style="font-size: 20px;">
                     <div class="d-flex justify-content-center"
                          style="position: relative;border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px; background-color: rgb(5, 5, 43); ">
-                        <a class="nav-link" href="/" style="padding: 20px;margin-right: 5px; color: #e6e6e6;">
+                        <a class="nav-link" href="/" style="padding: 20px;margin-right: 5px; color: #e6e6e6!important;">
                             주문
                         </a>
                         <div class="new-popup-count hidden" id="newPopupCount"
@@ -40,77 +40,80 @@
             </div>
         </nav>
     </div>
-    <div id="layoutSidenav_content">
-        <main>
-            <div class="container-fluid px-4">
-                <h1 class="date" id="date"></h1>
-                <div class="row row-cols-4 gap-3">
-                    <div class="card mb-4" style="font-size: 12px;">
-                        <div style="padding: 10px;">
-                            <div class="d-flex justify-content-start" style="margin-bottom: 10px;">
-                                <button type="button" class="btn btn-warning"
-                                        style="font-size: 12px; color:white"><b>접수대기</b>
-                                    11: 23분
-                                    수령예정
-                                </button>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between"
-                                 style="margin-bottom: 10px;">
-                                <div style="font-size: 15px;">
-                                    <div><b>테이크아웃</b></div>
-                                    <div style="font-size: 12px;">정현</div>
-                                </div>
-                                <div>
-                                    <button type="button" class="btn btn-outline-primary" style="font-size: 12px;"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#orderDetailModal">상세<br/>보기
-                                    </button>
-                                </div>
-                            </div>
-                            <div>생과일주스(1)</div>
-                            <div>오전 11:03</div>
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-outline-warning"
-                                    style="width: 100%;font-size: 12px;padding: 10px 0; ">주문접수하기
+    <!--    <div id="layoutSidenav_content" style="">-->
+    <main style="padding: 50px; background-color: rgb(5, 5, 43); width: 100%;">
+        <div class="container-fluid px-4">
+            <h1 class="date" id="date" style="color: #e6e6e6;"></h1>
+            <div class="row row-cols-4 gap-3" style="display: flex; flex-wrap: wrap;">
+                <div class="card mb-4" style="font-size: 12px;width: 240px; height: 196px; padding: 0;">
+                    <div style="padding: 10px;">
+                        <div class="d-flex justify-content-start" style="margin-bottom: 10px;">
+                            <button type="button" class="btn btn-warning"
+                                    style="font-size: 12px; color:white"><b>접수대기</b>
+                                11: 23분
+                                수령예정
                             </button>
                         </div>
+                        <div class="d-flex align-items-center justify-content-between"
+                             style="margin-bottom: 10px;">
+                            <div style="font-size: 15px;">
+                                <div><b>테이크아웃</b></div>
+                                <div style="font-size: 12px;">정현</div>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-outline-primary" style="font-size: 12px;"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#orderDetailModal">상세<br/>보기
+                                </button>
+                            </div>
+                        </div>
+                        <div>생과일주스(1)</div>
+                        <div>오전 11:03</div>
                     </div>
-                    <div class="card mb-4" style="font-size: 12px;">
-                        <div style="padding: 10px;">
-                            <div class="d-flex justify-content-start" style="margin-bottom: 10px;">
-                                <button type="button" class="btn btn-success"
-                                        style="font-size: 12px; color:white"><b>조리중</b>
-                                    11: 23분
-                                    수령예정
-                                </button>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between"
-                                 style="margin-bottom: 10px;">
-                                <div style="font-size: 15px;">
-                                    <div><b>테이크아웃</b></div>
-                                    <div style="font-size: 12px;">정현</div>
-                                </div>
-                                <div>
-                                    <button type="button" class="btn btn-outline-primary"
-                                            style="font-size: 12px;">상세<br/>보기
-                                    </button>
-                                </div>
-                            </div>
-                            <div>생과일주스(1)</div>
-                            <div>오전 11:03</div>
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-outline-success"
-                                    style="width: 100%;font-size: 12px;padding: 10px 0;">조리완료
+                    <div>
+                        <button type="button" class="btn btn-outline-warning"
+                                style="width: 100%;font-size: 12px;padding: 10px 0; ">주문접수하기
+                        </button>
+                    </div>
+                </div>
+                <div class="card mb-4" style="font-size: 12px; width: 240px; height: 196px; padding: 0;">
+                    <div style="padding: 10px;">
+                        <div class="d-flex justify-content-start" style="margin-bottom: 10px;">
+                            <button type="button" class="btn btn-success"
+                                    style="font-size: 12px; color:white"><b>조리중</b>
+                                11: 23분
+                                수령예정
                             </button>
                         </div>
+                        <div class="d-flex align-items-center justify-content-between"
+                             style="margin-bottom: 10px;">
+                            <div style="font-size: 15px;">
+                                <div><b>테이크아웃</b></div>
+                                <div style="font-size: 12px;">정현</div>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-outline-primary"
+                                        style="font-size: 12px;">상세<br/>보기
+                                </button>
+                            </div>
+                        </div>
+                        <div>생과일주스(1)</div>
+                        <div>오전 11:03</div>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-outline-success"
+                                style="width: 100%;font-size: 12px;padding: 10px 0;">조리완료
+                        </button>
                     </div>
                 </div>
             </div>
-        </main>
-    </div>
+        </div>
+    </main>
+    <!--    </div>-->
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 <script src="/js/scripts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
