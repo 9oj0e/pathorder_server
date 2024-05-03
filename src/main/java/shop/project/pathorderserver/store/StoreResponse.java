@@ -301,16 +301,37 @@ public class StoreResponse {
         // 메뉴 정보
         private int menuId;
         // 옵션 정보
+        private int id;
         private int price;
         private String name;
         private boolean isRequired;
+
+        public CreateMenuOptionDTO(int menuId, MenuOption menuOption) {
+            this.menuId = menuId;
+            this.id = menuOption.getId();
+            this.price = menuOption.getPrice();
+            this.name = menuOption.getName();
+            this.isRequired = menuOption.isRequired();
+        }
     }
 
     @Data // 매장 관리자 - 매장 메뉴 옵션 수정
     public static class UpdateMenuOptionDTO {
+        // 메뉴 정보
+        private int menuId;
+        // 옵션 정보
+        private int id;
         private int price;
         private String name;
         private boolean isRequired;
+
+        public UpdateMenuOptionDTO(MenuOption menuOption) {
+            setMenuId(menuOption.getMenu().getId());
+            setId(menuOption.getId());
+            setPrice(menuOption.getPrice());
+            setName(menuOption.getName());
+            setRequired(menuOption.isRequired());
+        }
     }
 
     @Data // 매장 관리자 - 주문내역 목록보기

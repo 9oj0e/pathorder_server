@@ -119,7 +119,7 @@ public class StoreOwnerController {
     @PostMapping("/stores/{storeId}/menus/{menuId}/options") // TODO: 매장 관리자 - 메뉴 옵션 등록하기
     private String addMenuOption(@PathVariable int storeId, @PathVariable int menuId, StoreRequest.CreateMenuOptionDTO reqDTO) {
         // TODO: 권한 처리
-        StoreResponse.CreateMenuOptionDTO respDTO = storeService.createMenuOption(reqDTO);
+        StoreResponse.CreateMenuOptionDTO respDTO = storeService.createMenuOption(menuId, reqDTO);
 
         return "";
     }
@@ -135,7 +135,7 @@ public class StoreOwnerController {
     @PutMapping("/stores/{storeId}/menus/{menuId}/options/{optionId}") // TODO: 매장 관리자 - 메뉴 옵션 수정하기
     private String updateMenuOption(@PathVariable int storeId, @PathVariable int menuId, @PathVariable int optionId, StoreRequest.UpdateMenuOptionDTO reqDTO) {
         // TODO: 권한 처리
-        StoreResponse.UpdateMenuOptionDTO respDTO = storeService.updateMenuOption(reqDTO);
+        StoreResponse.UpdateMenuOptionDTO respDTO = storeService.updateMenuOption(optionId, reqDTO);
 
         return "";
     }

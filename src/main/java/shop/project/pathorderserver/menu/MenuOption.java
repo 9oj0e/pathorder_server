@@ -2,11 +2,13 @@ package shop.project.pathorderserver.menu;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import shop.project.pathorderserver.store.StoreRequest;
 
 import java.sql.Timestamp;
 
-
+@NoArgsConstructor
 @Data
 @Entity
 @Table(name = "menu_option_tb")
@@ -24,4 +26,18 @@ public class MenuOption {
     private Menu menu; // 하나의 메뉴는 여러개의 옵션을 참조
     // @CreationTimestamp
     // private Timestamp createdAt;
+
+    public MenuOption(StoreRequest.CreateMenuOptionDTO reqDTO, Menu menu) {
+        this.price = reqDTO.getPrice();
+        this.name = reqDTO.getName();
+        this.isRequired = reqDTO.isRequired();
+        this.menu = menu;
+    }
+
+    public void update(StoreRequest.UpdateMenuOptionDTO reqDTO) {
+        this.price = reqDTO.getPrice();
+        this.name = reqDTO.getName();
+        this.isRequired = reqDTO.isRequired();
+        this.menu = menu;
+    }
 }

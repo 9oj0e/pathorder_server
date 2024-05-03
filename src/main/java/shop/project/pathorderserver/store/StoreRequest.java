@@ -68,10 +68,17 @@ public class StoreRequest {
 
     @Data // TODO: 매장 관리자 - 메뉴 옵션 등록
     public static class CreateMenuOptionDTO {
+        // 옵션 정보
+        private int price;
+        private String name;
+        private boolean isRequired;
     }
 
     @Data // TODO: 매장 관리자 - 메뉴 옵션 수정
     public static class UpdateMenuOptionDTO {
+        private int price;
+        private String name;
+        private boolean isRequired;
     }
 
     @Data // TODO: 매장 관리자 - 주문 업데이트
