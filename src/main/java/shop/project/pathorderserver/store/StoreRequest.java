@@ -1,6 +1,7 @@
 package shop.project.pathorderserver.store;
 
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 import shop.project.pathorderserver.order.OrderStatus;
 
 public class StoreRequest {
@@ -62,8 +63,13 @@ public class StoreRequest {
         private String description; // 메뉴 설명
     }
 
-    @Data // TODO: 매장 관리자 - 메뉴 수정
+    @Data // 매장 관리자 - 메뉴 수정
     public static class UpdateMenuDTO {
+        private int price; // 메뉴 하나의 가격
+        private String category; // 각 메뉴가 포함되는 카테고리, 점주가 직접 작성
+        private String name; // 메뉴 이름
+        private String imgFilename;
+        private String description; // 메뉴 설명
     }
 
     @Data // TODO: 매장 관리자 - 메뉴 옵션 등록
