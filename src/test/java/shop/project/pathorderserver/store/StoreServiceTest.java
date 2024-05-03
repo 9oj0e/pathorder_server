@@ -48,6 +48,33 @@ class StoreServiceTest {
         Assertions.assertThat(sessionStore.getUsername()).isEqualTo("jake1234");
     }
 
+    @Test // 메뉴 등록
+    void createMenu_Test() {
+        // given
+        int storeId = 1;
+        StoreRequest.CreateMenuDTO reqDTO = new StoreRequest.CreateMenuDTO();
+        reqDTO.setPrice(3000);
+        reqDTO.setCategory("과일 음료");
+        reqDTO.setName("자몽에이드");
+        reqDTO.setDescription("내가 제일 좋아함");
+        // when
+        StoreResponse.CreateMenuDTO respDTO = storeService.createMenu(storeId, reqDTO);
+        // then
+        Assertions.assertThat(respDTO.getName()).isEqualTo("자몽에이드");
+    }
+
+    @Test
+    void getMenuDetail_test() {
+        // given
+        int menuId = 1;
+        // when
+        StoreResponse.MenuDetailDTO respDTO = storeService.getMenuDetail(menuId);
+        // then
+        Assertions.assertThat(respDTO.getName()).isEqualTo("아메리카노");
+        Assertions.assertThat(respDTO.getMenuOptionList().size()).isEqualTo(6);
+        Assertions.assertThat(respDTO.getMenuOptionList().get(5).getPrice()).isEqualTo(500);
+    }
+
     @Test // 점주 주문내역 목록보기
     void getOrderList_test() {
         // given
@@ -69,11 +96,11 @@ class StoreServiceTest {
     }
 
     @Test // 점주 메뉴 목록보기
-    void getOwnerMenuList_test() {
+    void getMenuList_test() {
         // given
         int storeId = 1;
         // when
-        StoreResponse.OwnerMenuListDTO respDTO = storeService.getMenuList(storeId);
+        StoreResponse.MenuListDTO respDTO = storeService.getMenuList(storeId);
         // then
         Assertions.assertThat(respDTO.getMenuList().size()).isEqualTo(5);
     }

@@ -26,18 +26,18 @@ class UserServiceTest {
         Assertions.assertThat(respDTO.getNickname()).isEqualTo("ssarman");
     }
 
-//    @Test // 로그인
-//    void getUser1_test() {
-//        // given
-//        UserRequest.LoginDTO reqDTO = new UserRequest.LoginDTO();
-//        reqDTO.setUsername("user2");
-//        reqDTO.setPassword("1234");
-//        // when
-//        String jwt = userService.getUser(reqDTO); // TODO: 오류뜸
-//        // then
-//        SessionUser sessionUser = JwtUtil.verify(jwt);
-//        Assertions.assertThat(sessionUser.getUsername()).isEqualTo("user2");
-//    }
+    @Test // 로그인
+    void getUser1_test() {
+        // given
+        UserRequest.LoginDTO reqDTO = new UserRequest.LoginDTO();
+        reqDTO.setUsername("user2");
+        reqDTO.setPassword("1234");
+        // when
+        UserResponse.LoginDTO respDTO = userService.getUser(reqDTO);
+        // then
+        SessionUser sessionUser = JwtUtil.verify(respDTO.getJwt());
+        Assertions.assertThat(sessionUser.getUsername()).isEqualTo("user2");
+    }
 
     @Test // 회원정보 조회
     void getUser2_test() {

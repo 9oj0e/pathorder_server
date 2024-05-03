@@ -57,7 +57,7 @@ public class StoreOwnerController {
     @PostMapping("/stores/{storeId}/menus") // TODO: 매장 관리자 - 메뉴 등록하기
     private String addMenu(@PathVariable int storeId, StoreRequest.CreateMenuDTO reqDTO, Model model) {
         // TODO: 권한 처리
-        StoreResponse.CreateMenuDTO respDTO = storeService.createMenu(reqDTO);
+        StoreResponse.CreateMenuDTO respDTO = storeService.createMenu(storeId, reqDTO);
         model.addAttribute("menu", respDTO);
 
         return "";
@@ -66,7 +66,7 @@ public class StoreOwnerController {
     @GetMapping("/stores/{storeId}/menus") // TODO: 매장 메뉴 목록보기
     private String menuList(@PathVariable int storeId, Model model) {
         // TODO: 권한 처리
-        StoreResponse.OwnerMenuListDTO respDTO = storeService.getMenuList(storeId);
+        StoreResponse.MenuListDTO respDTO = storeService.getMenuList(storeId);
         model.addAttribute("ownerMenuList", respDTO);
 
         return "menus";
@@ -75,7 +75,7 @@ public class StoreOwnerController {
     @GetMapping("/stores/{storeId}/menus/{menuId}") // TODO: 매장 관리자 - 메뉴 상세보기
     private String menuDetail(@PathVariable int storeId, @PathVariable int menuId, Model model) {
         // TODO: 권한 처리
-        StoreResponse.MenuDTO respDTO = storeService.getMenuDetail(menuId);
+        StoreResponse.MenuDetailDTO respDTO = storeService.getMenuDetail(menuId);
         model.addAttribute("menu", respDTO);
 
         return "";

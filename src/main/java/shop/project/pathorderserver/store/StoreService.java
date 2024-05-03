@@ -15,6 +15,7 @@ import shop.project.pathorderserver.order.OrderMenu;
 import shop.project.pathorderserver.order.OrderMenuRepository;
 import shop.project.pathorderserver.order.OrderRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -126,24 +127,32 @@ public class StoreService {
         return sessionStore;
     }
 
-    @Transactional // TODO: 매장 관리자 - 메뉴 등록하기
-    public StoreResponse.CreateMenuDTO createMenu(StoreRequest.CreateMenuDTO reqDTO) {
+    @Transactional // 매장 관리자 - 매장 메뉴 등록하기
+    public StoreResponse.CreateMenuDTO createMenu(int storeId, StoreRequest.CreateMenuDTO reqDTO) {
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new Exception404("찾을 수 없는 매장입니다."));
+        // TODO: 이미지 base64디코딩
+        Menu menu = new Menu(reqDTO, store);
 
-        return new StoreResponse.CreateMenuDTO();
+        return new StoreResponse.CreateMenuDTO(menuRepository.save(menu));
     }
 
     // 매장 관리자 - 메뉴 목록보기
-    public StoreResponse.OwnerMenuListDTO getMenuList(int storeId) {
-        List<Menu> menuList = menuRepository.findAllByStoreId(storeId)
+    public StoreResponse.MenuListDTO getMenuList(int storeId) {
+        List<Menu> menus = menuRepository.findAllByStoreId(storeId)
                 .orElseThrow(() -> new Exception404("메뉴를 찾을 수 없습니다."));
 
-        return new StoreResponse.OwnerMenuListDTO(menuList);
+        return new StoreResponse.MenuListDTO(menus);
     }
 
-    // TODO: 매장 관리자 - 메뉴 정보 및 옵션 보기
-    public StoreResponse.MenuDTO getMenuDetail(int menuId) {
+    // 매장 관리자 - 메뉴 정보 및 옵션 보기
+    public StoreResponse.MenuDetailDTO getMenuDetail(int menuId) {
+        Menu menu = menuRepository.findById(menuId)
+                .orElseThrow(() -> new Exception404("찾을 수 없는 메뉴입니다."));
+        List<MenuOption> menuOptions = menuOptionRepository.findByMenuId(menuId)
+                .orElse(new ArrayList<>());
 
-        return new StoreResponse.MenuDTO();
+        return new StoreResponse.MenuDetailDTO(menu, menuOptions);
     }
 
     @Transactional // TODO: 매장 관리자 - 메뉴 수정하기

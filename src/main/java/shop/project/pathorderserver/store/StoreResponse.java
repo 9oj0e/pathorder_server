@@ -10,6 +10,7 @@ import shop.project.pathorderserver.order.OrderMenuOption;
 import shop.project.pathorderserver.order.OrderStatus;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StoreResponse {
@@ -204,15 +205,32 @@ public class StoreResponse {
         }
     }
 
-    @Data // TODO: 매장 메뉴 등록
+    @Data // 매장 관리자 - 매장 메뉴 등록
     public static class CreateMenuDTO {
+        private int id;
+        private int price; // 메뉴 하나의 가격
+        private String category; // 각 메뉴가 포함되는 카테고리, 점주가 직접 작성
+        private String name; // 메뉴 이름
+        // private String imgFilename;
+        private String description; // 메뉴 설명
+        private String registeredAt; // 메뉴 등록일
+
+        public CreateMenuDTO(Menu menu) {
+            this.id = menu.getId();
+            this.price = menu.getPrice();
+            this.category = menu.getCategory();
+            this.name = menu.getName();
+            // this.imgFilename = menu.getImgFilename();
+            this.description = menu.getDescription();
+            this.registeredAt = FormatUtil.dateFormatter(menu.getRegisteredAt());
+        }
     }
 
     @Data // 매장 관리자 - 메뉴 목록보기
-    public static class OwnerMenuListDTO {
+    public static class MenuListDTO {
         private List<MenuDTO> menuList;
 
-        public OwnerMenuListDTO(List<Menu> menus) {
+        public MenuListDTO(List<Menu> menus) {
             this.menuList = menus.stream().map(MenuDTO::new).toList();
         }
 
@@ -232,8 +250,46 @@ public class StoreResponse {
         }
     }
 
-    @Data // TODO: 매장 메뉴 수정
-    public static class MenuDTO {
+    @Data // 매장 메뉴 및 옵션 정보 보기
+    public static class MenuDetailDTO {
+        private int id;
+        private int price; // 메뉴 하나의 가격
+        private String category; // 각 메뉴가 포함되는 카테고리, 점주가 직접 작성
+        private String name; // 메뉴 이름
+        // private String imgFilename;
+        private String description; // 메뉴 설명
+        private String registeredAt; // 메뉴 등록일
+        private List<MenuOptionDTO> menuOptionList = new ArrayList<>();
+
+        public MenuDetailDTO(Menu menu, List<MenuOption> menuOptions) {
+            this.id = menu.getId();
+            this.price = menu.getPrice();
+            this.category = menu.getCategory();
+            this.name = menu.getName();
+            this.description = menu.getDescription();
+            this.registeredAt = FormatUtil.dateFormatter(menu.getRegisteredAt());
+            // this.menuOptionList = menuOptions.stream().map(MenuOptionDTO::new).toList();
+            for (int i = 0; i < menuOptions.size(); i++) {
+                this.menuOptionList.add(new MenuOptionDTO(menuOptions.get(i)));
+            }
+        }
+
+        @Data
+        public static class MenuOptionDTO {
+            private int id;
+            private int price;
+            private String name;
+            private boolean isRequired;
+            // private String createdAt;
+
+            public MenuOptionDTO(MenuOption menuOption) {
+                this.id = menuOption.getId();
+                this.price = menuOption.getPrice();
+                this.name = menuOption.getName();
+                this.isRequired = menuOption.isRequired();
+                // this.createdAt = FormatUtil.dateFormatter(menuOption.getCreatedAt());
+            }
+        }
     }
 
     @Data // TODO: 매장 메뉴 수정
