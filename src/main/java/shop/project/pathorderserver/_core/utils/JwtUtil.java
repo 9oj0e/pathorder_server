@@ -13,7 +13,7 @@ public class JwtUtil {
     public static String create(User user) {
         String jwt = JWT.create()
                 .withSubject("pathorder")
-                .withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 2)) // 2h 유효
+                .withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 7)) // 12h 유효
                 .withClaim("id", user.getId())
                 .withClaim("username", user.getUsername())
                 .withClaim("nickname", user.getNickname())
