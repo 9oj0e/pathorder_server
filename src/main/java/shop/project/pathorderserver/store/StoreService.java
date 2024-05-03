@@ -163,10 +163,14 @@ public class StoreService {
         menuRepository.deleteById(menuId);
     }
 
-    @Transactional // TODO: 매장 관리자 - 메뉴 옵션 등록하기
-    public StoreResponse.CreateMenuOptionDTO createMenuOption(StoreRequest.CreateMenuOptionDTO reqDTO) {
+    @Transactional // 매장 관리자 - 메뉴 옵션 등록하기
+    public StoreResponse.CreateMenuOptionDTO createMenuOption(int menuId, StoreRequest.CreateMenuOptionDTO reqDTO) {
+        Menu menu = menuRepository.findById(menuId)
+                .orElseThrow(() -> new Exception404("찾을 수 없는 메뉴입니다."));
+        MenuOption menuOption = new MenuOption(reqDTO, menu);
+        menuOptionRepository.save(menuOption);
 
-        return new StoreResponse.CreateMenuOptionDTO();
+        return new StoreResponse.CreateMenuOptionDTO(menuId, menuOption);
     }
 
     /* 메뉴 옵션은 메뉴 상세보기에서 처리?
@@ -174,10 +178,13 @@ public class StoreService {
     public void getMenuOptionList(int menuId) {
     }
     */
-    @Transactional // TODO: 매장 관리자 - 메뉴 옵션 수정하기
-    public StoreResponse.UpdateMenuOptionDTO updateMenuOption(StoreRequest.UpdateMenuOptionDTO reqDTO) {
+    @Transactional // 매장 관리자 - 메뉴 옵션 수정하기
+    public StoreResponse.UpdateMenuOptionDTO updateMenuOption(int menuOptionId, StoreRequest.UpdateMenuOptionDTO reqDTO) {
+        MenuOption menuOption = menuOptionRepository.findById(menuOptionId)
+                .orElseThrow(() -> new Exception404("찾을 수 없는 메뉴 옵션입니다."));
+        menuOption.update(reqDTO);
 
-        return new StoreResponse.UpdateMenuOptionDTO();
+        return new StoreResponse.UpdateMenuOptionDTO(menuOption);
     }
 
     @Transactional // TODO: 매장 관리자 - 메뉴 옵션 삭제하기

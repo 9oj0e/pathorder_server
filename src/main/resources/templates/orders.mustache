@@ -1,6 +1,8 @@
 {{>layout/header}}
 {{>orders-detail-form}}
 <div id="layoutSidenav" style="display: flex;">
+    {{>layout/sidebar}}
+    <!--
     <div id="layoutSidenav_nav d-flex" style="width: 260px; z-index: 1038;">
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion"
              style="position: relative; background-color: #e6e6e6; height: 100vh;">
@@ -8,7 +10,7 @@
                 <div class="nav d-flex align-items-center" style="font-size: 20px;">
                     <div class="d-flex justify-content-center"
                          style="position: relative;border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px; background-color: rgb(5, 5, 43); ">
-                        <a class="nav-link" href="/" style="padding: 20px;margin-right: 5px; color: #e6e6e6!important;">
+                        <a class="nav-link" href="/stores/1/orders" style="padding: 20px;margin-right: 5px; color: #e6e6e6!important;">
                             주문
                         </a>
                         <div class="new-popup-count hidden" id="newPopupCount"
@@ -18,21 +20,21 @@
                     </div>
                     <div class="d-flex justify-content-center"
                          style="border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px;">
-                        <!-- TODO: 매핑 1로 되어있음 -->
-                        <a class="nav-link" href="/stores/1/orders">
+                        &lt;!&ndash; TODO: 매핑 1로 되어있음 &ndash;&gt;
+                        <a class="nav-link" href="/stores/1/orders/history">
                             지난 주문
                         </a>
                     </div>
                     <div class="d-flex justify-content-center"
                          style="border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px;">
-                        <!-- TODO: 매핑 1로 되어있음 -->
+                        &lt;!&ndash; TODO: 매핑 1로 되어있음 &ndash;&gt;
                         <a class="nav-link" href="/stores/1/menus">
                             메뉴
                         </a>
                     </div>
                     <div class="d-flex justify-content-center"
                          style="border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px;">
-                        <!-- TODO: 매핑 1로 되어있음 -->
+                        &lt;!&ndash; TODO: 매핑 1로 되어있음 &ndash;&gt;
                         <a class="nav-link" href="/stores/1">
                             매장정보
                         </a>
@@ -41,6 +43,7 @@
             </div>
         </nav>
     </div>
+    -->
     <!--    <div id="layoutSidenav_content" style="">-->
     <main style="padding: 50px; background-color: rgb(5, 5, 43); width: 100%;">
         <div class="container-fluid px-4">
