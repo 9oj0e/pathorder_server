@@ -1,19 +1,19 @@
-* {
-    margin: 0;
-    padding: 0;
-}
+/** {*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
 
 li {
     list-style: none;
 }
 
 a {
-    text-decoration: none;
-    color: black;
+    text-decoration: none!important;
+    color: black!important;
 }
 
 .terms_ex {
-    background-color: #EFE8DA;
+    /*background-color: #EFE8DA;*/
     width: 100vw;
     height: 100vh;
 }
@@ -59,12 +59,13 @@ form .join_btn {
     margin-bottom: 50px;
 }
 form .join_btn .disagree {
+
     width: calc((100% - 15px) / 2);
     height: 100%;
     margin-right: 15px;
-    line-height: 60px;
+    line-height: 45px;
     float: left;
-    background-color: #e6e6e6;
+    /*background-color: #e6e6e6;*/
 }
 form .join_btn .disagree a {
     display: block;
@@ -72,9 +73,9 @@ form .join_btn .disagree a {
 form .join_btn .agree {
     width: calc((100% - 15px) / 2);
     height: 100%;
-    line-height: 60px;
+    line-height: 45px;
     float: left;
-    background-color: #FD8234;
+    /*background-color: orange;*/
 }
 form .join_btn .agree a {
     display: block;
