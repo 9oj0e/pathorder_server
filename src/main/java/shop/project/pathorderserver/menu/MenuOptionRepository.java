@@ -11,4 +11,6 @@ public interface MenuOptionRepository extends JpaRepository<MenuOption, Integer>
 
     @Query("SELECT o FROM MenuOption o WHERE o.menu.id = :menuId") // 매장 메뉴 옵션 목록보기
     Optional<List<MenuOption>> findByMenuId(@Param("menuId") Integer menuId);
+
+    Optional<MenuOption> deleteByMenuId(@Param("menuId") int menuId);
 }

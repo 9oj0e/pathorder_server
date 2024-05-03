@@ -5,7 +5,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import shop.project.pathorderserver.menu.Menu;
+import shop.project.pathorderserver.menu.MenuRepository;
 import shop.project.pathorderserver.order.OrderStatus;
+
+import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 @Transactional
@@ -14,6 +19,8 @@ class StoreServiceTest {
     StoreService storeService;
     @Autowired
     StoreRepository storeRepository;
+    @Autowired
+    MenuRepository menuRepository;
 
     @Test // 점주 회원가입
     void createStore_test() {
@@ -154,5 +161,17 @@ class StoreServiceTest {
         StoreResponse.UpdateMenuDTO respDTO = storeService.updateMenu(menuId, reqDTO);
         // then
         Assertions.assertThat(respDTO.getPrice()).isEqualTo(10000);
+    }
+
+    @Test // 메뉴 삭제하기
+    void deleteMenu_test() {
+        // given
+        int menuId = 1;
+        int storeId = 1;
+        // when
+        storeService.deleteMenu(menuId);
+        List<Menu> menuList = menuRepository.findAllByStoreId(storeId).get();
+        // then
+        Assertions.assertThat(menuList.size()).isEqualTo(4);
     }
 }

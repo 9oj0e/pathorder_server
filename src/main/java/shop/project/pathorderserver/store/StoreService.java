@@ -170,8 +170,10 @@ public class StoreService {
         return respDTO;
     }
 
-    @Transactional // TODO: 매장 관리자 - 메뉴 삭제하기
+    @Transactional // 매장 관리자 - 메뉴 삭제하기
     public void deleteMenu(int menuId) {
+        menuOptionRepository.deleteByMenuId(menuId);
+        menuRepository.deleteById(menuId);
     }
 
     @Transactional // TODO: 매장 관리자 - 메뉴 옵션 등록하기
