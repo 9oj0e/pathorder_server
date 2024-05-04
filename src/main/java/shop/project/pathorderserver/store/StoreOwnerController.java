@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import shop.project.pathorderserver._core.utils.ApiUtil;
+import shop.project.pathorderserver.order.Order;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -92,13 +95,20 @@ public class StoreOwnerController {
             return "login-form";
         }
         */
+
+
+        // 서비스 로직 여기에 잠깐 씀
+        // status가 조리완료가 아닌 리스트를 담아서 보낸다.
+        // status가 접수대기 상태면 노란색 카드,
+        // 조리중이면 초록색 카드로 보이게 한다.
+
         return "orders";
     }
 
     // 매장 관리자 - 주문내역 상세보기(모달) - ajax 통신을 해야함
     @ResponseBody
     @GetMapping("/stores/{storeId}/orders/{orderId}") // TODO: 매장 관리자 - 주문내역 상세보기(모달)
-    private ResponseEntity<?> orderDetail(@PathVariable int orderId) {
+    private ResponseEntity<?> orderDetail(@PathVariable int storeId, @PathVariable int orderId) {
         // TODO: 권한 처리
         StoreResponse.OrderDetailDTO respDTO = storeService.getOrderDetail(orderId);
 
@@ -106,7 +116,7 @@ public class StoreOwnerController {
     }
 
     // 매장 관리자 - 주문 상태 업데이트(주문 접수하기 -> 조리완료)
-    @PutMapping("/stores/{storeId}/orders/{orderId}") // TODO: 매장 관리자 - 주문 상태 업데이트(주문 접수하기 -> 조리완료)
+    @PostMapping("/stores/{storeId}/orders/{orderId}/update") // TODO: 매장 관리자 - 주문 상태 업데이트(주문 접수하기 -> 조리완료)
     private String updateOrder(@PathVariable int storeId, @PathVariable int orderId, StoreRequest.UpdateOrderDTO reqDTO) {
         // TODO: 권한 처리
 

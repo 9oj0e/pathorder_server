@@ -1,5 +1,6 @@
 package shop.project.pathorderserver.store;
 
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 import shop.project.pathorderserver._core.utils.FormatUtil;
@@ -11,6 +12,8 @@ import shop.project.pathorderserver.order.OrderMenuOption;
 import shop.project.pathorderserver.order.OrderStatus;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -432,6 +435,41 @@ public class StoreResponse {
 
         public UpdateOrderDTO(Order order) {
             this.status = order.getStatus();
+        }
+    }
+
+    @Data
+    public static class CurrentOrderListDTO {
+        private OrderStatus status;
+        private String customerNickname;
+        private List<OrderMenuDTO> menuList;
+        private Timestamp createdAt;
+
+        public String getCreatedAt() {
+            LocalDateTime localDateTime = createdAt.toLocalDateTime();
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("a h:mm");
+            return localDateTime.format(formatter);
+        }
+
+        public CurrentOrderListDTO(OrderMenu orderMenu, List<OrderMenu> menuList) {
+            this.status = orderMenu.getOrder().getStatus();
+            this.customerNickname = orderMenu.getOrder().getCustomerNickname();
+            this.menuList = menuList.stream().map(orderMenu1 -> {
+                return new OrderMenuDTO(orderMenu1);
+            }).toList();
+            this.createdAt = orderMenu.getOrder().getCreatedAt();
+        }
+
+        @Data
+        public static class OrderMenuDTO {
+            private String name;
+            private int qty;
+
+            public OrderMenuDTO(OrderMenu orderMenu) {
+                this.name = orderMenu.getName();
+                this.qty = orderMenu.getQty();
+            }
         }
     }
 }
