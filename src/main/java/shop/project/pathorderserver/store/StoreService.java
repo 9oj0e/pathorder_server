@@ -10,13 +10,12 @@ import shop.project.pathorderserver.menu.Menu;
 import shop.project.pathorderserver.menu.MenuOption;
 import shop.project.pathorderserver.menu.MenuOptionRepository;
 import shop.project.pathorderserver.menu.MenuRepository;
-import shop.project.pathorderserver.order.Order;
-import shop.project.pathorderserver.order.OrderMenu;
-import shop.project.pathorderserver.order.OrderMenuRepository;
-import shop.project.pathorderserver.order.OrderRepository;
+import shop.project.pathorderserver.order.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -220,5 +219,45 @@ public class StoreService {
 
         StoreResponse.UpdateOrderDTO respDTO = new StoreResponse.UpdateOrderDTO(order);
         return respDTO;
+    }
+
+    public HashMap<String, Object> getCurrentOrders(int storeId) {
+        // 전체 오더 리스트
+        List<Order> orderList = orderRepository.findOrdersByStoreId(storeId)
+                .orElseThrow();
+
+        // 오더 리스트
+        List<StoreResponse.CurrentOrderDTO> currentOrderDTOList = new ArrayList<>();
+        orderList.stream().map(order -> {
+            return currentOrderDTOList.add(StoreResponse.CurrentOrderDTO.builder()
+                    .order(order)
+                    .menuList(order.getOrderMenus())
+                    .build());
+        }).toList();
+        System.out.println(currentOrderDTOList.getFirst().getStatus());
+
+        List<StoreResponse.CurrentOrderDTO> pendingOrderList = new ArrayList<>();
+        List<StoreResponse.CurrentOrderDTO> cookingOrderList = new ArrayList<>();
+//        pendingOrderList = currentOrderDTOList.stream()
+//                .filter(order -> order.getStatus().equals("접수대기"))
+//                .toList();
+//        cookingOrderList = currentOrderDTOList.stream()
+//                .filter(order -> order.getStatus().equals("조리중"))
+//                .toList();
+        for (int i = 0; i < currentOrderDTOList.size(); i++) {
+            if (currentOrderDTOList.get(i).getStatus() == OrderStatus.접수대기){
+                pendingOrderList.add(currentOrderDTOList.get(i));
+            }
+            if (currentOrderDTOList.get(i).getStatus() == OrderStatus.조리중){
+                cookingOrderList.add(currentOrderDTOList.get(i));
+            }
+        }
+        System.out.println(pendingOrderList.getFirst().getStatus());
+        System.out.println(cookingOrderList);
+
+        HashMap<String, Object> orderFilteredByStatus = new HashMap<>();
+        orderFilteredByStatus.put("pendingOrderList", pendingOrderList);
+        orderFilteredByStatus.put("cookingOrderList", cookingOrderList);
+        return orderFilteredByStatus;
     }
 }

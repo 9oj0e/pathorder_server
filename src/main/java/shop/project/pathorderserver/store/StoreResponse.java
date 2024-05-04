@@ -2,7 +2,6 @@ package shop.project.pathorderserver.store;
 
 import lombok.Builder;
 import lombok.Data;
-import org.hibernate.annotations.ColumnDefault;
 import shop.project.pathorderserver._core.utils.FormatUtil;
 import shop.project.pathorderserver.menu.Menu;
 import shop.project.pathorderserver.menu.MenuOption;
@@ -439,7 +438,8 @@ public class StoreResponse {
     }
 
     @Data
-    public static class CurrentOrderListDTO {
+    public static class CurrentOrderDTO {
+        private int orderId;
         private OrderStatus status;
         private String customerNickname;
         private List<OrderMenuDTO> menuList;
@@ -452,13 +452,15 @@ public class StoreResponse {
             return localDateTime.format(formatter);
         }
 
-        public CurrentOrderListDTO(OrderMenu orderMenu, List<OrderMenu> menuList) {
-            this.status = orderMenu.getOrder().getStatus();
-            this.customerNickname = orderMenu.getOrder().getCustomerNickname();
+        @Builder
+        public CurrentOrderDTO(Order order, List<OrderMenu> menuList) {
+            this.orderId = order.getId();
+            this.status = order.getStatus();
+            this.customerNickname = order.getCustomerNickname();
             this.menuList = menuList.stream().map(orderMenu1 -> {
                 return new OrderMenuDTO(orderMenu1);
             }).toList();
-            this.createdAt = orderMenu.getOrder().getCreatedAt();
+            this.createdAt = order.getCreatedAt();
         }
 
         @Data

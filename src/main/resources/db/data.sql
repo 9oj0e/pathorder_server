@@ -248,8 +248,8 @@ VALUES
 -- order_tb, order_menu_tb, order_menu_option_tb
 -- order_id: 1
 INSERT INTO order_tb
-(store_id, store_name, customer_id, customer_nickname, request, total_price, created_at)
-VALUES (1, '단밤 카페', 1, '성재', '바닐라라떼 얼음 많이 넣어주세요.', (3000 + (3000 + 500) + 4500), NOW());
+(store_id, store_name, customer_id, customer_nickname, request, total_price, status, created_at)
+VALUES (1, '단밤 카페', 1, '성재', '바닐라라떼 얼음 많이 넣어주세요.', (3000 + (3000 + 500) + 4500),'조리중', NOW());
 INSERT INTO order_menu_tb(order_id, name, qty, price, total_price, created_at)
 VALUES (1, '아메리카노', 1, 3000, 3000, NOW()), -- id: 1
        (1, '아메리카노', 1, 3000, 3000 + 500, NOW()), -- id: 2

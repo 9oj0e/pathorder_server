@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import shop.project.pathorderserver._core.utils.ApiUtil;
-import shop.project.pathorderserver.order.Order;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -85,7 +85,7 @@ public class StoreOwnerController {
 
     // 매장 관리자 - 현재 접수된 주문
     @GetMapping("/stores/{storeId}/orders") // TODO: 매장 관리자 - 현재 접수된 주문
-    private String orders() { // index
+    private String orders(@PathVariable int storeId, Model model) { // index
         /*
         // TODO: 권한 처리
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
@@ -96,11 +96,10 @@ public class StoreOwnerController {
         }
         */
 
+        HashMap<String, Object> currentOrderListDTO = storeService.getCurrentOrders(storeId);
 
-        // 서비스 로직 여기에 잠깐 씀
-        // status가 조리완료가 아닌 리스트를 담아서 보낸다.
-        // status가 접수대기 상태면 노란색 카드,
-        // 조리중이면 초록색 카드로 보이게 한다.
+        model.addAttribute("orderList", currentOrderListDTO);
+        System.out.println(currentOrderListDTO);
 
         return "orders";
     }
