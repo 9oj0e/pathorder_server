@@ -104,6 +104,15 @@ public class StoreOwnerController {
         return "orders";
     }
 
+    // 매장 관리자 - 주문 상태 업데이트(주문 접수하기 -> 조리완료)
+    @PostMapping("/stores/{storeId}/orders/{orderId}/update") // TODO: 매장 관리자 - 주문 상태 업데이트(주문 접수하기 -> 조리완료)
+    private String updateOrder(@PathVariable int storeId, @PathVariable int orderId, StoreRequest.UpdateOrderDTO reqDTO) {
+        // TODO: 권한 처리
+        // 상태를 업데이트 하려면 가게 오더 특정 아이디에 해당하는 오더를 찾아서 그 오더의 상태를 업데이트 해주면 된다.
+        storeService.updateOrder(orderId, reqDTO);
+        return "redirect:/stores/" + storeId + "/orders";
+    }
+
     // 매장 관리자 - 주문내역 상세보기(모달) - ajax 통신을 해야함
     @ResponseBody
     @GetMapping("/stores/{storeId}/orders/{orderId}") // TODO: 매장 관리자 - 주문내역 상세보기(모달)
@@ -114,13 +123,7 @@ public class StoreOwnerController {
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
-    // 매장 관리자 - 주문 상태 업데이트(주문 접수하기 -> 조리완료)
-    @PostMapping("/stores/{storeId}/orders/{orderId}/update") // TODO: 매장 관리자 - 주문 상태 업데이트(주문 접수하기 -> 조리완료)
-    private String updateOrder(@PathVariable int storeId, @PathVariable int orderId, StoreRequest.UpdateOrderDTO reqDTO) {
-        // TODO: 권한 처리
 
-        return "";
-    }
 
     /*------------------------------------------------------------------------------------- 지난주문 -----------------*/
 

@@ -5,5 +5,6 @@ public enum OrderStatus {
     주문거절,
     주문완료,
     조리중,
-    조리완료
+    조리완료,
+    수령완료
 }

@@ -215,7 +215,15 @@ public class StoreService {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new Exception404("주문이 없습니다."));
 
-        order.setStatus(reqDTO.getStatus());
+        if (reqDTO.getStatus().equals(OrderStatus.접수대기)) {
+            order.setStatus(OrderStatus.조리중);
+        }
+        if (reqDTO.getStatus().equals(OrderStatus.조리중)) {
+            order.setStatus(OrderStatus.조리완료);
+        }
+        if (reqDTO.getStatus().equals(OrderStatus.조리완료)) {
+            order.setStatus(OrderStatus.수령완료);
+        }
 
         StoreResponse.UpdateOrderDTO respDTO = new StoreResponse.UpdateOrderDTO(order);
         return respDTO;
@@ -238,26 +246,20 @@ public class StoreService {
 
         List<StoreResponse.CurrentOrderDTO> pendingOrderList = new ArrayList<>();
         List<StoreResponse.CurrentOrderDTO> cookingOrderList = new ArrayList<>();
-//        pendingOrderList = currentOrderDTOList.stream()
-//                .filter(order -> order.getStatus().equals("접수대기"))
-//                .toList();
-//        cookingOrderList = currentOrderDTOList.stream()
-//                .filter(order -> order.getStatus().equals("조리중"))
-//                .toList();
+
         for (int i = 0; i < currentOrderDTOList.size(); i++) {
-            if (currentOrderDTOList.get(i).getStatus() == OrderStatus.접수대기){
+            if (currentOrderDTOList.get(i).getStatus() == OrderStatus.접수대기) {
                 pendingOrderList.add(currentOrderDTOList.get(i));
             }
-            if (currentOrderDTOList.get(i).getStatus() == OrderStatus.조리중){
+            if (currentOrderDTOList.get(i).getStatus() == OrderStatus.조리중) {
                 cookingOrderList.add(currentOrderDTOList.get(i));
             }
         }
-        System.out.println(pendingOrderList.getFirst().getStatus());
-        System.out.println(cookingOrderList);
 
         HashMap<String, Object> orderFilteredByStatus = new HashMap<>();
         orderFilteredByStatus.put("pendingOrderList", pendingOrderList);
         orderFilteredByStatus.put("cookingOrderList", cookingOrderList);
         return orderFilteredByStatus;
     }
+
 }

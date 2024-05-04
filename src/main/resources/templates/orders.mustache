@@ -52,7 +52,8 @@
                 <!-- TODO: 모델에 데이터 담아서 머스태치 수정하기 /stores/{storeId}/orders/{orderId}/update -->
                 {{#orderList.pendingOrderList}}
                     <div class="card mb-4" style="font-size: 12px;width: 240px; padding: 0;">
-                        <form action="/stores/1/orders/1/update">
+                        <form action="/stores/1/orders/{{orderId}}/update" method="post">
+                            <input type="hidden" name="status" value="{{status}}">
                             <div style="padding: 10px;">
                                 <div class="d-flex justify-content-start" style="margin-bottom: 10px;">
                                     <button type="button" class="btn btn-warning"
@@ -68,7 +69,7 @@
                                         <div style="font-size: 12px;">{{customerNickname}}</div>
                                     </div>
                                     <div>
-                                        <button type="button" class="btn btn-outline-primary" style="font-size: 12px;"
+                                        <button type="submit" class="btn btn-outline-primary" style="font-size: 12px;"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#orderDetailModal"
                                         >상세<br/>보기
@@ -98,46 +99,49 @@
                     </div>
                 {{/orderList.pendingOrderList}}
                 {{#orderList.cookingOrderList}}
-                    <div class="card mb-4" style="font-size: 12px; width: 240px; padding: 0;">
-                        <div style="padding: 10px;">
-                            <div class="d-flex justify-content-start" style="margin-bottom: 10px;">
-                                <button type="button" class="btn btn-success"
-                                        style="font-size: 12px; color:white" disabled><b>{{status}}</b>
-                                    11: 23분
-                                    수령예정
-                                </button>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between"
-                                 style="margin-bottom: 10px;">
-                                <div style="font-size: 15px;">
-                                    <div><b>테이크아웃</b></div>
-                                    <div style="font-size: 12px;">{{customerNickname}}</div>
-                                </div>
-                                <div>
-                                    <button type="button" class="btn btn-outline-primary"
-                                            style="font-size: 12px;">상세<br/>보기
+                    <form action="/stores/1/orders/{{orderId}}/update" method="post">
+                        <input type="hidden" name="status" value="{{status}}">
+                        <div class="card mb-4" style="font-size: 12px; width: 240px; padding: 0;">
+                            <div style="padding: 10px;">
+                                <div class="d-flex justify-content-start" style="margin-bottom: 10px;">
+                                    <button type="button" class="btn btn-success"
+                                            style="font-size: 12px; color:white" disabled><b>{{status}}</b>
+                                        11: 23분
+                                        수령예정
                                     </button>
                                 </div>
-                            </div>
-                            <div style="
+                                <div class="d-flex align-items-center justify-content-between"
+                                     style="margin-bottom: 10px;">
+                                    <div style="font-size: 15px;">
+                                        <div><b>테이크아웃</b></div>
+                                        <div style="font-size: 12px;">{{customerNickname}}</div>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-outline-primary"
+                                                style="font-size: 12px;">상세<br/>보기
+                                        </button>
+                                    </div>
+                                </div>
+                                <div style="
                           display: -webkit-box;
                           -webkit-line-clamp: 1;
                           -webkit-box-orient: vertical;
                           overflow: hidden;
                           text-overflow: ellipsis;
                         ">
-                                {{#menuList}}
-                                    <span>{{name}}({{qty}})</span>
-                                {{/menuList}}
+                                    {{#menuList}}
+                                        <span>{{name}}({{qty}})</span>
+                                    {{/menuList}}
+                                </div>
+                                <div>{{createdAt}}</div>
                             </div>
-                            <div>{{createdAt}}</div>
+                            <div>
+                                <button type="submit" class="btn btn-outline-success"
+                                        style="width: 100%;font-size: 12px;padding: 10px 0;">조리완료
+                                </button>
+                            </div>
                         </div>
-                        <div>
-                            <button type="button" class="btn btn-outline-success"
-                                    style="width: 100%;font-size: 12px;padding: 10px 0;">조리완료
-                            </button>
-                        </div>
-                    </div>
+                    </form>
                 {{/orderList.cookingOrderList}}
             </div>
         </div>
