@@ -102,7 +102,7 @@
                         <div style="padding: 10px;">
                             <div class="d-flex justify-content-start" style="margin-bottom: 10px;">
                                 <button type="button" class="btn btn-success"
-                                        style="font-size: 12px; color:white" disabled><b>조리중</b>
+                                        style="font-size: 12px; color:white" disabled><b>{{status}}</b>
                                     11: 23분
                                     수령예정
                                 </button>
@@ -111,7 +111,7 @@
                                  style="margin-bottom: 10px;">
                                 <div style="font-size: 15px;">
                                     <div><b>테이크아웃</b></div>
-                                    <div style="font-size: 12px;">정현</div>
+                                    <div style="font-size: 12px;">{{customerNickname}}</div>
                                 </div>
                                 <div>
                                     <button type="button" class="btn btn-outline-primary"
@@ -119,8 +119,18 @@
                                     </button>
                                 </div>
                             </div>
-                            <div>생과일주스(1)</div>
-                            <div>오전 11:03</div>
+                            <div style="
+                          display: -webkit-box;
+                          -webkit-line-clamp: 1;
+                          -webkit-box-orient: vertical;
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                        ">
+                                {{#menuList}}
+                                    <span>{{name}}({{qty}})</span>
+                                {{/menuList}}
+                            </div>
+                            <div>{{createdAt}}</div>
                         </div>
                         <div>
                             <button type="button" class="btn btn-outline-success"
