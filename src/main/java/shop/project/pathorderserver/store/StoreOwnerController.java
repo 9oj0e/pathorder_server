@@ -68,9 +68,8 @@ public class StoreOwnerController {
 
     @GetMapping("/stores/{storeId}/orders") // 매장 관리자 - 처리중인 주문
     private String orders(@PathVariable int storeId, Model model) {
-        HashMap<String, Object> currentOrderListDTO = storeService.getPendingOrders(storeId);
-        model.addAttribute("orderList", currentOrderListDTO);
-        System.out.println(currentOrderListDTO);
+        HashMap<String, Object> respDTO = storeService.getOrders(storeId);
+        model.addAttribute("orders", respDTO);
 
         return "orders";
     }
@@ -78,9 +77,9 @@ public class StoreOwnerController {
     @PostMapping("/stores/{storeId}/orders/{orderId}/update") // 매장 관리자 - 주문 상태 업데이트(주문 접수하기 -> 조리완료)
     private String updateOrder(@PathVariable int storeId, @PathVariable int orderId, StoreRequest.UpdateOrderDTO reqDTO) {
         // TODO: 권한 처리
-        // 상태를 업데이트 하려면 가게 오더 특정 아이디에 해당하는 오더를 찾아서 그 오더의 상태를 업데이트 해주면 된다.
-        storeService.updateOrder(orderId, reqDTO);
-        return "redirect:/stores/" + storeId + "/orders";
+        storeService.updateOrder(orderId, reqDTO); // 가게 아이디로 order를 찾아 reqDTO를 넣어 update.
+
+        return "redirect:/stores/" + storeId + "/orders"; // TODO: ajax 가능?
     }
 
     @ResponseBody
@@ -104,7 +103,7 @@ public class StoreOwnerController {
     }
 
     @GetMapping("/stores/{storeId}/orders/history/date") // 매장 관리자 - 주문내역 날짜로 조회
-    public String orderListSortByDate() { // TODO: 매개변수로 @PathVariable int storeId, @RequestParam("date") String date, Model model 넣기
+    public String orderListSortByDate(@PathVariable int storeId, @RequestParam("date") String date, Model model) {
         // TODO: 권한 처리
         // TODO: 날짜로 검색하는 기능 구현
         // StoreResponse.OrderListDTO respDTO = orderService.getOrderListByDate(storeId, date);

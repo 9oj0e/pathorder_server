@@ -104,12 +104,9 @@ public class StoreService {
     public SessionStore updateStore(int sessionStoreId, StoreRequest.UpdateDTO reqDTO) {
         Store store = storeRepository.findById(sessionStoreId)
                 .orElseThrow(() -> new Exception403("수정할 권한이 없습니다."));
-
         store.update(reqDTO);
 
-        SessionStore sessionStore = new SessionStore(store);
-
-        return sessionStore;
+        return new SessionStore(store);
     }
 
     @Transactional // 매장 관리자 - 매장 메뉴 등록하기
@@ -144,15 +141,9 @@ public class StoreService {
     public StoreResponse.UpdateMenuDTO updateMenu(int menuId, StoreRequest.UpdateMenuDTO reqDTO) {
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 메뉴입니다."));
+        menu.update(reqDTO);
 
-        menu.setPrice(reqDTO.getPrice());
-        menu.setCategory(reqDTO.getCategory());
-        menu.setName(reqDTO.getName());
-        menu.setImgFilename(reqDTO.getImgFilename());
-        menu.setDescription(reqDTO.getDescription());
-
-        StoreResponse.UpdateMenuDTO respDTO = new StoreResponse.UpdateMenuDTO(menu);
-        return respDTO;
+        return new StoreResponse.UpdateMenuDTO(menu);
     }
 
     @Transactional // 매장 관리자 - 메뉴 삭제하기
@@ -171,11 +162,6 @@ public class StoreService {
         return new StoreResponse.CreateMenuOptionDTO(menuId, menuOption);
     }
 
-    /* 메뉴 옵션은 메뉴 상세보기에서 처리?
-    // TODO: 매장 관리자 - 메뉴 옵션 목록보기
-    public void getMenuOptionList(int menuId) {
-    }
-    */
     @Transactional // 매장 관리자 - 메뉴 옵션 수정하기
     public StoreResponse.UpdateMenuOptionDTO updateMenuOption(int menuOptionId, StoreRequest.UpdateMenuOptionDTO reqDTO) {
         MenuOption menuOption = menuOptionRepository.findById(menuOptionId)
@@ -202,7 +188,6 @@ public class StoreService {
     public StoreResponse.OrderDetailDTO getOrderDetail(int orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 주문입니다."));
-
         List<OrderMenu> orderMenuList = orderMenuRepository.findAllByOrderId(orderId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 메뉴입니다."));
 
@@ -212,8 +197,7 @@ public class StoreService {
     @Transactional // TODO: 매장 관리자 - 주문 업데이트
     public StoreResponse.UpdateOrderDTO updateOrder(int orderId, StoreRequest.UpdateOrderDTO reqDTO) {
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new Exception404("주문이 없습니다."));
-
+                .orElseThrow(() -> new Exception404("찾을 수 없는 주문입니다."));
         if (reqDTO.getStatus().equals(OrderStatus.접수대기)) {
             order.setStatus(OrderStatus.조리중);
         }
@@ -224,41 +208,42 @@ public class StoreService {
             order.setStatus(OrderStatus.수령완료);
         }
 
-        StoreResponse.UpdateOrderDTO respDTO = new StoreResponse.UpdateOrderDTO(order);
-        return respDTO;
+        return new StoreResponse.UpdateOrderDTO(order);
     }
 
-    public HashMap<String, Object> getPendingOrders(int storeId) {
+    public HashMap<String, Object> getOrders(int storeId) {
         // 전체 오더 리스트
-        List<Order> orderList = orderRepository.findAllByStoreIdWithOrderMenu(storeId)
-                .orElseThrow();
-
-        // 오더 리스트
-        List<StoreResponse.CurrentOrderDTO> currentOrderDTOList = new ArrayList<>();
-        orderList.stream().map(order -> {
-            return currentOrderDTOList.add(StoreResponse.CurrentOrderDTO.builder()
+        List<Order> orders = orderRepository.findAllByStoreIdWithOrderMenu(storeId)
+                .orElseThrow(() -> new Exception404("찾을 수 없는 주문입니다."));
+        // 응답할 오더 리스트
+        List<StoreResponse.OrdersDTO> orderList = new ArrayList<>();
+        orders.stream().map(order ->
+            orderList.add(StoreResponse.OrdersDTO.builder()
                     .order(order)
                     .menuList(order.getOrderMenus())
-                    .build());
-        }).toList();
-        System.out.println(currentOrderDTOList.getFirst().getStatus());
+                    .build())
+        ).toList();
+        // System.out.println(orderList.getFirst().getStatus());
 
-        List<StoreResponse.CurrentOrderDTO> pendingOrderList = new ArrayList<>();
-        List<StoreResponse.CurrentOrderDTO> cookingOrderList = new ArrayList<>();
-
-        for (int i = 0; i < currentOrderDTOList.size(); i++) {
-            if (currentOrderDTOList.get(i).getStatus() == OrderStatus.접수대기) {
-                pendingOrderList.add(currentOrderDTOList.get(i));
+        List<StoreResponse.OrdersDTO> pendingOrderList = new ArrayList<>();
+        List<StoreResponse.OrdersDTO> preparingOrderList = new ArrayList<>();
+        List<StoreResponse.OrdersDTO> preparedOrderList = new ArrayList<>();
+        for (StoreResponse.OrdersDTO ordersDTO : orderList) {
+            if (ordersDTO.getStatus() == OrderStatus.접수대기) {
+                pendingOrderList.add(ordersDTO);
             }
-            if (currentOrderDTOList.get(i).getStatus() == OrderStatus.조리중) {
-                cookingOrderList.add(currentOrderDTOList.get(i));
+            if (ordersDTO.getStatus() == OrderStatus.조리중) {
+                preparingOrderList.add(ordersDTO);
+            }
+            if (ordersDTO.getStatus() == OrderStatus.조리완료) {
+                preparedOrderList.add(ordersDTO);
             }
         }
+        HashMap<String, Object> orderListSortedByStatus = new HashMap<>();
+        orderListSortedByStatus.put("pendingOrderList", pendingOrderList);
+        orderListSortedByStatus.put("preparingOrderList", preparingOrderList);
+        orderListSortedByStatus.put("preparedOrderList", preparedOrderList);
 
-        HashMap<String, Object> orderFilteredByStatus = new HashMap<>();
-        orderFilteredByStatus.put("pendingOrderList", pendingOrderList);
-        orderFilteredByStatus.put("cookingOrderList", cookingOrderList);
-        return orderFilteredByStatus;
+        return orderListSortedByStatus;
     }
-
 }
