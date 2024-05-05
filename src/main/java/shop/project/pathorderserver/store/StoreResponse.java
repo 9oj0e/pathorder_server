@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
 public class StoreResponse {
     @Data // 매장 등록
@@ -355,25 +356,48 @@ public class StoreResponse {
         private List<OrderDTO> orderList;
 
         public OrderListDTO(List<Order> orders) {
-            this.orderList = orders.stream().map(OrderDTO::new).toList();
+            this.orderList = orders.stream().map((Order order) -> new OrderDTO(order, order.getOrderMenus())).toList();
         }
 
         @Data
-        public class OrderDTO {
+        public static class OrderDTO {
             // 손님 정보
             private String customerNickname;
             // 주문 정보
+            private int orderId;
             private OrderStatus status;
             private Timestamp createdAt;
-            private List<OrderMenu> orderMenus;
+            private List<OrderMenuDTO> orderMenus;
             private int totalPrice;
 
-            public OrderDTO(Order order) {
+            public OrderDTO(Order order, List<OrderMenu> orderMenus) {
+                this.orderId = order.getId();
                 this.status = order.getStatus();
                 this.createdAt = order.getCreatedAt();
-                this.orderMenus = order.getOrderMenus();
+                this.orderMenus = orderMenus.stream().map(OrderMenuDTO::new).toList();
                 this.totalPrice = order.getTotalPrice();
                 this.customerNickname = order.getCustomerNickname();
+            }
+
+            @Data
+            public class OrderMenuDTO {
+                private String name;
+
+                public OrderMenuDTO(OrderMenu orderMenu) {
+                    this.name = orderMenu.getName();
+                }
+            }
+
+            public String getCreatedAt() {
+                return FormatUtil.timeFormatter(createdAt);
+            }
+
+            public String getOrderMenus() {
+                StringJoiner orderMenusWithComma = new StringJoiner(", ");
+                for (OrderMenuDTO orderMenu : orderMenus) {
+                    orderMenusWithComma.add(orderMenu.getName());
+                }
+                return FormatUtil.stringFormatter(orderMenusWithComma.toString());
             }
         }
     }
@@ -453,7 +477,7 @@ public class StoreResponse {
     }
 
     @Data
-    public static class CurrentOrderDTO {
+    public static class OrdersDTO {
         private int orderId;
         private OrderStatus status;
         private String customerNickname;
@@ -468,7 +492,7 @@ public class StoreResponse {
         }
 
         @Builder
-        public CurrentOrderDTO(Order order, List<OrderMenu> menuList) {
+        public OrdersDTO(Order order, List<OrderMenu> menuList) {
             this.orderId = order.getId();
             this.status = order.getStatus();
             this.customerNickname = order.getCustomerNickname();

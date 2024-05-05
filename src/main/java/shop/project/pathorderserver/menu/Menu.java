@@ -43,4 +43,12 @@ public class Menu {
         this.description = reqDTO.getDescription();
         this.store = store;
     }
+
+    public void update(StoreRequest.UpdateMenuDTO reqDTO) {
+        setPrice(reqDTO.getPrice());
+        setCategory(reqDTO.getCategory());
+        setName(reqDTO.getName());
+        setImgFilename(reqDTO.getImgFilename());
+        setDescription(reqDTO.getDescription());
+    }
 }
