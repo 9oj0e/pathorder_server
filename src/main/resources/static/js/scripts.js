@@ -235,7 +235,7 @@ $(document).ready(function () {
                                        style="border-bottom: 1px solid rgba(255, 255, 255, 0.0);">
                                     <tr>
                                         <td colspan="3" style="color: orangered; font-weight: bold;">결제금액</td>
-                                        <td style="text-align: end; font-weight: bold;">12,000원</td>
+                                        <td style="text-align: end; font-weight: bold;">${data.body.totalPrice}원</td>
                                     </tr>
                                 </table>
                             </div>

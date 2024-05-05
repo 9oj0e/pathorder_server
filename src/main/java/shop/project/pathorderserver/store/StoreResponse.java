@@ -389,6 +389,7 @@ public class StoreResponse {
         private OrderStatus status;
         private List<OrderMenuDTO> orderMenuList;
         private int totalPrice;
+
         public String getCreatedAt() {
             LocalDateTime localDateTime = createdAt.toLocalDateTime();
 
@@ -396,6 +397,9 @@ public class StoreResponse {
             return localDateTime.format(formatter);
         }
 
+        public String getTotalPrice() {
+            return FormatUtil.decimalFormatter(totalPrice);
+        }
 
         public OrderDetailDTO(Order order, List<OrderMenu> orderMenus) {
             this.createdAt = order.getCreatedAt();
@@ -413,6 +417,10 @@ public class StoreResponse {
             private List<OrderMenuOptionDTO> orderMenuOptionList;
             private int qty;
             private int totalPrice;
+
+            public String getTotalPrice() {
+                return FormatUtil.decimalFormatter(totalPrice);
+            }
 
             public OrderMenuDTO(OrderMenu orderMenu, List<OrderMenuOption> orderMenuOptions) {
                 this.name = orderMenu.getName();
