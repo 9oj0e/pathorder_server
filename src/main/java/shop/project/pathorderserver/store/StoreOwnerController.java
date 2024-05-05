@@ -98,7 +98,7 @@ public class StoreOwnerController {
     private String orderList(@PathVariable int storeId, Model model) {
         // TODO: 권한 처리
         StoreResponse.OrderListDTO respDTO = storeService.getOrderList(storeId);
-        model.addAttribute("orderList", respDTO);
+        model.addAttribute("orderList", respDTO.getOrderList());
 
         return "orders-list";
     }

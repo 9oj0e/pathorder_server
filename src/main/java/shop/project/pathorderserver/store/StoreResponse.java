@@ -355,25 +355,36 @@ public class StoreResponse {
         private List<OrderDTO> orderList;
 
         public OrderListDTO(List<Order> orders) {
-            this.orderList = orders.stream().map(OrderDTO::new).toList();
+            this.orderList = orders.stream().map((Order order) -> new OrderDTO(order, order.getOrderMenus())).toList();
         }
 
         @Data
-        public class OrderDTO {
+        public static class OrderDTO {
             // 손님 정보
             private String customerNickname;
             // 주문 정보
+            private int orderId;
             private OrderStatus status;
             private Timestamp createdAt;
-            private List<OrderMenu> orderMenus;
+            private List<OrderMenuDTO> orderMenus;
             private int totalPrice;
 
-            public OrderDTO(Order order) {
+            public OrderDTO(Order order, List<OrderMenu> orderMenus) {
+                this.orderId = order.getId();
                 this.status = order.getStatus();
                 this.createdAt = order.getCreatedAt();
-                this.orderMenus = order.getOrderMenus();
+                this.orderMenus = orderMenus.stream().map(OrderMenuDTO::new).toList();
                 this.totalPrice = order.getTotalPrice();
                 this.customerNickname = order.getCustomerNickname();
+            }
+
+            @Data
+            public class OrderMenuDTO {
+                private String name;
+
+                public OrderMenuDTO(OrderMenu orderMenu) {
+                    this.name = orderMenu.getName();
+                }
             }
         }
     }
