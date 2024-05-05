@@ -438,7 +438,7 @@ public class StoreResponse {
     }
 
     @Data
-    public static class CurrentOrderDTO {
+    public static class OrdersDTO {
         private int orderId;
         private OrderStatus status;
         private String customerNickname;
@@ -453,7 +453,7 @@ public class StoreResponse {
         }
 
         @Builder
-        public CurrentOrderDTO(Order order, List<OrderMenu> menuList) {
+        public OrdersDTO(Order order, List<OrderMenu> menuList) {
             this.orderId = order.getId();
             this.status = order.getStatus();
             this.customerNickname = order.getCustomerNickname();

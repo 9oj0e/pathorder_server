@@ -68,8 +68,8 @@ public class StoreOwnerController {
 
     @GetMapping("/stores/{storeId}/orders") // 매장 관리자 - 처리중인 주문
     private String orders(@PathVariable int storeId, Model model) {
-        HashMap<String, Object> currentOrderListDTO = storeService.getPendingOrders(storeId);
-        model.addAttribute("orderList", currentOrderListDTO);
+        HashMap<String, Object> currentOrderListDTO = storeService.getOrders(storeId);
+        model.addAttribute("orders", currentOrderListDTO);
         System.out.println(currentOrderListDTO);
 
         return "orders";
@@ -104,7 +104,7 @@ public class StoreOwnerController {
     }
 
     @GetMapping("/stores/{storeId}/orders/history/date") // 매장 관리자 - 주문내역 날짜로 조회
-    public String orderListSortByDate() { // TODO: 매개변수로 @PathVariable int storeId, @RequestParam("date") String date, Model model 넣기
+    public String orderListSortByDate(@PathVariable int storeId, @RequestParam("date") String date, Model model) {
         // TODO: 권한 처리
         // TODO: 날짜로 검색하는 기능 구현
         // StoreResponse.OrderListDTO respDTO = orderService.getOrderListByDate(storeId, date);

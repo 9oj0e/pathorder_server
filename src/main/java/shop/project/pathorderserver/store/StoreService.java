@@ -228,36 +228,36 @@ public class StoreService {
         return respDTO;
     }
 
-    public HashMap<String, Object> getPendingOrders(int storeId) {
+    public HashMap<String, Object> getOrders(int storeId) {
         // 전체 오더 리스트
         List<Order> orderList = orderRepository.findAllByStoreIdWithOrderMenu(storeId)
                 .orElseThrow();
 
         // 오더 리스트
-        List<StoreResponse.CurrentOrderDTO> currentOrderDTOList = new ArrayList<>();
+        List<StoreResponse.OrdersDTO> currentOrderDTOList = new ArrayList<>();
         orderList.stream().map(order -> {
-            return currentOrderDTOList.add(StoreResponse.CurrentOrderDTO.builder()
+            return currentOrderDTOList.add(StoreResponse.OrdersDTO.builder()
                     .order(order)
                     .menuList(order.getOrderMenus())
                     .build());
         }).toList();
         System.out.println(currentOrderDTOList.getFirst().getStatus());
 
-        List<StoreResponse.CurrentOrderDTO> pendingOrderList = new ArrayList<>();
-        List<StoreResponse.CurrentOrderDTO> cookingOrderList = new ArrayList<>();
+        List<StoreResponse.OrdersDTO> pendingOrderList = new ArrayList<>();
+        List<StoreResponse.OrdersDTO> preparingOrderList = new ArrayList<>();
 
         for (int i = 0; i < currentOrderDTOList.size(); i++) {
             if (currentOrderDTOList.get(i).getStatus() == OrderStatus.접수대기) {
                 pendingOrderList.add(currentOrderDTOList.get(i));
             }
             if (currentOrderDTOList.get(i).getStatus() == OrderStatus.조리중) {
-                cookingOrderList.add(currentOrderDTOList.get(i));
+                preparingOrderList.add(currentOrderDTOList.get(i));
             }
         }
 
         HashMap<String, Object> orderFilteredByStatus = new HashMap<>();
         orderFilteredByStatus.put("pendingOrderList", pendingOrderList);
-        orderFilteredByStatus.put("cookingOrderList", cookingOrderList);
+        orderFilteredByStatus.put("preparingOrderList", preparingOrderList);
         return orderFilteredByStatus;
     }
 

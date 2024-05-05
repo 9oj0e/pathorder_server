@@ -50,7 +50,7 @@
             <h1 class="date" id="date" style="color: #e6e6e6;"></h1>
             <div class="row row-cols-4 gap-3" style="display: flex; flex-wrap: wrap;">
                 <!-- TODO: 모델에 데이터 담아서 머스태치 수정하기 /stores/{storeId}/orders/{orderId}/update -->
-                {{#orderList.pendingOrderList}}
+                {{#orders.pendingOrderList}}
                     <div class="card mb-4" style="font-size: 12px;width: 240px; padding: 0;">
                         <form action="/stores/1/orders/{{orderId}}/update" method="post">
                             <input type="hidden" name="status" value="{{status}}">
@@ -97,8 +97,8 @@
                             </div>
                         </form>
                     </div>
-                {{/orderList.pendingOrderList}}
-                {{#orderList.cookingOrderList}}
+                {{/orders.pendingOrderList}}
+                {{#orders.preparingOrderList}}
                     <div class="card mb-4" style="font-size: 12px;width: 240px; padding: 0;">
                         <form action="/stores/1/orders/{{orderId}}/update" method="post">
                             <input type="hidden" name="status" value="{{status}}">
@@ -145,7 +145,7 @@
                             </div>
                         </form>
                     </div>
-                {{/orderList.cookingOrderList}}
+                {{/orders.preparingOrderList}}
             </div>
         </div>
     </main>
