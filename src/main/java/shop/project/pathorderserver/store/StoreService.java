@@ -15,6 +15,7 @@ import shop.project.pathorderserver.order.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -180,6 +181,9 @@ public class StoreService {
     public StoreResponse.OrderListDTO getOrderList(int storeId) {
         List<Order> orderList = orderRepository.findAllByStoreId(storeId)
                 .orElseThrow(() -> new Exception404("주문 내역이 없습니다."));
+        orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.접수대기)).toList().forEach(orderList::remove);
+        orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.조리중)).toList().forEach(orderList::remove);
+        orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.조리완료)).toList().forEach(orderList::remove);
 
         return new StoreResponse.OrderListDTO(orderList);
     }
@@ -218,10 +222,10 @@ public class StoreService {
         // 응답할 오더 리스트
         List<StoreResponse.OrdersDTO> orderList = new ArrayList<>();
         orders.stream().map(order ->
-            orderList.add(StoreResponse.OrdersDTO.builder()
-                    .order(order)
-                    .menuList(order.getOrderMenus())
-                    .build())
+                orderList.add(StoreResponse.OrdersDTO.builder()
+                        .order(order)
+                        .menuList(order.getOrderMenus())
+                        .build())
         ).toList();
         // System.out.println(orderList.getFirst().getStatus());
 
