@@ -15,7 +15,6 @@ import shop.project.pathorderserver.order.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -193,7 +192,7 @@ public class StoreService {
 
     // 매장 관리자 - 주문내역 목록보기
     public StoreResponse.OrderListDTO getOrderList(int storeId) {
-        List<Order> orderList = orderRepository.findByStoreId(storeId)
+        List<Order> orderList = orderRepository.findAllByStoreId(storeId)
                 .orElseThrow(() -> new Exception404("주문 내역이 없습니다."));
 
         return new StoreResponse.OrderListDTO(orderList);
@@ -229,9 +228,9 @@ public class StoreService {
         return respDTO;
     }
 
-    public HashMap<String, Object> getCurrentOrders(int storeId) {
+    public HashMap<String, Object> getPendingOrders(int storeId) {
         // 전체 오더 리스트
-        List<Order> orderList = orderRepository.findOrdersByStoreId(storeId)
+        List<Order> orderList = orderRepository.findAllByStoreIdWithOrderMenu(storeId)
                 .orElseThrow();
 
         // 오더 리스트

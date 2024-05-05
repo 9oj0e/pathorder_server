@@ -9,5 +9,5 @@ import java.util.Optional;
 
 public interface OrderMenuOptionRepository extends JpaRepository<OrderMenuOption, Integer> {
     @Query("SELECT o FROM OrderMenuOption o WHERE o.orderMenu.id = :orderMenuId")
-    Optional<List<OrderMenuOption>> findAllByMenuId(@Param("orderMenuId")int orderMenuId);
+    Optional<List<OrderMenuOption>> findAllByMenuId(@Param("orderMenuId") int orderMenuId);
 }

@@ -21,6 +21,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             JOIN FETCH o.store s
             LEFT JOIN FETCH o.orderMenus om
             WHERE s.id = :storeId
-            """) // 주문보기 (점주)
+            """)
+        // 주문보기 (점주)
     Optional<List<Order>> findAllByStoreIdWithOrderMenu(int storeId);
 }

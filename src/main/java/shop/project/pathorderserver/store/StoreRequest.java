@@ -1,7 +1,6 @@
 package shop.project.pathorderserver.store;
 
 import lombok.Data;
-import org.hibernate.annotations.ColumnDefault;
 import shop.project.pathorderserver.order.OrderStatus;
 
 public class StoreRequest {

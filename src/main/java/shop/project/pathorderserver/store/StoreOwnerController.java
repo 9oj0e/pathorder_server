@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import shop.project.pathorderserver._core.utils.ApiUtil;
 
 import java.util.HashMap;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -28,7 +27,7 @@ public class StoreOwnerController {
         }
     }
 
-    /*------------------------------------------------------------------------------------- 회원가입 -----------------*/
+    /*------------------------------------------------------------------------------------- 회원가입 -------------------*/
 
     @GetMapping("/stores/join-terms") // 매장 관리자 회원가입 약관
     public String joinTermsForm() {
@@ -50,7 +49,7 @@ public class StoreOwnerController {
         return "redirect:/stores/login-form";
     }
 
-    /*------------------------------------------------------------------------------------- 로그인 -----------------*/
+    /*------------------------------------------------------------------------------------- 로그인 --------------------*/
     @GetMapping("/stores/login-form") // 매장 관리자 - 로그인 폼
     public String loginForm() {
 
@@ -65,11 +64,11 @@ public class StoreOwnerController {
         return "redirect:/";
     }
 
-    /*------------------------------------------------------------------------------------- 메인페이지 -----------------*/
+    /*------------------------------------------------------------------------------------- 메인 페이지 -----------------*/
 
     @GetMapping("/stores/{storeId}/orders") // 매장 관리자 - 처리중인 주문
     private String orders(@PathVariable int storeId, Model model) {
-        HashMap<String, Object> currentOrderListDTO = storeService.getCurrentOrders(storeId);
+        HashMap<String, Object> currentOrderListDTO = storeService.getPendingOrders(storeId);
         model.addAttribute("orderList", currentOrderListDTO);
         System.out.println(currentOrderListDTO);
 
@@ -93,7 +92,7 @@ public class StoreOwnerController {
         return ResponseEntity.ok(new ApiUtil(respDTO)); // TODO: ajax 통신
     }
 
-    /*------------------------------------------------------------------------------------- 지난주문 -----------------*/
+    /*------------------------------------------------------------------------------------- 지난 주문 ------------------*/
 
     @GetMapping("/stores/{storeId}/orders/history") // 매장 관리자 - 주문내역 목록보기
     private String orderList(@PathVariable int storeId, Model model) {
@@ -110,11 +109,11 @@ public class StoreOwnerController {
         // TODO: 날짜로 검색하는 기능 구현
         // StoreResponse.OrderListDTO respDTO = orderService.getOrderListByDate(storeId, date);
         // model.addAttribute("orders", respDTO);
-        
+
         return "orders-list";
     }
 
-    /*------------------------------------------------------------------------------------- 메뉴 -----------------*/
+    /*------------------------------------------------------------------------------------- 메뉴 ----------------------*/
 
     @GetMapping("/stores/{storeId}/menus") // 매장 메뉴 목록보기
     private String menuList(@PathVariable int storeId, Model model) {
@@ -186,7 +185,7 @@ public class StoreOwnerController {
         return "";
     }
 
-    /*------------------------------------------------------------------------------------- 매장정보 -----------------*/
+    /*------------------------------------------------------------------------------------- 매장 정보 ------------------*/
 
     @GetMapping("/stores/{storeId}") // 매장 관리자 - 매장 정보 보기
     public String detail(@PathVariable int storeId, Model model) {
@@ -198,7 +197,7 @@ public class StoreOwnerController {
     }
 
     @GetMapping("/stores/{storeId}/update-form") // 매장 관리자 - 매장 정보 업데이트 폼
-    public String updateForm(@PathVariable int storeId) {
+    public String updateForm(@PathVariable int storeId, Model model) {
         // TODO: 권한 처리
         // SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         StoreResponse.StoreDTO respDTO = storeService.getStoreDetail(storeId);

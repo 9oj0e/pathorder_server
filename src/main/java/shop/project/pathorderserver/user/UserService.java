@@ -132,7 +132,7 @@ public class UserService {
 
     // 주문내역 목록보기 (손님)
     public UserResponse.OrderListDTO getOrderList(int userId) {
-        List<Order> orders = orderRepository.findByUserId(userId)
+        List<Order> orders = orderRepository.findAllByUserId(userId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 주문입니다."));
 
         return new UserResponse.OrderListDTO(orders);
