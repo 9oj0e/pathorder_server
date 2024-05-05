@@ -389,6 +389,13 @@ public class StoreResponse {
         private OrderStatus status;
         private List<OrderMenuDTO> orderMenuList;
         private int totalPrice;
+        public String getCreatedAt() {
+            LocalDateTime localDateTime = createdAt.toLocalDateTime();
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd. HH:mm");
+            return localDateTime.format(formatter);
+        }
+
 
         public OrderDetailDTO(Order order, List<OrderMenu> orderMenus) {
             this.createdAt = order.getCreatedAt();
