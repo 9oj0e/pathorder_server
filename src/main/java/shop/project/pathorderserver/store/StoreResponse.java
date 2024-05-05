@@ -388,6 +388,10 @@ public class StoreResponse {
                 }
             }
 
+            public String getCreatedAt() {
+                return FormatUtil.timeFormatter(createdAt);
+            }
+
             public String getOrderMenus() {
                 StringJoiner orderMenusWithComma = new StringJoiner(", ");
                 for (OrderMenuDTO orderMenu : orderMenus) {

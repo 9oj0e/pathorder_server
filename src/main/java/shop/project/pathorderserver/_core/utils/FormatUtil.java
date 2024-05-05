@@ -14,7 +14,7 @@ public class FormatUtil {
         return timestamp.toLocalDateTime().format(formatter);
     }
 
-    public static String dateFormatter(Timestamp timestamp) { // 시간 표기 방식
+    public static String dateFormatter(Timestamp timestamp) { // 날짜 표기 방식
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy/MM/dd");
 
         return timestamp.toLocalDateTime().format(formatter);
@@ -27,7 +27,7 @@ public class FormatUtil {
     }
 
     public static String stringFormatter(String input) {
-        int maxLength = 24; // 최대 길이
+        int maxLength = 32; // 최대 길이
 
         String output;
         if (input.length() > maxLength) {
