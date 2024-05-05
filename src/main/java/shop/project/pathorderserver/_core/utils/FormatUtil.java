@@ -26,7 +26,19 @@ public class FormatUtil {
         return formatter.format(decimalNum);
     }
 
-    public static String pNumFormatter(String number) {
+    public static String stringFormatter(String input) {
+        int maxLength = 24; // 최대 길이
+
+        String output;
+        if (input.length() > maxLength) {
+            output = input.substring(0, maxLength) + "...";
+        } else {
+            output = input;
+        }
+        return output;
+    }
+
+    public static String pNumFormatter(String number) { // 휴대폰 번호 표기 방식
         try {
             MaskFormatter formatter = new MaskFormatter("###-####-####");
             formatter.setValueContainsLiteralCharacters(false);

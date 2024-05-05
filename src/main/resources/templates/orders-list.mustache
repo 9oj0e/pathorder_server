@@ -100,11 +100,7 @@
                         <td>{{totalPrice}}</td>
                         <td>{{customerNickname}}</td>
                         <td>
-                            {{#orderMenus}}
-                                {{name}}
-                                {{^@last}}, {{/@last}}
-<!--                                TODO: 마지막 쉼표가 안 빠지는 문제-->
-                            {{/orderMenus}}
+                            {{orderMenus}}
                         </td>
                     </tr>
                 {{/orderList}}

@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
 public class StoreResponse {
     @Data // 매장 등록
@@ -385,6 +386,14 @@ public class StoreResponse {
                 public OrderMenuDTO(OrderMenu orderMenu) {
                     this.name = orderMenu.getName();
                 }
+            }
+
+            public String getOrderMenus() {
+                StringJoiner orderMenusWithComma = new StringJoiner(", ");
+                for (OrderMenuDTO orderMenu : orderMenus) {
+                    orderMenusWithComma.add(orderMenu.getName());
+                }
+                return FormatUtil.stringFormatter(orderMenusWithComma.toString());
             }
         }
     }
