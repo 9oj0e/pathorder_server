@@ -1,4 +1,10 @@
 {{>layout/header}}
+<style>
+    .table {
+        --bs-table-color: white;
+        --bs-table-bg: transparent;
+    }
+</style>
 <div id="layoutSidenav" style="display: flex">
     {{>layout/sidebar}}
     <!--
@@ -57,7 +63,7 @@
                         <input type="date" id="startDate" name="startDate">
                         <input type="date" id="endDate" name="endDate">
                         <button type="submit" onclick="searchOrders()">조회</button>
-<!--                        TODO: 날짜별로 조회-->
+                        <!--                        TODO: 날짜별로 조회-->
                     </div>
                 </div>
                 <!-- 현재 날짜 표시 -->
@@ -77,7 +83,7 @@
                 </div>
             </div>
 
-            <table class="table table-warning table-striped" style="background-color: rgb(235, 189, 104);">
+            <table class="table">
                 <thead>
                 <tr>
                     <th>주문번호</th>
@@ -93,9 +99,9 @@
                 {{#orderList}}
                     <tr class="order-row" onclick="openModal('{{orderId}}')">
                         <td>주문번호</td>
-<!--                        TODO: 매장마다의 주문번호를 어떻게?-->
+                        <!--                        TODO: 매장마다의 주문번호를 어떻게?-->
                         <td>{{status}}</td>
-<!--                        TODO: status가 조리완료? 인 것만 뜨게 해야하지 않나?-->
+                        <!--                        TODO: status가 조리완료? 인 것만 뜨게 해야하지 않나?-->
                         <td>{{createdAt}}</td>
                         <td>{{totalPrice}}</td>
                         <td>{{customerNickname}}</td>
