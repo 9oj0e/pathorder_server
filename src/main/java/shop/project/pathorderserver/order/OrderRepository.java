@@ -12,7 +12,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
         // 주문내역 목록보기 (회원)
     Optional<List<Order>> findAllByUserId(@Param("userId") int userId);
 
-    @Query("SELECT o FROM Order o WHERE o.store.id = :storeId ORDER BY o.id desc")
+    @Query("SELECT o FROM Order o WHERE o.store.id = :storeId ORDER BY o.id DESC")
     Optional<List<Order>> findAllByStoreId(@Param("storeId") int storeId); // 주문내역 목록보기 (점주)
 
     @Query("""
