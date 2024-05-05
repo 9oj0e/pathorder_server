@@ -5,7 +5,8 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
 <div style="margin-top: 100px; margin-bottom: 100px;">
@@ -16,22 +17,26 @@
         <div class="border rounded p-3 m-3 shadow" style="width: 300px;">
             <form action="/stores/login" method="post">
                 <div class="form-group form-floating m-3 mx-auto">
-                    <input type="text" name="username" class="form-control" id="floatingInput" required value="david1234">
+                    <input type="text" name="username" class="form-control" id="floatingInput" required
+                           value="david1234">
                     <label for="floatingInput">사용자 아이디</label>
                 </div>
 
                 <div class="form-group form-floating m-3 mx-auto">
-                    <input type="password" name="password" class="form-control" id="floatingInput" required value="1234">
+                    <input type="password" name="password" class="form-control" id="floatingInput" required
+                           value="1234">
                     <label for="floatingInput">비밀번호</label>
                 </div>
                 <!-- 여기까지 -->
                 <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-outline-success mb-3" style="width: 100%">로그인</button>
                 </div>
-
             </form>
             <div class="text-center sj_login_join">
-                <p><a href="/stores/join-terms" style="color: #699b22;">아직 회원이 아니신가요?</a></p>
+                <form action="/stores/join-form" method="post">
+                    <input type="hidden" name="termsAgreed" value="false">
+                    <button style="color: #699b22" type="submit">아직 회원이 아니신가요?</button>
+                </form>
             </div>
         </div>
     </div>
