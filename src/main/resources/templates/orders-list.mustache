@@ -1,4 +1,10 @@
 {{>layout/header}}
+<style>
+    .table {
+        --bs-table-color: white;
+        --bs-table-bg: transparent;
+    }
+</style>
 <div id="layoutSidenav" style="display: flex">
     {{>layout/sidebar}}
     <!--
@@ -57,6 +63,7 @@
                         <input type="date" id="startDate" name="startDate">
                         <input type="date" id="endDate" name="endDate">
                         <button type="submit" onclick="searchOrders()">조회</button>
+                        <!--                        TODO: 날짜별로 조회-->
                     </div>
                 </div>
                 <!-- 현재 날짜 표시 -->
@@ -76,35 +83,37 @@
                 </div>
             </div>
 
-            <table class="table table-warning table-striped" style="background-color: rgb(235, 189, 104);">
+            <table class="table">
                 <thead>
                 <tr>
                     <th>주문번호</th>
                     <th>주문상태</th>
                     <th>주문시간</th>
-                    <th>주문내역</th>
                     <th>결제금액</th>
                     <th>닉네임</th>
+                    <th>주문내역</th>
                 </tr>
                 </thead>
                 <tbody>
                 <!-- 주문 내역이 있을 경우에만 데이터를 표시 -->
-                <!-- {#orderList} -->
-                <tr class="order-row" onclick="openModal('{orderId}')">
-                    <td>{orderNum}</td>
-                    <td>{status}</td>
-                    <td>{createdAt}</td>
-                    <td>{orderMenus}</td>
-                    <td>{totalAmount}</td>
-                    <td>{customerName}</td>
-                </tr>
-                <!-- {/orderList} -->
-                <!-- 주문 내역이 없는 경우에는 메시지를 표시 -->
-                <!-- {^orderList} -->
-                <tr>
-                    <td colspan="7">주문 내역이 없습니다.</td>
-                </tr>
-                <!-- {/orderList} -->
+                {{#orderList}}
+                    <tr class="order-row" onclick="openModal('{{orderId}}')">
+                        <td>주문번호</td>
+                        <!--                        TODO: 매장마다의 주문번호를 어떻게?-->
+                        <td>{{status}}</td>
+                        <td>{{createdAt}}</td>
+                        <td>{{totalPrice}}</td>
+                        <td>{{customerNickname}}</td>
+                        <td>
+                            {{orderMenus}}
+                        </td>
+                    </tr>
+                {{/orderList}}
+                {{^orderList}}
+                    <tr>
+                        <td colspan="7">주문 내역이 없습니다.</td>
+                    </tr>
+                {{/orderList}}
                 </tbody>
             </table>
             <script>
