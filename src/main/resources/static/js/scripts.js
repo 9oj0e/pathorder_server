@@ -54,11 +54,11 @@ $(document).ready(function () {
 });
 
 // 주문 상세 모달
-$(document).ready(function () {
-    $('#orderDetailModal').on('shown.bs.modal', function () {
-        $('#orderDetaiInput').focus();
-    })
-});
+// $(document).ready(function () {
+//     $('#orderDetailModal').on('shown.bs.modal', function () {
+//         $('#orderDetaiInput').focus();
+//     })
+// });
 $(document).ready(function () {
     // 메뉴 추가 모달의 옵션 추가 기능
     $('#addOptionInAdd').on('click', function () {
@@ -96,20 +96,17 @@ $(document).ready(function () {
     });
 
     function searchOrders() {
-        // 시작 날짜와 종료 날짜 값을 가져옵니다.
-        var startDate = $("#startDate").val();
-        var endDate = $("#endDate").val();
 
-        // 날짜 값을 '-'를 기준으로 나누어 배열로 만듭니다.
-        var startArr = startDate.split("-");
-        var endArr = endDate.split("-");
+        let startDate = $("#startDate").val();
+        let endDate = $("#endDate").val();
 
-        // 시작 날짜와 종료 날짜를 페이지에 표시합니다.
+        let startArr = startDate.split("-");
+        let endArr = endDate.split("-");
+
         $("#startYear").text(startArr[0]);
         $("#startMonth").text(startArr[1]);
         $("#startDay").text(startArr[2]);
 
-        // endYear 의 id를 수정해야 함을 주의하세요.
         $("#endYear").text(endArr[0]);
         $("#endMonth").text(endArr[1]);
         $("#endDay").text(endArr[2]);
@@ -136,5 +133,36 @@ $(document).ready(function () {
         $("#startYear, #endYear").text(year);
         $("#startMonth, #endMonth").text(month);
         $("#startDay, #endDay").text(day);
+    });
+});
+
+// 주문 상세 모달
+$(document).ready(function () {
+    $('button[data-order-id]').click(function () {
+        let orderId = $(this).data('order-id');
+        let storeId = $(this).data('store-id');
+
+        console.log(orderId);
+        console.log(storeId);
+        $.ajax({
+            url: `/stores/${storeId}/orders/${orderId}`,
+            type: 'GET',
+            success: function (data) {
+                console.log("들어왔니?")
+
+                $('#orderDetailModal .modal-body').html(`
+                    <p>주문 번호: ${data.customerId}</p>
+                    <p>고객 닉네임: ${data.customerNickname}</p>
+                    <p>주문 시간: ${data.createdAt}</p>
+                `);
+                console.log(data);
+                // 모달을 표시합니다.
+                $('#orderDetailModal').modal('show');
+            },
+            error: function (error) {
+                console.error("Error fetching order details: ", error);
+                alert('주문 상세 정보를 가져오는데 실패했습니다.');
+            }
+        });
     });
 });

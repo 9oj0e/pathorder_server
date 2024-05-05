@@ -88,7 +88,7 @@ public class StoreOwnerController {
     private ResponseEntity<?> orderDetail(@PathVariable int storeId, @PathVariable int orderId) {
         // TODO: 권한 처리
         StoreResponse.OrderDetailDTO respDTO = storeService.getOrderDetail(orderId);
-
+        System.out.println(respDTO);
         return ResponseEntity.ok(new ApiUtil(respDTO)); // TODO: ajax 통신
     }
 
