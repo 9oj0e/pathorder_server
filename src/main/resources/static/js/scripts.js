@@ -150,7 +150,7 @@ $(document).ready(function () {
             success: function (data) {
                 console.log("들어왔니?")
 
-                $('#orderDetailModal .modal-body').html(`
+                let htmlContent = `
                    <div class="container-fluid" style="padding: 0;">
                     <div class="modal-header" style="background-color: navy; padding: 10px;">
                         <h5 class="modal-title" style="color: white; font-size: 15px;">주문 상세내역</h5>
@@ -204,53 +204,31 @@ $(document).ready(function () {
                                             <th scope="col" style="text-align: end;">금액</th>
                                         </tr>
                                         </thead>
-                                        <tbody style="border-bottom: 1px solid #6b6868;">
-                                        <!-- 메뉴 하나의 틀 시작 -->
-                                        <!-- 메뉴 -->
-                                        <tr class="menu-column"
-                                            style="font-weight: bold; border-top: 1px solid #6b6868;">
-                                            <td>아메리카노</td>
-                                            <td style="text-align: center;">1</td>
-                                            <td style="text-align: end;">3,000원</td>
-                                        </tr>
-                                        <!-- 옵션 -->
-                                        <tr class="option-column"
-                                            style="font-size: 12px; color: #6b6868;  border-top: 2px dotted #e6e6e6;">
-                                            <td>HOT</td>
-                                            <td style="text-align: center;"></td>
-                                            <td style="text-align: end;">0원</td>
-                                        </tr>
-                                        <tr class="option-column"
-                                            style="font-size: 12px; color: #6b6868;  border-top: 2px dotted #e6e6e6;">
-                                            <td>설탕 시럽</td>
-                                            <td style="text-align: center;"></td>
-                                            <td style="text-align: end;">0원</td>
-                                        </tr>
-                                        <!-- 메뉴 하나의 틀 끝 -->
-                                        <!-- 메뉴 하나의 틀 시작 -->
-                                        <!-- 메뉴 -->
-                                        <tr class="menu-column"
-                                            style="font-weight: bold; border-top: 1px solid #6b6868;">
-                                            <td>카페모카</td>
-                                            <td style="text-align: center;">2</td>
-                                            <td style="text-align: end;">9,000원</td>
-                                        </tr>
-                                        <!-- 옵션 -->
-                                        <tr class="option-column"
-                                            style="font-size: 12px; color: #6b6868;  border-top: 2px dotted #e6e6e6;">
-                                            <td>HOT</td>
-                                            <td style="text-align: center;"></td>
-                                            <td style="text-align: end;">0원</td>
-                                        </tr>
-                                        <tr class="option-column"
-                                            style="font-size: 12px; color: #6b6868;  border-top: 2px dotted #e6e6e6;">
-                                            <td>설탕 시럽</td>
-                                            <td style="text-align: center;"></td>
-                                            <td style="text-align: end;">0원</td>
-                                        </tr>
-                                        <!-- 메뉴 하나의 틀 끝 -->
-                                        <!-- 목록 추가 -->
-                                        </tbody>
+                                        <tbody style="border-bottom: 1px solid #6b6868;">`;
+
+                // 메뉴 반복문 시작
+                        for (let i = 0; i < data.body.orderMenuList.length; i++) {
+                            let menu = data.body.orderMenuList[i];
+                            htmlContent += `
+                    <tr class="menu-column" style="font-weight: bold; border-top: 1px solid #6b6868;">
+                        <td>${menu.name}</td>
+                        <td style="text-align: center;">${menu.qty}</td>
+                        <td style="text-align: end;">${menu.totalPrice.toLocaleString()}원</td>
+                    </tr>`;
+
+                    for (let j = 0; j < menu.orderMenuOptionList.length; j++) {
+                        let option = menu.orderMenuOptionList[j];
+                        htmlContent += `
+                <tr class="option-column" style="font-size: 12px; color: #6b6868;  border-top: 2px dotted #e6e6e6;">
+                    <td>${option.name}</td>
+                    <td style="text-align: center;"></td>
+                    <td style="text-align: end;">${option.price.toLocaleString()}원</td>
+                </tr>`;
+                    }
+                }
+                // 메뉴 반복문 끝
+
+                htmlContent += `           </tbody>
                                     </table>
                                 </div>
                                 <table class="table footer-table"
@@ -272,10 +250,9 @@ $(document).ready(function () {
                             </button>
                         </div>
                     </div>
-                </div>
-                `);
+                </div>`;
                 console.log(data);
-                // 모달을 표시합니다.
+                $('#orderDetailModal .modal-body').html(htmlContent);
                 $('#orderDetailModal').modal('show');
             },
             error: function (error) {
