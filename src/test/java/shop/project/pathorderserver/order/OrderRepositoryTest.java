@@ -41,12 +41,12 @@ class OrderRepositoryTest {
     }
 
     @Test
-    public void findOrdersByStoreId_test() {
+    public void findAllByStoreIdWithOrderMenu_test() {
         //given
         int storeId = 1;
 
         // when
-        Optional<List<Order>> orderListOP = orderRepository.findOrdersByStoreId(storeId);
+        Optional<List<Order>> orderListOP = orderRepository.findAllByStoreIdWithOrderMenu(storeId);
 
         // then
 //        System.out.println("findOrdersByStoreId_test: " + orderListOP);
