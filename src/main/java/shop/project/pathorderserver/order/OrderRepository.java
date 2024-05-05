@@ -10,17 +10,17 @@ import java.util.Optional;
 public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query("SELECT o FROM Order o WHERE o.customer.id = :userId ORDER BY o.id DESC")
         // 주문내역 목록보기 (회원)
-    Optional<List<Order>> findByUserId(@Param("userId") Integer userId);
+    Optional<List<Order>> findAllByUserId(@Param("userId") int userId);
 
-    @Query("select o from Order o where o.store.id = :storeId order by o.id desc")
-    Optional<List<Order>> findByStoreId(@Param("storeId") Integer storeId); // 주문내역 목록보기 (점주)
+    @Query("SELECT o FROM Order o WHERE o.store.id = :storeId ORDER BY o.id desc")
+    Optional<List<Order>> findAllByStoreId(@Param("storeId") int storeId); // 주문내역 목록보기 (점주)
 
     @Query("""
-            select o 
-            from Order o
-            join fetch o.store s
-            left join fetch o.orderMenus om
-            where s.id = :storeId
-            """)
-    Optional<List<Order>> findOrdersByStoreId(int storeId);
+            SELECT o 
+            FROM Order o
+            JOIN FETCH o.store s
+            LEFT JOIN FETCH o.orderMenus om
+            WHERE s.id = :storeId
+            """) // 주문보기 (점주)
+    Optional<List<Order>> findAllByStoreIdWithOrderMenu(int storeId);
 }
