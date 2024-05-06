@@ -114,10 +114,13 @@ public class StoreService {
     public StoreResponse.CreateMenuDTO createMenu(int storeId, StoreRequest.CreateMenuDTO reqDTO) {
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 매장입니다."));
-        String newImgFilename = FileUtil.fileUpload(reqDTO.getImgFile(), storeId);
         Menu menu = new Menu(reqDTO, store);
-        menu.setImgFilename(newImgFilename);
-
+        /*
+        if (reqDTO.getImgFile() != null || !reqDTO.getImgFile().isEmpty()) {
+            String newImgFilename = FileUtil.fileUpload(reqDTO.getImgFile(), storeId);
+            menu.setImgFilename(newImgFilename);
+        }
+        */
         return new StoreResponse.CreateMenuDTO(menuRepository.save(menu));
     }
 
