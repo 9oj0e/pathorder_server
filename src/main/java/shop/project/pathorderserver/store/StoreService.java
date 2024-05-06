@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import shop.project.pathorderserver._core.errors.exception.Exception401;
 import shop.project.pathorderserver._core.errors.exception.Exception403;
 import shop.project.pathorderserver._core.errors.exception.Exception404;
+import shop.project.pathorderserver._core.utils.FileUtil;
 import shop.project.pathorderserver.menu.Menu;
 import shop.project.pathorderserver.menu.MenuOption;
 import shop.project.pathorderserver.menu.MenuOptionRepository;
@@ -15,7 +16,6 @@ import shop.project.pathorderserver.order.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -114,8 +114,9 @@ public class StoreService {
     public StoreResponse.CreateMenuDTO createMenu(int storeId, StoreRequest.CreateMenuDTO reqDTO) {
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 매장입니다."));
-        // TODO: 이미지 base64디코딩
+        String newImgFilename = FileUtil.fileUpload(reqDTO.getImgFile(), storeId);
         Menu menu = new Menu(reqDTO, store);
+        menu.setImgFilename(newImgFilename);
 
         return new StoreResponse.CreateMenuDTO(menuRepository.save(menu));
     }

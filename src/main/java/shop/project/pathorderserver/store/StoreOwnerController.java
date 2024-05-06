@@ -84,8 +84,8 @@ public class StoreOwnerController {
     private ResponseEntity<?> orderDetail(@PathVariable int storeId, @PathVariable int orderId) {
         // TODO: 권한 처리
         StoreResponse.OrderDetailDTO respDTO = storeService.getOrderDetail(orderId);
-        
-        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO)); // TODO: ajax 통신
     }
 
     /*------------------------------------------------------------------------------------- 지난 주문 ------------------*/
@@ -113,16 +113,14 @@ public class StoreOwnerController {
 
     @GetMapping("/stores/{storeId}/menus") // 매장 메뉴 목록보기
     private String menuList(@PathVariable int storeId, Model model) {
-        // TODO: 권한 처리
         StoreResponse.MenuListDTO respDTO = storeService.getMenuList(storeId);
-        model.addAttribute("ownerMenuList", respDTO);
+        model.addAttribute("menuList", respDTO.getMenuList());
 
         return "menus";
     }
 
     @GetMapping("/stores/{storeId}/menus/{menuId}") // 매장 관리자 - 메뉴 상세보기
     private String menuDetail(@PathVariable int storeId, @PathVariable int menuId, Model model) {
-        // TODO: 권한 처리
         StoreResponse.MenuDetailDTO respDTO = storeService.getMenuDetail(menuId);
         model.addAttribute("menu", respDTO);
 
@@ -132,17 +130,15 @@ public class StoreOwnerController {
     // TODO: 메뉴를 등록(수정)할 때 옵션을 함께 등록하는데 컨트롤러에서 나뉘어야 하는지에 대한 논의가 필요할 듯
     // TODO(장현정): 별도의 컨트롤러가 없이 메뉴를 등록할 때 같이 등록되게 하고, 수정할 때는 옵션 부분을 reset처리를 해서 새로 등록하는 방향이 어떨까요?
     @PostMapping("/stores/{storeId}/menus") // 매장 관리자 - 메뉴 등록하기
-    private String addMenu(@PathVariable int storeId, StoreRequest.CreateMenuDTO reqDTO, Model model) {
-        // TODO: 권한 처리
+    private String addMenu(@PathVariable int storeId, StoreRequest.CreateMenuDTO reqDTO) {
+        // TODO: 유효성 검사 (금액)
         StoreResponse.CreateMenuDTO respDTO = storeService.createMenu(storeId, reqDTO);
-        model.addAttribute("menu", respDTO);
 
-        return "";
+        return "redirect:/stores/" + storeId + "/menus";
     }
 
     @PutMapping("/stores/{storeId}/menus/{menuId}") // 매장 관리자 - 메뉴 수정하기
     private String updateMenu(@PathVariable int storeId, @PathVariable int menuId, StoreRequest.UpdateMenuDTO reqDTO, Model model) {
-        // TODO: 권한 처리
         StoreResponse.UpdateMenuDTO respDTO = storeService.updateMenu(menuId, reqDTO);
         model.addAttribute("menu", respDTO);
 
@@ -151,7 +147,6 @@ public class StoreOwnerController {
 
     @DeleteMapping("/stores/{storeId}/menus/{menuId}") // 매장 관리자 - 메뉴 삭제하기
     private String deleteMenu(@PathVariable int storeId, @PathVariable int menuId) {
-        // TODO: 권한 처리
         storeService.deleteMenu(menuId);
 
         return "";
@@ -159,7 +154,6 @@ public class StoreOwnerController {
 
     @PostMapping("/stores/{storeId}/menus/{menuId}/options") // 매장 관리자 - 메뉴 옵션 등록하기
     private String addMenuOption(@PathVariable int storeId, @PathVariable int menuId, StoreRequest.CreateMenuOptionDTO reqDTO) {
-        // TODO: 권한 처리
         StoreResponse.CreateMenuOptionDTO respDTO = storeService.createMenuOption(menuId, reqDTO);
 
         return "";
@@ -167,7 +161,6 @@ public class StoreOwnerController {
 
     @PutMapping("/stores/{storeId}/menus/{menuId}/options/{optionId}") // 매장 관리자 - 메뉴 옵션 수정하기
     private String updateMenuOption(@PathVariable int storeId, @PathVariable int menuId, @PathVariable int optionId, StoreRequest.UpdateMenuOptionDTO reqDTO) {
-        // TODO: 권한 처리
         StoreResponse.UpdateMenuOptionDTO respDTO = storeService.updateMenuOption(optionId, reqDTO);
 
         return "";
@@ -175,7 +168,6 @@ public class StoreOwnerController {
 
     @DeleteMapping("/stores/{storeId}/menus/{menuId}/options/{optionId}") // 매장 관리자 - 메뉴 옵션 삭제하기
     private String deleteMenuOption(@PathVariable int storeId, @PathVariable int menuId, @PathVariable int optionId) {
-        // TODO: 권한 처리
         storeService.deleteMenuOption(optionId);
 
         return "";
@@ -185,7 +177,6 @@ public class StoreOwnerController {
 
     @GetMapping("/stores/{storeId}") // 매장 관리자 - 매장 정보 보기
     public String detail(@PathVariable int storeId, Model model) {
-        // TODO: 권한 처리
         StoreResponse.StoreDTO respDTO = storeService.getStoreDetail(storeId);
         model.addAttribute("storeDetail", respDTO);
 
@@ -194,7 +185,6 @@ public class StoreOwnerController {
 
     @GetMapping("/stores/{storeId}/update-form") // 매장 관리자 - 매장 정보 업데이트 폼
     public String updateForm(@PathVariable int storeId, Model model) {
-        // TODO: 권한 처리
         // SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         StoreResponse.StoreDTO respDTO = storeService.getStoreDetail(storeId);
         model.addAttribute("storeDetail", respDTO);
@@ -204,10 +194,9 @@ public class StoreOwnerController {
 
     @PostMapping("/stores/{storeId}") // 매장 관리자 - 매장 정보 수정
     public String update(@PathVariable int storeId, StoreRequest.UpdateDTO reqDTO) {
-        // TODO: 권한 처리
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         SessionStore newSessionStore = storeService.updateStore(sessionStore.getId(), reqDTO);
 
-        return "";
+        return "redirect:/stores/" + storeId;
     }
 }
