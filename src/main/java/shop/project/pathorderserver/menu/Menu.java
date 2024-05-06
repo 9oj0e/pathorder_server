@@ -39,7 +39,6 @@ public class Menu {
         this.price = reqDTO.getPrice();
         this.category = reqDTO.getCategory();
         this.name = reqDTO.getName();
-        // this.imgFilename = reqDTO.getImgFilename();
         this.description = reqDTO.getDescription();
         this.store = store;
     }

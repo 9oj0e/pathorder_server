@@ -2,6 +2,7 @@ package shop.project.pathorderserver.user;
 
 import lombok.Builder;
 import lombok.Data;
+import shop.project.pathorderserver._core.utils.FileUtil;
 import shop.project.pathorderserver._core.utils.FormatUtil;
 import shop.project.pathorderserver.order.Order;
 import shop.project.pathorderserver.order.OrderMenu;
@@ -105,8 +106,8 @@ public class UserResponse {
         // 사진
         private String newImgFilePath;
 
-        public ImgDTO(String newImgFilePath) {
-            this.newImgFilePath = newImgFilePath;
+        public ImgDTO(String newImgFilename) {
+            this.newImgFilePath = FileUtil.getFilePath(newImgFilename);
         }
     }
 
