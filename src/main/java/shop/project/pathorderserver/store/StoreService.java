@@ -112,15 +112,11 @@ public class StoreService {
 
     @Transactional // 매장 관리자 - 매장 메뉴 등록하기
     public StoreResponse.CreateMenuDTO createMenu(int storeId, StoreRequest.CreateMenuDTO reqDTO) {
+        System.out.println("................................0");
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 매장입니다."));
         Menu menu = new Menu(reqDTO, store);
-        /*
-        if (reqDTO.getImgFile() != null || !reqDTO.getImgFile().isEmpty()) {
-            String newImgFilename = FileUtil.fileUpload(reqDTO.getImgFile(), storeId);
-            menu.setImgFilename(newImgFilename);
-        }
-        */
+
         return new StoreResponse.CreateMenuDTO(menuRepository.save(menu));
     }
 

@@ -13,15 +13,18 @@ import java.util.UUID;
 public class FileUtil {
 
     public static String fileUpload(MultipartFile file, int id) {
+        System.out.println("................................1");
         // UUID_1_파일 이름.확장자 (id = storeId / userId)
         String newFilename = UUID.randomUUID() + "_" + id + "_" + file.getOriginalFilename();
         Path newFilePath = Paths.get("./upload/" + newFilename);
         try {
+            System.out.println("................................2");
             // boolean isEmpty = file == null || file.isEmpty();
             Files.write(newFilePath, file.getBytes());
         } catch (IOException e) {
             throw new Exception400("잘못된 요청입니다.");
         }
+        System.out.println("................................3");
         return newFilename; // 생성된 파일 이름 return
     }
 
