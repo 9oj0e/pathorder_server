@@ -1,13 +1,13 @@
-package shop.project.pathorderserver._core.utils;
+package shop.project.pathorderserver._core;
 
-public enum FileDefault {
+public enum DefaultFile {
     AVATAR("default/avatar.png"),
     STORE("default/store.png"),
     BEVERAGE("default/beverage.png");
 
     private final String path;
 
-    FileDefault(String path) {
+    DefaultFile(String path) {
         this.path = path;
     }
 
