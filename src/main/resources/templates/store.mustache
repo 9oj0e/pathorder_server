@@ -43,120 +43,118 @@
         </nav>
     </div>
     -->
-    <main style="padding: 50px; background-color: rgb(5, 5, 43); width: 100%;">
+    <main style="padding: 50px; background-color: rgb(5, 5, 43); width: 100%; min-height: 1000px;">
         <div class="container d-flex">
             <div class=" mx-2 pb-4 w-100">
                 <div class="border p-5 rounded shadow" style="background-color: white;">
                     <div class="d-flex justify-content-between">
                         <h1 class="d-inline-flex">매장 정보 관리</h1>
                     </div>
-                    <hr>
-
-                    <div>
-                        <div class="container mt-5 text ">
-                            <div class="mt-5">
-                                <h4 class="border-bottom pb-4">매장 정보</h4>
-                            </div>
-                            <br>
-                            <div class="d-flex justify-content-center mb5
-                                        ">
-                                <div
-                                        style="width: 240px;height: 300px; border: 1px solid #e6e6e6;margin-bottom: 20px;">
-                                    <img src="{{storeDetail.imgFilename}}" style="width: 100%;">
+                    {{#storeDetail}}
+                        <hr>
+                        <div style="display: grid; grid-template-columns: 1fr 2fr; grid-column-gap: 5px">
+                            <div style="width: 240px">
+                                <div style="width: 100%; height: 300px; border: 1px solid #e6e6e6; margin-bottom: 20px;">
+                                    <img src="{{imgFilename}}" style="width: 100%;">
+                                </div>
+                                <div style="width: 100%;">
+                                    <form action="/stores/{{id}}/update-form" method="get">
+                                        <button type="submit" class="btn btn-outline-success mb-3"
+                                                style="width: 100%">수정하기
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
-                            <div class="input-group mb-3">
-                                            <span
-                                                    class="input-group-text justify-content-center hs_span_size init_color hs_span">상호명</span>
-                                <input type="text" class="form-control" value="{{storeDetail.name}}" readonly>
-                            </div>
-                            <div class="input-group mb-3">
-                                            <span
-                                                    class="input-group-text  justify-content-center hs_span_size init_color hs_span">매장
-                                                전화번호</span>
-                                <input type="text" class="form-control" value="{{storeDetail.tel}}" readonly>
-                            </div>
-                            <div class="input-group mb-3">
-                                            <span
-                                                    class="input-group-text justify-content-center hs_span_size init_color hs_span">매장
-                                                소개</span>
-                                <input type="text" class="form-control" value="{{storeDetail.intro}}" readonly>
-                            </div>
-                            <div class="input-group mb-3">
-                                            <span
-                                                    class="input-group-text justify-content-center hs_span_size init_color hs_span">개점시간</span>
-                                <input type="text" class="form-control" value="{{storeDetail.openingTime}}" readonly>
-                            </div>
-                            <div class="input-group mb-3">
-                                            <span
-                                                    class="input-group-text justify-content-center hs_span_size init_color hs_span">폐점시간</span>
-                                <input type="text" class="form-control" value="{{storeDetail.closingTime}}" readonly>
-                            </div>
-                            <div class="input-group mb-3">
-                                            <span
-                                                    class="input-group-text justify-content-center hs_span_size init_color hs_span">휴무일</span>
-                                <input type="text" class="form-control" value="{{storeDetail.closedDay}}" readonly>
-                            </div>
-                            <div class="input-group mb-3">
-                                            <span
-                                                    class="input-group-text justify-content-center hs_span_size init_color hs_span">매장
-                                                주소</span>
-                                <input type="text" class="form-control" value="{{storeDetail.address}}" readonly>
-                            </div>
-
-                            <div class="mt-5">
-                                <h4 class="border-bottom pb-4">사업자 정보</h4>
-                            </div>
-                            <br>
-                            <div class="input-group mb-3">
-                                            <span
-                                                    class="input-group-text  justify-content-center hs_span_size init_color hs_span">사업주
-                                                이름</span>
-                                <input type="text" class="form-control" value="{{storeDetail.ownerName}}" readonly>
-                            </div>
-                            <div class="input-group mb-3">
-                                            <span
-                                                    class="input-group-text  justify-content-center hs_span_size init_color hs_span">사업주
-                                                연락처</span>
-                                <input type="text" class="form-control" value="{{storeDetail.ownerTel}}" readonly>
-                            </div>
-                            <div class="input-group mb-3">
-                                            <span
-                                                    class="input-group-text  justify-content-center hs_span_size init_color hs_span">사업주
-                                                이메일</span>
-                                <input type="text" class="form-control" value="{{storeDetail.ownerEmail}}" readonly>
-                            </div>
-                            <div class="input-group mb-3">
-                                            <span
-                                                    class="input-group-text justify-content-center hs_span_size init_color hs_span">사업자
-                                                번호</span>
-                                <input type="text" class="form-control" value="{{storeDetail.bizNum}}" readonly>
-                            </div>
-                            <div class="mt-5">
-                                <h4 class="border-bottom pb-4">로그인 정보</h4>
-                            </div>
-                            <br>
-                            <div class="input-group mb-3">
-                                            <span
-                                                    class="input-group-text  justify-content-center hs_span_size init_color hs_span">아이디</span>
-                                <input type="text" class="form-control" value="{{storeDetail.username}}" readonly>
-                            </div>
-                            <div class="input-group mb-3">
-                                            <span
-                                                    class="input-group-text  justify-content-center hs_span_size init_color hs_span">비밀번호</span>
-                                <input type="text" class="form-control" value="{{storeDetail.password}}" readonly>
-                            </div>
-                            <div id="checkAlertBox"></div>
-                            <hr class="my-4">
-                            <div style="width: 100%;">
-                                <form action="/stores/{{storeDetail.id}}/update-form" method="get">
-                                    <button type="submit" class="btn btn-outline-success mb-3"
-                                            style="width: 100%">수정하기
-                                    </button>
-                                </form>
+                            <div class="container">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 160px; min-width: 130px">
+                                            <h4>매장 정보</h4>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th>상호명</th>
+                                        <td>{{name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>전화번호</th>
+                                        <td>{{tel}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>소개</th>
+                                        <td>{{intro}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>개점 시간</th>
+                                        <td>{{openingTime}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>폐점 시간</th>
+                                        <td>{{closingTime}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>휴무일</th>
+                                        <td>{{closedDay}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>주소</th>
+                                        <td>{{address}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 160px; min-width: 130px">
+                                            <h4>사업주 정보</h4>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th>사업주 이름</th>
+                                        <td>{{ownerName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>사업주 연락처</th>
+                                        <td>{{ownerTel}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>사업자 이메일</th>
+                                        <td>{{ownerEmail}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>사업자 번호</th>
+                                        <td>{{bizNum}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 160px; min-width: 130px">
+                                            <h4>회원 정보</h4>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th>아이디</th>
+                                        <td>{{username}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>비밀번호</th>
+                                        <td>{{password}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                    </div>
+                        <hr>
+                    {{/storeDetail}}
                 </div>
             </div>
             <!-- list-group( 오른쪽 바로가기) 시작 -->
