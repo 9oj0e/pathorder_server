@@ -48,54 +48,36 @@
     <main style="padding: 50px; background-color: rgb(5, 5, 43); width: 100%;">
         <div class="container-fluid px-4">
             <div class="d-flex align-items-end" style="margin-bottom: 10px;">
+                <!--TODO: 카테고리별 보기-->
                 <h1 style="color: white; margin-right: 10px; font-size: 30px;">메뉴 관리</h1>
                 <button type="button" class="btn btn-warning" style="height: 48px;" data-bs-toggle="modal"
                         data-bs-target="#addMenuModal">➕
                 </button>
             </div>
             <div class="row row-cols-4 gap-3">
-                <div class="card mb-4" style="font-size: 12px;width: 240px; padding: 0;">
-                    <div style="padding: 10px;">
-                        <div class="d-flex justify-content-center">
-                            <div style="margin-bottom: 10px; width: 100px;">
-                                <img src="/images/menu1.png" class="card-img-top" alt="메뉴이미지">
+                {{#menuList}}
+                    <div class="card mb-4" style="font-size: 12px;width: 240px; padding: 0;">
+                        <div style="padding: 10px;">
+                            <div class="d-flex justify-content-center">
+                                <div style="margin-bottom: 10px; width: 100px;">
+                                    <img src="/images/menu1.png" class="card-img-top" alt="메뉴이미지">
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between" style="margin-bottom: 5px;">
+                                <div style="font-size: 15px;">
+                                    <div><b>{{name}}</b></div>
+                                    <div>{{price}}</div>
+                                </div>
                             </div>
                         </div>
-                        <div class="d-flex align-items-center justify-content-between" style="margin-bottom: 5px;">
-                            <div style="font-size: 15px;">
-                                <div><b>아메리카노</b></div>
-                                <div>3,000원</div>
-                            </div>
+                        <div>
+                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                                    data-bs-target="#editMenuModal"
+                                    style="width: 100%;font-size: 12px;padding: 10px 0; ">상세옵션보기/수정하기
+                            </button>
                         </div>
                     </div>
-                    <div>
-                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                                data-bs-target="#editMenuModal"
-                                style="width: 100%;font-size: 12px;padding: 10px 0; ">상세옵션보기/수정하기
-                        </button>
-                    </div>
-                </div>
-                <div class="card mb-4" style="font-size: 12px;width: 240px; padding: 0;">
-                    <div style="padding: 10px;">
-                        <div class="d-flex justify-content-center">
-                            <div style="margin-bottom: 10px; width: 100px;">
-                                <img src="/images/menu1.png" class="card-img-top" alt="메뉴이미지">
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between" style="margin-bottom: 5px;">
-                            <div style="font-size: 15px;">
-                                <div><b>아메리카노</b></div>
-                                <div>3,000원</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                                data-bs-target="#editMenuModal"
-                                style="width: 100%;font-size: 12px;padding: 10px 0; ">상세옵션보기/수정하기
-                        </button>
-                    </div>
-                </div>
+                {{/menuList}}
             </div>
         </div>
     </main>
@@ -112,7 +94,5 @@
     addOptionBtnInAdd();
     addOptionBtnInEdit();
 </script>
-
 </body>
-
 </html>

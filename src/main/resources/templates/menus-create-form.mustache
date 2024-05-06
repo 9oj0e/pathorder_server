@@ -7,8 +7,8 @@
                 <h1 class="modal-title fs-5" id="addMenuModalLabel">메뉴 추가</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form>
+            <form>
+                <div class="modal-body">
                     <div class="mb-3">
                         <label for="category" class="col-form-label">카테고리</label>
                         <input type="text" class="form-control" id="category">
@@ -29,19 +29,21 @@
                         <label for="description" class="col-form-label">설명</label>
                         <input type="text" class="form-control" id="description">
                     </div>
+                    <!--
                     <div id="optionFieldsInAdd">
                         <div class="mb-3">
                             <label for="option" class="col-form-label">옵션</label>
                             <input type="text" class="form-control" name="option[]">
                         </div>
                     </div>
+                    -->
                     <button type="button" id="addOptionInAdd" class="btn btn-primary">+</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>
-                <button type="submit" class="btn btn-primary">저장하기</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>
+                    <button type="submit" class="btn btn-primary">추가하기</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

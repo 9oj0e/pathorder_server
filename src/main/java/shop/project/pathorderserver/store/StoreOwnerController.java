@@ -85,7 +85,7 @@ public class StoreOwnerController {
         // TODO: 권한 처리
         StoreResponse.OrderDetailDTO respDTO = storeService.getOrderDetail(orderId);
 
-        return ResponseEntity.ok(new ApiUtil(respDTO)); // TODO: ajax 통신
+        return ResponseEntity.ok(new ApiUtil<>(respDTO)); // TODO: ajax 통신
     }
 
     /*------------------------------------------------------------------------------------- 지난 주문 ------------------*/
@@ -113,9 +113,8 @@ public class StoreOwnerController {
 
     @GetMapping("/stores/{storeId}/menus") // 매장 메뉴 목록보기
     private String menuList(@PathVariable int storeId, Model model) {
-        // TODO: 권한 처리
         StoreResponse.MenuListDTO respDTO = storeService.getMenuList(storeId);
-        model.addAttribute("ownerMenuList", respDTO);
+        model.addAttribute("menuList", respDTO.getMenuList());
 
         return "menus";
     }

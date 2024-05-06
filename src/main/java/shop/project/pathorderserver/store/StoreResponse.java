@@ -251,6 +251,10 @@ public class StoreResponse {
                 this.name = menu.getName();
                 this.price = menu.getPrice();
             }
+
+            public String getPrice() {
+                return FormatUtil.decimalFormatter(price) + "원";
+            }
         }
     }
 
