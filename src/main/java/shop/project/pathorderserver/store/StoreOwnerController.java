@@ -29,17 +29,14 @@ public class StoreOwnerController {
 
     /*------------------------------------------------------------------------------------- 회원가입 -------------------*/
 
-    @GetMapping("/stores/join-terms") // 매장 관리자 회원가입 약관
-    public String joinTermsForm() {
-        // TODO: joinForm이랑 합치기
+    @PostMapping("/stores/join-form") // TODO: 매장 관리자 - 회원 가입 폼
+    public String joinForm(boolean termsAgreed) {
 
-        return "join-terms";
-    }
-
-    @GetMapping("/stores/join-form") // 매장 관리자 회원가입폼
-    public String joinForm() {
-
-        return "join-form";
+        if (termsAgreed) { // 약관 동의
+            return "join-form";
+        } else { // 약관 미 동의
+            return "join-terms";
+        }
     }
 
     @PostMapping("/stores/join") // 매장 관리자 회원가입
