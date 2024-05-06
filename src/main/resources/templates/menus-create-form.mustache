@@ -7,27 +7,27 @@
                 <h1 class="modal-title fs-5" id="addMenuModalLabel">메뉴 추가</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form>
-                <div class="modal-body">
+            <form action="/stores/1/menus" method="post">
+                <div class="modal-body"> <!--TODO: 유효성 검사-->
                     <div class="mb-3">
                         <label for="category" class="col-form-label">카테고리</label>
-                        <input type="text" class="form-control" id="category">
+                        <input type="text" class="form-control" name="category">
                     </div>
                     <div class="mb-3">
                         <label for="name" class="col-form-label">이름</label>
-                        <input type="text" class="form-control" id="name">
+                        <input type="text" class="form-control" name="name">
                     </div>
                     <div class="mb-3">
                         <label for="price" class="col-form-label">가격</label>
-                        <input type="text" class="form-control" id="price">
+                        <input type="text" class="form-control" name="price">
                     </div>
                     <div class="mb-3">
                         <label for="imgFilename" class="col-form-label">이미지</label>
-                        <input type="file" class="form-control" id="imgFilename">
+                        <input type="file" class="form-control" name="imgFilename">
                     </div>
                     <div class="mb-3">
                         <label for="description" class="col-form-label">설명</label>
-                        <input type="text" class="form-control" id="description">
+                        <input type="text" class="form-control" name="description">
                     </div>
                     <!--
                     <div id="optionFieldsInAdd">
@@ -36,8 +36,8 @@
                             <input type="text" class="form-control" name="option[]">
                         </div>
                     </div>
-                    -->
                     <button type="button" id="addOptionInAdd" class="btn btn-primary">+</button>
+                    -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>

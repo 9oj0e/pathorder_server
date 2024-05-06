@@ -241,13 +241,13 @@ public class StoreResponse {
         @Data
         private static class MenuDTO {
             private int id;
-            private String imgFilename;
+            private String imgFilePath;
             private String name;
             private int price;
 
             public MenuDTO(Menu menu) {
                 this.id = menu.getId();
-                this.imgFilename = menu.getImgFilename();
+                this.imgFilePath = "/upload/" + menu.getImgFilename();
                 this.name = menu.getName();
                 this.price = menu.getPrice();
             }
