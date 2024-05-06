@@ -7,27 +7,27 @@
                 <h1 class="modal-title fs-5" id="addMenuModalLabel">메뉴 추가</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/stores/1/menus" method="post">
+            <form action="/stores/1/menus" method="post" enctype="multipart/form-data">
                 <div class="modal-body"> <!--TODO: 유효성 검사-->
                     <div class="mb-3">
                         <label for="category" class="col-form-label">카테고리</label>
-                        <input type="text" class="form-control" name="category">
+                        <input type="text" class="form-control" name="category" id="category">
                     </div>
                     <div class="mb-3">
                         <label for="name" class="col-form-label">이름</label>
-                        <input type="text" class="form-control" name="name">
+                        <input type="text" class="form-control" name="name" id="name">
                     </div>
                     <div class="mb-3">
                         <label for="price" class="col-form-label">가격</label>
-                        <input type="text" class="form-control" name="price">
+                        <input type="text" class="form-control" name="price" id="price">
                     </div>
                     <div class="mb-3">
                         <label for="imgFile" class="col-form-label">이미지</label>
-                        <input type="file" class="form-control" name="imgFile">
+                        <input type="file" class="form-control" name="imgFile" id="imgFile">
                     </div>
                     <div class="mb-3">
                         <label for="description" class="col-form-label">설명</label>
-                        <input type="text" class="form-control" name="description">
+                        <input type="text" class="form-control" name="description" id="description">
                     </div>
                     <!--
                     <div id="optionFieldsInAdd">

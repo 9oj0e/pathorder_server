@@ -33,10 +33,15 @@
                 </div>
             </form>
             <div class="text-center sj_login_join">
-                <form action="/stores/join-form" method="post">
+                <form id="joinForm" action="/stores/join-form" method="post">
                     <input type="hidden" name="termsAgreed" value="false">
-                    <button style="color: #699b22" type="submit">아직 회원이 아니신가요?</button>
+                    <a style="color: #699b22" onclick="toJoin()" onmouseover="this.style.cursor='hand'">아직 회원이 아니신가요?</a>
                 </form>
+                <script>
+                    function toJoin() {
+                        document.getElementById("joinForm").submit();
+                    }
+                </script>
             </div>
         </div>
     </div>

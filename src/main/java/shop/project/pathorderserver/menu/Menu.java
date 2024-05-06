@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
+import shop.project.pathorderserver._core.utils.FileUtil;
 import shop.project.pathorderserver.store.Store;
 import shop.project.pathorderserver.store.StoreRequest;
 
@@ -41,6 +42,11 @@ public class Menu {
         this.name = reqDTO.getName();
         this.description = reqDTO.getDescription();
         this.store = store;
+
+        boolean hasNoImg = reqDTO.getImgFile() == null || reqDTO.getImgFile().isEmpty();
+        if (!hasNoImg) {
+            this.imgFilename = FileUtil.fileUpload(reqDTO.getImgFile(), store.getId());
+        }
     }
 
     public void update(StoreRequest.UpdateMenuDTO reqDTO) {
