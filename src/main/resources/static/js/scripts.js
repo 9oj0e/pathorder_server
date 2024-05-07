@@ -320,7 +320,7 @@ $(document).ready(function () {
                             <b>설명</b>
                         </div>
                         <div>
-                            <input type="text" value="${data.body.description}" id="description" disabled/>
+                            <input type="text" value="${data.body.description}" id="description" style="width: 100%" disabled/>
                         </div>`;
                 $('#menu').html(menuContent);
                 $('#required-menu-option').html(requiredMenuOption);
