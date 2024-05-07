@@ -87,7 +87,7 @@ public class StoreOwnerController {
         // TODO: 권한 처리
         StoreResponse.OrderDetailDTO respDTO = storeService.getOrderDetail(orderId);
 
-        return ResponseEntity.ok(new ApiUtil<>(respDTO)); // TODO: ajax 통신
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     /*------------------------------------------------------------------------------------- 지난 주문 ------------------*/
@@ -130,12 +130,12 @@ public class StoreOwnerController {
         return "menus";
     }
 
+    @ResponseBody
     @GetMapping("/stores/{storeId}/menus/{menuId}") // 매장 관리자 - 메뉴 상세보기
-    private String menuDetail(@PathVariable int storeId, @PathVariable int menuId, Model model) {
+    private ResponseEntity<?> menuDetail(@PathVariable int storeId, @PathVariable int menuId) {
         StoreResponse.MenuDetailDTO respDTO = storeService.getMenuDetail(menuId);
-        model.addAttribute("menu", respDTO);
 
-        return "";
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     // TODO: 메뉴를 등록(수정)할 때 옵션을 함께 등록하는데 컨트롤러에서 나뉘어야 하는지에 대한 논의가 필요할 듯

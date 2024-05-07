@@ -205,9 +205,9 @@ $(document).ready(function () {
                                         <tbody style="border-bottom: 1px solid #6b6868;">`;
 
                 // 메뉴 반복문 시작
-                        for (let i = 0; i < data.body.orderMenuList.length; i++) {
-                            let menu = data.body.orderMenuList[i];
-                            htmlContent += `
+                for (let i = 0; i < data.body.orderMenuList.length; i++) {
+                    let menu = data.body.orderMenuList[i];
+                    htmlContent += `
                     <tr class="menu-column" style="font-weight: bold; border-top: 1px solid #6b6868;">
                         <td>${menu.name}</td>
                         <td style="text-align: center;">${menu.qty}</td>
@@ -259,4 +259,81 @@ $(document).ready(function () {
             }
         });
     });
+});
+
+// 메뉴 상세보기 모달
+$(document).ready(function () {
+    $('button[data-menu-id]').click(function () {
+        let menuId = $(this).data('menu-id');
+        let storeId = $(this).data('store-id');
+
+        $.ajax({
+            url: `/stores/${storeId}/menus/${menuId}`,
+            type: 'GET',
+            success: function (data) {
+                console.log("들어왔니?")
+                // 메뉴 정보 추가
+                let menuContent = `
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th>분류</th>
+                                    <td>${data.body.category}</td>
+                                </tr>
+                                <tr>
+                                    <th>이름</th>
+                                    <td>${data.body.name}</td>
+                                </tr>
+                                <tr>
+                                    <th>가격</th>
+                                    <td>${data.body.price}</td>
+                                </tr>
+                                </tbody>
+                            </table>`;
+                // 메뉴 필수 옵션
+                let requiredMenuOption;
+                for (let i = 0; i < data.body.menuOptionList.length; i++) {
+                    let menuOption = data.body.menuOptionList[i];
+                    if (data.body.menuOptionList[i].required) {
+                        requiredMenuOption += `
+                            <tr>
+                                <th>${menuOption.name}</th>
+                                <td>${menuOption.price}</td>
+                            </tr>`;
+                    }
+                }
+                // 메뉴 선택 옵션
+                let optionalMenuOption;
+                for (let i = 0; i < data.body.menuOptionList.length; i++) {
+                    let menuOption = data.body.menuOptionList[i];
+                    if (!data.body.menuOptionList[i].required) {
+                        optionalMenuOption += `
+                            <tr>
+                                <th>${menuOption.name}</th>
+                                <td>${menuOption.price}</td>
+                            </tr>`;
+                    }
+                }
+                // 메뉴 설명
+                let menuDescription = `
+                        <div class="mb-3">
+                            <b>설명</b>
+                        </div>
+                        <div>
+                            ${data.body.description}
+                        </div>`;
+                $('#menu').html(menuContent);
+                $('#required-menu-option').html(requiredMenuOption);
+                $('#optional-menu-option').html(optionalMenuOption);
+                $('#menu-description').html(menuDescription);
+                $('#menuModal').modal('show');
+            }
+            ,
+            error: function (error) {
+                console.error("Error fetching order details: ", error);
+                alert('주문 상세 정보를 가져오는데 실패했습니다.');
+            }
+        });
+    })
+    ;
 });

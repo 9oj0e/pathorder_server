@@ -241,6 +241,7 @@ public class StoreResponse {
 
         @Data
         private static class MenuDTO {
+            private int storeId;
             // 메뉴 목록보기
             private int id;
             private String imgFilePath;
@@ -251,6 +252,7 @@ public class StoreResponse {
             private List<MenuOptionDTO> menuOptionList;
 
             public MenuDTO(Menu menu, List<MenuOption> menuOptions) {
+                this.storeId = menu.getStore().getId();
                 this.id = menu.getId();
                 this.imgFilePath = FileUtil.getFilePath(menu.getImgFilename());
                 this.name = menu.getName();

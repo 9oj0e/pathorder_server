@@ -1,27 +1,23 @@
 <style>
     .table {
         --bs-table-bg: transparent;
-        align-items: center;
     }
 
-    .table th {
+    .table.option th {
         align-content: center;
+        width: 80%;
     }
 
-    .table td {
+    .table.option td {
         align-content: center;
+        text-align: end;
     }
-
-    /*
-    .modal {
-        --bs-modal-width: 855px;
-    }
-    */
 </style>
-<div class="modal fade" id="menuModal_{{id}}" role="dialog" tabindex="-1" aria-labelledby="menuModalLabel"
+<div class="modal fade" id="menuModal" role="dialog" tabindex="-1" aria-labelledby="menuModalLabel"
      data-bs-backdrop="static" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content" style="min-height: 600px">
+
             <div class="modal-header" style="background-color: navy; padding: 10px;">
                 <h5 class="modal-title" style="color: white; font-size: 15px;">메뉴 상세보기</h5>
                 <button type="button"
@@ -31,14 +27,6 @@
             <div style="display: grid; grid-template-columns: 1fr 2fr; grid-column-gap: 5%; padding: 30px">
                 <div>
                     <div class="card mt-5" style="width:300px">
-                        <!-- 평점 항목
-                        <table class="table borderless">
-                            <tr>
-                                <td style="text-align: end; padding-bottom: 0; padding-top: 0">평점 ⭐</td>
-                                <td style="text-align: start; padding-bottom: 0; padding-top: 0">4.0</td>
-                            </tr>
-                        </table>
-                         -->
                         <div class="card-header">
                             <button class="btn btn-outline-dark">수정</button>
                         </div>
@@ -46,7 +34,7 @@
                             <img class="card-img" src="https://www.mysavings.com/img/link/large/113816.jpg"
                                  style="height: 100%; width: 100%;">
                         </div>
-                        <div class="card-footer">
+                        <div id="menu" class="card-footer">
                             <table class="table">
                                 <tbody>
                                 <tr>
@@ -66,9 +54,9 @@
                         </div>
                     </div>
                 </div>
-                <div>
 
-                    <table class="table">
+                <div>
+                    <table class="table option">
                         <thead>
                         <tr>
                             <th>
@@ -76,7 +64,7 @@
                             </th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="required-menu-option">
                         {{#menuOptionList}}
                             <tr>
                                 <th>{{menuOptionList.name}}</th>
@@ -85,7 +73,7 @@
                         {{/menuOptionList}}
                         </tbody>
                     </table>
-                    <table class="table mb-5">
+                    <table class="table option mb-5">
                         <thead>
                         <tr>
                             <th>
@@ -93,7 +81,7 @@
                             </th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="optional-menu-option">
                         {{#menuOptionList}}
                             {{^isRequired}}
                                 <tr>
@@ -104,7 +92,8 @@
                         {{/menuOptionList}}
                         </tbody>
                     </table>
-                    <div class="form-control">
+
+                    <div id="menu-description" class="form-control">
                         <div class="mb-3">
                             <b>설명</b>
                         </div>
@@ -112,8 +101,10 @@
                             맛도 좋네
                         </div>
                     </div>
+
                 </div>
             </div>
+
         </div>
     </div>
 </div>
