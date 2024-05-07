@@ -278,15 +278,15 @@ $(document).ready(function () {
                                 <tbody>
                                 <tr>
                                     <th>분류</th>
-                                    <td>${data.body.category}</td>
+                                    <td><input type="text" value="${data.body.category}" id="category" style="border: none" disabled/></td>
                                 </tr>
                                 <tr>
                                     <th>이름</th>
-                                    <td>${data.body.name}</td>
+                                    <td><input type="text" value="${data.body.name}" id="name" style="border: none" disabled/></td>
                                 </tr>
                                 <tr>
                                     <th>가격</th>
-                                    <td>${data.body.price}</td>
+                                    <td><input type="text" value="${data.body.price}" id="price" style="border: none" disabled/></td>
                                 </tr>
                                 </tbody>
                             </table>`;
@@ -297,8 +297,8 @@ $(document).ready(function () {
                     if (data.body.menuOptionList[i].required) {
                         requiredMenuOption += `
                             <tr>
-                                <th>${menuOption.name}</th>
-                                <td>${menuOption.price}</td>
+                                <th><input type="text" value="${menuOption.name}" id="optionName" style="border: none" disabled/></th>
+                                <td><input type="text" value="${menuOption.price}" id="optionPrice" style="border: none" disabled/></td>
                             </tr>`;
                     }
                 }
@@ -309,8 +309,8 @@ $(document).ready(function () {
                     if (!data.body.menuOptionList[i].required) {
                         optionalMenuOption += `
                             <tr>
-                                <th>${menuOption.name}</th>
-                                <td>${menuOption.price}</td>
+                                <th><input type="text" value="${menuOption.name}" id="optionName" style="border: none" disabled/></th>
+                                <td><input type="text" value="${menuOption.price}" id="optionPrice" style="border: none" disabled/></td>
                             </tr>`;
                     }
                 }
@@ -320,7 +320,7 @@ $(document).ready(function () {
                             <b>설명</b>
                         </div>
                         <div>
-                            ${data.body.description}
+                            <input type="text" value="${data.body.description}" id="description" style="border: none" disabled/>
                         </div>`;
                 $('#menu').html(menuContent);
                 $('#required-menu-option').html(requiredMenuOption);
@@ -336,4 +336,16 @@ $(document).ready(function () {
         });
     })
     ;
+});
+
+// 메뉴 수정 토글 버튼
+$(document).ready(function () {
+    $("#inputStatusChangeBtns").on("click", function () {
+        $(this).find("#editBtn").toggleClass("hidden");
+        $(this).find("#completeBtns").toggleClass("hidden");
+        $("input").each(function () {
+            let isDisabled = $(this).prop('disabled');
+            $(this).prop('disabled', !isDisabled);
+        });
+    });
 });
