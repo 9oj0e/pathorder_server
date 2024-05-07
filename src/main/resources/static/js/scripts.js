@@ -142,8 +142,6 @@ $(document).ready(function () {
         let orderId = $(this).data('order-id');
         let storeId = $(this).data('store-id');
 
-        console.log(orderId);
-        console.log(storeId);
         $.ajax({
             url: `/stores/${storeId}/orders/${orderId}`,
             type: 'GET',
