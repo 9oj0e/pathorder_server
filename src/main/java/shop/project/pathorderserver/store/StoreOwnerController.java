@@ -1,5 +1,7 @@
 package shop.project.pathorderserver.store;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -115,6 +117,15 @@ public class StoreOwnerController {
     private String menuList(@PathVariable int storeId, Model model) {
         StoreResponse.MenuListDTO respDTO = storeService.getMenuList(storeId);
         model.addAttribute("menuList", respDTO.getMenuList());
+//
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        String jsonMenuList = null;
+//        try {
+//            jsonMenuList = objectMapper.writeValueAsString(respDTO);
+//        } catch (JsonProcessingException e) {
+//            throw new RuntimeException(e);
+//        }
+//        model.addAttribute("jsonMenuList", jsonMenuList);
 
         return "menus";
     }

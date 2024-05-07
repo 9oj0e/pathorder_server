@@ -1,6 +1,5 @@
 {{>layout/header}}
 {{>menus-create-form}}
-{{>menus-update-form}}
 <div id="layoutSidenav" style="display: flex; ">
     {{>layout/sidebar}}
     <!--
@@ -45,7 +44,7 @@
         </nav>
     </div>
     -->
-    <main style="padding: 50px; background-color: rgb(5, 5, 43); width: 100%;">
+    <main style="padding: 50px; background-color: rgb(5, 5, 43); width: 100%; min-height: 1000px;">
         <div class="container-fluid px-4">
             <div class="d-flex align-items-end" style="margin-bottom: 10px;">
                 <!--TODO: 카테고리별 보기-->
@@ -72,11 +71,12 @@
                         </div>
                         <div>
                             <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                                    data-bs-target="#editMenuModal"
-                                    style="width: 100%;font-size: 12px;padding: 10px 0; ">상세옵션보기/수정하기
+                                    data-bs-target="#menuModal_{{id}}"
+                                    style="width: 100%;font-size: 12px;padding: 10px 0; ">상세 보기
                             </button>
                         </div>
                     </div>
+                    {{>menus-detail-form}}
                 {{/menuList}}
             </div>
         </div>

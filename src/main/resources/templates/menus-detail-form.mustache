@@ -1,0 +1,119 @@
+<style>
+    .table {
+        --bs-table-bg: transparent;
+        align-items: center;
+    }
+
+    .table th {
+        align-content: center;
+    }
+
+    .table td {
+        align-content: center;
+    }
+
+    /*
+    .modal {
+        --bs-modal-width: 855px;
+    }
+    */
+</style>
+<div class="modal fade" id="menuModal_{{id}}" role="dialog" tabindex="-1" aria-labelledby="menuModalLabel"
+     data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content" style="min-height: 600px">
+            <div class="modal-header" style="background-color: navy; padding: 10px;">
+                <h5 class="modal-title" style="color: white; font-size: 15px;">메뉴 상세보기</h5>
+                <button type="button"
+                        style="border: 1px solid #65c6d3; border-radius:50%; background-color: #65c6d3; margin-right: 3px; width: 10px;height: 10px;"
+                        class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 2fr; grid-column-gap: 5%; padding: 10px">
+                <div>
+                    <div class="card mt-5" style="width:300px">
+                        <!-- 평점 항목
+                        <table class="table borderless">
+                            <tr>
+                                <td style="text-align: end; padding-bottom: 0; padding-top: 0">평점 ⭐</td>
+                                <td style="text-align: start; padding-bottom: 0; padding-top: 0">4.0</td>
+                            </tr>
+                        </table>
+                         -->
+                        <div class="card-header">
+                            <button class="btn btn-outline-dark">수정</button>
+                        </div>
+                        <div class="card-body" style="height: 200px;">
+                            <img class="card-img" src="https://www.mysavings.com/img/link/large/113816.jpg"
+                                 style="height: 100%; width: 100%;">
+                        </div>
+                        <div class="card-footer">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th>분류</th>
+                                    <td>{{category}}</td>
+                                </tr>
+                                <tr>
+                                    <th>이름</th>
+                                    <td>{{name}}</td>
+                                </tr>
+                                <tr>
+                                    <th>가격</th>
+                                    <td>{{price}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>
+                                <h4>필수 옵션</h4>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#menuOptionList}}
+                            <tr>
+                                <th>{{menuOptionList.name}}</th>
+                                <td>{{menuOptionList.price}}</td>
+                            </tr>
+                        {{/menuOptionList}}
+                        </tbody>
+                    </table>
+                    <table class="table mb-5">
+                        <thead>
+                        <tr>
+                            <th>
+                                <h4>선택 옵션</h4>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#menuOptionList}}
+                            {{^isRequired}}
+                                <tr>
+                                    <th>{{name}}</th>
+                                    <td>{{price}}</td>
+                                </tr>
+                            {{/isRequired}}
+                        {{/menuOptionList}}
+                        </tbody>
+                    </table>
+                    <div class="form-control">
+                        <div class="mb-3">
+                            <b>설명</b>
+                        </div>
+                        <div>
+                            맛도 좋네
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
