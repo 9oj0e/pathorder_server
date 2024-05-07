@@ -271,7 +271,9 @@ $(document).ready(function () {
             url: `/stores/${storeId}/menus/${menuId}`,
             type: 'GET',
             success: function (data) {
-                console.log("들어왔니?")
+                console.log("들어왔니?");
+                console.log(storeId);
+                console.log(menuId);
                 // 메뉴 정보 추가
                 let menuContent = `
                             <table class="table">
@@ -350,7 +352,7 @@ $(document).ready(function () {
     });
 });
 
-// 메뉴 수정 ajax
+// 메뉴 수정
 $(document).ready(function () {
     $("#menuEditForm").on("submit", function (e) {
         e.preventDefault();
@@ -358,18 +360,23 @@ $(document).ready(function () {
         let formData = new FormData(this);
         let menuId = $(this).data('menu-id');
         let storeId = $(this).data('store-id');
-
+        console.log(storeId);
+        console.log(menuId);
+        console.log("들어왔냥?");
         $.ajax({
-            type: "POST",
-            url: `/stores/${storeId}/menus/${menuId}`, // 서버 엔드포인트 경로
+            type: "PUT",
+            url: `/stores/${storeId}/menus/${menuId}`,
             data: formData,
             processData: false, // FormData를 사용할 때 필수
             contentType: false, // FormData를 사용할 때 필수
             success: function (response) {
                 // 데이터 전송 성공 시 실행될 코드
                 console.log("성공: ", response);
-                // 모달 창 닫기
-                $("#menuModal").modal('hide');
+
+                $(this).prop('disabled', !isDisabled);
+
+                $(this).find("#editBtn").toggleClass("hidden");
+                $(this).find("#completeBtns").toggleClass("hidden");
             },
             error: function (error) {
                 console.error("Error fetching menu details: ", error);
