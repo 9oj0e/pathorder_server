@@ -278,15 +278,15 @@ $(document).ready(function () {
                                 <tbody>
                                 <tr>
                                     <th>분류</th>
-                                    <td><input type="text" value="${data.body.category}" id="category" style="border: none" disabled/></td>
+                                    <td><input type="text" value="${data.body.category}" id="category" disabled/></td>
                                 </tr>
                                 <tr>
                                     <th>이름</th>
-                                    <td><input type="text" value="${data.body.name}" id="name" style="border: none" disabled/></td>
+                                    <td><input type="text" value="${data.body.name}" id="name" disabled/></td>
                                 </tr>
                                 <tr>
                                     <th>가격</th>
-                                    <td><input type="text" value="${data.body.price}" id="price" style="border: none" disabled/></td>
+                                    <td><input type="text" value="${data.body.price}" id="price" disabled/></td>
                                 </tr>
                                 </tbody>
                             </table>`;
@@ -297,8 +297,8 @@ $(document).ready(function () {
                     if (data.body.menuOptionList[i].required) {
                         requiredMenuOption += `
                             <tr>
-                                <th><input type="text" value="${menuOption.name}" id="optionName" style="border: none" disabled/></th>
-                                <td><input type="text" value="${menuOption.price}" id="optionPrice" style="border: none" disabled/></td>
+                                <th><input type="text" value="${menuOption.name}" id="optionName" disabled/></th>
+                                <td><input type="text" value="${menuOption.price}" id="optionPrice" disabled/></td>
                             </tr>`;
                     }
                 }
@@ -309,8 +309,8 @@ $(document).ready(function () {
                     if (!data.body.menuOptionList[i].required) {
                         optionalMenuOption += `
                             <tr>
-                                <th><input type="text" value="${menuOption.name}" id="optionName" style="border: none" disabled/></th>
-                                <td><input type="text" value="${menuOption.price}" id="optionPrice" style="border: none" disabled/></td>
+                                <th><input type="text" value="${menuOption.name}" id="optionName" disabled/></th>
+                                <td><input type="text" value="${menuOption.price}" id="optionPrice" disabled/></td>
                             </tr>`;
                     }
                 }
@@ -320,7 +320,7 @@ $(document).ready(function () {
                             <b>설명</b>
                         </div>
                         <div>
-                            <input type="text" value="${data.body.description}" id="description" style="border: none" disabled/>
+                            <input type="text" value="${data.body.description}" id="description" disabled/>
                         </div>`;
                 $('#menu').html(menuContent);
                 $('#required-menu-option').html(requiredMenuOption);
@@ -346,6 +346,35 @@ $(document).ready(function () {
         $("input").each(function () {
             let isDisabled = $(this).prop('disabled');
             $(this).prop('disabled', !isDisabled);
+        });
+    });
+});
+
+// 메뉴 수정 ajax
+$(document).ready(function () {
+    $("#menuEditForm").on("submit", function (e) {
+        e.preventDefault();
+
+        let formData = new FormData(this);
+        let menuId = $(this).data('menu-id');
+        let storeId = $(this).data('store-id');
+
+        $.ajax({
+            type: "POST",
+            url: `/stores/${storeId}/menus/${menuId}`, // 서버 엔드포인트 경로
+            data: formData,
+            processData: false, // FormData를 사용할 때 필수
+            contentType: false, // FormData를 사용할 때 필수
+            success: function (response) {
+                // 데이터 전송 성공 시 실행될 코드
+                console.log("성공: ", response);
+                // 모달 창 닫기
+                $("#menuModal").modal('hide');
+            },
+            error: function (error) {
+                console.error("Error fetching menu details: ", error);
+                alert('메뉴 상세 정보를 가져오는데 실패했습니다.');
+            }
         });
     });
 });

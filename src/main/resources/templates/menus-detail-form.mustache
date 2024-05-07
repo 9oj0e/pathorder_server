@@ -12,6 +12,14 @@
         align-content: center;
         text-align: end;
     }
+    .hidden {
+        display: none;
+    }
+    input {
+        border: 1px solid #e6e6e6;
+        border-radius: 5px;
+    }
+
 </style>
 <div class="modal fade" id="menuModal" role="dialog" tabindex="-1" aria-labelledby="menuModalLabel"
      data-bs-backdrop="static" aria-hidden="true">
@@ -24,99 +32,98 @@
                         style="border: 1px solid #65c6d3; border-radius:50%; background-color: #65c6d3; margin-right: 3px; width: 10px;height: 10px;"
                         class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div style="display: grid; grid-template-columns: 1fr 2fr; grid-column-gap: 5%; padding: 30px">
-                <div>
-                    <div class="card mt-5" style="width:300px">
-                        <div class="card-header" id="inputStatusChangeBtns">
-                            <div class="edit-btn" id="editBtn" data-input-status="disabled">
-                                <button type="button" class="btn btn-outline-dark">수정</button>
+            <form action="/stores/{{storeId}}/menus/{{id}}" method="post" id="menuEditForm">
+                <div style="display: grid; grid-template-columns: 1fr 2fr; grid-column-gap: 5%; padding: 30px">
+                    <div>
+                        <div class="card mt-5" style="width:300px">
+                            <div class="card-header" id="inputStatusChangeBtns">
+                                <div class="edit-btn" id="editBtn" data-input-status="disabled">
+                                    <button type="button" class="btn btn-outline-dark">수정</button>
+                                </div>
+                                <div class="complete-btns hidden" id="completeBtns" data-input-status="enabled">
+                                    <!-- 버튼에 이거 넣어야 함. data-menu-id="{menuId}" -->
+                                    <button type="submit" class="btn btn-outline-dark" data-menu-id="{{id}}"
+                                            data-store-id="{{storeId}}">
+                                        저장
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger">
+                                        취소
+                                    </button>
+                                </div>
                             </div>
-                            <div class="complete-btns hidden" id="completeBtns" data-input-status="enabled">
-                                <!-- 버튼에 이거 넣어야 함. data-menu-id="{menuId}" -->
-                                <button type="submit" class="btn btn-outline-dark" data-menu-id="{{id}}"
-                                        data-store-id="{{storeId}}">
-                                    저장
-                                </button>
-                                <button type="button" class="btn btn-outline-danger">
-                                    취소
-                                </button>
+                            <div class="card-body" style="height: 200px;">
+                                <img class="card-img" src="https://www.mysavings.com/img/link/large/113816.jpg"
+                                     style="height: 100%; width: 100%;">
                             </div>
-                        </div>
-                        <div class="card-body" style="height: 200px;">
-                            <img class="card-img" src="https://www.mysavings.com/img/link/large/113816.jpg"
-                                 style="height: 100%; width: 100%;">
-                        </div>
-                        <div id="menu" class="card-footer">
-                            <table class="table">
-                                <tbody>
-                                <tr>
-                                    <th>분류</th>
-                                    <td>{{category}}</td>
-                                </tr>
-                                <tr>
-                                    <th>이름</th>
-                                    <td>{{name}}</td>
-                                </tr>
-                                <tr>
-                                    <th>가격</th>
-                                    <td>{{price}}</td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <div id="menu" class="card-footer">
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <th>분류</th>
+                                        <td>{{category}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>이름</th>
+                                        <td>{{name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>가격</th>
+                                        <td>{{price}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div>
-                    <table class="table option">
-                        <thead>
-                        <tr>
-                            <th>
-                                <h4>필수 옵션</h4>
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody id="required-menu-option">
-                        {{#menuOptionList}}
+                    <div>
+                        <table class="table option">
+                            <thead>
                             <tr>
-                                <th>{{menuOptionList.name}}</th>
-                                <td>{{menuOptionList.price}}</td>
+                                <th>
+                                    <h4>필수 옵션</h4>
+                                </th>
                             </tr>
-                        {{/menuOptionList}}
-                        </tbody>
-                    </table>
-                    <table class="table option mb-5">
-                        <thead>
-                        <tr>
-                            <th>
-                                <h4>선택 옵션</h4>
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody id="optional-menu-option">
-                        {{#menuOptionList}}
-                            {{^isRequired}}
+                            </thead>
+                            <tbody id="required-menu-option">
+                            {{#menuOptionList}}
                                 <tr>
-                                    <th>{{name}}</th>
-                                    <td>{{price}}</td>
+                                    <th>{{menuOptionList.name}}</th>
+                                    <td>{{menuOptionList.price}}</td>
                                 </tr>
-                            {{/isRequired}}
-                        {{/menuOptionList}}
-                        </tbody>
-                    </table>
-
-                    <div id="menu-description" class="form-control">
-                        <div class="mb-3">
-                            <b>설명</b>
-                        </div>
-                        <div>
-                            맛도 좋네
+                            {{/menuOptionList}}
+                            </tbody>
+                        </table>
+                        <table class="table option mb-5">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <h4>선택 옵션</h4>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody id="optional-menu-option">
+                            {{#menuOptionList}}
+                                {{^isRequired}}
+                                    <tr>
+                                        <th>{{name}}</th>
+                                        <td>{{price}}</td>
+                                    </tr>
+                                {{/isRequired}}
+                            {{/menuOptionList}}
+                            </tbody>
+                        </table>
+                        <div id="menu-description" class="form-control">
+                            <div class="mb-3">
+                                <b>설명</b>
+                            </div>
+                            <div>
+                                맛도 좋네
+                            </div>
                         </div>
                     </div>
-
                 </div>
-            </div>
-
+            </form>
         </div>
     </div>
 </div>
