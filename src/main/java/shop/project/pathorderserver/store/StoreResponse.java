@@ -236,21 +236,42 @@ public class StoreResponse {
         private List<MenuDTO> menuList;
 
         public MenuListDTO(List<Menu> menus) {
-            this.menuList = menus.stream().map(MenuDTO::new).toList();
+            this.menuList = menus.stream().map((Menu menu) -> new MenuDTO(menu, menu.getMenuOptions())).toList();
         }
 
         @Data
         private static class MenuDTO {
+            // 메뉴 목록보기
             private int id;
             private String imgFilePath;
             private String name;
             private int price;
+            // 메뉴 상세보기에 추가로 필요한 필드
+            private String category;
+            private List<MenuOptionDTO> menuOptionList;
 
-            public MenuDTO(Menu menu) {
+            public MenuDTO(Menu menu, List<MenuOption> menuOptions) {
                 this.id = menu.getId();
                 this.imgFilePath = FileUtil.getFilePath(menu.getImgFilename());
                 this.name = menu.getName();
                 this.price = menu.getPrice();
+                this.category = menu.getCategory();
+                this.menuOptionList = menuOptions.stream().map(MenuOptionDTO::new).toList();
+            }
+
+            @Data
+            public static class MenuOptionDTO {
+                private int id;
+                private String name;
+                private int price;
+                private boolean isRequired;
+
+                public MenuOptionDTO(MenuOption menuOption) {
+                    this.id = menuOption.getId();
+                    this.name = menuOption.getName();
+                    this.price = menuOption.getPrice();
+                    this.isRequired = menuOption.isRequired();
+                }
             }
 
             public String getPrice() {

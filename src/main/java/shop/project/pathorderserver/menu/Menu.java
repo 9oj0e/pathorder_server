@@ -11,6 +11,7 @@ import shop.project.pathorderserver.store.Store;
 import shop.project.pathorderserver.store.StoreRequest;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @NoArgsConstructor
 @Data
@@ -32,6 +33,9 @@ public class Menu {
     // 참조 정보 - 매장
     @ManyToOne(fetch = FetchType.LAZY)
     private Store store; // 하나의 매장은 여러 개의 메뉴를 가질 수 있음
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<MenuOption> menuOptions;
 
     @CreationTimestamp
     private Timestamp registeredAt; // 메뉴 등록일

@@ -5,6 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import shop.project.pathorderserver._core.utils.JwtUtil;
+import shop.project.pathorderserver.order.Order;
+import shop.project.pathorderserver.order.OrderMenu;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootTest
 class UserServiceTest {
@@ -63,5 +68,31 @@ class UserServiceTest {
         // Assertions.assertThat(respDTO.getNickname()).isEqualTo("test");
         // Assertions.assertThat(respDTO.getEmail()).isEqualTo("ssar@nate.com");
         // Assertions.assertThat(respDTO.getTel()).isEqualTo("01020304");
+    }
+
+    @Test // 주문하기
+    void createOrder_test() {
+        // given
+        // when
+        // then
+    }
+    @Test // 주문내역 목록보기
+    void getOrderList_test() {
+        // given
+        // when
+        // then
+    }
+
+    @Test // 주문내역 상세보기
+    void getOrderDetail_test() {
+        // given
+        int orderId = 1;
+        Order order = new Order();
+        List<OrderMenu> orderMenus = new ArrayList<>();
+        UserResponse.OrderDetailDTO respDTO = new UserResponse.OrderDetailDTO(order, orderMenus);
+        // when
+        userService.getOrderDetail(orderId);
+        // then
+        System.out.println("_test: " + respDTO.getTotalPrice());
     }
 }
