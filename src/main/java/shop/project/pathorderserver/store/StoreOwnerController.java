@@ -63,6 +63,13 @@ public class StoreOwnerController {
         return "redirect:/";
     }
 
+    @GetMapping("stores/logout") // 매장 관리자 - 로그아웃
+    public String logout() {
+        session.invalidate();
+
+        return "redirect:/";
+    }
+
     /*------------------------------------------------------------------------------------- 메인 페이지 -----------------*/
 
     @GetMapping("/stores/{storeId}/orders") // 매장 관리자 - 처리중인 주문
