@@ -63,6 +63,13 @@ public class StoreOwnerController {
         return "redirect:/";
     }
 
+    @GetMapping("stores/logout") // 매장 관리자 - 로그아웃
+    public String logout() {
+        session.invalidate();
+
+        return "redirect:/";
+    }
+
     /*------------------------------------------------------------------------------------- 메인 페이지 -----------------*/
 
     @GetMapping("/stores/{storeId}/orders") // 매장 관리자 - 처리중인 주문
@@ -132,8 +139,12 @@ public class StoreOwnerController {
 
     @ResponseBody
     @GetMapping("/stores/{storeId}/menus/{menuId}") // 매장 관리자 - 메뉴 상세보기
-    private ResponseEntity<?> menuDetail(@PathVariable int storeId, @PathVariable int menuId) {
+    private ResponseEntity<?> menuDetail(@PathVariable int storeId, @PathVariable int menuId, Model model) {
+        SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         StoreResponse.MenuDetailDTO respDTO = storeService.getMenuDetail(menuId);
+        System.out.println("세션스토어누그야" + sessionStore);
+        model.addAttribute("sessionStore", sessionStore);
+        System.out.println("세션스토어누그야" + sessionStore.getId());
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
@@ -153,10 +164,6 @@ public class StoreOwnerController {
     private ResponseEntity<?> updateMenu(@PathVariable int storeId, @PathVariable int menuId, @ModelAttribute StoreRequest.UpdateMenuDTO reqDTO, Model model) {
         StoreResponse.UpdateMenuDTO respDTO = storeService.updateMenu(menuId, reqDTO);
         model.addAttribute("menu", respDTO);
-        model.addAttribute("storeId", storeId);
-
-        System.out.println("수정하기컨트롤러menu뭔데" + respDTO);
-        System.out.println("수정하기컨트롤러menu뭔데" + reqDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }

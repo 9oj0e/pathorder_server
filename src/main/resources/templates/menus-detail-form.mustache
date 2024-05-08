@@ -13,6 +13,10 @@
         text-align: end;
     }
 
+    .table.menu-info td {
+        width: 185px;
+    }
+
     .hidden {
         display: none;
     }
@@ -26,13 +30,15 @@
 <div class="modal fade" id="menuModal" role="dialog" tabindex="-1" aria-labelledby="menuModalLabel"
      data-bs-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content" style="min-height: 600px">
+        <div class="modal-content" style="min-height: 600px; min-width: 800px">
+
             <div class="modal-header" style="background-color: navy; padding: 10px;">
                 <h5 class="modal-title" style="color: white; font-size: 15px;">메뉴 상세보기</h5>
                 <button type="button"
                         style="border: 1px solid #65c6d3; border-radius:50%; background-color: #65c6d3; margin-right: 3px; width: 10px;height: 10px;"
                         class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
             <div id="menuForm">
 
             </div>

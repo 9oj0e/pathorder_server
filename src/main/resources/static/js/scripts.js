@@ -91,26 +91,26 @@ $(document).ready(function () {
 
 // 주문 기록 검색 날짜 지정
 
-    $("button[type='submit']").click(function () {
-        searchOrders();
-    });
+$("button[type='submit']").click(function () {
+    searchOrders();
+});
 
-    function searchOrders() {
+function searchOrders() {
 
-        let startDate = $("#startDate").val();
-        let endDate = $("#endDate").val();
+    let startDate = $("#startDate").val();
+    let endDate = $("#endDate").val();
 
-        let startArr = startDate.split("-");
-        let endArr = endDate.split("-");
+    let startArr = startDate.split("-");
+    let endArr = endDate.split("-");
 
-        $("#startYear").text(startArr[0]);
-        $("#startMonth").text(startArr[1]);
-        $("#startDay").text(startArr[2]);
+    $("#startYear").text(startArr[0]);
+    $("#startMonth").text(startArr[1]);
+    $("#startDay").text(startArr[2]);
 
-        $("#endYear").text(endArr[0]);
-        $("#endMonth").text(endArr[1]);
-        $("#endDay").text(endArr[2]);
-    };
+    $("#endYear").text(endArr[0]);
+    $("#endMonth").text(endArr[1]);
+    $("#endDay").text(endArr[2]);
+};
 
 
 // 오늘, 어제, 그제
@@ -137,17 +137,17 @@ $(document).ready(function () {
 });
 
 // 주문 상세 모달
-    $('button[data-order-id]').click(function () {
-        let orderId = $(this).data('order-id');
-        let storeId = $(this).data('store-id');
+$('button[data-order-id]').click(function () {
+    let orderId = $(this).data('order-id');
+    let storeId = $(this).data('store-id');
 
-        $.ajax({
-            url: `/stores/${storeId}/orders/${orderId}`,
-            type: 'GET',
-            success: function (data) {
-                console.log("들어왔니?")
+    $.ajax({
+        url: `/stores/${storeId}/orders/${orderId}`,
+        type: 'GET',
+        success: function (data) {
+            console.log("들어왔니?")
 
-                let htmlContent = `
+            let htmlContent = `
                    <div class="container-fluid" style="padding: 0;">
                     <div class="modal-header" style="background-color: navy; padding: 10px;">
                         <h5 class="modal-title" style="color: white; font-size: 15px;">주문 상세내역</h5>
@@ -203,29 +203,29 @@ $(document).ready(function () {
                                         </thead>
                                         <tbody style="border-bottom: 1px solid #6b6868;">`;
 
-                // 메뉴 반복문 시작
-                for (let i = 0; i < data.body.orderMenuList.length; i++) {
-                    let menu = data.body.orderMenuList[i];
+            // 메뉴 반복문 시작
+            for (let i = 0; i < data.body.orderMenuList.length; i++) {
+                let menu = data.body.orderMenuList[i];
+                htmlContent += `
+                                                <tr class="menu-column" style="font-weight: bold; border-top: 1px solid #6b6868;">
+                                                    <td>${menu.name}</td>
+                                                    <td style="text-align: center;">${menu.qty}</td>
+                                                    <td style="text-align: end;">${menu.totalPrice.toLocaleString()}원</td>
+                                                </tr>`;
+
+                for (let j = 0; j < menu.orderMenuOptionList.length; j++) {
+                    let option = menu.orderMenuOptionList[j];
                     htmlContent += `
-                                <tr class="menu-column" style="font-weight: bold; border-top: 1px solid #6b6868;">
-                                    <td>${menu.name}</td>
-                                    <td style="text-align: center;">${menu.qty}</td>
-                                    <td style="text-align: end;">${menu.totalPrice.toLocaleString()}원</td>
-                                </tr>`;
-
-                    for (let j = 0; j < menu.orderMenuOptionList.length; j++) {
-                        let option = menu.orderMenuOptionList[j];
-                        htmlContent += `
-                            <tr class="option-column" style="font-size: 12px; color: #6b6868;  border-top: 2px dotted #e6e6e6;">
-                                <td>${option.name}</td>
-                                <td style="text-align: center;"></td>
-                                <td style="text-align: end;">${option.price.toLocaleString()}원</td>
-                            </tr>`;
-                    }
+                                            <tr class="option-column" style="font-size: 12px; color: #6b6868;  border-top: 2px dotted #e6e6e6;">
+                                                <td>${option.name}</td>
+                                                <td style="text-align: center;"></td>
+                                                <td style="text-align: end;">${option.price.toLocaleString()}원</td>
+                                            </tr>`;
                 }
-                // 메뉴 반복문 끝
+            }
+            // 메뉴 반복문 끝
 
-                htmlContent += `           </tbody>
+            htmlContent += `           </tbody>
                                     </table>
                                 </div>
                                 <table class="table footer-table"
@@ -248,16 +248,16 @@ $(document).ready(function () {
                         </div>
                     </div>
                 </div>`;
-                console.log(data);
-                $('#orderDetailModal .modal-body').html(htmlContent);
-                $('#orderDetailModal').modal('show');
-            },
-            error: function (error) {
-                console.error("Error fetching order details: ", error);
-                alert('주문 상세 정보를 가져오는데 실패했습니다.');
-            }
-        });
+            console.log(data);
+            $('#orderDetailModal .modal-body').html(htmlContent);
+            $('#orderDetailModal').modal('show');
+        },
+        error: function (error) {
+            console.error("Error fetching order details: ", error);
+            alert('주문 상세 정보를 가져오는데 실패했습니다.');
+        }
     });
+});
 
 
 // 메뉴 상세보기 모달
@@ -267,18 +267,18 @@ $('button[data-menu-id]').click(function (event) {
 
     let menuId = event.currentTarget.dataset.menuId;
     let storeId = event.currentTarget.dataset.storeId;
+    let sessionStoreId = event.currentTarget.dataset.sessionStoreId;
 
     $.ajax({
         url: `/stores/${storeId}/menus/${menuId}`,
         type: 'GET',
         success: function (data) {
             console.log("들어왔니?");
-            console.log(data);
 
             // 메뉴 정보 추가
             let menuContent =
 
-                $('#menuForm').html(render(data, storeId, menuId));
+                $('#menuForm').html(render(data, sessionStoreId, menuId));
             $('#menuModal').modal('show');
         }
         ,
@@ -290,13 +290,13 @@ $('button[data-menu-id]').click(function (event) {
 });
 
 
-function render(data, storeId, menuId) {
+function render(data, sessionStoreId, menuId) {
 
     let html = ``;
 
     html += `
-              <form action="/stores/${storeId}/menus/${menuId}" method="post" id="menuEditForm" data-menu-id="${menuId}"
-                  data-store-id="${storeId}">
+              <form action="/stores/${sessionStoreId}/menus/${menuId}" method="post" id="menuEditForm" data-menu-id="${menuId}"
+                  data-store-id="${sessionStoreId}">
                 <div style="display: grid; grid-template-columns: 1fr 2fr; grid-column-gap: 5%; padding: 30px">
                         <div class="card mt-5" style="width:300px">
                             <div class="card-header" id="inputStatusChangeBtns">
@@ -306,7 +306,7 @@ function render(data, storeId, menuId) {
                                 <div class="complete-btns hidden" id="completeBtns" data-input-status="enabled">
                                     <!-- 버튼에 이거 넣어야 함. data-menu-id="menuId" -->
                                     <button type="submit" class="btn btn-outline-dark" data-menu-id="${menuId}" data-edit-target="${menuId}"
-                                            data-store-id="${storeId}">
+                                            data-store-id="${sessionStoreId}">
                                         저장
                                     </button>
                                     <button type="button" class="btn btn-outline-danger">
@@ -333,6 +333,11 @@ function render(data, storeId, menuId) {
                                             <th>가격</th>
                                              <td><input type="text" value="${data.body.price}" id="price" name="price" readonly/></td>
                                         </tr>
+                                        <tr>
+                                        <th>설명</th>
+                                        <td><input type="text" value="${data.body.description}" id="description" name="description" style="width: 100%" readonly/>
+                                        </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -354,9 +359,9 @@ function render(data, storeId, menuId) {
         let option = data.body.menuOptionList[i];
         if (option.required === true) {
             html += `<tr>
-                                    <th><input type="text" value="${option.name}" id="optionName" name="optionName" readonly/></th>
-                                    <td><td><input type="text" value="${option.price}" id="optionPrice" name="optionPrice" readonly/></td></td>
-                                </tr>`;
+                                                    <th><input type="text" value="${option.name}" id="optionName" name="optionName" readonly/></th>
+                                                    <td><td><input type="text" value="${option.price}" id="optionPrice" name="optionPrice" readonly/></td></td>
+                                                </tr>`;
         }
     }
 
@@ -387,19 +392,11 @@ function render(data, storeId, menuId) {
     html += `
                             </tbody>
                         </table>
-                        <div id="menu-description" class="form-control">
-                            <div class="mb-3">
-                                <b>설명</b>
-                            </div>
-                            <div>
-                                <input type="text" value="${data.body.description}" id="description" name="description" style="width: 100%" readonly/>
-                            </div>
-                        </div>
+       
                     </div>
                 </div>
             </form>`;
 
-    // html += ``;
     return html;
 }
 
@@ -438,11 +435,11 @@ $(document).ready(function () {
 
 
 // 메뉴 수정 토글 버튼
-    $("#inputStatusChangeBtns").on("click", function () {
-        $(this).find("#editBtn").toggleClass("hidden");
-        $(this).find("#completeBtns").toggleClass("hidden");
-        $("input").each(function () {
-            let isReadOnly = $(this).prop('readOnly');
-            $(this).prop('readOnly', !isReadOnly);
-        });
+$("#inputStatusChangeBtns").on("click", function () {
+    $(this).find("#editBtn").toggleClass("hidden");
+    $(this).find("#completeBtns").toggleClass("hidden");
+    $("input").each(function () {
+        let isReadOnly = $(this).prop('readOnly');
+        $(this).prop('readOnly', !isReadOnly);
     });
+});

@@ -249,6 +249,7 @@ public class StoreResponse {
             private int price;
             // 메뉴 상세보기에 추가로 필요한 필드
             private String category;
+            private String description;
             private List<MenuOptionDTO> menuOptionList;
 
             public MenuDTO(Menu menu, List<MenuOption> menuOptions) {
@@ -258,6 +259,7 @@ public class StoreResponse {
                 this.name = menu.getName();
                 this.price = menu.getPrice();
                 this.category = menu.getCategory();
+                this.description = menu.getDescription();
                 this.menuOptionList = menuOptions.stream().map(MenuOptionDTO::new).toList();
             }
 
