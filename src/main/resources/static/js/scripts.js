@@ -59,38 +59,38 @@ $(document).ready(function () {
 //         $('#orderDetaiInput').focus();
 //     })
 // });
-$(document).ready(function () {
-    // 메뉴 추가 모달의 옵션 추가 기능
-    $('#addOptionInAdd').on('click', function () {
-        let newOptionDiv = $('<div class="mb-3 d-flex align-items-center"></div>');
-        let newOptionInput = $('<input type="text" class="form-control" name="option[]">');
-        let deleteButton = $('<button type="button" class="btn btn-danger ms-2">-</button>');
-
-        deleteButton.on('click', function () {
-            $(this).parent().remove();
-        });
-
-        newOptionDiv.append(newOptionInput).append(deleteButton);
-        $('#optionFieldsInAdd').append(newOptionDiv);
-    });
-
-    // 메뉴 수정 모달의 옵션 추가 기능
-    $('#addOptionInEdit').on('click', function () {
-        let newOptionDiv = $('<div class="mb-3 d-flex align-items-center"></div>');
-        let newOptionInput = $('<input type="text" class="form-control" name="option[]">');
-        let deleteButton = $('<button type="button" class="btn btn-danger ms-2">-</button>');
-
-        deleteButton.on('click', function () {
-            $(this).parent().remove();
-        });
-
-        newOptionDiv.append(newOptionInput).append(deleteButton);
-        $('#optionFieldsInEdit').append(newOptionDiv);
-    });
-});
+// $(document).ready(function () {
+//     // 메뉴 추가 모달의 옵션 추가 기능
+//     $('#addOptionInAdd').on('click', function () {
+//         let newOptionDiv = $('<div class="mb-3 d-flex align-items-center"></div>');
+//         let newOptionInput = $('<input type="text" class="form-control" name="option[]">');
+//         let deleteButton = $('<button type="button" class="btn btn-danger ms-2">-</button>');
+//
+//         deleteButton.on('click', function () {
+//             $(this).parent().remove();
+//         });
+//
+//         newOptionDiv.append(newOptionInput).append(deleteButton);
+//         $('#optionFieldsInAdd').append(newOptionDiv);
+//     });
+//
+//     // 메뉴 수정 모달의 옵션 추가 기능
+//     $('#addOptionInEdit').on('click', function () {
+//         let newOptionDiv = $('<div class="mb-3 d-flex align-items-center"></div>');
+//         let newOptionInput = $('<input type="text" class="form-control" name="option[]">');
+//         let deleteButton = $('<button type="button" class="btn btn-danger ms-2">-</button>');
+//
+//         deleteButton.on('click', function () {
+//             $(this).parent().remove();
+//         });
+//
+//         newOptionDiv.append(newOptionInput).append(deleteButton);
+//         $('#optionFieldsInEdit').append(newOptionDiv);
+//     });
+// });
 
 // 주문 기록 검색 날짜 지정
-$(document).ready(function () {
+
     $("button[type='submit']").click(function () {
         searchOrders();
     });
@@ -110,8 +110,8 @@ $(document).ready(function () {
         $("#endYear").text(endArr[0]);
         $("#endMonth").text(endArr[1]);
         $("#endDay").text(endArr[2]);
-    }
-});
+    };
+
 
 // 오늘, 어제, 그제
 $(document).ready(function () {
@@ -137,7 +137,6 @@ $(document).ready(function () {
 });
 
 // 주문 상세 모달
-$(document).ready(function () {
     $('button[data-order-id]').click(function () {
         let orderId = $(this).data('order-id');
         let storeId = $(this).data('store-id');
@@ -208,20 +207,20 @@ $(document).ready(function () {
                 for (let i = 0; i < data.body.orderMenuList.length; i++) {
                     let menu = data.body.orderMenuList[i];
                     htmlContent += `
-                    <tr class="menu-column" style="font-weight: bold; border-top: 1px solid #6b6868;">
-                        <td>${menu.name}</td>
-                        <td style="text-align: center;">${menu.qty}</td>
-                        <td style="text-align: end;">${menu.totalPrice.toLocaleString()}원</td>
-                    </tr>`;
+                                <tr class="menu-column" style="font-weight: bold; border-top: 1px solid #6b6868;">
+                                    <td>${menu.name}</td>
+                                    <td style="text-align: center;">${menu.qty}</td>
+                                    <td style="text-align: end;">${menu.totalPrice.toLocaleString()}원</td>
+                                </tr>`;
 
                     for (let j = 0; j < menu.orderMenuOptionList.length; j++) {
                         let option = menu.orderMenuOptionList[j];
                         htmlContent += `
-                <tr class="option-column" style="font-size: 12px; color: #6b6868;  border-top: 2px dotted #e6e6e6;">
-                    <td>${option.name}</td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: end;">${option.price.toLocaleString()}원</td>
-                </tr>`;
+                            <tr class="option-column" style="font-size: 12px; color: #6b6868;  border-top: 2px dotted #e6e6e6;">
+                                <td>${option.name}</td>
+                                <td style="text-align: center;"></td>
+                                <td style="text-align: end;">${option.price.toLocaleString()}원</td>
+                            </tr>`;
                     }
                 }
                 // 메뉴 반복문 끝
@@ -259,100 +258,160 @@ $(document).ready(function () {
             }
         });
     });
-});
+
 
 // 메뉴 상세보기 모달
-$(document).ready(function () {
-    $('button[data-menu-id]').click(function () {
-        let menuId = $(this).data('menu-id');
-        let storeId = $(this).data('store-id');
 
-        $.ajax({
-            url: `/stores/${storeId}/menus/${menuId}`,
-            type: 'GET',
-            success: function (data) {
-                console.log("들어왔니?");
-                console.log(data);
-                // 메뉴 정보 추가
-                let menuContent = `
-                            <table class="table">
-                                <tbody>
-                                <tr>
-                                    <th>분류</th>
-                                    <td><input type="text" value="${data.body.category}" id="category" name="category" readonly/></td>
-                                </tr>
-                                <tr>
-                                    <th>이름</th>
-                                    <td><input type="text" value="${data.body.name}" id="name" name="name"  readonly/></td>
-                                </tr>
-                                <tr>
-                                    <th>가격</th>
-                                    <td><input type="text" value="${data.body.price}" id="price" name="price" readonly/></td>
-                                </tr>
-                                </tbody>
-                            </table>`;
-                // 메뉴 필수 옵션
-                let requiredMenuOption = '';
-                for (let i = 0; i < data.body.menuOptionList.length; i++) {
-                    let menuOption = data.body.menuOptionList[i];
-                    if (data.body.menuOptionList[i].required) {
-                        requiredMenuOption += `
-                            <tr>
-                                <th><input type="text" value="${menuOption.name}" id="optionName" name="optionName" readonly/></th>
-                                <td><input type="text" value="${menuOption.price}" id="optionPrice" name="optionPrice" readonly/></td>
-                            </tr>`;
-                    }
-                }
-                // 메뉴 선택 옵션
-                let optionalMenuOption = '';
-                for (let i = 0; i < data.body.menuOptionList.length; i++) {
-                    let menuOption = data.body.menuOptionList[i];
-                    if (!data.body.menuOptionList[i].required) {
-                        optionalMenuOption += `
-                            <tr>
-                                <th><input type="text" value="${menuOption.name}" id="optionName" readonly/></th>
-                                <td><input type="text" value="${menuOption.price}" id="optionPrice" readonly/></td>
-                            </tr>`;
-                    }
-                }
-                // 메뉴 설명
-                let menuDescription = `
-                        <div class="mb-3">
-                            <b>설명</b>
-                        </div>
-                        <div>
-                            <input type="text" value="${data.body.description}" id="description" name="description" style="width: 100%" readonly/>
-                        </div>`;
-                $('#menu').html(menuContent);
-                $('#required-menu-option').html(requiredMenuOption);
-                $('#optional-menu-option').html(optionalMenuOption);
-                $('#menu-description').html(menuDescription);
-                $('#menuModal').modal('show');
-            }
-            ,
-            error: function (error) {
-                console.error("Error fetching order details: ", error);
-                alert('주문 상세 정보를 가져오는데 실패했습니다.');
-            }
-        });
-    })
-    ;
+$('button[data-menu-id]').click(function (event) {
+    console.log(event);
+
+    let menuId = event.currentTarget.dataset.menuId;
+    let storeId = event.currentTarget.dataset.storeId;
+
+    $.ajax({
+        url: `/stores/${storeId}/menus/${menuId}`,
+        type: 'GET',
+        success: function (data) {
+            console.log("들어왔니?");
+            console.log(data);
+
+            // 메뉴 정보 추가
+            let menuContent =
+
+                $('#menuForm').html(render(data, storeId, menuId));
+            $('#menuModal').modal('show');
+        }
+        ,
+        error: function (error) {
+            console.error("Error fetching order details: ", error);
+            alert('주문 상세 정보를 가져오는데 실패했습니다.');
+        }
+    });
 });
 
+
+function render(data, storeId, menuId) {
+
+    let html = ``;
+
+    html += `
+              <form action="/stores/${storeId}/menus/${menuId}" method="post" id="menuEditForm" data-menu-id="${menuId}"
+                  data-store-id="${storeId}">
+                <div style="display: grid; grid-template-columns: 1fr 2fr; grid-column-gap: 5%; padding: 30px">
+                        <div class="card mt-5" style="width:300px">
+                            <div class="card-header" id="inputStatusChangeBtns">
+                                <div class="edit-btn" id="editBtn" data-input-status="disabled">
+                                    <button type="button" class="btn btn-outline-dark">수정</button>
+                                </div>
+                                <div class="complete-btns hidden" id="completeBtns" data-input-status="enabled">
+                                    <!-- 버튼에 이거 넣어야 함. data-menu-id="menuId" -->
+                                    <button type="submit" class="btn btn-outline-dark" data-menu-id="${menuId}" data-edit-target="${menuId}"
+                                            data-store-id="${storeId}">
+                                        저장
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger">
+                                        취소
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body" style="height: 200px;">
+                                <img class="card-img" src="https://www.mysavings.com/img/link/large/113816.jpg"
+                                     style="height: 100%; width: 100%;">
+                            </div>
+                            <div id="menu" class="card-footer">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th>분류</th>
+                                            <td><input type="text" value="${data.body.category}" id="category" name="category" readonly/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>이름</th>
+                                            <td><input type="text" value="${data.body.name}" id="name" name="name"  readonly/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>가격</th>
+                                             <td><input type="text" value="${data.body.price}" id="price" name="price" readonly/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    <div>
+                        <table class="table option">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <h4>필수 옵션</h4>
+                                </th>
+                                
+                            </tr>
+                            </thead>
+                            <tbody id="required-menu-option">`;
+
+    for (let i = 0; i < data.body.menuOptionList.length; i++) {
+        let option = data.body.menuOptionList[i];
+        if (option.required === true) {
+            html += `<tr>
+                                    <th><input type="text" value="${option.name}" id="optionName" name="optionName" readonly/></th>
+                                    <td><td><input type="text" value="${option.price}" id="optionPrice" name="optionPrice" readonly/></td></td>
+                                </tr>`;
+        }
+    }
+
+    html += `       
+                            </tbody>
+                        </table>
+                        <table class="table option mb-5">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <h4>선택 옵션</h4>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody id="optional-menu-option">
+                                 </tr>`;
+
+    for (let i = 0; i < data.body.menuOptionList.length; i++) {
+        let option = data.body.menuOptionList[i];
+        if (option.required === false) {
+            html += `<tr>
+                                    <th><input type="text" value="${option.name}" id="optionName" readonly/></th>
+                                    <td><input type="text" value="${option.price}" id="optionPrice" readonly/></td>
+                                </tr>`;
+        }
+    }
+
+    html += `
+                            </tbody>
+                        </table>
+                        <div id="menu-description" class="form-control">
+                            <div class="mb-3">
+                                <b>설명</b>
+                            </div>
+                            <div>
+                                <input type="text" value="${data.body.description}" id="description" name="description" style="width: 100%" readonly/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>`;
+
+    // html += ``;
+    return html;
+}
 
 // 메뉴 수정
 $(document).ready(function () {
-    $("#menuEditForm").on("submit", function (e) {
+    $('button[data-edit-menu]').click("submit", function (e) {
         e.preventDefault();
-
+        alert("되냐");
         let form = this;
         let formData = new FormData(this);
-        alert([...formData]);
         let menuId = $(this).data('menu-id');
         let storeId = $(this).data('store-id');
-        alert(storeId);
-        alert(menuId);
-        alert("들어왔냥?");
 
         $.ajax({
             type: "PUT",
@@ -379,7 +438,6 @@ $(document).ready(function () {
 
 
 // 메뉴 수정 토글 버튼
-$(document).ready(function () {
     $("#inputStatusChangeBtns").on("click", function () {
         $(this).find("#editBtn").toggleClass("hidden");
         $(this).find("#completeBtns").toggleClass("hidden");
@@ -388,4 +446,3 @@ $(document).ready(function () {
             $(this).prop('readOnly', !isReadOnly);
         });
     });
-});
