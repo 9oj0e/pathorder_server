@@ -386,6 +386,7 @@ $(document).ready(function () {
         $("input").each(function () {
             let isReadOnly = $(this).prop('readOnly');
             $(this).prop('readOnly', !isReadOnly);
+            $(this).css("background-color", "#e6e6e6");
         });
     });
 });
