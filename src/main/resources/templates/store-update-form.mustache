@@ -92,48 +92,48 @@
                                     <div class="input-group mb-3">
                                                 <span
                                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">상호명</span>
-                                        <input type="text" class="form-control" value="store.name" name="name"
+                                        <input type="text" class="form-control" value="{{storeDetail.name}}" name="name"
                                                id="" required>
                                     </div>
                                     <div class="input-group mb-3">
                                                 <span
                                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">매장
                                                     전화번호</span>
-                                        <input type="text" class="form-control" value="store.tel" name="text"
+                                        <input type="text" class="form-control" value="{{storeDetail.tel}}" name="text"
                                                id="" required>
                                     </div>
                                     <div class="input-group mb-3">
                                                 <span
                                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">매장소개</span>
                                         <input type="text" class="form-control" maxlength="11"
-                                               value="store.intro" name="text" id="" required>
+                                               value="{{storeDetail.intro}}" name="text" id="" required>
                                     </div>
                                     <div class="input-group mb-3">
                                                 <span
                                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">개점시간</span>
-                                        <input type="time" class="form-control" value="store.openingTime"
+                                        <input type="time" class="form-control" value="{{storeDetail.openingTime}}"
                                                name="address" id="" required>
                                     </div>
                                     <div class="input-group mb-3">
                                                 <span
                                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">폐점시간</span>
-                                        <input type="time" class="form-control" value="store.closingTime"
+                                        <input type="time" class="form-control" value="{{storeDetail.closingTime}}"
                                                name="email" id="" required>
                                     </div>
                                     <div class="input-group mb-3">
                                                 <span
                                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">휴무일</span>
-                                        <input type="date" class="form-control" value="store.closedDay"
+<!--                                        TODO: 타입을 date로 해야 하나?-->
+                                        <input type="date" class="form-control" value="{{storeDetail.closedDay}}"
                                                name="birth" id="" required>
                                     </div>
                                     <div class="input-group mb-3">
                                                 <span
                                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">매장
                                                     주소</span>
-                                        <input type="text" class="form-control" value="store.adress"
+                                        <input type="text" class="form-control" value="{{storeDetail.address}}"
                                                name="email" id="" required>
                                     </div>
-                                    <div>지도</div>
                                     <div class="mt-5">
                                         <h4 class="border-bottom pb-4">사업자 정보</h4>
                                     </div>
@@ -141,32 +141,33 @@
                                                 <span
                                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">사업주
                                                     이름</span>
-                                        <input type="text" class="form-control" value="store.ownerName"
+                                        <input type="text" class="form-control" value="{{storeDetail.ownerName}}"
                                                name="name" id="" required>
                                     </div>
                                     <div class="input-group mb-3">
                                                 <span
                                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">사업주
                                                     연락처</span>
-                                        <input type="tel" class="form-control" value="store.ownerTel"
+                                        <input type="tel" class="form-control" value="{{storeDetail.ownerTel}}"
                                                name="ownerTel" id="" required>
                                     </div>
                                     <div class="input-group mb-3">
                                                 <span
                                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">사업주
                                                     이메일</span>
-                                        <input type="email" class="form-control" value="store.ownerEmail"
+                                        <input type="email" class="form-control" value="{{storeDetail.ownerEmail}}"
                                                name="ownerEmail" id="" required>
                                     </div>
                                     <div class="input-group mb-3">
                                                 <span
                                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">사업자
                                                     번호</span>
-                                        <input type="text" class="form-control" value="store.bizNum"
+                                        <input type="text" class="form-control" value="{{storeDetail.bizNum}}"
                                                name="bizNum" id="" required>
                                     </div>
                                     <div class="mt-5">
                                         <h4 class="border-bottom pb-4">비밀번호 수정</h4>
+<!--                                        TODO: 비밀번호 수정 추후에 다시-->
                                     </div>
                                     <br>
                                     <div class="company-password">
