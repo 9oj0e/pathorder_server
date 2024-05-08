@@ -289,6 +289,10 @@ $(document).ready(function () {
                                     <th>가격</th>
                                     <td><input type="text" value="${data.body.price}" id="price" name="price" readonly/></td>
                                 </tr>
+                                <tr>
+                                    <th>설명</th>
+                                    <td><input type="text" value="${data.body.description}" id="description" name="description" readonly/></td>
+                                </tr>
                                 </tbody>
                             </table>`;
                 // 메뉴 필수 옵션
