@@ -36,7 +36,7 @@
                 <h5 class="modal-title" style="color: white; font-size: 15px;">메뉴 상세보기</h5>
                 <button type="button"
                         style="border: 1px solid #65c6d3; border-radius:50%; background-color: #65c6d3; margin-right: 3px; width: 10px;height: 10px;"
-                        class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        class="btn-close" id="btnClose" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="/stores/{{sessionStore.id}}/menus/{{id}}" method="post" id="menuEditForm"
                   data-menu-id="{{id}}"

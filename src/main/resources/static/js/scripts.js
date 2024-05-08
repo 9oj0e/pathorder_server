@@ -390,3 +390,9 @@ $(document).ready(function () {
         });
     });
 });
+$(document).ready(function () {
+    $("#btnClose").on("click", function () {
+        $("#editBtn").removeClass("hidden");
+        $("#completeBtns").addClass("hidden");
+    });
+});
