@@ -148,12 +148,17 @@ public class StoreOwnerController {
         return "redirect:/stores/" + storeId + "/menus";
     }
 
+    @ResponseBody
     @PutMapping("/stores/{storeId}/menus/{menuId}") // 매장 관리자 - 메뉴 수정하기
-    private String updateMenu(@PathVariable int storeId, @PathVariable int menuId, StoreRequest.UpdateMenuDTO reqDTO, Model model) {
+    private ResponseEntity<?> updateMenu(@PathVariable int storeId, @PathVariable int menuId, @ModelAttribute StoreRequest.UpdateMenuDTO reqDTO, Model model) {
         StoreResponse.UpdateMenuDTO respDTO = storeService.updateMenu(menuId, reqDTO);
         model.addAttribute("menu", respDTO);
+        model.addAttribute("storeId", storeId);
 
-        return "";
+        System.out.println("수정하기컨트롤러menu뭔데" + respDTO);
+        System.out.println("수정하기컨트롤러menu뭔데" + reqDTO);
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @DeleteMapping("/stores/{storeId}/menus/{menuId}") // 매장 관리자 - 메뉴 삭제하기

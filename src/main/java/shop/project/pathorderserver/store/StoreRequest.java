@@ -64,6 +64,7 @@ public class StoreRequest {
 
     @Data // 매장 관리자 - 메뉴 수정
     public static class UpdateMenuDTO {
+        private int id;
         private int price; // 메뉴 하나의 가격
         private String category; // 각 메뉴가 포함되는 카테고리, 점주가 직접 작성
         private String name; // 메뉴 이름

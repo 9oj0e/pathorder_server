@@ -271,46 +271,47 @@ $(document).ready(function () {
             url: `/stores/${storeId}/menus/${menuId}`,
             type: 'GET',
             success: function (data) {
-                console.log("들어왔니?")
+                console.log("들어왔니?");
+                console.log(data);
                 // 메뉴 정보 추가
                 let menuContent = `
                             <table class="table">
                                 <tbody>
                                 <tr>
                                     <th>분류</th>
-                                    <td>${data.body.category}</td>
+                                    <td><input type="text" value="${data.body.category}" id="category" name="category" readonly/></td>
                                 </tr>
                                 <tr>
                                     <th>이름</th>
-                                    <td>${data.body.name}</td>
+                                    <td><input type="text" value="${data.body.name}" id="name" name="name"  readonly/></td>
                                 </tr>
                                 <tr>
                                     <th>가격</th>
-                                    <td>${data.body.price}</td>
+                                    <td><input type="text" value="${data.body.price}" id="price" name="price" readonly/></td>
                                 </tr>
                                 </tbody>
                             </table>`;
                 // 메뉴 필수 옵션
-                let requiredMenuOption;
+                let requiredMenuOption = '';
                 for (let i = 0; i < data.body.menuOptionList.length; i++) {
                     let menuOption = data.body.menuOptionList[i];
                     if (data.body.menuOptionList[i].required) {
                         requiredMenuOption += `
                             <tr>
-                                <th>${menuOption.name}</th>
-                                <td>${menuOption.price}</td>
+                                <th><input type="text" value="${menuOption.name}" id="optionName" name="optionName" readonly/></th>
+                                <td><input type="text" value="${menuOption.price}" id="optionPrice" name="optionPrice" readonly/></td>
                             </tr>`;
                     }
                 }
                 // 메뉴 선택 옵션
-                let optionalMenuOption;
+                let optionalMenuOption = '';
                 for (let i = 0; i < data.body.menuOptionList.length; i++) {
                     let menuOption = data.body.menuOptionList[i];
                     if (!data.body.menuOptionList[i].required) {
                         optionalMenuOption += `
                             <tr>
-                                <th>${menuOption.name}</th>
-                                <td>${menuOption.price}</td>
+                                <th><input type="text" value="${menuOption.name}" id="optionName" readonly/></th>
+                                <td><input type="text" value="${menuOption.price}" id="optionPrice" readonly/></td>
                             </tr>`;
                     }
                 }
@@ -320,7 +321,7 @@ $(document).ready(function () {
                             <b>설명</b>
                         </div>
                         <div>
-                            ${data.body.description}
+                            <input type="text" value="${data.body.description}" id="description" name="description" style="width: 100%" readonly/>
                         </div>`;
                 $('#menu').html(menuContent);
                 $('#required-menu-option').html(requiredMenuOption);
@@ -336,4 +337,55 @@ $(document).ready(function () {
         });
     })
     ;
+});
+
+
+// 메뉴 수정
+$(document).ready(function () {
+    $("#menuEditForm").on("submit", function (e) {
+        e.preventDefault();
+
+        let form = this;
+        let formData = new FormData(this);
+        alert([...formData]);
+        let menuId = $(this).data('menu-id');
+        let storeId = $(this).data('store-id');
+        alert(storeId);
+        alert(menuId);
+        alert("들어왔냥?");
+
+        $.ajax({
+            type: "PUT",
+            url: `/stores/${storeId}/menus/${menuId}`,
+            data: formData,
+            processData: false, // FormData를 사용할 때 필수
+            contentType: false, // FormData를 사용할 때 필수
+            success: function (response) {
+                // 데이터 전송 성공 시 실행될 코드
+                console.log("성공: ", response);
+
+                $(form).prop('readonly', !isReadOnly);
+
+                $(form).find("#editBtn").toggleClass("hidden");
+                $(form).find("#completeBtns").toggleClass("hidden");
+            },
+            error: function (error) {
+                console.error("Error fetching menu details: ", error);
+                alert('메뉴 상세 정보를 가져오는데 실패했습니다.');
+            }
+        });
+    });
+});
+
+
+// 메뉴 수정 토글 버튼
+$(document).ready(function () {
+    $("#inputStatusChangeBtns").on("click", function () {
+        $(this).find("#editBtn").toggleClass("hidden");
+        $(this).find("#completeBtns").toggleClass("hidden");
+        $("input").each(function () {
+            let isReadOnly = $(this).prop('readOnly');
+            $(this).prop('readOnly', !isReadOnly);
+        });
+    });
 });
