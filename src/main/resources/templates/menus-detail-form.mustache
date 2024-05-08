@@ -38,36 +38,35 @@
                         style="border: 1px solid #65c6d3; border-radius:50%; background-color: #65c6d3; margin-right: 3px; width: 10px;height: 10px;"
                         class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/stores/{{sessionStore.id}}/menus/{{id}}" method="post" id="menuEditForm" data-menu-id="{{id}}"
+            <form action="/stores/{{sessionStore.id}}/menus/{{id}}" method="post" id="menuEditForm"
+                  data-menu-id="{{id}}"
                   data-store-id="{{sessionStore.id}}">
-            <form action="/stores/{{storeId}}/menus/{{id}}" method="post" id="menuEditForm" data-menu-id="{{id}}"
-                  data-store-id="{{storeId}}">
                 <div style="height: 40px; display: flex; justify-content: flex-end; gap: 5px">
                     <button type="button" class="btn btn-outline-dark" id="editBtn">수정</button>
                     <button type="button" class="btn btn-outline-danger" id="deleteBtn">삭제</button>
                     <button type="submit" class="btn btn-outline-dark" id="saveBtn" style="display: none;">저장</button>
-                    <button type="button" class="btn btn-outline-danger" id="cancelBtn" style="display: none;">취소</button>
+                    <button type="button" class="btn btn-outline-danger" id="cancelBtn" style="display: none;">취소
+                    </button>
                 </div>
 
                 <input type="hidden" value="{{id}}">
                 <div style="display: grid; grid-template-columns: 1fr 2fr; grid-column-gap: 5%; padding: 30px">
-                    <div>
-                        <div class="card mt-5" style="width:300px">
-                            <div class="card-header" id="inputStatusChangeBtns">
-                                <div class="edit-btn" id="editBtn" data-input-status="disabled">
-                                    <button type="button" class="btn btn-outline-dark">수정</button>
-                                </div>
-                                <div class="complete-btns hidden" id="completeBtns" data-input-status="enabled">
-                                    <!-- 버튼에 이거 넣어야 함. data-menu-id="{menuId}" -->
-                                    <button type="submit" class="btn btn-outline-dark" data-menu-id="{{id}}"
-                                            data-store-id="{{sessionStore.id}}">
-                                        저장
-                                    </button>
-                                    <button type="button" class="btn btn-outline-danger">
-                                        취소
-                                    </button>
-                                </div>
+                    <div class="card mt-5" style="width:300px">
+                        <div class="card-header" id="inputStatusChangeBtns">
+                            <div class="edit-btn" id="editBtn" data-input-status="disabled">
+                                <button type="button" class="btn btn-outline-dark">수정</button>
                             </div>
+                            <div class="complete-btns hidden" id="completeBtns" data-input-status="enabled">
+                                <!-- 버튼에 이거 넣어야 함. data-menu-id="{menuId}" -->
+                                <button type="submit" class="btn btn-outline-dark" data-menu-id="{{id}}"
+                                        data-store-id="{{sessionStore.id}}">
+                                    저장
+                                </button>
+                                <button type="button" class="btn btn-outline-danger">
+                                    취소
+                                </button>
+                            </div>
+                        </div>
                         <div class="card" style="width:300px">
 
                             <div class="card-body" style="height: 200px;">
@@ -79,15 +78,15 @@
                                     <tbody>
                                     <tr>
                                         <th>분류</th>
-                                        <td>{{category}}</td>
+                                        <td>menuCategory</td>
                                     </tr>
                                     <tr>
                                         <th>이름</th>
-                                        <td>{{name}}</td>
+                                        <td>menuName</td>
                                     </tr>
                                     <tr>
                                         <th>가격</th>
-                                        <td>{{price}}</td>
+                                        <td>menuPrice</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -105,12 +104,10 @@
                             </tr>
                             </thead>
                             <tbody id="required-menu-option">
-                            {{#menuOptionList}}
-                                <tr>
-                                    <th>{{menuOptionList.name}}</th>
-                                    <td>{{menuOptionList.price}}</td>
-                                </tr>
-                            {{/menuOptionList}}
+                            <tr>
+                                <th>optionName</th>
+                                <td>optionPrice</td>
+                            </tr>
                             </tbody>
                         </table>
                         <table class="table option mb-5">
@@ -122,14 +119,10 @@
                             </tr>
                             </thead>
                             <tbody id="optional-menu-option">
-                            {{#menuOptionList}}
-                                {{^isRequired}}
-                                    <tr>
-                                        <th>{{name}}</th>
-                                        <td>{{price}}</td>
-                                    </tr>
-                                {{/isRequired}}
-                            {{/menuOptionList}}
+                            <tr>
+                                <th>optionName</th>
+                                <td>optionPrice</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -146,7 +139,7 @@
     const cancelBtn = document.getElementById('cancelBtn');
 
     // 수정 버튼 이벤트 리스너
-    editBtn.addEventListener('click', function() {
+    editBtn.addEventListener('click', function () {
         editBtn.style.display = 'none'; // 수정 버튼 숨기기
         deleteBtn.style.display = 'none'; // 삭제 버튼 숨기기
         saveBtn.style.display = 'inline-block'; // 저장 버튼 보이기
@@ -154,7 +147,7 @@
     });
 
     // 저장 버튼 이벤트 리스너
-    saveBtn.addEventListener('click', function() {
+    saveBtn.addEventListener('click', function () {
         saveBtn.style.display = 'none'; // 저장 버튼 숨기기
         cancelBtn.style.display = 'none'; // 취소 버튼 숨기기
         editBtn.style.display = 'inline-block'; // 수정 버튼 보이기
@@ -162,7 +155,7 @@
     });
 
     // 취소 버튼 이벤트 리스너
-    cancelBtn.addEventListener('click', function() {
+    cancelBtn.addEventListener('click', function () {
         saveBtn.style.display = 'none'; // 저장 버튼 숨기기
         cancelBtn.style.display = 'none'; // 취소 버튼 숨기기
         editBtn.style.display = 'inline-block'; // 수정 버튼 보이기
