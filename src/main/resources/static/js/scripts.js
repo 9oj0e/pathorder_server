@@ -347,12 +347,8 @@ $(document).ready(function () {
 
         let form = this;
         let formData = new FormData(this);
-        alert([...formData]);
         let menuId = $(this).data('menu-id');
         let storeId = $(this).data('store-id');
-        alert(storeId);
-        alert(menuId);
-        alert("들어왔냥?");
 
         $.ajax({
             type: "PUT",

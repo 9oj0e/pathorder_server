@@ -14,7 +14,7 @@
             <div class="nav d-flex align-items-center" style="font-size: 20px;">
                 <div id="nav-item" class="d-flex justify-content-center"
                      style="border-bottom: 1px solid #e6e6e6; width: 100%; padding: 20px;">
-                    <a id="nav-link" class="nav-link" href="/stores/1/orders">
+                    <a id="nav-link" class="nav-link" href="/stores/{{sessionStore.id}}/orders">
                         주문
                     </a>
                     <div class="new-popup-count hidden" id="newPopupCount"
@@ -24,22 +24,19 @@
                 </div>
                 <div id="nav-item" class="d-flex justify-content-center"
                      style="border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px;">
-                    <!-- TODO: 매핑 1로 되어있음 -->
-                    <a id="nav-link" class="nav-link" href="/stores/1/orders/history">
+                    <a id="nav-link" class="nav-link" href="/stores/{{sessionStore.id}}/orders/history">
                         지난 주문
                     </a>
                 </div>
                 <div id="nav-item" class="d-flex justify-content-center"
                      style="border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px;">
-                    <!-- TODO: 매핑 1로 되어있음 -->
-                    <a id="nav-link" class="nav-link" href="/stores/1/menus">
+                    <a id="nav-link" class="nav-link" href="/stores/{{sessionStore.id}}/menus">
                         메뉴
                     </a>
                 </div>
                 <div id="nav-item" class="d-flex justify-content-center"
                      style="border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px;">
-                    <!-- TODO: 매핑 1로 되어있음 -->
-                    <a id="nav-link" class="nav-link" href="/stores/1">
+                    <a id="nav-link" class="nav-link" href="/stores/{{sessionStore.id}}">
                         매장정보
                     </a>
                 </div>

@@ -153,10 +153,6 @@ public class StoreOwnerController {
     private ResponseEntity<?> updateMenu(@PathVariable int storeId, @PathVariable int menuId, @ModelAttribute StoreRequest.UpdateMenuDTO reqDTO, Model model) {
         StoreResponse.UpdateMenuDTO respDTO = storeService.updateMenu(menuId, reqDTO);
         model.addAttribute("menu", respDTO);
-        model.addAttribute("storeId", storeId);
-
-        System.out.println("수정하기컨트롤러menu뭔데" + respDTO);
-        System.out.println("수정하기컨트롤러menu뭔데" + reqDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }

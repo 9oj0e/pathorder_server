@@ -34,8 +34,8 @@
                         style="border: 1px solid #65c6d3; border-radius:50%; background-color: #65c6d3; margin-right: 3px; width: 10px;height: 10px;"
                         class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/stores/{{storeId}}/menus/{{id}}" method="post" id="menuEditForm" data-menu-id="{{id}}"
-                  data-store-id="{{storeId}}">
+            <form action="/stores/{{sessionStore.id}}/menus/{{id}}" method="post" id="menuEditForm" data-menu-id="{{id}}"
+                  data-store-id="{{sessionStore.id}}">
                 <input type="hidden" value="{{id}}">
                 <div style="display: grid; grid-template-columns: 1fr 2fr; grid-column-gap: 5%; padding: 30px">
                     <div>
@@ -47,7 +47,7 @@
                                 <div class="complete-btns hidden" id="completeBtns" data-input-status="enabled">
                                     <!-- 버튼에 이거 넣어야 함. data-menu-id="{menuId}" -->
                                     <button type="submit" class="btn btn-outline-dark" data-menu-id="{{id}}"
-                                            data-store-id="{{storeId}}">
+                                            data-store-id="{{sessionStore.id}}">
                                         저장
                                     </button>
                                     <button type="button" class="btn btn-outline-danger">

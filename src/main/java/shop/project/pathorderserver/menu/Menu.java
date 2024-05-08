@@ -57,7 +57,13 @@ public class Menu {
         setPrice(reqDTO.getPrice());
         setCategory(reqDTO.getCategory());
         setName(reqDTO.getName());
-        setImgFilename(reqDTO.getImgFilename());
+
+        boolean hasNoImg = reqDTO.getImgFile() == null || reqDTO.getImgFile().isEmpty();
+        if (!hasNoImg) {
+            setImgFilename(
+                    FileUtil.fileUpload(reqDTO.getImgFile(), this.store.getId())
+            );
+        }
         setDescription(reqDTO.getDescription());
     }
 }
