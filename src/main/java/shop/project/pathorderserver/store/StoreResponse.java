@@ -344,7 +344,7 @@ public class StoreResponse {
             this.description = menu.getDescription();
         }
     }
-
+    /*
     @Data // 매장 관리자 - 매장 메뉴 옵션 등록
     public static class CreateMenuOptionDTO {
         // 메뉴 정보
@@ -382,7 +382,7 @@ public class StoreResponse {
             setRequired(menuOption.isRequired());
         }
     }
-
+    */
     @Data // 매장 관리자 - 주문내역 목록보기
     public static class OrderListDTO {
         private List<OrderDTO> orderList;

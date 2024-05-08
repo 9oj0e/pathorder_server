@@ -27,6 +27,15 @@ public class MenuOption {
     // @CreationTimestamp
     // private Timestamp createdAt;
 
+    public MenuOption(StoreRequest.UpdateMenuDTO.MenuOptionDTO reqDTO, Menu menu) {
+        this.price = reqDTO.getPrice();
+        this.name = reqDTO.getName();
+        this.isRequired = reqDTO.isRequired();
+        this.menu = menu;
+    }
+
+
+    /*
     public MenuOption(StoreRequest.CreateMenuOptionDTO reqDTO, Menu menu) {
         this.price = reqDTO.getPrice();
         this.name = reqDTO.getName();
@@ -40,4 +49,5 @@ public class MenuOption {
         this.isRequired = reqDTO.isRequired();
         this.menu = menu;
     }
+    */
 }
