@@ -68,7 +68,7 @@ public class StoreRequest {
         private int price; // 메뉴 하나의 가격
         private String category; // 각 메뉴가 포함되는 카테고리, 점주가 직접 작성
         private String name; // 메뉴 이름
-        private String imgFilename;
+        private MultipartFile imgFile;
         private String description; // 메뉴 설명
     }
 
