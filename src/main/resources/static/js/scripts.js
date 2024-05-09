@@ -354,6 +354,7 @@ function render(data, sessionStoreId, menuId) {
                         let option = data.body.menuOptionList[i];
                         if (option.required === true) {
                             html += `<tr>
+                                        <input type="hidden" value="true" id="optionRequired" name="optionRequired"/>
                                         <th><input type="text" value="${option.name}" id="optionName" name="optionName" readonly/></th>
                                         <td><td><input type="text" value="${option.price}" id="optionPrice" name="optionPrice" readonly/></td></td>
                                     </tr>`;
@@ -378,8 +379,9 @@ function render(data, sessionStoreId, menuId) {
                         let option = data.body.menuOptionList[i];
                         if (option.required === false) {
                             html += `<tr>
-                                        <th><input type="text" value="${option.name}" id="optionName" readonly/></th>
-                                        <td><input type="text" value="${option.price}" id="optionPrice" readonly/></td>
+                                        <input type="hidden" value="false" id="optionRequired" name="optionRequired"/>
+                                        <th><input type="text" value="${option.name}" id="optionName" name="optionName" readonly/></th>
+                                        <td><input type="text" value="${option.price}" id="optionPrice" name="optionPrice" readonly/></td>
                                     </tr>`;
                         }
                     }
@@ -400,6 +402,7 @@ $(document).on("click", "#inputStatusChangeBtns", function () {
     $("input").each(function () {
         let isReadOnly = $(this).prop('readOnly');
         $(this).prop('readOnly', !isReadOnly);
+        $(this).css("background-color", "#ffffff");
     });
 });
 
@@ -408,24 +411,36 @@ $(document).on("click", "#inputStatusChangeBtns", function () {
 $(document).on("submit", "#menuEditForm", function (e) {
 // $("#menuEditForm").on("submit", function (e) {
     e.preventDefault();
-    alert("되냐");
     let form = this;
     let formData = new FormData(this);
+    let menuOptions = [];
+    for (let i = 0; i < formData.getAll("optionName").length; i++) {
+        let option = {
+            price: formData.getAll("optionPrice").at(i),
+            name: formData.getAll("optionName").at(i),
+            isRequired: formData.getAll("optionRequired").at(i),
+        }
+        menuOptions.push(option);
+    }
+    let data = {
+        price: formData.get("price"),
+        name: formData.get("name"),
+        category: formData.get("category"),
+        description: formData.get("description"),
+        menuOptions: menuOptions
+    }
     let menuId = $(this).data('menu-id');
     let storeId = $(this).data('store-id');
 
     $.ajax({
         type: "PUT",
         url: `/stores/${storeId}/menus/${menuId}`,
-        data: formData,
-        processData: false,
-        contentType: false,
+        data: JSON.stringify(data),
+        contentType: 'application/json',
         success: function (response) {
             // 데이터 전송 성공 시 실행될 코드
             console.log("성공: ", response);
-
             $(form).prop('readonly', !isReadOnly);
-
             $(form).find("#editBtn").toggleClass("hidden");
             $(form).find("#completeBtns").toggleClass("hidden");
         },
