@@ -63,7 +63,6 @@ public class Store {
     }
 
     public void update(StoreRequest.UpdateDTO reqDTO) {
-        setUsername(reqDTO.getUsername());
         setPassword(reqDTO.getPassword());
         setOwnerName(reqDTO.getOwnerName());
         setOwnerTel(reqDTO.getOwnerTel());
