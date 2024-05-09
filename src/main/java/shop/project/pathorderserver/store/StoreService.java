@@ -1,6 +1,7 @@
 package shop.project.pathorderserver.store;
 
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.project.pathorderserver._core.errors.exception.Exception401;
@@ -101,7 +102,7 @@ public class StoreService {
         return new StoreResponse.StoreDTO(store);
     }
 
-    @Transactional // TODO: 매장 관리자 - 매장 정보 수정하기
+    @Transactional // 매장 관리자 - 매장 정보 수정하기
     public SessionStore updateStore(int sessionStoreId, StoreRequest.UpdateDTO reqDTO) {
         Store store = storeRepository.findById(sessionStoreId)
                 .orElseThrow(() -> new Exception403("수정할 권한이 없습니다."));

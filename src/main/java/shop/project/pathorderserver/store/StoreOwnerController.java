@@ -197,6 +197,7 @@ public class StoreOwnerController {
     @GetMapping("/stores/{storeId}") // 매장 관리자 - 매장 정보 보기
     public String detail(@PathVariable int storeId, Model model) {
         StoreResponse.StoreDTO respDTO = storeService.getStoreDetail(storeId);
+        System.out.println("⭐⭐⭐⭐⭐⭐⭐⭐⭐" + respDTO);
         model.addAttribute("storeDetail", respDTO);
 
         return "store";
@@ -211,11 +212,13 @@ public class StoreOwnerController {
         return "store-update-form";
     }
 
-    @PostMapping("/stores/{storeId}") // 매장 관리자 - 매장 정보 수정
-    public String update(@PathVariable int storeId, StoreRequest.UpdateDTO reqDTO) {
+    @PostMapping("/stores/{sessionStoreId}") // 매장 관리자 - 매장 정보 수정
+    public String update(@PathVariable int sessionStoreId, StoreRequest.UpdateDTO reqDTO) {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         SessionStore newSessionStore = storeService.updateStore(sessionStore.getId(), reqDTO);
 
-        return "redirect:/stores/" + storeId;
+        session.setAttribute("sessionStore", newSessionStore);
+
+        return "redirect:/stores/" + sessionStoreId;
     }
 }

@@ -35,7 +35,6 @@ public class StoreRequest {
     @Data // 매장 관리자 정보 수정
     public static class UpdateDTO {
         // 회원 정보
-        private String username;
         private String password;
         // 사업자 정보
         private String ownerName;
