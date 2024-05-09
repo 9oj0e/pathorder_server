@@ -142,9 +142,7 @@ public class StoreOwnerController {
     private ResponseEntity<?> menuDetail(@PathVariable int storeId, @PathVariable int menuId, Model model) {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         StoreResponse.MenuDetailDTO respDTO = storeService.getMenuDetail(menuId);
-        System.out.println("세션스토어누그야" + sessionStore);
         model.addAttribute("sessionStore", sessionStore);
-        System.out.println("세션스토어누그야" + sessionStore.getId());
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }

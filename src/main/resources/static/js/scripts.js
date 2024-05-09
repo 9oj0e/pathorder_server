@@ -145,7 +145,6 @@ $('button[data-order-id]').click(function () {
         url: `/stores/${storeId}/orders/${orderId}`,
         type: 'GET',
         success: function (data) {
-            console.log("들어왔니?")
 
             let htmlContent = `
                    <div class="container-fluid" style="padding: 0;">
@@ -259,11 +258,8 @@ $('button[data-order-id]').click(function () {
     });
 });
 
-
 // 메뉴 상세보기 모달
-
 $('button[data-menu-id]').click(function (event) {
-    console.log(event);
 
     let menuId = event.currentTarget.dataset.menuId;
     let storeId = event.currentTarget.dataset.storeId;
@@ -273,7 +269,6 @@ $('button[data-menu-id]').click(function (event) {
         url: `/stores/${storeId}/menus/${menuId}`,
         type: 'GET',
         success: function (data) {
-            console.log("들어왔니?");
 
             // 메뉴 정보 추가
             let menuContent =
@@ -300,13 +295,12 @@ function render(data, sessionStoreId, menuId) {
                 <div style="display: grid; grid-template-columns: 1fr 2fr; grid-column-gap: 5%; padding: 30px">
                         <div class="card mt-5" style="width:300px">
                             <div class="card-header" id="inputStatusChangeBtns">
-                                <div class="edit-btn" id="editBtn" data-input-status="disabled">
+                                <div class="edit-btn" id="editBtn">
                                     <button type="button" class="btn btn-outline-dark">수정</button>
                                 </div>
-                                <div class="complete-btns hidden" id="completeBtns" data-input-status="enabled">
+                                <div class="complete-btns hidden" id="completeBtns">
                                     <!-- 버튼에 이거 넣어야 함. data-menu-id="menuId" -->
-                                    <button type="submit" class="btn btn-outline-dark" data-menu-id="${menuId}" data-edit-target="${menuId}"
-                                            data-store-id="${sessionStoreId}">
+                                    <button type="submit" class="btn btn-outline-dark" data-menu-id="${menuId}" data-edit-target="${menuId}"  data-store-id="${sessionStoreId}">
                                         저장
                                     </button>
                                     <button type="button" class="btn btn-outline-danger">
@@ -359,83 +353,47 @@ function render(data, sessionStoreId, menuId) {
         let option = data.body.menuOptionList[i];
         if (option.required === true) {
             html += `<tr>
-                                                    <th><input type="text" value="${option.name}" id="optionName" name="optionName" readonly/></th>
-                                                    <td><td><input type="text" value="${option.price}" id="optionPrice" name="optionPrice" readonly/></td></td>
-                                                </tr>`;
+                        <th><input type="text" value="${option.name}" id="optionName" name="optionName" readonly/></th>
+                        <td><td><input type="text" value="${option.price}" id="optionPrice" name="optionPrice" readonly/></td></td>
+                    </tr>`;
         }
     }
 
     html += `       
-                            </tbody>
-                        </table>
-                        <table class="table option mb-5">
-                            <thead>
-                            <tr>
-                                <th>
-                                    <h4>선택 옵션</h4>
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody id="optional-menu-option">
-                                 </tr>`;
+                    </tbody>
+                </table>
+                <table class="table option mb-5">
+                    <thead>
+                    <tr>
+                        <th>
+                            <h4>선택 옵션</h4>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody id="optional-menu-option">
+                         </tr>`;
 
     for (let i = 0; i < data.body.menuOptionList.length; i++) {
         let option = data.body.menuOptionList[i];
         if (option.required === false) {
             html += `<tr>
-                                    <th><input type="text" value="${option.name}" id="optionName" readonly/></th>
-                                    <td><input type="text" value="${option.price}" id="optionPrice" readonly/></td>
-                                </tr>`;
+                        <th><input type="text" value="${option.name}" id="optionName" readonly/></th>
+                        <td><input type="text" value="${option.price}" id="optionPrice" readonly/></td>
+                    </tr>`;
         }
     }
 
-    html += `
-                            </tbody>
-                        </table>
-       
+    html += `             </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
-            </form>`;
+                </form>`;
 
     return html;
 }
 
-// 메뉴 수정
-$(document).ready(function () {
-    $('button[data-edit-menu]').click("submit", function (e) {
-        e.preventDefault();
-        alert("되냐");
-        let form = this;
-        let formData = new FormData(this);
-        let menuId = $(this).data('menu-id');
-        let storeId = $(this).data('store-id');
-
-        $.ajax({
-            type: "PUT",
-            url: `/stores/${storeId}/menus/${menuId}`,
-            data: formData,
-            processData: false, // FormData를 사용할 때 필수
-            contentType: false, // FormData를 사용할 때 필수
-            success: function (response) {
-                // 데이터 전송 성공 시 실행될 코드
-                console.log("성공: ", response);
-
-                $(form).prop('readonly', !isReadOnly);
-
-                $(form).find("#editBtn").toggleClass("hidden");
-                $(form).find("#completeBtns").toggleClass("hidden");
-            },
-            error: function (error) {
-                console.error("Error fetching menu details: ", error);
-                alert('메뉴 상세 정보를 가져오는데 실패했습니다.');
-            }
-        });
-    });
-});
-
-
 // 메뉴 수정 토글 버튼
-$("#inputStatusChangeBtns").on("click", function () {
+$(document).on("click", "#inputStatusChangeBtns", function () {
     $(this).find("#editBtn").toggleClass("hidden");
     $(this).find("#completeBtns").toggleClass("hidden");
     $("input").each(function () {
@@ -443,3 +401,37 @@ $("#inputStatusChangeBtns").on("click", function () {
         $(this).prop('readOnly', !isReadOnly);
     });
 });
+
+
+// 메뉴 수정
+$("#menuEditForm").on("submit", function (e) {
+    e.preventDefault();
+    alert("되냐");
+    let form = this;
+    let formData = new FormData(this);
+    let menuId = $(this).data('menu-id');
+    let storeId = $(this).data('store-id');
+
+    $.ajax({
+        type: "PUT",
+        url: `/stores/${storeId}/menus/${menuId}`,
+        data: formData,
+        processData: false, // FormData를 사용할 때 필수
+        contentType: false, // FormData를 사용할 때 필수
+        success: function (response) {
+            // 데이터 전송 성공 시 실행될 코드
+            console.log("성공: ", response);
+
+            $(form).prop('readonly', !isReadOnly);
+
+            $(form).find("#editBtn").toggleClass("hidden");
+            $(form).find("#completeBtns").toggleClass("hidden");
+        },
+        error: function (error) {
+            console.error("Error fetching menu details: ", error);
+            alert('메뉴 상세 정보를 가져오는데 실패했습니다.');
+        }
+    });
+});
+
+
