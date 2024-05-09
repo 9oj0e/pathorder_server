@@ -312,7 +312,7 @@ function render(data, sessionStoreId, menuId) {
                     </tr>
                     <tr>
                         <th>설명</th>
-                        <td><input type="text" value="${data.body.description}" id="description" name="description" style="width: 100%" readonly/></td>
+                        <td><input type="text" value="${data.body.description}" id="description" name="description" readonly/></td>
                     </tr>
                     </tbody>
                 </table>
@@ -343,6 +343,9 @@ function render(data, sessionStoreId, menuId) {
                     <th>
                         <h4>필수 옵션</h4>
                     </th>
+                    <td id="addOptBtn" class="hidden-edt">
+                        +
+                    </td>
                 </tr>
                 </thead>
                 <tbody id="required-menu-option">`;
@@ -358,6 +361,9 @@ function render(data, sessionStoreId, menuId) {
                     <td>
                         <input type="text" value="${option.price}" id="optionPrice" name="optionPrice" readonly/>
                     </td>
+                    <td id="delOptBtn" class="hidden-edt">
+                        -
+                    </td>
                 </tr>`;
         }
     }
@@ -370,6 +376,9 @@ function render(data, sessionStoreId, menuId) {
                     <th>
                         <h4>선택 옵션</h4>
                     </th>
+                    <td id="addOptBtn" class="hidden-edt">
+                        +
+                    </td>
                 </tr>
                 </thead>
                 <tbody id="optional-menu-option">`;
@@ -384,6 +393,9 @@ function render(data, sessionStoreId, menuId) {
                     </th>
                     <td>
                         <input type="text" value="${option.price}" id="optionPrice" name="optionPrice" readonly/>
+                    </td>
+                    <td id="delOptBtn" class="hidden-edt">
+                        -
                     </td>
                 </tr>`;
         }
@@ -402,7 +414,13 @@ function render(data, sessionStoreId, menuId) {
 $(document).on("click", "#inputStatusChangeBtns", function () {
     $(this).find("#editBtn").toggleClass("hidden");
     $(this).find("#completeBtns").toggleClass("hidden");
-    $(document).find("#editImg").toggleClass("hidden-edt");
+    $("#editImg").toggleClass("hidden-edt");
+    $("#addOptBtn").each(function () {
+        $(this).toggleClass("hidden-edt")
+    })
+    $("#delOptBtn").each(function () {
+        (this).toggleClass("hidden-edt")
+    })
     $("input").each(function () {
         let isReadOnly = $(this).prop('readOnly');
         $(this).prop('readOnly', !isReadOnly);
