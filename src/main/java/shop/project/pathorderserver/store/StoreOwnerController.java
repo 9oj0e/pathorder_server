@@ -139,8 +139,10 @@ public class StoreOwnerController {
 
     @ResponseBody
     @GetMapping("/stores/{storeId}/menus/{menuId}") // 매장 관리자 - 메뉴 상세보기
-    private ResponseEntity<?> menuDetail(@PathVariable int storeId, @PathVariable int menuId) {
+    private ResponseEntity<?> menuDetail(@PathVariable int storeId, @PathVariable int menuId, Model model) {
+        SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         StoreResponse.MenuDetailDTO respDTO = storeService.getMenuDetail(menuId);
+        model.addAttribute("sessionStore", sessionStore);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
@@ -156,8 +158,8 @@ public class StoreOwnerController {
     @ResponseBody
     @PutMapping("/stores/{storeId}/menus/{menuId}") // 매장 관리자 - 메뉴 수정하기
     private ResponseEntity<?> updateMenu(@PathVariable int storeId, @PathVariable int menuId, @RequestBody StoreRequest.UpdateMenuDTO reqDTO, Model model) {
-        System.out.println("+++++++++" + reqDTO);
         StoreResponse.UpdateMenuDTO respDTO = storeService.updateMenu(menuId, reqDTO);
+        // TODO: 기존 옵션 삭제 -> 옵션 등록
         model.addAttribute("menu", respDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
