@@ -291,9 +291,10 @@ function render(data, sessionStoreId, menuId) {
 
     html += `
               <form action="/stores/${sessionStoreId}/menus/${menuId}" method="post" id="menuEditForm" data-menu-id="${menuId}"
-                  data-store-id="${sessionStoreId}">
+                  data-store-id="${sesdfssionStoreId}">f
                 <div style="display: grid; grid-template-columns: 1fr 2fr; grid-column-gap: 5%; padding: 30px">
                         <div class="card mt-5" style="width:300px">
+                        <h1>${sessionStoreId}${menuId}</h1>
                             <div class="card-header" id="inputStatusChangeBtns">
                                 <div class="edit-btn" id="editBtn">
                                     <button type="button" class="btn btn-outline-dark">수정</button>
@@ -349,47 +350,47 @@ function render(data, sessionStoreId, menuId) {
                             </thead>
                             <tbody id="required-menu-option">`;
 
-    for (let i = 0; i < data.body.menuOptionList.length; i++) {
-        let option = data.body.menuOptionList[i];
-        if (option.required === true) {
-            html += `<tr>
-                        <th><input type="text" value="${option.name}" id="optionName" name="optionName" readonly/></th>
-                        <td><td><input type="text" value="${option.price}" id="optionPrice" name="optionPrice" readonly/></td></td>
-                    </tr>`;
-        }
-    }
+                    for (let i = 0; i < data.body.menuOptionList.length; i++) {
+                        let option = data.body.menuOptionList[i];
+                        if (option.required === true) {
+                            html += `<tr>
+                                        <th><input type="text" value="${option.name}" id="optionName" name="optionName" readonly/></th>
+                                        <td><td><input type="text" value="${option.price}" id="optionPrice" name="optionPrice" readonly/></td></td>
+                                    </tr>`;
+                        }
+                    }
 
-    html += `       
-                    </tbody>
-                </table>
-                <table class="table option mb-5">
-                    <thead>
-                    <tr>
-                        <th>
-                            <h4>선택 옵션</h4>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody id="optional-menu-option">
-                         </tr>`;
+                    html += `       
+                                    </tbody>
+                                </table>
+                                <table class="table option mb-5">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <h4>선택 옵션</h4>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="optional-menu-option">
+                                         </tr>`;
 
-    for (let i = 0; i < data.body.menuOptionList.length; i++) {
-        let option = data.body.menuOptionList[i];
-        if (option.required === false) {
-            html += `<tr>
-                        <th><input type="text" value="${option.name}" id="optionName" readonly/></th>
-                        <td><input type="text" value="${option.price}" id="optionPrice" readonly/></td>
-                    </tr>`;
-        }
-    }
+                    for (let i = 0; i < data.body.menuOptionList.length; i++) {
+                        let option = data.body.menuOptionList[i];
+                        if (option.required === false) {
+                            html += `<tr>
+                                        <th><input type="text" value="${option.name}" id="optionName" readonly/></th>
+                                        <td><input type="text" value="${option.price}" id="optionPrice" readonly/></td>
+                                    </tr>`;
+                        }
+                    }
 
-    html += `             </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </form>`;
+                    html += `             </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </form>`;
 
-    return html;
+                    return html;
 }
 
 // 메뉴 수정 토글 버튼
@@ -404,7 +405,8 @@ $(document).on("click", "#inputStatusChangeBtns", function () {
 
 
 // 메뉴 수정
-$("#menuEditForm").on("submit", function (e) {
+$(document).on("submit", "#menuEditForm", function (e) {
+// $("#menuEditForm").on("submit", function (e) {
     e.preventDefault();
     alert("되냐");
     let form = this;
