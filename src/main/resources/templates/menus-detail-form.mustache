@@ -25,6 +25,10 @@
         display: none;
     }
 
+    .hidden-edt {
+        visibility: collapse;
+    }
+
     input {
         border: 1px solid #e6e6e6;
         border-radius: 5px;
@@ -45,54 +49,55 @@
             <form action="/stores/{{sessionStore.id}}/menus/{{id}}" method="post" id="menuEditForm"
                   data-menu-id="{{id}}"
                   data-store-id="{{sessionStore.id}}">
-                <div style="display: flex; justify-content: end; padding: 10px">
-                    <div id="inputStatusChangeBtns">
-                        <div class="edit-btn" id="editBtn" data-input-status="disabled">
-                            <button type="button" class="btn btn-outline-dark">수정</button>
-                        </div>
-                        <div class="complete-btns hidden" id="completeBtns" data-input-status="enabled">
-                            <!-- 버튼에 이거 넣어야 함. data-menu-id="{menuId}" -->
-                            <button type="submit" class="btn btn-outline-dark" data-menu-id="{{id}}"
-                                    data-store-id="{{sessionStore.id}}">
-                                저장
-                            </button>
-                            <button type="button" class="btn btn-outline-danger">
-                                취소
-                            </button>
-                        </div>
-                    </div>
-                </div>
                 <input type="hidden" value="{{id}}">
                 <div style="display: grid; grid-template-columns: 1fr 2fr; grid-column-gap: 5%; padding: 30px">
-                    <div class="card mt-5" style="width:300px">
-                        <div class="card" style="width:300px">
+                    <div class="card" style="width:300px">
+                        <div class="card-header">
+                            <input type="file" id="editImg" class="form-control hidden-edt" accept="upload/*" name="imgFile">
+                        </div>
 
-                            <div class="card-body" style="height: 200px;">
-                                <img class="card-img" src="https://www.mysavings.com/img/link/large/113816.jpg"
-                                     style="height: 100%; width: 100%;">
-                            </div>
-                            <div id="menu" class="card-footer menu-info">
-                                <table class="table">
-                                    <tbody>
-                                    <tr>
-                                        <th>분류</th>
-                                        <td>menuCategory</td>
-                                    </tr>
-                                    <tr>
-                                        <th>이름</th>
-                                        <td>menuName</td>
-                                    </tr>
-                                    <tr>
-                                        <th>가격</th>
-                                        <td>menuPrice</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="card-body" style="height: 200px;">
+                            <img class="card-img" src="https://www.mysavings.com/img/link/large/113816.jpg"
+                                 style="height: 100%; width: 100%;">
+                        </div>
+                        <div id="menu" class="card-footer menu-info">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th>분류</th>
+                                    <td>menuCategory</td>
+                                </tr>
+                                <tr>
+                                    <th>이름</th>
+                                    <td>menuName</td>
+                                </tr>
+                                <tr>
+                                    <th>가격</th>
+                                    <td>menuPrice</td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
 
                     <div>
+                        <div style="display: flex; justify-content: end">
+                            <div id="inputStatusChangeBtns">
+                                <div class="edit-btn" id="editBtn" data-input-status="disabled">
+                                    <button type="button" class="btn btn-outline-dark">수정</button>
+                                </div>
+                                <div class="complete-btns hidden" id="completeBtns" data-input-status="enabled">
+                                    <!-- 버튼에 이거 넣어야 함. data-menu-id="{menuId}" -->
+                                    <button type="submit" class="btn btn-outline-dark" data-menu-id="{{id}}"
+                                            data-store-id="{{sessionStore.id}}">
+                                        저장
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger">
+                                        취소
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                         <table class="table option">
                             <thead>
                             <tr>

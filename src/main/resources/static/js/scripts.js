@@ -396,6 +396,7 @@ $(document).ready(function () {
     $("#inputStatusChangeBtns").on("click", function () {
         $(this).find("#editBtn").toggleClass("hidden");
         $(this).find("#completeBtns").toggleClass("hidden");
+        $(document).find("#editImg").toggleClass("hidden-edt");
         $("input").each(function () {
             let isReadOnly = $(this).prop('readOnly');
             $(this).prop('readOnly', !isReadOnly);
