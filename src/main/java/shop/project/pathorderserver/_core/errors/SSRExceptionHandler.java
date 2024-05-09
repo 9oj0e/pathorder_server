@@ -21,7 +21,7 @@ public class SSRExceptionHandler {
         request.setAttribute("msg", e.getMessage());
         request.setAttribute("status", 401);
 
-        return "error";
+        return "login-form";
     }
 
     @ExceptionHandler(Exception403.class)
