@@ -137,13 +137,21 @@ public class StoreService {
         return new StoreResponse.MenuDetailDTO(menu, menuOptions);
     }
 
-    @Transactional // TODO: 매장 관리자 - 메뉴 수정하기
+    @Transactional // 매장 관리자 - 메뉴 & 메뉴 옵션 수정하기
     public StoreResponse.UpdateMenuDTO updateMenu(int menuId, StoreRequest.UpdateMenuDTO reqDTO) {
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 메뉴입니다."));
         menu.update(reqDTO);
+        menuOptionRepository.deleteByMenuId(menuId);
 
-        return new StoreResponse.UpdateMenuDTO(menu);
+        List<MenuOption> menuOptions = new ArrayList<>();
+        for (StoreRequest.UpdateMenuDTO.MenuOptionDTO menuOptionDTO : reqDTO.getMenuOptionList()) {
+            MenuOption menuOption = new MenuOption(menuOptionDTO, menu);
+            menuOptionRepository.save(menuOption);
+            menuOptions.add(menuOption);
+        }
+
+        return new StoreResponse.UpdateMenuDTO(menu, menuOptions);
     }
 
     @Transactional // 매장 관리자 - 메뉴 삭제하기
@@ -152,6 +160,7 @@ public class StoreService {
         menuRepository.deleteById(menuId);
     }
 
+    /*
     @Transactional // 매장 관리자 - 메뉴 옵션 등록하기
     public StoreResponse.CreateMenuOptionDTO createMenuOption(int menuId, StoreRequest.CreateMenuOptionDTO reqDTO) {
         Menu menu = menuRepository.findById(menuId)
@@ -175,7 +184,7 @@ public class StoreService {
     public void deleteMenuOption(int menuOptionId) {
         menuOptionRepository.deleteById(menuOptionId);
     }
-
+    */
     // 매장 관리자 - 주문내역 목록보기
     public StoreResponse.OrderListDTO getOrderList(int storeId) {
         List<Order> orderList = orderRepository.findAllByStoreId(storeId)
