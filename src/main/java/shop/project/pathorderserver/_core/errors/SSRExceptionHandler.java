@@ -3,7 +3,7 @@ package shop.project.pathorderserver._core.errors;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import shop.project.pathorderserver._core.errors.exception.*;
+import shop.project.pathorderserver._core.errors.exceptionssr.*;
 
 @ControllerAdvice //runtimeException 이 터지만 해당 파일로 오류가 모인다.
 public class SSRExceptionHandler {

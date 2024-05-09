@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.servlet.HandlerInterceptor;
-import shop.project.pathorderserver._core.errors.exception.Exception401;
+import shop.project.pathorderserver._core.errors.exceptionssr.Exception401;
 import shop.project.pathorderserver.store.SessionStore;
 
 public class SSRLoginInterceptor implements HandlerInterceptor {
