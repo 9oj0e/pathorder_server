@@ -10,6 +10,8 @@ import shop.project.pathorderserver.menu.Menu;
 import shop.project.pathorderserver.menu.MenuOption;
 import shop.project.pathorderserver.menu.MenuOptionRepository;
 import shop.project.pathorderserver.menu.MenuRepository;
+import shop.project.pathorderserver.order.Order;
+import shop.project.pathorderserver.order.OrderRepository;
 import shop.project.pathorderserver.order.OrderStatus;
 
 import java.util.ArrayList;
@@ -26,6 +28,8 @@ class StoreServiceTest {
     MenuRepository menuRepository;
     @Autowired
     MenuOptionRepository menuOptionRepository;
+    @Autowired
+    OrderRepository orderRepository;
 
     @Test // 매장 관리자 - 회원가입
     void createStore_test() {
@@ -221,11 +225,11 @@ class StoreServiceTest {
         // given
         int orderId = 1;
         StoreRequest.UpdateOrderDTO reqDTO = new StoreRequest.UpdateOrderDTO();
-        reqDTO.setStatus(OrderStatus.조리완료);
+        reqDTO.setStatus(OrderStatus.조리완료); // 조리완료 -> 수령완료로 바뀜
         // when
         StoreResponse.UpdateOrderDTO respDTO = storeService.updateOrder(orderId, reqDTO);
         // then
-        Assertions.assertThat(respDTO.getStatus()).isEqualTo(OrderStatus.조리완료);
+        Assertions.assertThat(respDTO.getStatus()).isEqualTo(OrderStatus.수령완료);
     }
 
     @Test // 매장 관리자 - 주문내역 목록보기
@@ -233,9 +237,13 @@ class StoreServiceTest {
         // given
         int storeId = 1;
         // when
+        List<Order> orders = orderRepository.findAllByStoreId(storeId)
+                .orElse(new ArrayList<>());
         StoreResponse.OrderListDTO respDTO = storeService.getOrderList(storeId);
         // then
-        Assertions.assertThat(respDTO.getOrderList().size()).isEqualTo(5);
+        Assertions.assertThat(orders.size()).isEqualTo(5);
+        Assertions.assertThat(respDTO.getOrderList().size()).isEqualTo(0); // 수령완료가 된 것만 응답된다.
+
     }
 
     @Test // 매장 관리자 - 주문내역 상세보기

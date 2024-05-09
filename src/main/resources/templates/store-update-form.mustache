@@ -53,40 +53,40 @@
                     <hr/>
                     <div>
                         <div class="container text ">
-                            <form action="" method="post" enctype="multipart/form-data">
+                            <form action="/stores/{{sessionStore.id}}" method="post" enctype="multipart/form-data">
                                 <input type="hidden" id="id" name="id" value="1">
                                 <div class="px-5">
                                     <h4 class="border-bottom pb-4">매장 정보</h4>
                                     <br>
                                     <!-- 이미지 업로드 시작 -->
-                                    <div class="upload d-flex justify-content-center mb-3">
-                                        <div class=" d-flex d-flex justify-content-center align-items-center"
-                                             style="width: 200px; height: 260px; border: 1px solid #e6e6e6; color: #e6e6e6;"
-                                             id="imgfilePreview"><img src="" style="width: 100%; height: 100%;">
-                                        </div>
-                                    </div>
-                                    <div class="input-group mb-3">
-                                        <input type="file" class="form-control mt-2" accept="image/*"
-                                               name="imgFilename" id="imgFilename" value="" multiple required/>
-                                        <script>
-                                            $('#imgFilename').change(function () {
-                                                let input = this;
-                                                if (input.files && input.files[0]) {
-                                                    let reader = new FileReader();
+<!--                                    <div class="upload d-flex justify-content-center mb-3">-->
+<!--                                        <div class=" d-flex d-flex justify-content-center align-items-center"-->
+<!--                                             style="width: 200px; height: 260px; border: 1px solid #e6e6e6; color: #e6e6e6;"-->
+<!--                                             id="imgfilePreview"><img src="" style="width: 100%; height: 100%;">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="input-group mb-3">-->
+<!--                                        <input type="file" class="form-control mt-2" accept="image/*"-->
+<!--                                               name="imgFilename" id="imgFilename" value="{{!storeDetail.imgFilename}}" multiple/>-->
+<!--                                        <script>-->
+<!--                                            $('#imgFilename').change(function () {-->
+<!--                                                let input = this;-->
+<!--                                                if (input.files && input.files[0]) {-->
+<!--                                                    let reader = new FileReader();-->
 
-                                                    reader.onload = function (e) {
-                                                        $('#imgfilePreview').html('<img src="' + e.target.result + '" style="max-width: 100%;">');
-                                                    };
+<!--                                                    reader.onload = function (e) {-->
+<!--                                                        $('#imgfilePreview').html('<img src="' + e.target.result + '" style="max-width: 100%;">');-->
+<!--                                                    };-->
 
-                                                    reader.readAsDataURL(input.files[0]);
+<!--                                                    reader.readAsDataURL(input.files[0]);-->
 
-                                                    let fileName = input.files[0].name;
-                                                    $('#imgFilename').val(fileName);
-                                                    console.log(fileName);
-                                                }
-                                            });
-                                        </script>
-                                    </div>
+<!--                                                    let fileName = input.files[0].name;-->
+<!--                                                    $('#imgFilename').val(fileName);-->
+<!--                                                    console.log(fileName);-->
+<!--                                                }-->
+<!--                                            });-->
+<!--                                        </script>-->
+<!--                                    </div>-->
                                     <!-- 이미지 업로드 끝  -->
 
                                     <div class="input-group mb-3">
@@ -99,50 +99,51 @@
                                                 <span
                                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">매장
                                                     전화번호</span>
-                                        <input type="text" class="form-control" value="{{storeDetail.tel}}" name="text"
+                                        <input type="text" class="form-control" value="{{storeDetail.tel}}" name="tel"
                                                id="" required>
                                     </div>
                                     <div class="input-group mb-3">
                                                 <span
                                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">매장소개</span>
                                         <input type="text" class="form-control" maxlength="11"
-                                               value="{{storeDetail.intro}}" name="text" id="" required>
+                                               value="{{storeDetail.intro}}" name="intro" id="" required>
                                     </div>
                                     <div class="input-group mb-3">
                                                 <span
                                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">개점시간</span>
                                         <input type="time" class="form-control" value="{{storeDetail.openingTime}}"
-                                               name="address" id="" required>
+                                               name="openingTime" id="" required>
                                     </div>
                                     <div class="input-group mb-3">
                                                 <span
                                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">폐점시간</span>
                                         <input type="time" class="form-control" value="{{storeDetail.closingTime}}"
-                                               name="email" id="" required>
+                                               name="closingTime" id="" required>
                                     </div>
                                     <div class="input-group mb-3">
                                                 <span
                                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">휴무일</span>
 <!--                                        TODO: 타입을 date로 해야 하나?-->
-                                        <input type="date" class="form-control" value="{{storeDetail.closedDay}}"
-                                               name="birth" id="" required>
+                                        <input type="text" class="form-control" value="{{storeDetail.closedDay}}"
+                                               name="closedDay" id="" required>
                                     </div>
                                     <div class="input-group mb-3">
                                                 <span
                                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">매장
                                                     주소</span>
                                         <input type="text" class="form-control" value="{{storeDetail.address}}"
-                                               name="email" id="" required>
+                                               name="address" id="" required>
                                     </div>
                                     <div class="mt-5">
                                         <h4 class="border-bottom pb-4">사업자 정보</h4>
                                     </div>
+                                    <br>
                                     <div class="input-group mb-3">
                                                 <span
                                                         class="input-group-text init_color justify-content-center hs_span_size hs_span">사업주
                                                     이름</span>
                                         <input type="text" class="form-control" value="{{storeDetail.ownerName}}"
-                                               name="name" id="" required>
+                                               name="ownerName" id="" required>
                                     </div>
                                     <div class="input-group mb-3">
                                                 <span
@@ -170,37 +171,36 @@
 <!--                                        TODO: 비밀번호 수정 추후에 다시-->
                                     </div>
                                     <br>
-                                    <div class="company-password">
-                                        <div class="input-group mb-3">
-                                                    <span
-                                                            class="input-group-text  justify-content-center hs_span_size init_color">비밀번호</span>
-                                            <input type="password" class="form-control" value="1234"
-                                                   id="password" name="password" readonly>
-                                        </div>
-                                        <div class="input-group mb-3">
-                                                    <span
-                                                            class="input-group-text  justify-content-center hs_span_size init_color">비밀번호
-                                                        확인</span>
-                                            <input type="password" class="form-control" name="checkPassword"
-                                                   id="checkPassword" placeholder="기존 비밀번호 입력">
-                                        </div>
-                                        <div class="d-flex justify-content-center" style="width: 100%;">
-                                            <div style="width: 100%;">
-                                                <button type="submit" class="btn btn-outline-success mb-3"
-                                                        style="width: 100%">확인
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
+<!--                                    <div class="company-password">-->
+<!--                                        <div class="input-group mb-3">-->
+<!--                                                    <span-->
+<!--                                                            class="input-group-text  justify-content-center hs_span_size init_color">비밀번호</span>-->
+<!--                                            <input type="password" class="form-control" value="1234"-->
+<!--                                                   id="password" name="password" readonly>-->
+<!--                                        </div>-->
+<!--                                        <div class="input-group mb-3">-->
+<!--                                                    <span-->
+<!--                                                            class="input-group-text  justify-content-center hs_span_size init_color">비밀번호-->
+<!--                                                        확인</span>-->
+<!--                                            <input type="password" class="form-control" name="checkPassword"-->
+<!--                                                   id="checkPassword" placeholder="기존 비밀번호 입력">-->
+<!--                                        </div>-->
+<!--                                        <div class="d-flex justify-content-center" style="width: 100%;">-->
+<!--                                            <div style="width: 100%;">-->
+<!--                                                <button type="submit" class="btn btn-outline-success mb-3"-->
+<!--                                                        style="width: 100%">확인-->
+<!--                                                </button>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
                                     <div class="input-group mb-3 mt-3">
                                                 <span
                                                         class="input-group-text  justify-content-center hs_span_size init_color">변경
                                                     비밀번호</span>
                                         <input type="password" class="form-control" id="newPassword"
-                                               name="newPassword">
+                                               name="password">
                                     </div>
-
-
+                                    <!--
                                     <script>
                                         $('.company-password button[type="submit"]').click(function (e) {
                                             e.preventDefault();
@@ -230,6 +230,7 @@
                                             }
                                         });
                                     </script>
+                                    -->
                                     <div class="d-flex justify-content-center mt-5" style="width: 100%;">
                                         <div style="width: 100%;">
                                             <button type="submit" class="btn btn-outline-success mb-3"
@@ -237,7 +238,7 @@
                                             </button>
                                         </div>
                                         <div class="d-flex justify-content-center" style="width: 100%">
-                                            <a href="/person/info" class="btn btn-outline-secondary mb-3"
+                                            <a href="/stores/{{sessionStore.id}}" class="btn btn-outline-secondary mb-3"
                                                style="width: 100%">취소</a>
                                         </div>
                                     </div>
