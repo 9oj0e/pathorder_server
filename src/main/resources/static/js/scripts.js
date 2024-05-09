@@ -291,7 +291,7 @@ function render(data, sessionStoreId, menuId) {
 
     html += `
               <form action="/stores/${sessionStoreId}/menus/${menuId}" method="post" id="menuEditForm" data-menu-id="${menuId}"
-                  data-store-id="${sesdfssionStoreId}">f
+                  data-store-id="${sessionStoreId}">
                 <div style="display: grid; grid-template-columns: 1fr 2fr; grid-column-gap: 5%; padding: 30px">
                         <div class="card mt-5" style="width:300px">
                         <h1>${sessionStoreId}${menuId}</h1>
@@ -418,8 +418,8 @@ $(document).on("submit", "#menuEditForm", function (e) {
         type: "PUT",
         url: `/stores/${storeId}/menus/${menuId}`,
         data: formData,
-        processData: false, // FormData를 사용할 때 필수
-        contentType: false, // FormData를 사용할 때 필수
+        processData: false,
+        contentType: false,
         success: function (response) {
             // 데이터 전송 성공 시 실행될 코드
             console.log("성공: ", response);
@@ -435,5 +435,3 @@ $(document).on("submit", "#menuEditForm", function (e) {
         }
     });
 });
-
-
