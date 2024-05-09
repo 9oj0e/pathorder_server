@@ -294,7 +294,6 @@ function render(data, sessionStoreId, menuId) {
                   data-store-id="${sessionStoreId}">
                 <div style="display: grid; grid-template-columns: 1fr 2fr; grid-column-gap: 5%; padding: 30px">
                         <div class="card mt-5" style="width:300px">
-                        <h1>${sessionStoreId}${menuId}</h1>
                             <div class="card-header" id="inputStatusChangeBtns">
                                 <div class="edit-btn" id="editBtn">
                                     <button type="button" class="btn btn-outline-dark">수정</button>
