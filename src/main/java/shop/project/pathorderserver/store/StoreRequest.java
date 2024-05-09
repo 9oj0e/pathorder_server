@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import shop.project.pathorderserver.menu.MenuOption;
 import shop.project.pathorderserver.order.OrderStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StoreRequest {
@@ -72,7 +73,7 @@ public class StoreRequest {
         private String name; // 메뉴 이름
         private MultipartFile imgFile;
         private String description; // 메뉴 설명
-        private List<MenuOptionDTO> menuOptionList;
+        private List<MenuOptionDTO> menuOptions = new ArrayList<>();
 
         @Data
         public static class MenuOptionDTO {
