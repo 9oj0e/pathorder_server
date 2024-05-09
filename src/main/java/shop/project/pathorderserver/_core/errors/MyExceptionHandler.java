@@ -29,7 +29,6 @@ public class MyExceptionHandler {
     }
     
     @ExceptionHandler(Exception404.class)
-
     public ResponseEntity<?> ex404(Exception404 e){
         ApiUtil<?> apiUtil = new ApiUtil<>(404, e.getMessage());
         return new ResponseEntity<>(apiUtil, HttpStatus.NOT_FOUND);

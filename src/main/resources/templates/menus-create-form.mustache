@@ -7,7 +7,7 @@
                 <h1 class="modal-title fs-5" id="addMenuModalLabel">메뉴 추가</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/stores/1/menus" method="post" enctype="multipart/form-data">
+            <form action="/stores/{{sessionStore.id}}/menus" method="post" enctype="multipart/form-data">
                 <div class="modal-body"> <!--TODO: 유효성 검사-->
                     <div class="mb-3">
                         <label for="category" class="col-form-label">카테고리</label>

@@ -52,7 +52,7 @@
                 <!-- TODO: 모델에 데이터 담아서 머스태치 수정하기 /stores/{storeId}/orders/{orderId}/update -->
                 {{#orders.pendingOrderList}}
                     <div class="card mb-4" style="font-size: 12px;width: 240px; padding: 0;">
-                        <form action="/stores/1/orders/{{orderId}}/update" method="post">
+                        <form action="/stores/{{sessionStore.id}}/orders/{{orderId}}/update" method="post">
                             <input type="hidden" name="status" value="{{status}}">
                             <div style="padding: 10px;">
                                 <div class="d-flex justify-content-start" style="margin-bottom: 10px;">
@@ -102,7 +102,7 @@
                 {{/orders.pendingOrderList}}
                 {{#orders.preparingOrderList}}
                     <div class="card mb-4" style="font-size: 12px;width: 240px; padding: 0;">
-                        <form action="/stores/1/orders/{{orderId}}/update" method="post">
+                        <form action="/stores/{{sessionStore.id}}/orders/{{orderId}}/update" method="post">
                             <input type="hidden" name="status" value="{{status}}">
                             <div style="padding: 10px;">
                                 <div class="d-flex justify-content-start" style="margin-bottom: 10px;">
@@ -152,7 +152,7 @@
                 {{/orders.preparingOrderList}}
                 {{#orders.preparedOrderList}}
                     <div class="card mb-4" style="font-size: 12px;width: 240px; padding: 0;">
-                        <form action="/stores/1/orders/{{orderId}}/update" method="post">
+                        <form action="/stores/{{sessionStore.id}}/orders/{{orderId}}/update" method="post">
                             <input type="hidden" name="status" value="{{status}}">
                             <div style="padding: 10px;">
                                 <div class="d-flex justify-content-start" style="margin-bottom: 10px;">

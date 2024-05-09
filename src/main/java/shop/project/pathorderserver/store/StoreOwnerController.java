@@ -147,8 +147,6 @@ public class StoreOwnerController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    // TODO: 메뉴를 등록(수정)할 때 옵션을 함께 등록하는데 컨트롤러에서 나뉘어야 하는지에 대한 논의가 필요할 듯
-    // TODO(장현정): 별도의 컨트롤러가 없이 메뉴를 등록할 때 같이 등록되게 하고, 수정할 때는 옵션 부분을 reset처리를 해서 새로 등록하는 방향이 어떨까요?
     @PostMapping("/stores/{storeId}/menus") // 매장 관리자 - 메뉴 등록하기
     private String addMenu(@PathVariable int storeId, StoreRequest.CreateMenuDTO reqDTO) {
         // TODO: 유효성 검사 (금액)
@@ -161,11 +159,13 @@ public class StoreOwnerController {
     @PutMapping("/stores/{storeId}/menus/{menuId}") // 매장 관리자 - 메뉴 수정하기
     private ResponseEntity<?> updateMenu(@PathVariable int storeId, @PathVariable int menuId, @ModelAttribute StoreRequest.UpdateMenuDTO reqDTO, Model model) {
         StoreResponse.UpdateMenuDTO respDTO = storeService.updateMenu(menuId, reqDTO);
+        // TODO: 기존 옵션 삭제 -> 옵션 등록
         model.addAttribute("menu", respDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    /*
     @DeleteMapping("/stores/{storeId}/menus/{menuId}") // 매장 관리자 - 메뉴 삭제하기
     private String deleteMenu(@PathVariable int storeId, @PathVariable int menuId) {
         storeService.deleteMenu(menuId);
@@ -193,7 +193,7 @@ public class StoreOwnerController {
 
         return "";
     }
-
+    */
     /*------------------------------------------------------------------------------------- 매장 정보 ------------------*/
 
     @GetMapping("/stores/{storeId}") // 매장 관리자 - 매장 정보 보기

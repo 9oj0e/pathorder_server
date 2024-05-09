@@ -435,3 +435,9 @@ $(document).on("submit", "#menuEditForm", function (e) {
         }
     });
 });
+$(document).ready(function () {
+    $("#btnClose").on("click", function () {
+        $("#editBtn").removeClass("hidden");
+        $("#completeBtns").addClass("hidden");
+    });
+});

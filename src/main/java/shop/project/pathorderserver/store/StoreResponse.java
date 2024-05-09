@@ -303,8 +303,8 @@ public class StoreResponse {
             this.description = menu.getDescription();
             this.registeredAt = FormatUtil.dateFormatter(menu.getRegisteredAt());
             // this.menuOptionList = menuOptions.stream().map(MenuOptionDTO::new).toList();
-            for (int i = 0; i < menuOptions.size(); i++) {
-                this.menuOptionList.add(new MenuOptionDTO(menuOptions.get(i)));
+            for (MenuOption menuOption : menuOptions) {
+                this.menuOptionList.add(new MenuOptionDTO(menuOption));
             }
         }
 
@@ -334,17 +334,35 @@ public class StoreResponse {
         private String name; // 메뉴 이름
         private String imgFilename;
         private String description; // 메뉴 설명
+        private List<MenuOptionDTO> menuOptionList = new ArrayList<>();
 
-        public UpdateMenuDTO(Menu menu) {
+
+        public UpdateMenuDTO(Menu menu, List<MenuOption> menuOptions) {
             this.id = menu.getId();
             this.price = menu.getPrice();
             this.category = menu.getCategory();
             this.name = menu.getName();
             this.imgFilename = menu.getImgFilename();
             this.description = menu.getDescription();
+            // this.menuOptionList = menuOptions.stream().map(MenuOptionDTO::new).toList();
+            for (MenuOption menuOption : menuOptions) {
+                this.menuOptionList.add(new MenuOptionDTO(menuOption));
+            }
+        }
+        @Data
+        public static class MenuOptionDTO {
+            private int price;
+            private String name;
+            private boolean isRequired;
+
+            public MenuOptionDTO(MenuOption menuOption) {
+                this.price = menuOption.getPrice();
+                this.name = menuOption.getName();
+                this.isRequired = menuOption.isRequired();
+            }
         }
     }
-
+    /*
     @Data // 매장 관리자 - 매장 메뉴 옵션 등록
     public static class CreateMenuOptionDTO {
         // 메뉴 정보
@@ -382,7 +400,7 @@ public class StoreResponse {
             setRequired(menuOption.isRequired());
         }
     }
-
+    */
     @Data // 매장 관리자 - 주문내역 목록보기
     public static class OrderListDTO {
         private List<OrderDTO> orderList;
@@ -528,9 +546,7 @@ public class StoreResponse {
             this.orderId = order.getId();
             this.status = order.getStatus();
             this.customerNickname = order.getCustomerNickname();
-            this.menuList = menuList.stream().map(orderMenu1 -> {
-                return new OrderMenuDTO(orderMenu1);
-            }).toList();
+            this.menuList = menuList.stream().map(OrderMenuDTO::new).toList();
             this.createdAt = order.getCreatedAt();
         }
 
