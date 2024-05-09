@@ -409,7 +409,6 @@ $(document).on("click", "#inputStatusChangeBtns", function () {
 
 // 메뉴 수정
 $(document).on("submit", "#menuEditForm", function (e) {
-// $("#menuEditForm").on("submit", function (e) {
     e.preventDefault();
     let form = this;
     let formData = new FormData(this);
@@ -418,7 +417,7 @@ $(document).on("submit", "#menuEditForm", function (e) {
         let option = {
             price: formData.getAll("optionPrice").at(i),
             name: formData.getAll("optionName").at(i),
-            isRequired: formData.getAll("optionRequired").at(i),
+            required: formData.getAll("optionRequired").at(i),
         }
         menuOptions.push(option);
     }
@@ -450,6 +449,7 @@ $(document).on("submit", "#menuEditForm", function (e) {
         }
     });
 });
+
 $(document).ready(function () {
     $("#btnClose").on("click", function () {
         $("#editBtn").removeClass("hidden");
