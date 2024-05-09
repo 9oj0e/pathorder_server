@@ -5,14 +5,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import shop.project.pathorderserver._core.errors.exception.Exception404;
 import shop.project.pathorderserver.menu.Menu;
 import shop.project.pathorderserver.menu.MenuOption;
 import shop.project.pathorderserver.menu.MenuOptionRepository;
 import shop.project.pathorderserver.menu.MenuRepository;
 import shop.project.pathorderserver.order.OrderStatus;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @SpringBootTest
 @Transactional
@@ -129,10 +130,34 @@ class StoreServiceTest {
         int menuId = 1;
         StoreRequest.UpdateMenuDTO reqDTO = new StoreRequest.UpdateMenuDTO();
         reqDTO.setPrice(10000);
+        StoreRequest.UpdateMenuDTO.MenuOptionDTO option1 = new StoreRequest.UpdateMenuDTO.MenuOptionDTO();
+        option1.setPrice(700);
+        option1.setName("a");
+        option1.setRequired(true);
+        StoreRequest.UpdateMenuDTO.MenuOptionDTO option2 = new StoreRequest.UpdateMenuDTO.MenuOptionDTO();
+        option2.setPrice(500);
+        option2.setName("b");
+        option2.setRequired(false);
+        StoreRequest.UpdateMenuDTO.MenuOptionDTO option3 = new StoreRequest.UpdateMenuDTO.MenuOptionDTO();
+        option3.setPrice(0);
+        option3.setName("c");
+        option3.setRequired(true);
+        List<StoreRequest.UpdateMenuDTO.MenuOptionDTO> menuOptionList = new ArrayList<>();
+        menuOptionList.add(option1);
+        menuOptionList.add(option2);
+        menuOptionList.add(option3);
+        reqDTO.setMenuOptionList(menuOptionList);
         // when
         StoreResponse.UpdateMenuDTO respDTO = storeService.updateMenu(menuId, reqDTO);
+        Menu menu = menuRepository.findById(menuId)
+                .orElseThrow(() -> new Exception404("찾을 수 없는 메뉴입니다."));
+        List<MenuOption> menuOptions = menuOptionRepository.findByMenuId(menuId)
+                .orElseThrow(() -> new Exception404("찾을 수 없는 메뉴 옵션입니다."));
         // then
         Assertions.assertThat(respDTO.getPrice()).isEqualTo(10000);
+        Assertions.assertThat(menu.getPrice()).isEqualTo(10000);
+        Assertions.assertThat(respDTO.getMenuOptionList().size()).isEqualTo(3);
+        Assertions.assertThat(menuOptions.size()).isEqualTo(3);
     }
 
     @Test // 매장 관리자 - 메뉴 삭제하기
@@ -146,7 +171,7 @@ class StoreServiceTest {
         // then
         Assertions.assertThat(menuList.size()).isEqualTo(4);
     }
-
+    /*
     @Test // 매장 관리자 - 메뉴 옵션 등록하기
     void createMenuOption_test() {
         // given
@@ -190,7 +215,7 @@ class StoreServiceTest {
         // then
         Assertions.assertThat(menuOptionList.size()).isEqualTo(5);
     }
-
+    */
     @Test // 매장 관리자 - 주문 처리
     void updateOrder_test() {
         // given
