@@ -146,7 +146,7 @@ public class StoreService {
         menuOptionRepository.deleteByMenuId(menuId);
 
         List<MenuOption> menuOptions = new ArrayList<>();
-        for (StoreRequest.UpdateMenuDTO.MenuOptionDTO menuOptionDTO : reqDTO.getMenuOptionList()) {
+        for (StoreRequest.UpdateMenuDTO.MenuOptionDTO menuOptionDTO : reqDTO.getMenuOptions()) {
             MenuOption menuOption = new MenuOption(menuOptionDTO, menu);
             menuOptionRepository.save(menuOption);
             menuOptions.add(menuOption);

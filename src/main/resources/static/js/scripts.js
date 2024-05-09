@@ -271,7 +271,6 @@ $(document).ready(function () {
             url: `/stores/${storeId}/menus/${menuId}`,
             type: 'GET',
             success: function (data) {
-                console.log("들어왔니?");
                 console.log(data);
                 // 메뉴 정보 추가
                 let menuContent = `
@@ -302,6 +301,7 @@ $(document).ready(function () {
                     if (data.body.menuOptionList[i].required) {
                         requiredMenuOption += `
                             <tr>
+                                <input type="hidden" value="true" id="optionRequired" name="optionRequired"/>
                                 <th><input type="text" value="${menuOption.name}" id="optionName" name="optionName" readonly/></th>
                                 <td><input type="text" value="${menuOption.price}" id="optionPrice" name="optionPrice" readonly/></td>
                             </tr>`;
@@ -314,8 +314,9 @@ $(document).ready(function () {
                     if (!data.body.menuOptionList[i].required) {
                         optionalMenuOption += `
                             <tr>
-                                <th><input type="text" value="${menuOption.name}" id="optionName" readonly/></th>
-                                <td><input type="text" value="${menuOption.price}" id="optionPrice" readonly/></td>
+                                <input type="hidden" value="false" id="optionRequired" name="optionRequired"/>
+                                <th><input type="text" value="${menuOption.name}" id="optionName" name="optionName" readonly/></th>
+                                <td><input type="text" value="${menuOption.price}" id="optionPrice" name="optionPrice" readonly/></td>
                             </tr>`;
                     }
                 }
@@ -348,24 +349,36 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("#menuEditForm").on("submit", function (e) {
         e.preventDefault();
-
-        let form = this;
         let formData = new FormData(this);
+
+        let menuOptions = [];
+        for (let i = 0; i < formData.getAll("optionName").length; i++) {
+            let option = {
+                price: formData.getAll("optionPrice").at(i),
+                name: formData.getAll("optionName").at(i),
+                isRequired: formData.getAll("optionRequired").at(i),
+            }
+            menuOptions.push(option);
+        }
+        let data = {
+            price: formData.get("price"),
+            name: formData.get("name"),
+            category: formData.get("category"),
+            description: formData.get("description"),
+            menuOptions: menuOptions
+        }
         let menuId = $(this).data('menu-id');
         let storeId = $(this).data('store-id');
 
         $.ajax({
             type: "PUT",
             url: `/stores/${storeId}/menus/${menuId}`,
-            data: formData,
-            processData: false, // FormData를 사용할 때 필수
-            contentType: false, // FormData를 사용할 때 필수
+            data: JSON.stringify(data),
+            contentType: 'application/json',
             success: function (response) {
                 // 데이터 전송 성공 시 실행될 코드
                 console.log("성공: ", response);
-
                 $(form).prop('readonly', !isReadOnly);
-
                 $(form).find("#editBtn").toggleClass("hidden");
                 $(form).find("#completeBtns").toggleClass("hidden");
             },
@@ -386,7 +399,7 @@ $(document).ready(function () {
         $("input").each(function () {
             let isReadOnly = $(this).prop('readOnly');
             $(this).prop('readOnly', !isReadOnly);
-            $(this).css("background-color", "#e6e6e6");
+            $(this).css("background-color", "#ffffff");
         });
     });
 });
