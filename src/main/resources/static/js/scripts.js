@@ -145,7 +145,7 @@ $('button[data-order-id]').click(function () {
         url: `/stores/${storeId}/orders/${orderId}`,
         type: 'GET',
         success: function (data) {
-
+            console.log(data.body.status);
             let htmlContent = `
 <div class="container-fluid" style="padding: 0;">
     <div class="modal-header" style="background-color: navy; padding: 10px;">
@@ -176,7 +176,7 @@ $('button[data-order-id]').click(function () {
                         </div>
                         <div class="d-flex">
                             <div class="title" style="margin-right: 5px;width: 78px;">주문상태:</div>
-                            <div class="content">${data.body.status}</div>
+                            <div class="content">${data.body.status.value}</div>
                         </div>
                     </div>
                     <div class="d-flex">
