@@ -343,7 +343,8 @@ function render(data, sessionStoreId, menuId) {
                     <th>
                         <h4>필수 옵션</h4>
                     </th>
-                    <td id="addOptBtn" class="hidden-edt">
+                    <td></td>
+                    <td id="addRqOpt" class="add-opt-btn hidden-edt">
                         +
                     </td>
                 </tr>
@@ -361,7 +362,7 @@ function render(data, sessionStoreId, menuId) {
                     <td>
                         <input type="text" value="${option.price}" id="optionPrice" name="optionPrice" readonly/>
                     </td>
-                    <td id="delOptBtn" class="hidden-edt">
+                    <td class="del-opt-btn hidden-edt">
                         -
                     </td>
                 </tr>`;
@@ -376,7 +377,8 @@ function render(data, sessionStoreId, menuId) {
                     <th>
                         <h4>선택 옵션</h4>
                     </th>
-                    <td id="addOptBtn" class="hidden-edt">
+                    <td></td>
+                    <td id="addOpt" class="add-opt-btn hidden-edt">
                         +
                     </td>
                 </tr>
@@ -394,7 +396,7 @@ function render(data, sessionStoreId, menuId) {
                     <td>
                         <input type="text" value="${option.price}" id="optionPrice" name="optionPrice" readonly/>
                     </td>
-                    <td id="delOptBtn" class="hidden-edt">
+                    <td class="del-opt-btn hidden-edt">
                         -
                     </td>
                 </tr>`;
@@ -415,11 +417,11 @@ $(document).on("click", "#inputStatusChangeBtns", function () {
     $(this).find("#editBtn").toggleClass("hidden");
     $(this).find("#completeBtns").toggleClass("hidden");
     $("#editImg").toggleClass("hidden-edt");
-    $("#addOptBtn").each(function () {
+    $(".add-opt-btn").each(function () {
         $(this).toggleClass("hidden-edt")
     })
-    $("#delOptBtn").each(function () {
-        (this).toggleClass("hidden-edt")
+    $(".del-opt-btn").each(function () {
+        $(this).toggleClass("hidden-edt")
     })
     $("input").each(function () {
         let isReadOnly = $(this).prop('readOnly');
@@ -427,7 +429,6 @@ $(document).on("click", "#inputStatusChangeBtns", function () {
         $(this).css("background-color", "#ffffff");
     });
 });
-
 
 // 메뉴 수정
 $(document).on("submit", "#menuEditForm", function (e) {
