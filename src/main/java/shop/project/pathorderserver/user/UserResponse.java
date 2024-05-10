@@ -272,7 +272,7 @@ public class UserResponse {
         private List<OrderMenuDTO> orderMenuList;
         private int totalPrice;
 
-        public OrderDTO(Order order, List<OrderMenu> orderMenus, List<OrderMenuOption> orderMenuOptions) {
+        public OrderDTO(Order order) {
             this.id = order.getId();
             this.storeId = order.getStore().getId();
             this.storeName = order.getStoreName();
@@ -281,8 +281,8 @@ public class UserResponse {
             this.request = order.getRequest();
             this.totalPrice = order.getTotalPrice();
             this.status = order.getStatus();
-            this.orderMenuList = orderMenus.stream()
-                    .map(orderMenu -> new OrderMenuDTO(orderMenu, orderMenuOptions))
+            this.orderMenuList = order.getOrderMenus().stream()
+                    .map(orderMenu -> new OrderMenuDTO(orderMenu, orderMenu.getOrderMenuOptions()))
                     .toList();
         }
 

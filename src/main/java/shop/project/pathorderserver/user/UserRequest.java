@@ -2,6 +2,7 @@ package shop.project.pathorderserver.user;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserRequest {
@@ -57,7 +58,7 @@ public class UserRequest {
             private String name;
             private int price;
             private int qty;
-            private List<OrderMenuOptionDTO> orderMenuOptionList;
+            private List<OrderMenuOptionDTO> orderMenuOptionList = new ArrayList<>();
         }
 
         @Data

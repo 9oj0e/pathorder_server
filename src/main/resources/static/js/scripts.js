@@ -255,7 +255,7 @@ $('button[data-order-id]').click(function () {
 });
 
 // 메뉴 상세보기 모달
-$('button[data-menu-id]').click(function (event) {
+$('.load-menu-detail').click(function (event) {
 
     let menuId = event.currentTarget.dataset.menuId;
     let storeId = event.currentTarget.dataset.storeId;
@@ -265,11 +265,9 @@ $('button[data-menu-id]').click(function (event) {
         url: `/stores/${storeId}/menus/${menuId}`,
         type: 'GET',
         success: function (data) {
-
-            // 메뉴 정보 추가
-            let menuContent =
-
-                $('#menuForm').html(render(data, sessionStoreId, menuId));
+            let menuDetail = render(data, sessionStoreId, menuId);
+            sessionStorage.setItem("menuDetail", menuDetail); // to reload
+            $('#menuForm').html(menuDetail);
             $('#menuModal').modal('show');
         }
         ,
@@ -280,6 +278,11 @@ $('button[data-menu-id]').click(function (event) {
     });
 });
 
+// 메뉴 상세보기 reload
+$(document).on("click", "#reloadMenuDetail", function () {
+    let menuDetail = sessionStorage.getItem("menuDetail");
+    $('#menuForm').html(menuDetail);
+});
 
 function render(data, sessionStoreId, menuId) {
     let html = ``;
@@ -331,7 +334,7 @@ function render(data, sessionStoreId, menuId) {
                         <button type="submit" class="btn btn-outline-dark" data-menu-id="${menuId}" data-edit-target="${menuId}"  data-store-id="${sessionStoreId}">
                             저장
                         </button>
-                        <button type="button" class="btn btn-outline-danger">
+                        <button type="button" id="reloadMenuDetail" class="btn btn-outline-danger">
                             취소
                         </button>
                     </div>
@@ -349,7 +352,7 @@ function render(data, sessionStoreId, menuId) {
                     </td>
                 </tr>
                 </thead>
-                <tbody id="required-menu-option">`;
+                <tbody id="required-menu-option" class="rq-opt">`;
     for (let i = 0; i < data.body.menuOptionList.length; i++) {
         let option = data.body.menuOptionList[i];
         if (option.required === true) {
@@ -473,10 +476,51 @@ $(document).on("submit", "#menuEditForm", function (e) {
     });
 });
 
-$(document).ready(function () {
-    $("#btnClose").on("click", function () {
-        $("#editBtn").removeClass("hidden");
-        $("#completeBtns").addClass("hidden");
-        $("#editImg").addClass("hidden-edt");
-    });
+// modal창 닫을 때,
+$("#btnClose").on("click", function () {
+    /*
+    $("#editBtn").removeClass("hidden");
+    $("#completeBtns").addClass("hidden");
+    $("#editImg").addClass("hidden-edt");
+    */
 });
+
+// 메뉴 옵션 추가 버튼
+$(document).on("click", "#addRqOpt", function () {
+
+    let RqOpt = `
+                <tr>
+                    <input type="hidden" value="true" id="optionRequired" name="optionRequired"/>
+                    <th>
+                        <input type="text" value="옵션 이름" id="optionName" name="optionName" readonly/>
+                    </th>
+                    <td>
+                        <input type="text" value="옵션 가격" id="optionPrice" name="optionPrice" readonly/>
+                    </td>
+                    <td class="del-opt-btn">
+                        -
+                    </td>
+                </tr>`;
+    $(".rq-opt").append(RqOpt);
+})
+$(document).on("click", "#addOpt", function () {
+    let opt = `
+                <tr class="opt">
+                    <input type="hidden" value="true" id="optionRequired" name="optionRequired"/>
+                    <th>
+                        <input type="text" value="옵션 이름" id="optionName" name="optionName" readonly/>
+                    </th>
+                    <td>
+                        <input type="text" value="옵션 가격" id="optionPrice" name="optionPrice" readonly/>
+                    </td>
+                    <td class="del-opt-btn">
+                        -
+                    </td>
+                </tr>`;
+    $(".opt").append(opt);
+})
+
+// 메뉴 옵션 삭제 버튼
+$(document).on("click", ".del-opt-btn", function () {
+    $(this).parent().remove();
+})
