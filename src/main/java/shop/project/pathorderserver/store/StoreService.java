@@ -197,7 +197,6 @@ public class StoreService {
         // 이넘 -> 한글
         orderList.forEach(order -> {
             OrderStatus status = order.getStatus();
-            System.out.println(status.getValue());
         });
         return new StoreResponse.OrderListDTO(orderList);
     }
