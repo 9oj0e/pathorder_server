@@ -279,7 +279,7 @@ $('.load-menu-detail').click(function (event) {
 });
 
 // 메뉴 상세보기 reload
-$(document).on("click", "#reloadMenuDetail", function () {
+$(document).on("click", "#cancelBtn", function () {
     let menuDetail = sessionStorage.getItem("menuDetail");
     $('#menuForm').html(menuDetail);
 });
@@ -329,15 +329,12 @@ function render(data, sessionStoreId, menuId) {
                             수정
                         </button>
                     </div>
-                    <div class="complete-btns hidden" id="completeBtns">
-                        <!-- 버튼에 이거 넣어야 함. data-menu-id="menuId" -->
-                        <button type="submit" class="btn btn-outline-dark" data-menu-id="${menuId}" data-edit-target="${menuId}"  data-store-id="${sessionStoreId}">
-                            저장
-                        </button>
-                        <button type="button" id="reloadMenuDetail" class="btn btn-outline-danger">
-                            취소
-                        </button>
-                    </div>
+                    <button type="submit" id="submitBtn" class="btn btn-outline-dark hidden" data-menu-id="${menuId}" data-edit-target="${menuId}"  data-store-id="${sessionStoreId}">
+                        저장
+                    </button>
+                    <button type="button" id="cancelBtn" class="btn btn-outline-danger hidden">
+                        취소
+                    </button>
                 </div>
             </div>
             <table class="table option">
@@ -360,10 +357,10 @@ function render(data, sessionStoreId, menuId) {
                 <tr>
                     <input type="hidden" value="true" name="optionRequired"/>
                     <th>
-                        <input type="text" value="${option.name}" class="input-lock" name="optionName" readonly/>
+                        <input type="text" value="${option.name}" name="optionName" readonly required/>
                     </th>
                     <td>
-                        <input type="text" value="${option.price}" class="input-lock" name="optionPrice" readonly/>
+                        <input type="text" value="${option.price}" name="optionPrice" readonly required/>
                     </td>
                     <td class="del-opt-btn hidden-edt">
                         -
@@ -394,10 +391,10 @@ function render(data, sessionStoreId, menuId) {
                 <tr>
                     <input type="hidden" value="false" name="optionRequired"/>
                     <th>
-                        <input type="text" value="${option.name}" name="optionName" readonly/>
+                        <input type="text" value="${option.name}" name="optionName" readonly required/>
                     </th>
                     <td>
-                        <input type="text" value="${option.price}" name="optionPrice" readonly/>
+                        <input type="text" value="${option.price}" name="optionPrice" readonly required/>
                     </td>
                     <td class="del-opt-btn hidden-edt">
                         -
@@ -415,23 +412,82 @@ function render(data, sessionStoreId, menuId) {
     return html;
 }
 
-// 메뉴 수정 토글 버튼
-$(document).on("click", "#inputStatusChangeBtns", function () {
-    $(this).find("#editBtn").toggleClass("hidden");
-    $(this).find("#completeBtns").toggleClass("hidden");
-    $("#editImg").toggleClass("hidden-edt");
+// 메뉴 수정 버튼
+$(document).on("click", "#editBtn", function () {
+    $(this).addClass("hidden");
+    $("#submitBtn").removeClass("hidden");
+    $("#cancelBtn").removeClass("hidden");
+    $("#editImg").removeClass("hidden-edt");
     $(".add-opt-btn").each(function () {
-        $(this).toggleClass("hidden-edt")
+        $(this).removeClass("hidden-edt")
     })
     $(".del-opt-btn").each(function () {
-        $(this).toggleClass("hidden-edt")
+        $(this).removeClass("hidden-edt")
     })
     $("input").each(function () {
-        let isReadOnly = $(this).prop('readOnly');
-        $(this).prop('readOnly', !isReadOnly);
-        $(this).css("background-color", "#ffffff");
+        // let isReadOnly = $(this).prop('readOnly');
+        $(this).prop('readonly', false);
+        $(this).addClass("input-mode")
     });
 });
+
+// 메뉴 수정 취소
+$(document).on("click", "#cancelBtn", function () {
+    $(this).removeClass("hidden");
+    $("#submitBtn").addClass("hidden");
+    $("#cancelBtn").addClass("hidden");
+    $("#editImg").addClass("hidden-edt");
+    $(".add-opt-btn").each(function () {
+        $(this).addClass("hidden-edt")
+    })
+    $(".del-opt-btn").each(function () {
+        $(this).addClass("hidden-edt")
+    })
+    $("input").each(function () {
+        // let isReadOnly = $(this).prop('readOnly');
+        $(this).prop('readonly', true);
+        $(this).removeClass("input-mode")
+    });
+});
+
+// 메뉴 옵션 추가 버튼
+$(document).on("click", "#addRqOpt", function () {
+    let RqOpt = `
+                <tr>
+                    <input type="hidden" value="true" id="optionRequired" class="input-mode" name="optionRequired"/>
+                    <th>
+                        <input type="text" placeholder="옵션 이름" id="optionName" class="input-mode" name="optionName" required/>
+                    </th>
+                    <td>
+                        <input type="text" placeholder="옵션 가격" id="optionPrice" class="input-mode" name="optionPrice" required/>
+                    </td>
+                    <td class="del-opt-btn">
+                        -
+                    </td>
+                </tr>`;
+    $("#required-menu-option").append(RqOpt);
+})
+$(document).on("click", "#addOpt", function () {
+    let opt = `
+                <tr>
+                    <input type="hidden" value="false" id="optionRequired" class="input-mode" name="optionRequired"/>
+                    <th>
+                        <input type="text" placeholder="옵션 이름" id="optionName" class="input-mode" name="optionName" required/>
+                    </th>
+                    <td>
+                        <input type="text" placeholder="옵션 가격" id="optionPrice" class="input-mode" name="optionPrice" required/>
+                    </td>
+                    <td class="del-opt-btn">
+                        -
+                    </td>
+                </tr>`;
+    $("#optional-menu-option").append(opt);
+})
+
+// 메뉴 옵션 삭제 버튼
+$(document).on("click", ".del-opt-btn", function () {
+    $(this).parent().remove();
+})
 
 // 메뉴 수정
 $(document).on("submit", "#menuEditForm", function (e) {
@@ -467,7 +523,7 @@ $(document).on("submit", "#menuEditForm", function (e) {
             console.log("성공: ", response);
             $(form).prop('readonly', !isReadOnly);
             $(form).find("#editBtn").toggleClass("hidden");
-            $(form).find("#completeBtns").toggleClass("hidden");
+            $(form).find("#submitBtn").toggleClass("hidden");
         },
         error: function (error) {
             console.error("Error fetching menu details: ", error);
@@ -476,49 +532,15 @@ $(document).on("submit", "#menuEditForm", function (e) {
     });
 });
 
-// modal창 닫을 때,
-$("#menuDetailReset").on("click", function () {
+// 메뉴 수정 modal창 닫기.
+$("#btnClose").on("click", function () {
     $("#editBtn").removeClass("hidden");
-    $("#completeBtns").addClass("hidden");
+    $("#submitBtn").addClass("hidden");
+    $("#cancelBtn").addClass("hidden");
     $("#editImg").addClass("hidden-edt");
+    $("input").each(function () {
+        // let isReadOnly = $(this).prop('readOnly');
+        $(this).prop('readonly', true);
+        $(this).removeClass("input-mode")
+    });
 });
-
-// 메뉴 옵션 추가 버튼
-$(document).on("click", "#addRqOpt", function () {
-
-    let RqOpt = `
-                <tr>
-                    <input type="hidden" value="true" id="optionRequired" name="optionRequired"/>
-                    <th>
-                        <input type="text" value="옵션 이름" id="optionName" name="optionName"/>
-                    </th>
-                    <td>
-                        <input type="text" value="옵션 가격" id="optionPrice" name="optionPrice"/>
-                    </td>
-                    <td class="del-opt-btn">
-                        -
-                    </td>
-                </tr>`;
-    $("#required-menu-option").append(RqOpt);
-})
-$(document).on("click", "#addOpt", function () {
-    let opt = `
-                <tr>
-                    <input type="hidden" value="true" id="optionRequired" name="optionRequired"/>
-                    <th>
-                        <input type="text" value="옵션 이름" id="optionName" name="optionName"/>
-                    </th>
-                    <td>
-                        <input type="text" value="옵션 가격" id="optionPrice" name="optionPrice"/>
-                    </td>
-                    <td class="del-opt-btn">
-                        -
-                    </td>
-                </tr>`;
-    $("#optional-menu-option").append(opt);
-})
-
-// 메뉴 옵션 삭제 버튼
-$(document).on("click", ".del-opt-btn", function () {
-    $(this).parent().remove();
-})
