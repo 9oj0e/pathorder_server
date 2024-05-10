@@ -255,7 +255,7 @@ $('button[data-order-id]').click(function () {
 });
 
 // 메뉴 상세보기 모달
-$('button[data-menu-id]').click(function (event) {
+$('.load-menu-detail').click(function (event) {
 
     let menuId = event.currentTarget.dataset.menuId;
     let storeId = event.currentTarget.dataset.storeId;
@@ -265,11 +265,9 @@ $('button[data-menu-id]').click(function (event) {
         url: `/stores/${storeId}/menus/${menuId}`,
         type: 'GET',
         success: function (data) {
-
-            // 메뉴 정보 추가
-            let menuContent =
-
-                $('#menuForm').html(render(data, sessionStoreId, menuId));
+            let menuDetail = render(data, sessionStoreId, menuId);
+            sessionStorage.setItem("menuDetail", menuDetail); // to reload
+            $('#menuForm').html(menuDetail);
             $('#menuModal').modal('show');
         }
         ,
@@ -280,6 +278,11 @@ $('button[data-menu-id]').click(function (event) {
     });
 });
 
+// 메뉴 상세보기 reload
+$(document).on("click", "#reloadMenuDetail", function () {
+    let menuDetail = sessionStorage.getItem("menuDetail");
+    $('#menuForm').html(menuDetail);
+});
 
 function render(data, sessionStoreId, menuId) {
     let html = ``;
@@ -287,7 +290,7 @@ function render(data, sessionStoreId, menuId) {
     html += `
 <form action="/stores/${sessionStoreId}/menus/${menuId}" method="post" id="menuEditForm" data-menu-id="${menuId}"data-store-id="${sessionStoreId}">
     <div style="display: grid; grid-template-columns: 1fr 2fr; grid-column-gap: 5%; padding: 30px">
-        <div class="card" style="width:300px">
+        <div class="card" style="width:300px; height: 500px">
             <div class="card-header">
                 <input type="file" id="editImg" class="form-control hidden-edt" accept="upload/*" name="imgFile">
             </div>
@@ -300,19 +303,19 @@ function render(data, sessionStoreId, menuId) {
                     <tbody>
                     <tr>
                         <th>분류</th>
-                        <td><input type="text" value="${data.body.category}" id="category" name="category" readonly/></td>
+                        <td><input type="text" value="${data.body.category}" name="category" readonly/></td>
                     </tr>
                     <tr>
                         <th>이름</th>
-                        <td><input type="text" value="${data.body.name}" id="name" name="name"  readonly/></td>
+                        <td><input type="text" value="${data.body.name}" name="name"  readonly/></td>
                     </tr>
                     <tr>
                         <th>가격</th>
-                        <td><input type="text" value="${data.body.price}" id="price" name="price" readonly/></td>
+                        <td><input type="text" value="${data.body.price}" name="price" readonly/></td>
                     </tr>
                     <tr>
                         <th>설명</th>
-                        <td><input type="text" value="${data.body.description}" id="description" name="description" readonly/></td>
+                        <td><input type="text" value="${data.body.description}" name="description" readonly/></td>
                     </tr>
                     </tbody>
                 </table>
@@ -331,7 +334,7 @@ function render(data, sessionStoreId, menuId) {
                         <button type="submit" class="btn btn-outline-dark" data-menu-id="${menuId}" data-edit-target="${menuId}"  data-store-id="${sessionStoreId}">
                             저장
                         </button>
-                        <button type="button" class="btn btn-outline-danger">
+                        <button type="button" id="reloadMenuDetail" class="btn btn-outline-danger">
                             취소
                         </button>
                     </div>
@@ -355,12 +358,12 @@ function render(data, sessionStoreId, menuId) {
         if (option.required === true) {
             html += `
                 <tr>
-                    <input type="hidden" value="true" id="optionRequired" name="optionRequired"/>
+                    <input type="hidden" value="true" name="optionRequired"/>
                     <th>
-                        <input type="text" value="${option.name}" id="optionName" name="optionName" readonly/>
+                        <input type="text" value="${option.name}" class="input-lock" name="optionName" readonly/>
                     </th>
                     <td>
-                        <input type="text" value="${option.price}" id="optionPrice" name="optionPrice" readonly/>
+                        <input type="text" value="${option.price}" class="input-lock" name="optionPrice" readonly/>
                     </td>
                     <td class="del-opt-btn hidden-edt">
                         -
@@ -389,12 +392,12 @@ function render(data, sessionStoreId, menuId) {
         if (option.required === false) {
             html += `
                 <tr>
-                    <input type="hidden" value="false" id="optionRequired" name="optionRequired"/>
+                    <input type="hidden" value="false" name="optionRequired"/>
                     <th>
-                        <input type="text" value="${option.name}" id="optionName" name="optionName" readonly/>
+                        <input type="text" value="${option.name}" name="optionName" readonly/>
                     </th>
                     <td>
-                        <input type="text" value="${option.price}" id="optionPrice" name="optionPrice" readonly/>
+                        <input type="text" value="${option.price}" name="optionPrice" readonly/>
                     </td>
                     <td class="del-opt-btn hidden-edt">
                         -
@@ -473,10 +476,49 @@ $(document).on("submit", "#menuEditForm", function (e) {
     });
 });
 
-$(document).ready(function () {
-    $("#btnClose").on("click", function () {
-        $("#editBtn").removeClass("hidden");
-        $("#completeBtns").addClass("hidden");
-        $("#editImg").addClass("hidden-edt");
-    });
+// modal창 닫을 때,
+$("#menuDetailReset").on("click", function () {
+    $("#editBtn").removeClass("hidden");
+    $("#completeBtns").addClass("hidden");
+    $("#editImg").addClass("hidden-edt");
 });
+
+// 메뉴 옵션 추가 버튼
+$(document).on("click", "#addRqOpt", function () {
+
+    let RqOpt = `
+                <tr>
+                    <input type="hidden" value="true" id="optionRequired" name="optionRequired"/>
+                    <th>
+                        <input type="text" value="옵션 이름" id="optionName" name="optionName"/>
+                    </th>
+                    <td>
+                        <input type="text" value="옵션 가격" id="optionPrice" name="optionPrice"/>
+                    </td>
+                    <td class="del-opt-btn">
+                        -
+                    </td>
+                </tr>`;
+    $("#required-menu-option").append(RqOpt);
+})
+$(document).on("click", "#addOpt", function () {
+    let opt = `
+                <tr>
+                    <input type="hidden" value="true" id="optionRequired" name="optionRequired"/>
+                    <th>
+                        <input type="text" value="옵션 이름" id="optionName" name="optionName"/>
+                    </th>
+                    <td>
+                        <input type="text" value="옵션 가격" id="optionPrice" name="optionPrice"/>
+                    </td>
+                    <td class="del-opt-btn">
+                        -
+                    </td>
+                </tr>`;
+    $("#optional-menu-option").append(opt);
+})
+
+// 메뉴 옵션 삭제 버튼
+$(document).on("click", ".del-opt-btn", function () {
+    $(this).parent().remove();
+})

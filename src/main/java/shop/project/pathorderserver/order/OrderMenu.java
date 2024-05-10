@@ -42,7 +42,11 @@ public class OrderMenu {
         this.qty = reqDTO.getQty();
     }
 
-    public void updateTotalPrice(int price) {
-        this.totalPrice += price;
+    public void updateTotalPrice() {
+        int optionTotalPrice = 0;
+        for (OrderMenuOption orderMenuOption : orderMenuOptions) {
+            optionTotalPrice += orderMenuOption.getPrice();
+        }
+        this.totalPrice = (price + optionTotalPrice) * qty;
     }
 }

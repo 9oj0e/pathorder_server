@@ -1,5 +1,4 @@
 {{>layout/header}}
-{{>menus-create-form}}
 <div id="layoutSidenav" style="display: flex; ">
     {{>layout/sidebar}}
     <main style="padding: 50px; background-color: rgb(5, 5, 43); width: 100%; min-height: 1000px;">
@@ -10,6 +9,7 @@
                 <button type="button" class="btn btn-warning" style="height: 48px;" data-bs-toggle="modal"
                         data-bs-target="#addMenuModal">➕
                 </button>
+                {{>menus-create-form}}
             </div>
             <div class="row row-cols-4 gap-3">
                 {{#menuList}}
@@ -28,7 +28,8 @@
                             </div>
                         </div>
                         <div>
-                            <button type="button" class="btn btn-outline-success" id="menuModalBtn" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-outline-success load-menu-detail" id="menuModalBtn"
+                                    data-bs-toggle="modal"
                                     data-bs-target="#menuModal"
                                     data-menu-id="{{id}}"
                                     data-store-id="{{sessionStore.id}}"

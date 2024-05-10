@@ -98,30 +98,32 @@ public class UserService {
                 = new Order(reqDTO, customer, store);
 
         List<OrderMenu> orderMenus = new ArrayList<>(); // 1. 응답할 주문 메뉴 리스트 생성
-        List<OrderMenuOption> orderMenuOptions = new ArrayList<>(); // 1. 응답할 주문 메뉴 옵션 리스트 생성
-
         for (int om = 0; om < reqDTO.getOrderMenuList().size(); om++) {
+            List<OrderMenuOption> orderMenuOptions = new ArrayList<>(); // 1. 응답할 주문 메뉴 옵션 리스트 생성
             OrderMenu orderMenu = orderMenuRepository // 2. 주문 메뉴 Entity 생성 및 INSERT
                     .save(new OrderMenu(reqDTO.getOrderMenuList().get(om), order));
-
             for (int omo = 0; omo < reqDTO.getOrderMenuList().get(om).getOrderMenuOptionList().size(); omo++) {
                 OrderMenuOption orderMenuOption = orderMenuOptionRepository // 2. 주문 메뉴 옵션 Entity 생성 및 INSERT
                         .save(new OrderMenuOption(reqDTO.getOrderMenuList().get(om).getOrderMenuOptionList().get(omo), order, orderMenu));
-
-                orderMenu.updateTotalPrice(orderMenuOption.getPrice()); // 3. 주문 메뉴 옵션 금액 추가 (옵션)
-                order.updateTotalPrice(orderMenuOption.getPrice()); // 3. 주문 총액 업데이트 (메뉴 옵션)
-
+                // orderMenu.updateTotalPrice(orderMenuOption.getPrice()); // 3. 주문 메뉴 옵션 금액 추가 (옵션)
+                // order.updateTotalPrice(orderMenuOption.getPrice()); // 3. 주문 총액 업데이트 (메뉴 옵션)
                 orderMenuOptions.add(orderMenuOption); // 4. 주문 메뉴 옵션 컬랙션 생성 (주문 + 메뉴 옵션)
             }
-            orderMenu.updateTotalPrice(orderMenu.getPrice()); // 3. 주문 메뉴 금액 추가 (메뉴)
-            order.updateTotalPrice(orderMenu.getPrice()); // 3. 주문 총액 업데이트 (메뉴)
-            orderMenu.setTotalPrice(orderMenu.getTotalPrice() * orderMenu.getQty()); // 3. 주문 메뉴 총액 업데이트 (갯수 처리)
-
+            // orderMenu.updateTotalPrice(orderMenu.getPrice()); // 3. 주문 메뉴 금액 추가 (메뉴)
+            // orderMenu.setTotalPrice(orderMenu.getTotalPrice() * orderMenu.getQty()); // 3. 주문 메뉴 총액 업데이트 (갯수 처리)
+            // order.updateTotalPrice(orderMenu.getTotalPrice()); // 3. 주문 총액 업데이트 (메뉴) // 9000 + 3500
+            orderMenu.setOrderMenuOptions(orderMenuOptions); // 4. 주문 메뉴 + 주문 메뉴 옵션 컬랙션
             orderMenus.add(orderMenu); // 4. 주문 메뉴 컬랙션 생성 (주문 + 메뉴)
         }
-        orderRepository.save(order); // 5. 주문 Entity INSERT
+        for (OrderMenu orderMenu : orderMenus) {
+            orderMenu.updateTotalPrice();
+        }
+        order.setOrderMenus(orderMenus); // 5. 주문 + 주문 메뉴 컬랙션
+        order.updateTotalPrice();
 
-        return new UserResponse.OrderDTO(order, orderMenus, orderMenuOptions); // 6. 결과 return
+        orderRepository.save(order); // 6. 주문 Entity INSERT
+
+        return new UserResponse.OrderDTO(order); // 7. 결과 return
     }
 
     // 주문내역 목록보기 (손님)

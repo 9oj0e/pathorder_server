@@ -53,7 +53,9 @@ public class Order {
         this.request = reqDTO.getRequest();
     }
 
-    public void updateTotalPrice(int price) {
-        this.totalPrice += price;
+    public void updateTotalPrice() {
+        for (OrderMenu orderMenu : this.orderMenus) {
+            this.totalPrice += orderMenu.getTotalPrice();
+        }
     }
 }
