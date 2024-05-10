@@ -137,11 +137,9 @@ $(document).ready(function () {
 });
 
 // 주문 상세 모달
-$('#orderDetailBtn').click(function (e) {
+$('button[data-order-id]').click(function (e) {
     let orderId = $(this).data('order-id');
     let storeId = $(this).data('store-id');
-    let orderStatus = e.currentTarget.dataset.orderStatus;
-    console.log(orderStatus);
     console.log(e);
 
     $.ajax({
@@ -179,7 +177,7 @@ $('#orderDetailBtn').click(function (e) {
                         </div>
                         <div class="d-flex">
                             <div class="title" style="margin-right: 5px;width: 78px;">주문상태:</div>
-                            <div class="content">${orderStatus}</div>
+                            <div class="content">${data.body.status}</div>
                         </div>
                     </div>
                     <div class="d-flex">

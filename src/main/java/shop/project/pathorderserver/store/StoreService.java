@@ -208,7 +208,6 @@ public class StoreService {
         List<OrderMenu> orderMenuList = orderMenuRepository.findAllByOrderId(orderId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 메뉴입니다."));
 
-        OrderStatus status = order.getStatus();
         return new StoreResponse.OrderDetailDTO(order, orderMenuList);
     }
 
