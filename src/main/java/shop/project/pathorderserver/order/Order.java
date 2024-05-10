@@ -36,7 +36,7 @@ public class Order {
     // 주문 정보
     private int totalPrice = 0; // 총 가격
     @Enumerated(EnumType.STRING)
-    @ColumnDefault("'접수대기'")
+    @ColumnDefault("'PENDING'")
     private OrderStatus status; // 조리 상태(0 : 조리중, 1 : 조리완료)
     // 주문 메뉴 정보
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)

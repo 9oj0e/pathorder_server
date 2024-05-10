@@ -1,10 +1,19 @@
 package shop.project.pathorderserver.order;
 
+import lombok.Getter;
+
+@Getter
 public enum OrderStatus {
-    접수대기,
-    주문거절,
-    주문완료, // 손님측에서 볼
-    조리중,
-    조리완료,
-    수령완료
+    PENDING("접수대기"),
+    DENIED("주문거절"),
+    CONFIRMED("주문완료"),
+    PREPARING("조리중"),
+    PREPARED("조리완료"),
+    SERVED("수령완료");
+
+    private final String value;
+
+    OrderStatus(String value) {
+        this.value = value;
+    }
 }
