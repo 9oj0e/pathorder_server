@@ -137,15 +137,18 @@ $(document).ready(function () {
 });
 
 // 주문 상세 모달
-$('button[data-order-id]').click(function () {
+$('#orderDetailBtn').click(function (e) {
     let orderId = $(this).data('order-id');
     let storeId = $(this).data('store-id');
+    let orderStatus = e.currentTarget.dataset.orderStatus;
+    console.log(orderStatus);
+    console.log(e);
 
     $.ajax({
         url: `/stores/${storeId}/orders/${orderId}`,
         type: 'GET',
         success: function (data) {
-            console.log(data.body.status);
+            console.log(data);
             let htmlContent = `
 <div class="container-fluid" style="padding: 0;">
     <div class="modal-header" style="background-color: navy; padding: 10px;">
@@ -176,7 +179,7 @@ $('button[data-order-id]').click(function () {
                         </div>
                         <div class="d-flex">
                             <div class="title" style="margin-right: 5px;width: 78px;">주문상태:</div>
-                            <div class="content">${data.body.status.value}</div>
+                            <div class="content">${orderStatus}</div>
                         </div>
                     </div>
                     <div class="d-flex">
