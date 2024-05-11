@@ -1,15 +1,13 @@
 // 메뉴 상세보기 모달
 $('.load-menu-detail').click(function (event) {
-
     let menuId = event.currentTarget.dataset.menuId;
-    let storeId = event.currentTarget.dataset.storeId;
-    let sessionStoreId = event.currentTarget.dataset.sessionStoreId;
+    let storeId = event.currentTarget.dataset.sessionStoreId;
 
     $.ajax({
         url: `/stores/${storeId}/menus/${menuId}`,
         type: 'GET',
         success: function (data) {
-            let menuDetail = render(data, sessionStoreId, menuId);
+            let menuDetail = render(data, storeId, menuId);
             sessionStorage.setItem("menuDetail", menuDetail); // to reload
             $('#menuForm').html(menuDetail);
             $('#menuModal').modal('show');
@@ -262,12 +260,10 @@ $(document).on("submit", "#menuEditForm", function (e) {
         url: `/stores/${storeId}/menus/${menuId}`,
         data: JSON.stringify(data),
         contentType: 'application/json',
-        success: function (response) {
-            // 데이터 전송 성공 시 실행될 코드
-            console.log("성공: ", response);
-            $(form).prop('readonly', !isReadOnly);
-            $(form).find("#editBtn").toggleClass("hidden");
-            $(form).find("#submitBtn").toggleClass("hidden");
+        success: function (data) {
+            let menuDetail = render(data, storeId, menuId);
+            sessionStorage.setItem("menuDetail", menuDetail); // to reload
+            $('#menuForm').html(menuDetail);
         },
         error: function (error) {
             console.error("Error fetching menu details: ", error);
