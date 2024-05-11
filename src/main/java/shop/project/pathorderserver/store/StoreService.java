@@ -190,10 +190,14 @@ public class StoreService {
     public StoreResponse.OrderListDTO getOrderList(int storeId) {
         List<Order> orderList = orderRepository.findAllByStoreId(storeId)
                 .orElseThrow(() -> new Exception404("주문 내역이 없습니다."));
-        orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.접수대기)).toList().forEach(orderList::remove);
-        orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.조리중)).toList().forEach(orderList::remove);
-        orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.조리완료)).toList().forEach(orderList::remove);
+        orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.PENDING)).toList().forEach(orderList::remove);
+        orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.PREPARING)).toList().forEach(orderList::remove);
+        orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.PREPARED)).toList().forEach(orderList::remove);
 
+        // 이넘 -> 한글
+        orderList.forEach(order -> {
+            OrderStatus status = order.getStatus();
+        });
         return new StoreResponse.OrderListDTO(orderList);
     }
 
@@ -211,14 +215,14 @@ public class StoreService {
     public StoreResponse.UpdateOrderDTO updateOrder(int orderId, StoreRequest.UpdateOrderDTO reqDTO) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 주문입니다."));
-        if (reqDTO.getStatus().equals(OrderStatus.접수대기)) {
-            order.setStatus(OrderStatus.조리중);
+        if (reqDTO.getStatus().equals(OrderStatus.PENDING)) {
+            order.setStatus(OrderStatus.PREPARING);
         }
-        if (reqDTO.getStatus().equals(OrderStatus.조리중)) {
-            order.setStatus(OrderStatus.조리완료);
+        if (reqDTO.getStatus().equals(OrderStatus.PREPARING)) {
+            order.setStatus(OrderStatus.PREPARED);
         }
-        if (reqDTO.getStatus().equals(OrderStatus.조리완료)) {
-            order.setStatus(OrderStatus.수령완료);
+        if (reqDTO.getStatus().equals(OrderStatus.PREPARED)) {
+            order.setStatus(OrderStatus.SERVED);
         }
 
         return new StoreResponse.UpdateOrderDTO(order);
@@ -242,13 +246,13 @@ public class StoreService {
         List<StoreResponse.OrdersDTO> preparingOrderList = new ArrayList<>();
         List<StoreResponse.OrdersDTO> preparedOrderList = new ArrayList<>();
         for (StoreResponse.OrdersDTO ordersDTO : orderList) {
-            if (ordersDTO.getStatus() == OrderStatus.접수대기) {
+            if (ordersDTO.getStatus() == OrderStatus.PENDING) {
                 pendingOrderList.add(ordersDTO);
             }
-            if (ordersDTO.getStatus() == OrderStatus.조리중) {
+            if (ordersDTO.getStatus() == OrderStatus.PREPARING) {
                 preparingOrderList.add(ordersDTO);
             }
-            if (ordersDTO.getStatus() == OrderStatus.조리완료) {
+            if (ordersDTO.getStatus() == OrderStatus.PREPARED) {
                 preparedOrderList.add(ordersDTO);
             }
         }

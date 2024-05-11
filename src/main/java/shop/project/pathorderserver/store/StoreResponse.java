@@ -460,7 +460,8 @@ public class StoreResponse {
         private String customerTel;
         // 주문 정보
         private Timestamp createdAt;
-        private OrderStatus status;
+//        private OrderStatus status;
+        private String status;
         private List<OrderMenuDTO> orderMenuList;
         private int totalPrice;
 
@@ -479,7 +480,7 @@ public class StoreResponse {
             this.createdAt = order.getCreatedAt();
             this.customerNickname = order.getCustomerNickname();
             this.customerTel = order.getCustomer().getTel();
-            this.status = order.getStatus();
+            this.status = order.getStatus().getValue();
             this.orderMenuList = orderMenus.stream().map(orderMenu -> new OrderMenuDTO(orderMenu, orderMenu.getOrderMenuOptions())).toList();
             this.totalPrice = order.getTotalPrice();
         }
