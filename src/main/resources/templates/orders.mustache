@@ -1,219 +1,24 @@
 {{>layout/header}}
-{{>orders-detail-form}}
 <div id="layoutSidenav" style="display: flex;">
     {{>layout/sidebar}}
-    <!--
-    <div id="layoutSidenav_nav d-flex" style="width: 260px; z-index: 1038;">
-        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion"
-             style="position: relative; background-color: #e6e6e6; height: 100vh;">
-            <div class="sb-sidenav-menu">
-                <div class="nav d-flex align-items-center" style="font-size: 20px;">
-                    <div class="d-flex justify-content-center"
-                         style="position: relative;border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px; background-color: rgb(5, 5, 43); ">
-                        <a class="nav-link" href="/stores/1/orders" style="padding: 20px;margin-right: 5px; color: #e6e6e6!important;">
-                            주문
-                        </a>
-                        <div class="new-popup-count hidden" id="newPopupCount"
-                             style="position: absolute;top: 50px;right: 70px;background-color: orange;border-radius: 5px;padding: 0 4px;font-size: 10px;color: black;">
-                            17
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-center"
-                         style="border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px;">
-                        &lt;!&ndash; TODO: 매핑 1로 되어있음 &ndash;&gt;
-                        <a class="nav-link" href="/stores/1/orders/history">
-                            지난 주문
-                        </a>
-                    </div>
-                    <div class="d-flex justify-content-center"
-                         style="border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px;">
-                        &lt;!&ndash; TODO: 매핑 1로 되어있음 &ndash;&gt;
-                        <a class="nav-link" href="/stores/1/menus">
-                            메뉴
-                        </a>
-                    </div>
-                    <div class="d-flex justify-content-center"
-                         style="border-bottom: 1px solid #e6e6e6;width: 100%;padding: 20px;">
-                        &lt;!&ndash; TODO: 매핑 1로 되어있음 &ndash;&gt;
-                        <a class="nav-link" href="/stores/1">
-                            매장정보
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </div>
-    -->
-    <!--    <div id="layoutSidenav_content" style="">-->
     <main style="padding: 50px; background-color: rgb(5, 5, 43); width: 100%; min-height: 1000px;">
+        {{>order-detail-form}}
         <div class="container-fluid px-4">
             <h1 class="date" id="date" style="color: #e6e6e6;"></h1>
             <div class="row row-cols-4 gap-3" style="display: flex; flex-wrap: wrap;">
                 <!-- TODO: 모델에 데이터 담아서 머스태치 수정하기 /stores/{storeId}/orders/{orderId}/update -->
                 {{#orders.pendingOrderList}}
-                    <div class="card mb-4" style="font-size: 12px;width: 240px; padding: 0;">
-                        <form action="/stores/{{sessionStore.id}}/orders/{{orderId}}/update" method="post">
-                            <input type="hidden" name="status" value="{{status}}">
-                            <div style="padding: 10px;">
-                                <div class="d-flex justify-content-start" style="margin-bottom: 10px;">
-                                    <button type="button" class="btn btn-warning"
-                                            style="font-size: 12px; color:white" disabled><b>{{status.getValue}}</b>
-                                        11: 23분
-                                        수령예정
-                                    </button>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between"
-                                     style="margin-bottom: 10px;">
-                                    <div style="font-size: 15px;">
-                                        <div><b>테이크아웃</b></div>
-                                        <div style="font-size: 12px;">{{customerNickname}}</div>
-                                    </div>
-                                    <div>
-                                        <button type="button" class="btn btn-outline-primary" style="font-size: 12px;"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#orderDetailModal"
-                                                data-order-id="{{orderId}}"
-                                                data-store-id="{{sessionStore.id}}"
-                                        >상세<br/>보기
-                                        </button>
-                                    </div>
-                                </div>
-                                <div style="
-                          display: -webkit-box;
-                          -webkit-line-clamp: 1;
-                          -webkit-box-orient: vertical;
-                          overflow: hidden;
-                          text-overflow: ellipsis;
-                        ">
-                                    {{#menuList}}
-                                        <span>{{name}}({{qty}})</span>
-                                    {{/menuList}}
-                                </div>
-                                <div>{{createdAt}}</div>
-                            </div>
-                            <div>
-                                <button type="submit" class="btn btn-outline-warning"
-                                        style="width: 100%;font-size: 12px;padding: 10px 0; box-sizing: border-box;">
-                                    주문접수하기
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                    {{>order-pending}}
                 {{/orders.pendingOrderList}}
                 {{#orders.preparingOrderList}}
-                    <div class="card mb-4" style="font-size: 12px;width: 240px; padding: 0;">
-                        <form action="/stores/{{sessionStore.id}}/orders/{{orderId}}/update" method="post">
-                            <input type="hidden" name="status" value="{{status}}">
-                            <div style="padding: 10px;">
-                                <div class="d-flex justify-content-start" style="margin-bottom: 10px;">
-                                    <button type="button" class="btn btn-success"
-                                            style="font-size: 12px; color:white" disabled><b>{{status.getValue}}</b>
-                                        11: 23분
-                                        수령예정
-                                    </button>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between"
-                                     style="margin-bottom: 10px;">
-                                    <div style="font-size: 15px;">
-                                        <div><b>테이크아웃</b></div>
-                                        <div style="font-size: 12px;">{{customerNickname}}</div>
-                                    </div>
-                                    <div>
-                                        <button type="button" class="order-detail-btn btn btn-outline-primary" style="font-size: 12px;"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#orderDetailModal"
-                                                data-order-id="{{orderId}}"
-                                                data-store-id="{{storeId}}"
-                                                data-order-status="{{status.getValue}}"
-                                        >상세<br/>보기
-                                        </button>
-                                    </div>
-                                </div>
-                                <div style="
-                          display: -webkit-box;
-                          -webkit-line-clamp: 1;
-                          -webkit-box-orient: vertical;
-                          overflow: hidden;
-                          text-overflow: ellipsis;
-                        ">
-                                    {{#menuList}}
-                                        <span>{{name}}({{qty}})</span>
-                                    {{/menuList}}
-                                </div>
-                                <div>{{createdAt}}</div>
-                            </div>
-                            <div>
-                                <button type="submit" class="btn btn-outline-success"
-                                        style="width: 100%;font-size: 12px;padding: 10px 0; box-sizing: border-box;">
-                                    조리완료
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                    {{>order-preparing}}
                 {{/orders.preparingOrderList}}
                 {{#orders.preparedOrderList}}
-                    <div class="card mb-4" style="font-size: 12px;width: 240px; padding: 0;">
-                        <form action="/stores/{{sessionStore.id}}/orders/{{orderId}}/update" method="post">
-                            <input type="hidden" name="status" value="{{status}}">
-                            <div style="padding: 10px;">
-                                <div class="d-flex justify-content-start" style="margin-bottom: 10px;">
-                                    <button type="button" class="btn btn-secondary"
-                                            style="font-size: 12px; color:white" disabled><b>{{status.getValue}}</b>
-                                        11: 23분
-                                        수령예정
-                                    </button>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between"
-                                     style="margin-bottom: 10px;">
-                                    <div style="font-size: 15px;">
-                                        <div><b>테이크아웃</b></div>
-                                        <div style="font-size: 12px;">{{customerNickname}}</div>
-                                    </div>
-                                    <div>
-                                        <button type="button" class="btn btn-outline-primary" style="font-size: 12px;"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#orderDetailModal"
-                                        >상세<br/>보기
-                                        </button>
-                                    </div>
-                                </div>
-                                <div style="
-                          display: -webkit-box;
-                          -webkit-line-clamp: 1;
-                          -webkit-box-orient: vertical;
-                          overflow: hidden;
-                          text-overflow: ellipsis;
-                        ">
-                                    {{#menuList}}
-                                        <span>{{name}}({{qty}})</span>
-                                    {{/menuList}}
-                                </div>
-                                <div>{{createdAt}}</div>
-                            </div>
-                            <div>
-                                <button type="submit" class="btn btn-outline-secondary"
-                                        style="width: 100%;font-size: 12px;padding: 10px 0; box-sizing: border-box;">
-                                    수령완료
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                    {{>order-prepared}}
                 {{/orders.preparedOrderList}}
             </div>
         </div>
     </main>
-    <!--    </div>-->
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-<script src="/js/scripts.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
-        crossorigin="anonymous"></script>
-<script>
-    storeStatus();
-    setClock();
-</script>
-</body>
-</html>
+<script src="/js/orders.js"></script>
+{{>layout/footer}}

@@ -134,7 +134,7 @@ public class UserService {
         return new UserResponse.OrderListDTO(orders);
     }
 
-    // 주문내역 상세보기 (손님)
+    @Transactional(readOnly = true) // 주문내역 상세보기 (손님)
     public UserResponse.OrderDetailDTO getOrderDetail(int orderId) {
         Order order // 단일 주문 내역 조회
                 = orderRepository.findById(orderId)

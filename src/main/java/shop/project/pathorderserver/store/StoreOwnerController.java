@@ -1,7 +1,5 @@
 package shop.project.pathorderserver.store;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -105,7 +103,7 @@ public class StoreOwnerController {
         StoreResponse.OrderListDTO respDTO = storeService.getOrderList(storeId);
         model.addAttribute("orderList", respDTO.getOrderList());
 
-        return "orders-list";
+        return "order-list";
     }
 
     @GetMapping("/stores/{storeId}/orders/history/date") // 매장 관리자 - 주문내역 날짜로 조회
@@ -115,7 +113,7 @@ public class StoreOwnerController {
         // StoreResponse.OrderListDTO respDTO = orderService.getOrderListByDate(storeId, date);
         // model.addAttribute("orders", respDTO);
 
-        return "orders-list";
+        return "order-list";
     }
 
     /*------------------------------------------------------------------------------------- 메뉴 ----------------------*/
