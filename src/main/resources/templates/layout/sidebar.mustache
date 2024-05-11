@@ -6,6 +6,10 @@
     .nav-item-active {
         background-color: rgb(5, 5, 43) !important;
     }
+
+    .hidden-count{
+        visibility: hidden;
+    }
 </style>
 <div id="layoutSidenav_nav d-flex" style="width: 260px; z-index: 1038;">
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion"
@@ -17,8 +21,8 @@
                     <a id="nav-link" class="nav-link" href="/stores/{{sessionStore.id}}/orders">
                         주문
                     </a>
-                    <div class="new-popup-count hidden" id="newPopupCount"
-                         style="position: absolute;top: 50px;right: 70px;background-color: orange;border-radius: 5px;padding: 0 4px;font-size: 10px;color: black;">
+                    <div class="new-popup-count hidden-count" id="newPopupCount"
+                         style="position: absolute;top: 40px;right: 70px;background-color: orange;border-radius: 5px;padding: 0 4px;font-size: 10px;color: black;">
                         17
                     </div>
                 </div>

@@ -57,7 +57,7 @@
                             <div style="padding: 10px;">
                                 <div class="d-flex justify-content-start" style="margin-bottom: 10px;">
                                     <button type="button" class="btn btn-warning"
-                                            style="font-size: 12px; color:white" disabled><b>{{status}}</b>
+                                            style="font-size: 12px; color:white" disabled><b>{{status.getValue}}</b>
                                         11: 23분
                                         수령예정
                                     </button>
@@ -107,7 +107,7 @@
                             <div style="padding: 10px;">
                                 <div class="d-flex justify-content-start" style="margin-bottom: 10px;">
                                     <button type="button" class="btn btn-success"
-                                            style="font-size: 12px; color:white" disabled><b>{{status}}</b>
+                                            style="font-size: 12px; color:white" disabled><b>{{status.getValue}}</b>
                                         11: 23분
                                         수령예정
                                     </button>
@@ -119,11 +119,12 @@
                                         <div style="font-size: 12px;">{{customerNickname}}</div>
                                     </div>
                                     <div>
-                                        <button type="button" class="btn btn-outline-primary" style="font-size: 12px;"
+                                        <button type="button" class="order-detail-btn btn btn-outline-primary" style="font-size: 12px;"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#orderDetailModal"
                                                 data-order-id="{{orderId}}"
                                                 data-store-id="{{storeId}}"
+                                                data-order-status="{{status.getValue}}"
                                         >상세<br/>보기
                                         </button>
                                     </div>
@@ -157,7 +158,7 @@
                             <div style="padding: 10px;">
                                 <div class="d-flex justify-content-start" style="margin-bottom: 10px;">
                                     <button type="button" class="btn btn-secondary"
-                                            style="font-size: 12px; color:white" disabled><b>{{status}}</b>
+                                            style="font-size: 12px; color:white" disabled><b>{{status.getValue}}</b>
                                         11: 23분
                                         수령예정
                                     </button>

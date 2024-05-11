@@ -137,15 +137,16 @@ $(document).ready(function () {
 });
 
 // 주문 상세 모달
-$('button[data-order-id]').click(function () {
+$('button[data-order-id]').click(function (e) {
     let orderId = $(this).data('order-id');
     let storeId = $(this).data('store-id');
+    console.log(e);
 
     $.ajax({
         url: `/stores/${storeId}/orders/${orderId}`,
         type: 'GET',
         success: function (data) {
-
+            console.log(data);
             let htmlContent = `
 <div class="container-fluid" style="padding: 0;">
     <div class="modal-header" style="background-color: navy; padding: 10px;">
