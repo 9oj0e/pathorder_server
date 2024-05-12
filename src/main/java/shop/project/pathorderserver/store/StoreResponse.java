@@ -439,7 +439,10 @@ public class StoreResponse {
             }
 
             public String getCreatedAt() {
-                return FormatUtil.timeFormatter(createdAt);
+                LocalDateTime localDateTime = createdAt.toLocalDateTime();
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd. HH:mm");
+                return localDateTime.format(formatter);
             }
 
             public String getOrderMenus() {

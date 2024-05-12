@@ -1,6 +1,7 @@
 package shop.project.pathorderserver.store;
 
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Or;
 import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,8 @@ import shop.project.pathorderserver.menu.MenuOptionRepository;
 import shop.project.pathorderserver.menu.MenuRepository;
 import shop.project.pathorderserver.order.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -263,4 +266,26 @@ public class StoreService {
 
         return orderListSortedByStatus;
     }
+
+    public StoreResponse.OrderListDTO getOrderListByDate(int storeId, LocalDate startDate, LocalDate endDate) {
+        LocalDateTime startDateTime = startDate.atStartOfDay();
+        LocalDateTime endDateTime = endDate.atTime(23, 59, 59);
+        List<Order> orderList = orderRepository.findAllByStoreIdAndCreatedAtBetween(storeId, startDateTime, endDateTime);
+
+        System.out.println("여긴 서비스야.");
+        System.out.println(startDateTime);
+        System.out.println(endDateTime);
+//        System.out.println(orderList);
+        orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.PENDING)).toList().forEach(orderList::remove);
+        orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.PREPARING)).toList().forEach(orderList::remove);
+        orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.PREPARED)).toList().forEach(orderList::remove);
+
+        // 이넘 -> 한글
+        orderList.forEach(order -> {
+            OrderStatus status = order.getStatus();
+        });
+
+        return new StoreResponse.OrderListDTO(orderList);
+    }
+
 }

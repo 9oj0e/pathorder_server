@@ -81,7 +81,7 @@ class StoreServiceTest {
         // given
         int sessionId = 1;
         StoreRequest.UpdateDTO reqDTO = new StoreRequest.UpdateDTO();
-        reqDTO.setUsername("1234");
+        reqDTO.setPassword("1234");
         // when
         // 변경 전 확인
         // Store store = storeRepository.findById(sessionId).get();
@@ -150,7 +150,7 @@ class StoreServiceTest {
         menuOptionList.add(option1);
         menuOptionList.add(option2);
         menuOptionList.add(option3);
-        reqDTO.setMenuOptionList(menuOptionList);
+        reqDTO.getMenuOptions();
         // when
         StoreResponse.UpdateMenuDTO respDTO = storeService.updateMenu(menuId, reqDTO);
         Menu menu = menuRepository.findById(menuId)
@@ -225,11 +225,11 @@ class StoreServiceTest {
         // given
         int orderId = 1;
         StoreRequest.UpdateOrderDTO reqDTO = new StoreRequest.UpdateOrderDTO();
-        reqDTO.setStatus(OrderStatus.조리완료); // 조리완료 -> 수령완료로 바뀜
+        reqDTO.setStatus(OrderStatus.PREPARED); // 조리완료 -> 수령완료로 바뀜
         // when
         StoreResponse.UpdateOrderDTO respDTO = storeService.updateOrder(orderId, reqDTO);
         // then
-        Assertions.assertThat(respDTO.getStatus()).isEqualTo(OrderStatus.수령완료);
+        Assertions.assertThat(respDTO.getStatus()).isEqualTo(OrderStatus.SERVED);
     }
 
     @Test // 매장 관리자 - 주문내역 목록보기

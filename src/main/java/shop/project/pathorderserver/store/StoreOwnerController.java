@@ -2,12 +2,14 @@ package shop.project.pathorderserver.store;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import shop.project.pathorderserver._core.utils.ApiUtil;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 
 @RequiredArgsConstructor
@@ -101,19 +103,22 @@ public class StoreOwnerController {
     private String orderList(@PathVariable int storeId, Model model) {
         // TODO: 권한 처리
         StoreResponse.OrderListDTO respDTO = storeService.getOrderList(storeId);
-        model.addAttribute("orderList", respDTO.getOrderList());
-
+        model.addAttribute("orders", respDTO.getOrderList());
+        model.addAttribute("storeId", storeId);
         return "order-list";
     }
 
     @GetMapping("/stores/{storeId}/orders/history/date") // 매장 관리자 - 주문내역 날짜로 조회
-    public String orderListSortByDate(@PathVariable int storeId, @RequestParam("date") String date, Model model) {
+    public ResponseEntity<?> orderListSortByDate(@PathVariable int storeId,
+                                      @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+                                      @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate, Model model) {
         // TODO: 권한 처리
         // TODO: 날짜로 검색하는 기능 구현
-        // StoreResponse.OrderListDTO respDTO = orderService.getOrderListByDate(storeId, date);
-        // model.addAttribute("orders", respDTO);
+        StoreResponse.OrderListDTO respDTO = storeService.getOrderListByDate(storeId, startDate, endDate);
+        model.addAttribute("orders", respDTO.getOrderList());
+        System.out.println("뭘 시켰나 함 보자"+respDTO);
 
-        return "order-list";
+        return ResponseEntity.ok().body(respDTO);
     }
 
     /*------------------------------------------------------------------------------------- 메뉴 ----------------------*/
