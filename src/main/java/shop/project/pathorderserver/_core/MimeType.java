@@ -22,6 +22,6 @@ public enum MimeType {
                 return type;
             }
         }
-        return JPEG; // 기본값
+        return null;
     }
 }

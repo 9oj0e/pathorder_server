@@ -239,12 +239,7 @@ $(document).on("submit", "#menuEditForm", async function (event) {
     event.preventDefault();
     let formData = new FormData(this);
     let imgFile = formData.get("imgFile")
-    let base64;
-    if (imgFile !== undefined) {
-        base64 = await convertBase64(imgFile);
-    } else {
-        base64 = null;
-    }
+    let base64 = await convertBase64(imgFile);
     let menuOptions = [];
     for (let i = 0; i < formData.getAll("optionName").length; i++) {
         let option = {

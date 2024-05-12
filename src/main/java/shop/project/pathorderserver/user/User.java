@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
+import shop.project.pathorderserver._core.DefaultFile;
+import shop.project.pathorderserver._core.utils.FileUtil;
 
 import java.sql.Timestamp;
 
@@ -45,19 +47,25 @@ public class User {
     }
 
     public void update(UserRequest.UpdateDTO reqDTO) {
-        /*
-        this.nickname = reqDTO.getNickname();
-        this.tel = reqDTO.getTel();
-        this.email = reqDTO.getEmail();
-        */
         if (!reqDTO.getNickname().isBlank()) {
-            setNickname(reqDTO.getNickname());
+            this.nickname = reqDTO.getNickname();
         }
         if (!reqDTO.getTel().isBlank()) {
-            setTel(reqDTO.getTel());
+            this.tel = reqDTO.getTel();
         }
         if (!reqDTO.getEmail().isBlank()) {
-            setEmail(reqDTO.getEmail());
+            this.email = reqDTO.getEmail();
+        }
+    }
+
+    public void setImgFilename(String encodedFile) {
+        FileUtil.deleteFile(this.imgFilename);
+        boolean hasNoImg = encodedFile == null || encodedFile.isEmpty();
+        if (!hasNoImg) {
+            this.imgFilename = FileUtil.uploadBase64Jpg(encodedFile, this.name);
+            // this.imgFilename = FileUtil.base64Upload(encodedFile, this.name);
+        } else {
+            this.imgFilename = DefaultFile.AVATAR.getPath();
         }
     }
 }

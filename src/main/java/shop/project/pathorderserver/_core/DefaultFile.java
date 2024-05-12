@@ -13,4 +13,12 @@ public enum DefaultFile {
     DefaultFile(String path) {
         this.path = path;
     }
+    public static boolean contains(String path) {
+        for (DefaultFile defaultFile : values()) {
+            if (defaultFile.getPath().equals(path)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
