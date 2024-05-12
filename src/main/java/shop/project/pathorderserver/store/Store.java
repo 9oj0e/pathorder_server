@@ -91,4 +91,29 @@ public class Store {
             this.imgFilename = DefaultFile.STORE.getPath();
         }
     }
+
+    @Override
+    public String toString() {
+        return "Store{" +
+               "id=" + id +
+               ", username='" + username + '\'' +
+               ", password='" + password + '\'' +
+               ", status=" + status +
+               ", ownerName='" + ownerName + '\'' +
+               ", ownerTel='" + ownerTel + '\'' +
+               ", ownerEmail='" + ownerEmail + '\'' +
+               ", bizNum='" + bizNum + '\'' +
+               ", name='" + name + '\'' +
+               ", tel='" + tel + '\'' +
+               ", intro='" + intro + '\'' +
+               ", imgFilename='" + imgFilename + '\'' +
+               ", openingTime='" + openingTime + '\'' +
+               ", closingTime='" + closingTime + '\'' +
+               ", closedDay='" + closedDay + '\'' +
+               ", address='" + address + '\'' +
+               ", latitude=" + latitude +
+               ", longitude=" + longitude +
+               ", registeredAt=" + registeredAt +
+               '}';
+    }
 }

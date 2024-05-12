@@ -58,4 +58,29 @@ public class Order {
             this.totalPrice += orderMenu.getTotalPrice();
         }
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Order{")
+                .append("id=").append(id)
+                .append(", createdAt=").append(createdAt)
+                .append(", customerNickname='").append(customerNickname).append('\'')
+                .append(", request='").append(request).append('\'')
+                .append(", storeName='").append(storeName).append('\'')
+                .append(", totalPrice=").append(totalPrice)
+                .append(", status=").append(status);
+
+        if (orderMenus != null && !orderMenus.isEmpty()) {
+            stringBuilder.append(", orderMenus=[");
+            for (OrderMenu orderMenu : orderMenus) {
+                stringBuilder.append(orderMenu.toStringWithoutOrder()).append(", ");
+            }
+            stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
+            stringBuilder.append("]");
+        }
+
+        stringBuilder.append("}");
+        return stringBuilder.toString();
+    }
 }

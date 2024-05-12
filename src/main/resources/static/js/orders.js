@@ -105,7 +105,6 @@ $('button[data-order-id]').click(function () {
         </div>
     </div>
 </div>`;
-            console.log(data);
             $('#orderDetailModal .modal-body').html(htmlContent);
             $('#orderDetailModal').modal('show');
         },

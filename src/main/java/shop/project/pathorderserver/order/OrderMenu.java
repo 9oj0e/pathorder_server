@@ -49,4 +49,24 @@ public class OrderMenu {
         }
         this.totalPrice = (price + optionTotalPrice) * qty;
     }
+
+    public String toStringWithoutOrder() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("OrderMenu{")
+                .append("name='").append(name).append('\'')
+                .append(", price=").append(price)
+                .append(", qty=").append(qty);
+
+        if (orderMenuOptions != null && !orderMenuOptions.isEmpty()) {
+            stringBuilder.append(", orderMenuOptions=[");
+            for (OrderMenuOption orderMenuOption : orderMenuOptions) {
+                stringBuilder.append(orderMenuOption.toStringWithoutOrderMenu()).append(", ");
+            }
+            stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
+            stringBuilder.append("]");
+        }
+
+        stringBuilder.append("}");
+        return stringBuilder.toString();
+    }
 }

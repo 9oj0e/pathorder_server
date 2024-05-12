@@ -442,7 +442,10 @@ public class StoreResponse {
             }
 
             public String getCreatedAt() {
-                return FormatUtil.timeFormatter(createdAt);
+                LocalDateTime localDateTime = createdAt.toLocalDateTime();
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd. HH:mm");
+                return localDateTime.format(formatter);
             }
 
             public String getOrderMenus() {
@@ -565,4 +568,15 @@ public class StoreResponse {
             }
         }
     }
+
+//    @Data
+//    public static class PendingOrderCountDTO {
+//        private int storeId;
+//        private OrderStatus status;
+//
+//        public PendingOrderCountDTO(Order order) {
+//            this.storeId = order.getStore().getId();
+//            this.status = order.getStatus();
+//        }
+//    }
 }

@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,4 +25,21 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             """)
         // 주문보기 (점주)
     Optional<List<Order>> findAllByStoreIdWithOrderMenu(int storeId);
+
+    //    @Query("""
+//            SELECT o
+//            FROM Order o
+//            join fetch o.store s
+//            where o.createdAt = :date and s.id = :storeId
+//            """)
+
+    @Query("""
+            SELECT DISTINCT o
+            FROM Order o
+            JOIN FETCH o.store s
+            LEFT JOIN FETCH o.orderMenus om
+            WHERE s.id = :storeId
+            AND o.createdAt BETWEEN :startDate AND :endDate
+            """)
+    List<Order> findAllByStoreIdAndCreatedAtBetween(int storeId, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 }

@@ -1,6 +1,8 @@
 package shop.project.pathorderserver.store;
 
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Or;
+import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.project.pathorderserver._core.errors.exception.Exception401;
@@ -12,6 +14,8 @@ import shop.project.pathorderserver.menu.MenuOptionRepository;
 import shop.project.pathorderserver.menu.MenuRepository;
 import shop.project.pathorderserver.order.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -228,11 +232,49 @@ public class StoreService {
                 preparedOrderList.add(ordersDTO);
             }
         }
+
+        int pendingOrderCount = pendingOrderList.size();
+
         HashMap<String, Object> orderListSortedByStatus = new HashMap<>();
         orderListSortedByStatus.put("pendingOrderList", pendingOrderList);
         orderListSortedByStatus.put("preparingOrderList", preparingOrderList);
         orderListSortedByStatus.put("preparedOrderList", preparedOrderList);
 
+        // 접수하지 않은 주문 카운트(주문탭 옆의 숫자)
+        orderListSortedByStatus.put("pendingOrderCount", pendingOrderCount);
+
         return orderListSortedByStatus;
+    }
+
+    public StoreResponse.OrderListDTO getOrderListByDate(int storeId, LocalDate startDate, LocalDate endDate) {
+        LocalDateTime startDateTime = startDate.atStartOfDay();
+        LocalDateTime endDateTime = endDate.atTime(23, 59, 59);
+        List<Order> orderList = orderRepository.findAllByStoreIdAndCreatedAtBetween(storeId, startDateTime, endDateTime);
+
+        orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.PENDING)).toList().forEach(orderList::remove);
+        orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.PREPARING)).toList().forEach(orderList::remove);
+        orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.PREPARED)).toList().forEach(orderList::remove);
+        orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.CONFIRMED)).toList().forEach(orderList::remove);
+
+        // 이넘 -> 한글
+        orderList.forEach(order -> {
+            OrderStatus status = order.getStatus();
+        });
+
+        return new StoreResponse.OrderListDTO(orderList);
+    }
+
+    public int getPendingOrderCount(int storeId) {
+        List<Order> orders = orderRepository.findAllByStoreId(storeId)
+                .orElseThrow(() -> new Exception404("찾을 수 없는 주문입니다."));
+
+        int pendingOrderCount = 0;
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i).getStatus() == OrderStatus.PENDING) {
+                pendingOrderCount++;
+            }
+        }
+
+        return pendingOrderCount;
     }
 }
