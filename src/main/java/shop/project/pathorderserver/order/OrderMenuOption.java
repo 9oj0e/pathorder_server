@@ -35,4 +35,11 @@ public class OrderMenuOption {
         this.name = reqDTO.getName();
         this.price = reqDTO.getPrice();
     }
+
+    public String toStringWithoutOrderMenu() {
+        return "OrderMenuOption{" +
+               "price=" + price +
+               ", name='" + name + '\'' +
+               '}';
+    }
 }

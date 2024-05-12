@@ -1,10 +1,14 @@
 package shop.project.pathorderserver.order;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import shop.project.pathorderserver._core.errors.exception.Exception404;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,7 +52,22 @@ class OrderRepositoryTest {
         // then
 //        System.out.println("findOrdersByStoreId_test: " + orderListOP);
         assertThat(orderList.getFirst().getStore().getUsername()).isEqualTo("david1234");
-        assertThat(orderList.getFirst().getStatus()).isEqualTo(OrderStatus.조리중);
+        assertThat(orderList.getFirst().getStatus()).isEqualTo(OrderStatus.PREPARING);
 
+    }
+
+    @Test
+    public void findAllByStoreIdAndCreatedAtBetween_test() {
+        //given
+        int storeId = 1;
+        LocalDate startDate = LocalDate.of(2024, 4, 21);
+        LocalDate endDate = LocalDate.of(2024, 4, 28);
+
+        // when
+        List<Order> orderList = orderRepository.findAllByStoreIdAndCreatedAtBetween(storeId, startDate.atStartOfDay(), endDate.atTime(23, 59, 59));
+        // then
+        Assertions.assertThat(orderList.getFirst().getOrderMenus().getFirst().getName()).isEqualTo("아메리카노");
+        Assertions.assertThat(orderList.getFirst().getCustomerNickname()).isEqualTo("윤정");
+        System.out.println("findAllByStoreIdAndCreatedAtBetween_test: " + orderList);
     }
 }

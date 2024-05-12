@@ -8,73 +8,57 @@
 <div id="layoutSidenav" style="display: flex">
     {{>layout/sidebar}}
     <main style="padding: 50px; background-color: rgb(5, 5, 43); width: 100%; min-height: 1000px;">
-        <div class="container-fluid">
-            <!-- 상단 부분: 버튼들과 캘린더 -->
-            <div class="search-orders" id="searchOrdersForm">
-                <div class="top-container" style="color: white;">
-                    <div>
-                        <button class="2daysAgo">그제</button>
-                        <button class="1daysAgo">어제</button>
-                        <button class="today">오늘</button>
+        <form action="/stores/{{storeId}}/orders/history/date">
+            <div class="container-fluid">
+                <!-- 상단 부분: 버튼들과 캘린더 -->
+                <div class="search-orders" id="searchOrdersForm">
+                    <div class="top-container" style="color: white;">
+                        <div>
+                            <button class="towDaysAgo">그제</button>
+                            <button class="yesterday">어제</button>
+                            <button class="today">오늘</button>
+                        </div>
+                        <div>
+                            <input type="date" id="startDate" name="startDate">
+                            <input type="date" id="endDate" name="endDate">
+                            <button type="submit" id="searchOrders" data-store-id="{{storeId}}">조회</button>
+                            <!--                        TODO: 날짜별로 조회-->
+                        </div>
                     </div>
-                    <div>
-                        <input type="date" id="startDate" name="startDate">
-                        <input type="date" id="endDate" name="endDate">
-                        <button type="submit" onclick="searchOrders()">조회</button>
-                        <!--                        TODO: 날짜별로 조회-->
+                    <!-- 현재 날짜 표시 -->
+                    <div class="top-description d-flex" style="color: white; font-size: 20px;">
+                        <div class="dateRangeStart">
+                            <span class="year" id="startYear">year</span>
+                            <span class="month" id="startMonth">month</span>
+                            <span class="day" id="startDay">day</span>
+                        </div>
+                        <div>&nbsp;~&nbsp;</div>
+                        <div class="dateRangeEnd">
+                            <span class="year" id="endYear">year</span>
+                            <span class="month" id="endMonth">month</span>
+                            <span class="day" id="endDay">day</span>
+                        </div>
+                        <div>&nbsp;주문내역</div>
                     </div>
                 </div>
-                <!-- 현재 날짜 표시 -->
-                <div class="top-description d-flex" style="color: white; font-size: 20px;">
-                    <div class="dateRangeStart">
-                        <span class="year" id="startYear">year</span>
-                        <span class="month" id="startMonth">month</span>
-                        <span class="day" id="startDay">day</span>
-                    </div>
-                    <div>&nbsp;~&nbsp;</div>
-                    <div class="dateRangeEnd">
-                        <span class="year" id="endYear">year</span>
-                        <span class="month" id="endMonth">month</span>
-                        <span class="day" id="endDay">day</span>
-                    </div>
-                    <div>&nbsp;주문내역</div>
-                </div>
-            </div>
 
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>주문번호</th>
-                    <th>주문상태</th>
-                    <th>주문시간</th>
-                    <th>결제금액</th>
-                    <th>닉네임</th>
-                    <th>주문내역</th>
-                </tr>
-                </thead>
-                <tbody>
-                <!-- 주문 내역이 있을 경우에만 데이터를 표시 -->
-                {{#orderList}}
-                    <tr class="order-row" onclick="openModal('{{orderId}}')">
-                        <td>주문번호</td>
-                        <!--                        TODO: 매장마다의 주문번호를 어떻게?-->
-                        <td>{{status.value}}</td>
-                        <td>{{createdAt}}</td>
-                        <td>{{totalPrice}}</td>
-                        <td>{{customerNickname}}</td>
-                        <td>
-                            {{orderMenus}}
-                        </td>
-                    </tr>
-                {{/orderList}}
-                {{^orderList}}
+                <table class="table">
+                    <thead>
                     <tr>
-                        <td colspan="7">주문 내역이 없습니다.</td>
+                        <th>주문번호</th>
+                        <th>주문상태</th>
+                        <th>주문시간</th>
+                        <th>결제금액</th>
+                        <th>닉네임</th>
+                        <th>주문내역</th>
                     </tr>
-                {{/orderList}}
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody id="orderHistories">
+
+                    </tbody>
+                </table>
+            </div>
+        </form>
     </main>
 </div>
 <script src="/js/orderList.js"></script>
