@@ -73,15 +73,6 @@ public class StoreOwnerController {
 
     /*------------------------------------------------------------------------------------- 메인 페이지 -----------------*/
 
-//    @ResponseBody
-//    @GetMapping("/stores/{sessionStoreId}")
-//    public ResponseEntity<?> getSessionStoreId(@PathVariable int sessionStoreId) {
-//        SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
-//        sessionStoreId = sessionStore.getId();
-//
-//        return ResponseEntity.ok(new ApiUtil<>(sessionStoreId));
-//    }
-
     @ResponseBody
     @GetMapping("/stores/{sessionStoreId}/pending-order-count")
     public ResponseEntity<?> getPendingOrderCount(@PathVariable int sessionStoreId) {

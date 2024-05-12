@@ -281,6 +281,7 @@ public class StoreService {
         orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.PENDING)).toList().forEach(orderList::remove);
         orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.PREPARING)).toList().forEach(orderList::remove);
         orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.PREPARED)).toList().forEach(orderList::remove);
+        orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.CONFIRMED)).toList().forEach(orderList::remove);
 
         // 이넘 -> 한글
         orderList.forEach(order -> {
