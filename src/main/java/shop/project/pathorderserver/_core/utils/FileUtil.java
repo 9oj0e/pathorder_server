@@ -13,7 +13,6 @@ import java.util.Base64;
 import java.util.UUID;
 
 public class FileUtil {
-
     public static String uploadFile(MultipartFile file) {
         // UUID_파일 이름.확장자
         try {
@@ -31,8 +30,12 @@ public class FileUtil {
         // UUID_파일 이름.확장자
         try {
             String mimeType = encodedData.substring(encodedData.indexOf(":") + 1, encodedData.indexOf(";"));
+            System.out.println(mimeType);
             MimeType type = MimeType.findByMimeType(mimeType);
-            if (type == null) { // 미확인 확장자 -> null return.
+            if (type == MimeType.NULL) { // Web null 처리 로직 TODO: 삭제 로직 분리하기
+                return "default";
+            }
+            if (type == null) { // 미확인 확장자 처리 TODO: 사진 유지 로직 추가하기
                 return null;
             }
             String extension = type.getExtension();

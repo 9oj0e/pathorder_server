@@ -59,7 +59,7 @@ public class Store {
         this.name = reqDTO.getName();
         this.tel = reqDTO.getTel();
         this.intro = reqDTO.getIntro();
-        setImgFilename(reqDTO.getEncodedFile());
+        // setImgFilename(reqDTO.getEncodedFile()); TODO: 이미지 업로드
         this.openingTime = reqDTO.getOpeningTime();
         this.closingTime = reqDTO.getClosingTime();
         this.closedDay = reqDTO.getClosedDay();
@@ -75,7 +75,7 @@ public class Store {
         setName(reqDTO.getName());
         setTel(reqDTO.getTel());
         setIntro(reqDTO.getIntro());
-        setImgFilename(reqDTO.getEncodedFile());
+        // setImgFilename(reqDTO.getEncodedFile()); TODO: 이미지 업로드
         setOpeningTime(reqDTO.getOpeningTime());
         setClosingTime(reqDTO.getClosingTime());
         setClosedDay(reqDTO.getClosedDay());
@@ -83,12 +83,12 @@ public class Store {
     }
 
     private void setImgFilename(String encodedFile) {
-        boolean hasNoImg = encodedFile == null || encodedFile.isEmpty();
         FileUtil.deleteFile(this.imgFilename);
-        if (!hasNoImg) {
-            this.imgFilename = FileUtil.uploadBase64(encodedFile, this.ownerName);
-        } else {
+        String imgFilename = FileUtil.uploadBase64(encodedFile, this.name);
+        if (imgFilename.equals("default")) { // TODO: 삭제 로직 분리하기, 사진 유지 추가
             this.imgFilename = DefaultFile.STORE.getPath();
+        } else {
+            this.imgFilename = imgFilename;
         }
     }
 

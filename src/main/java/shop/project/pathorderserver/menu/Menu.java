@@ -62,7 +62,7 @@ public class Menu {
     private void setImgFilename(String encodedFile) {
         FileUtil.deleteFile(this.getImgFilename());
         String imgFilename = FileUtil.uploadBase64(encodedFile, this.name);
-        if (imgFilename == null) {
+        if (imgFilename.equals("default")) { // TODO: 삭제 로직 분리하기, 사진 유지 추가
             this.imgFilename = DefaultFile.BEVERAGE.getPath();
         } else {
             this.imgFilename = imgFilename;

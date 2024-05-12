@@ -75,8 +75,8 @@ public class StoreOwnerController {
     @ResponseBody
     @GetMapping("/stores/{sessionStoreId}/pending-order-count")
     public ResponseEntity<?> getPendingOrderCount(@PathVariable int sessionStoreId) {
-
         int pendingOrderCount = storeService.getPendingOrderCount(sessionStoreId);
+
         return ResponseEntity.ok(new ApiUtil<>(pendingOrderCount));
     }
 
@@ -90,16 +90,15 @@ public class StoreOwnerController {
 
     @PostMapping("/stores/{storeId}/orders/{orderId}/update") // 매장 관리자 - 주문 상태 업데이트(주문 접수하기 -> 조리완료)
     private String updateOrder(@PathVariable int storeId, @PathVariable int orderId, StoreRequest.UpdateOrderDTO reqDTO) {
-        // TODO: 권한 처리
+        SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore") ;
         storeService.updateOrder(orderId, reqDTO); // 가게 아이디로 order를 찾아 reqDTO를 넣어 update.
 
-        return "redirect:/stores/" + storeId + "/orders"; // TODO: ajax 가능?
+        return "redirect:/stores/" + sessionStore.getId() + "/orders"; // TODO: ajax 가능?
     }
 
     @ResponseBody
     @GetMapping("/stores/{storeId}/orders/{orderId}") // 매장 관리자 - 주문내역 상세보기 (modal)
     private ResponseEntity<?> orderDetail(@PathVariable int storeId, @PathVariable int orderId) {
-        // TODO: 권한 처리
         StoreResponse.OrderDetailDTO respDTO = storeService.getOrderDetail(orderId);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
@@ -109,10 +108,10 @@ public class StoreOwnerController {
 
     @GetMapping("/stores/{storeId}/orders/history") // 매장 관리자 - 주문내역 목록보기
     private String orderList(@PathVariable int storeId, Model model) {
-        // TODO: 권한 처리
         StoreResponse.OrderListDTO respDTO = storeService.getOrderList(storeId);
         model.addAttribute("orders", respDTO.getOrderList());
         model.addAttribute("storeId", storeId);
+
         return "order-list";
     }
 
@@ -151,9 +150,10 @@ public class StoreOwnerController {
     @PostMapping("/stores/{storeId}/menus") // 매장 관리자 - 메뉴 등록하기
     private String addMenu(@PathVariable int storeId, StoreRequest.CreateMenuDTO reqDTO) {
         // TODO: 유효성 검사 (금액)
-        StoreResponse.CreateMenuDTO respDTO = storeService.createMenu(storeId, reqDTO);
+        SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
+        StoreResponse.CreateMenuDTO respDTO = storeService.createMenu(sessionStore.getId(), reqDTO);
 
-        return "redirect:/stores/" + storeId + "/menus";
+        return "redirect:/stores/" + sessionStore.getId() + "/menus";
     }
 
     @ResponseBody
@@ -169,7 +169,6 @@ public class StoreOwnerController {
     @GetMapping("/stores/{storeId}") // 매장 관리자 - 매장 정보 보기
     public String detail(@PathVariable int storeId, Model model) {
         StoreResponse.StoreDTO respDTO = storeService.getStoreDetail(storeId);
-        System.out.println("⭐⭐⭐⭐⭐⭐⭐⭐⭐" + respDTO);
         model.addAttribute("storeDetail", respDTO);
 
         return "store";
@@ -177,20 +176,19 @@ public class StoreOwnerController {
 
     @GetMapping("/stores/{storeId}/update-form") // 매장 관리자 - 매장 정보 업데이트 폼
     public String updateForm(@PathVariable int storeId, Model model) {
-        // SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
-        StoreResponse.StoreDTO respDTO = storeService.getStoreDetail(storeId);
+        SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
+        StoreResponse.StoreDTO respDTO = storeService.getStoreDetail(sessionStore.getId());
         model.addAttribute("storeDetail", respDTO);
 
         return "store-update-form";
     }
 
-    @PostMapping("/stores/{sessionStoreId}") // 매장 관리자 - 매장 정보 수정
-    public String update(@PathVariable int sessionStoreId, StoreRequest.UpdateDTO reqDTO) {
+    @PostMapping("/stores/{storeId}") // 매장 관리자 - 매장 정보 수정
+    public String update(@PathVariable int storeId, StoreRequest.UpdateDTO reqDTO) {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         SessionStore newSessionStore = storeService.updateStore(sessionStore.getId(), reqDTO);
-
         session.setAttribute("sessionStore", newSessionStore);
 
-        return "redirect:/stores/" + sessionStoreId;
+        return "redirect:/stores/" + sessionStore.getId();
     }
 }

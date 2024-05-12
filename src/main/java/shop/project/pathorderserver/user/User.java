@@ -60,12 +60,12 @@ public class User {
 
     public void setImgFilename(String encodedFile) {
         FileUtil.deleteFile(this.imgFilename);
-        boolean hasNoImg = encodedFile == null || encodedFile.isEmpty();
-        if (!hasNoImg) {
-            this.imgFilename = FileUtil.uploadBase64Jpg(encodedFile, this.name);
-            // this.imgFilename = FileUtil.base64Upload(encodedFile, this.name);
-        } else {
+        String imgFilename = FileUtil.uploadBase64Jpg(encodedFile, this.name);
+        // String imgFilename = FileUtil.uploadBase64(encodedFile, this.name); // 이외 확장자 처리 메서드
+        if (imgFilename.equals("default")) { // TODO: 삭제 로직 분리하기, 사진 유지 추가
             this.imgFilename = DefaultFile.AVATAR.getPath();
+        } else {
+            this.imgFilename = imgFilename;
         }
     }
 }
