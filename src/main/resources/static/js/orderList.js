@@ -70,7 +70,6 @@ document.querySelector("#searchOrders").addEventListener("click", function (even
         })
         .then(data => {
             renderOrderHistories(data);
-            console.log(data);
         })
         .catch(error => {
             console.error('오류 발생:', error);

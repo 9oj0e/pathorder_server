@@ -60,8 +60,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
         fetch(`/stores/${sessionStoreId}/pending-order-count`)
             .then(response => response.json())
             .then(data => {
-                console.log("댄이야");
-                console.log(data);
                 const pendingOrderCountElement = document.getElementById('pendingOrderCount');
 
                 if (data.body === 0) {
