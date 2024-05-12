@@ -12,9 +12,9 @@ import java.util.UUID;
 
 public class FileUtil {
 
-    public static String fileUpload(MultipartFile file, int id) {
-        // UUID_1_파일 이름.확장자 (id = storeId / userId)
-        String newFilename = UUID.randomUUID() + "_" + id + "_" + file.getOriginalFilename();
+    public static String fileUpload(MultipartFile file) {
+        // UUID_파일 이름.확장자
+        String newFilename = UUID.randomUUID()  + "_" + file.getOriginalFilename();
         Path newFilePath = Paths.get("./upload/" + newFilename);
         try {
             // boolean isEmpty = file == null || file.isEmpty();
@@ -25,9 +25,9 @@ public class FileUtil {
         return newFilename; // 생성된 파일 이름 return
     }
 
-    public static String base64Upload(String encodedData, String name, String extension) {
-        // UUID_파일 이름.확장자 (파일 이름 = 사용자 이름)
-        String newFilename = UUID.randomUUID() + "_" + name + "." + extension;
+    public static String base64Upload(String encodedData, String filename, String extension) {
+        // UUID_파일 이름.확장자
+        String newFilename = UUID.randomUUID() + "_" + filename + "." + extension;
         Path newFilePath = Paths.get("./upload/" + newFilename);
         try {
             byte[] decodedByte = Base64.getDecoder().decode(encodedData);

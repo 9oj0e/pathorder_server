@@ -49,7 +49,7 @@ public class Menu {
 
         boolean hasNoImg = reqDTO.getImgFile() == null || reqDTO.getImgFile().isEmpty();
         if (!hasNoImg) {
-            this.imgFilename = FileUtil.fileUpload(reqDTO.getImgFile(), store.getId());
+            this.imgFilename = FileUtil.fileUpload(reqDTO.getImgFile());
         }
     }
 
@@ -58,10 +58,10 @@ public class Menu {
         setCategory(reqDTO.getCategory());
         setName(reqDTO.getName());
 
-        boolean hasNoImg = reqDTO.getImgFile() == null || reqDTO.getImgFile().isEmpty();
+        boolean hasNoImg = reqDTO.getEncodedFile() == null || reqDTO.getEncodedFile().isEmpty();
         if (!hasNoImg) {
             setImgFilename(
-                    FileUtil.fileUpload(reqDTO.getImgFile(), this.store.getId())
+                    FileUtil.base64Upload(reqDTO.getEncodedFile(), reqDTO.getName(), "jpg")
             );
         }
         setDescription(reqDTO.getDescription());
