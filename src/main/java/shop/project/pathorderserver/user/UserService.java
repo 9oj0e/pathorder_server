@@ -80,7 +80,7 @@ public class UserService {
         User user = userRepository.findById(sessionUserId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 유저입니다."));
         // 기본 파일 이름 설정 TODO: 파일 변경 시, 삭제 후, 기본 이미지로 변경하는 로직 추가하기
-        String newImgFilename = FileUtil.base64Upload(reqDTO.getEncodedImg(), reqDTO.getUsername(), "jpg");
+        String newImgFilename = FileUtil.base64Upload(reqDTO.getEncodedImg(), reqDTO.getUsername());
         user.setImgFilename(newImgFilename);
 
         return new UserResponse.ImgDTO(newImgFilename);

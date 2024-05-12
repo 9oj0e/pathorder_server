@@ -333,7 +333,7 @@ public class StoreResponse {
         private int price; // 메뉴 하나의 가격
         private String category; // 각 메뉴가 포함되는 카테고리, 점주가 직접 작성
         private String name; // 메뉴 이름
-        private String imgFilename;
+        private String imgFilePath;
         private String description; // 메뉴 설명
         private List<MenuOptionDTO> menuOptionList = new ArrayList<>();
 
@@ -343,13 +343,14 @@ public class StoreResponse {
             this.price = menu.getPrice();
             this.category = menu.getCategory();
             this.name = menu.getName();
-            this.imgFilename = menu.getImgFilename();
+            this.imgFilePath = FileUtil.getFilePath(menu.getImgFilename());
             this.description = menu.getDescription();
             // this.menuOptionList = menuOptions.stream().map(MenuOptionDTO::new).toList();
             for (MenuOption menuOption : menuOptions) {
                 this.menuOptionList.add(new MenuOptionDTO(menuOption));
             }
         }
+
         @Data
         public static class MenuOptionDTO {
             private int price;
@@ -363,6 +364,7 @@ public class StoreResponse {
             }
         }
     }
+
     /*
     @Data // 매장 관리자 - 매장 메뉴 옵션 등록
     public static class CreateMenuOptionDTO {
@@ -461,7 +463,7 @@ public class StoreResponse {
         private String customerTel;
         // 주문 정보
         private Timestamp createdAt;
-//        private OrderStatus status;
+        //        private OrderStatus status;
         private String status;
         private List<OrderMenuDTO> orderMenuList;
         private int totalPrice;

@@ -122,15 +122,6 @@ public class StoreOwnerController {
     private String menuList(@PathVariable int storeId, Model model) {
         StoreResponse.MenuListDTO respDTO = storeService.getMenuList(storeId);
         model.addAttribute("menuList", respDTO.getMenuList());
-//
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        String jsonMenuList = null;
-//        try {
-//            jsonMenuList = objectMapper.writeValueAsString(respDTO);
-//        } catch (JsonProcessingException e) {
-//            throw new RuntimeException(e);
-//        }
-//        model.addAttribute("jsonMenuList", jsonMenuList);
 
         return "menus";
     }
@@ -155,43 +146,12 @@ public class StoreOwnerController {
 
     @ResponseBody
     @PutMapping("/stores/{storeId}/menus/{menuId}") // 매장 관리자 - 메뉴 수정하기
-    private ResponseEntity<?> updateMenu(@PathVariable int storeId, @PathVariable int menuId, @RequestBody StoreRequest.UpdateMenuDTO reqDTO, Model model) {
+    private ResponseEntity<?> updateMenu(@PathVariable int storeId, @PathVariable int menuId, @RequestBody StoreRequest.UpdateMenuDTO reqDTO) {
         StoreResponse.UpdateMenuDTO respDTO = storeService.updateMenu(menuId, reqDTO);
-        // TODO: 기존 옵션 삭제 -> 옵션 등록
-        model.addAttribute("menu", respDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    /*
-    @DeleteMapping("/stores/{storeId}/menus/{menuId}") // 매장 관리자 - 메뉴 삭제하기
-    private String deleteMenu(@PathVariable int storeId, @PathVariable int menuId) {
-        storeService.deleteMenu(menuId);
-
-        return "";
-    }
-
-    @PostMapping("/stores/{storeId}/menus/{menuId}/options") // 매장 관리자 - 메뉴 옵션 등록하기
-    private String addMenuOption(@PathVariable int storeId, @PathVariable int menuId, StoreRequest.CreateMenuOptionDTO reqDTO) {
-        StoreResponse.CreateMenuOptionDTO respDTO = storeService.createMenuOption(menuId, reqDTO);
-
-        return "";
-    }
-
-    @PutMapping("/stores/{storeId}/menus/{menuId}/options/{optionId}") // 매장 관리자 - 메뉴 옵션 수정하기
-    private String updateMenuOption(@PathVariable int storeId, @PathVariable int menuId, @PathVariable int optionId, StoreRequest.UpdateMenuOptionDTO reqDTO) {
-        StoreResponse.UpdateMenuOptionDTO respDTO = storeService.updateMenuOption(optionId, reqDTO);
-
-        return "";
-    }
-
-    @DeleteMapping("/stores/{storeId}/menus/{menuId}/options/{optionId}") // 매장 관리자 - 메뉴 옵션 삭제하기
-    private String deleteMenuOption(@PathVariable int storeId, @PathVariable int menuId, @PathVariable int optionId) {
-        storeService.deleteMenuOption(optionId);
-
-        return "";
-    }
-    */
     /*------------------------------------------------------------------------------------- 매장 정보 ------------------*/
 
     @GetMapping("/stores/{storeId}") // 매장 관리자 - 매장 정보 보기

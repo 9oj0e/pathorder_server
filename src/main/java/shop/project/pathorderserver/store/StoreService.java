@@ -1,13 +1,11 @@
 package shop.project.pathorderserver.store;
 
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.project.pathorderserver._core.errors.exception.Exception401;
 import shop.project.pathorderserver._core.errors.exception.Exception403;
 import shop.project.pathorderserver._core.errors.exception.Exception404;
-import shop.project.pathorderserver._core.utils.FileUtil;
 import shop.project.pathorderserver.menu.Menu;
 import shop.project.pathorderserver.menu.MenuOption;
 import shop.project.pathorderserver.menu.MenuOptionRepository;
@@ -161,31 +159,6 @@ public class StoreService {
         menuRepository.deleteById(menuId);
     }
 
-    /*
-    @Transactional // 매장 관리자 - 메뉴 옵션 등록하기
-    public StoreResponse.CreateMenuOptionDTO createMenuOption(int menuId, StoreRequest.CreateMenuOptionDTO reqDTO) {
-        Menu menu = menuRepository.findById(menuId)
-                .orElseThrow(() -> new Exception404("찾을 수 없는 메뉴입니다."));
-        MenuOption menuOption = new MenuOption(reqDTO, menu);
-        menuOptionRepository.save(menuOption);
-
-        return new StoreResponse.CreateMenuOptionDTO(menuId, menuOption);
-    }
-
-    @Transactional // 매장 관리자 - 메뉴 옵션 수정하기
-    public StoreResponse.UpdateMenuOptionDTO updateMenuOption(int menuOptionId, StoreRequest.UpdateMenuOptionDTO reqDTO) {
-        MenuOption menuOption = menuOptionRepository.findById(menuOptionId)
-                .orElseThrow(() -> new Exception404("찾을 수 없는 메뉴 옵션입니다."));
-        menuOption.update(reqDTO);
-
-        return new StoreResponse.UpdateMenuOptionDTO(menuOption);
-    }
-
-    @Transactional // TODO: 매장 관리자 - 메뉴 옵션 삭제하기
-    public void deleteMenuOption(int menuOptionId) {
-        menuOptionRepository.deleteById(menuOptionId);
-    }
-    */
     // 매장 관리자 - 주문내역 목록보기
     public StoreResponse.OrderListDTO getOrderList(int storeId) {
         List<Order> orderList = orderRepository.findAllByStoreId(storeId)
@@ -234,13 +207,12 @@ public class StoreService {
                 .orElseThrow(() -> new Exception404("찾을 수 없는 주문입니다."));
         // 응답할 오더 리스트
         List<StoreResponse.OrdersDTO> orderList = new ArrayList<>();
-        orders.stream().map(order ->
+        orders.forEach(order ->
                 orderList.add(StoreResponse.OrdersDTO.builder()
                         .order(order)
                         .menuList(order.getOrderMenus())
                         .build())
-        ).toList();
-        // System.out.println(orderList.getFirst().getStatus());
+        );
 
         List<StoreResponse.OrdersDTO> pendingOrderList = new ArrayList<>();
         List<StoreResponse.OrdersDTO> preparingOrderList = new ArrayList<>();

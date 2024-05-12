@@ -61,7 +61,7 @@ public class Menu {
         boolean hasNoImg = reqDTO.getEncodedFile() == null || reqDTO.getEncodedFile().isEmpty();
         if (!hasNoImg) {
             setImgFilename(
-                    FileUtil.base64Upload(reqDTO.getEncodedFile(), reqDTO.getName(), "jpg")
+                    FileUtil.base64Upload(reqDTO.getEncodedFile(), reqDTO.getName())
             );
         }
         setDescription(reqDTO.getDescription());

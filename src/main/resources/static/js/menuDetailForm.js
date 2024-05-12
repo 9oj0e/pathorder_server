@@ -1,4 +1,4 @@
-// rendering
+// rendering html
 function render(data, sessionStoreId, menuId) {
     let html = ``;
 
@@ -7,7 +7,7 @@ function render(data, sessionStoreId, menuId) {
     <div style="display: grid; grid-template-columns: 1fr 2fr; grid-column-gap: 5%; padding: 30px">
         <div class="card" style="width:300px; height: 500px">
             <div class="card-header">
-                <input type="file" id="editImg" class="form-control hidden-edt" accept="upload/*" name="encodedFile">
+                <input type="file" id="editImg" class="form-control hidden-edt" accept="upload/*" name="imgFile">
             </div>
             <div class="card-body" style="display: flex; height: 240px; justify-content: center; align-items: center">
                 <div style="width: 160px">
@@ -127,6 +127,7 @@ function render(data, sessionStoreId, menuId) {
 </form>`;
     return html;
 }
+
 // base64 converter
 const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -234,9 +235,16 @@ $(document).on("click", ".del-opt-btn", function () {
 })
 
 // 메뉴 수정
-$(document).on("submit", "#menuEditForm", function (e) {
-    e.preventDefault();
+$(document).on("submit", "#menuEditForm", async function (event) {
+    event.preventDefault();
     let formData = new FormData(this);
+    let imgFile = formData.get("imgFile")
+    let base64;
+    if (imgFile !== undefined) {
+        base64 = await convertBase64(imgFile);
+    } else {
+        base64 = null;
+    }
     let menuOptions = [];
     for (let i = 0; i < formData.getAll("optionName").length; i++) {
         let option = {
@@ -249,7 +257,7 @@ $(document).on("submit", "#menuEditForm", function (e) {
     let data = {
         price: formData.get("price"),
         name: formData.get("name"),
-        encodedFile: convertBase64(formData.get("encodedFile")),
+        encodedFile: base64,
         category: formData.get("category"),
         description: formData.get("description"),
         menuOptions: menuOptions
@@ -263,6 +271,7 @@ $(document).on("submit", "#menuEditForm", function (e) {
         data: JSON.stringify(data),
         contentType: 'application/json',
         success: function (data) {
+            console.log(data);
             let menuDetail = render(data, storeId, menuId);
             sessionStorage.setItem("menuDetail", menuDetail); // to reload
             $('#menuForm').html(menuDetail);
