@@ -1,5 +1,8 @@
 package shop.project.pathorderserver._core;
 
+import lombok.Getter;
+
+@Getter
 public enum DefaultFile {
     AVATAR("default/avatar.png"),
     STORE("default/store.png"),
@@ -9,9 +12,5 @@ public enum DefaultFile {
 
     DefaultFile(String path) {
         this.path = path;
-    }
-
-    public String getPath() {
-        return path;
     }
 }
