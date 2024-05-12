@@ -349,6 +349,7 @@ public class StoreResponse {
                 this.menuOptionList.add(new MenuOptionDTO(menuOption));
             }
         }
+
         @Data
         public static class MenuOptionDTO {
             private int price;
@@ -362,6 +363,7 @@ public class StoreResponse {
             }
         }
     }
+
     /*
     @Data // 매장 관리자 - 매장 메뉴 옵션 등록
     public static class CreateMenuOptionDTO {
@@ -463,7 +465,7 @@ public class StoreResponse {
         private String customerTel;
         // 주문 정보
         private Timestamp createdAt;
-//        private OrderStatus status;
+        //        private OrderStatus status;
         private String status;
         private List<OrderMenuDTO> orderMenuList;
         private int totalPrice;
@@ -565,4 +567,15 @@ public class StoreResponse {
             }
         }
     }
+
+//    @Data
+//    public static class PendingOrderCountDTO {
+//        private int storeId;
+//        private OrderStatus status;
+//
+//        public PendingOrderCountDTO(Order order) {
+//            this.storeId = order.getStore().getId();
+//            this.status = order.getStatus();
+//        }
+//    }
 }

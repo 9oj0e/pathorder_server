@@ -1,4 +1,43 @@
 // 날짜별 검색
+// document.querySelector("#searchOrders").addEventListener("click", function (event) {
+//     event.stopPropagation();
+//     event.preventDefault();
+//
+//     let storeId = event.target.getAttribute('data-store-id');
+//     let startDate = document.getElementById('startDate').value;
+//     let endDate = document.getElementById('endDate').value;
+//
+//     // 리스트 위에 날짜 바뀌게 하게
+//     let startArr = startDate.split("-");
+//     let endArr = endDate.split("-");
+//
+//     document.getElementById("startYear").textContent = startArr[0];
+//     document.getElementById("startMonth").textContent = startArr[1];
+//     document.getElementById("startDay").textContent = startArr[2];
+//
+//     document.getElementById("endYear").textContent = endArr[0];
+//     document.getElementById("endMonth").textContent = endArr[1];
+//     document.getElementById("endDay").textContent = endArr[2];
+//
+//     let xhr = new XMLHttpRequest();
+//     xhr.open('GET', `/stores/${storeId}/orders/history/date?startDate=` + startDate + '&endDate=' + endDate, true);
+//     xhr.setRequestHeader('Content-Type', 'application/json');
+//     xhr.onreadystatechange = function () {
+//         if (xhr.readyState === XMLHttpRequest.DONE) {
+//             if (xhr.status === 200) {
+//                 let response = JSON.parse(xhr.responseText);
+//
+//                 renderOrderHistories(response);
+//                 console.log(response);
+//             } else {
+//                 console.error('오류 발생: ' + xhr.status);
+//             }
+//         }
+//     };
+//     xhr.send();
+// });
+
+// 날짜별 검색
 document.querySelector("#searchOrders").addEventListener("click", function (event) {
     event.stopPropagation();
     event.preventDefault();
@@ -7,34 +46,35 @@ document.querySelector("#searchOrders").addEventListener("click", function (even
     let startDate = document.getElementById('startDate').value;
     let endDate = document.getElementById('endDate').value;
 
-    // 리스트 위에 날짜 바뀌게 하게
+    // 리스트 위에 날짜 바뀌게 하기
     let startArr = startDate.split("-");
     let endArr = endDate.split("-");
-
     document.getElementById("startYear").textContent = startArr[0];
     document.getElementById("startMonth").textContent = startArr[1];
     document.getElementById("startDay").textContent = startArr[2];
-
     document.getElementById("endYear").textContent = endArr[0];
     document.getElementById("endMonth").textContent = endArr[1];
     document.getElementById("endDay").textContent = endArr[2];
 
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', `/stores/${storeId}/orders/history/date?startDate=` + startDate + '&endDate=' + endDate, true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                let response = JSON.parse(xhr.responseText);
-
-                renderOrderHistories(response);
-                console.log(response);
-            } else {
-                console.error('오류 발생: ' + xhr.status);
-            }
+    fetch(`/stores/${storeId}/orders/history/date?startDate=${startDate}&endDate=${endDate}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
         }
-    };
-    xhr.send();
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('오류 발생: ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            renderOrderHistories(data);
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('오류 발생:', error);
+        });
 });
 
 function renderOrderHistories(order) {
@@ -83,23 +123,6 @@ function closeModal() {
 $("button[type='submit']").click(function () {
     searchOrders();
 });
-
-function searchOrders() {
-
-    // let startDate = $("#startDate").val();
-    // let endDate = $("#endDate").val();
-    //
-    // let startArr = startDate.split("-");
-    // let endArr = endDate.split("-");
-    //
-    // $("#startYear").text(startArr[0]);
-    // $("#startMonth").text(startArr[1]);
-    // $("#startDay").text(startArr[2]);
-    //
-    // $("#endYear").text(endArr[0]);
-    // $("#endMonth").text(endArr[1]);
-    // $("#endDay").text(endArr[2]);
-}
 
 // 오늘, 어제, 그제
 $(".towDaysAgo, .yesterday, .today").click(function (event) {

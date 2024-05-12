@@ -259,10 +259,16 @@ public class StoreService {
                 preparedOrderList.add(ordersDTO);
             }
         }
+
+        int pendingOrderCount = pendingOrderList.size();
+
         HashMap<String, Object> orderListSortedByStatus = new HashMap<>();
         orderListSortedByStatus.put("pendingOrderList", pendingOrderList);
         orderListSortedByStatus.put("preparingOrderList", preparingOrderList);
         orderListSortedByStatus.put("preparedOrderList", preparedOrderList);
+        
+        // 접수하지 않은 주문 카운트(주문탭 옆의 숫자)
+        orderListSortedByStatus.put("pendingOrderCount", pendingOrderCount);
 
         return orderListSortedByStatus;
     }
@@ -284,4 +290,17 @@ public class StoreService {
         return new StoreResponse.OrderListDTO(orderList);
     }
 
+    public int getPendingOrderCount(int storeId) {
+        List<Order> orders = orderRepository.findAllByStoreId(storeId)
+                .orElseThrow(() -> new Exception404("찾을 수 없는 주문입니다."));
+
+        int pendingOrderCount = 0;
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i).getStatus() == OrderStatus.PENDING) {
+                pendingOrderCount++;
+            }
+        }
+
+        return pendingOrderCount;
+    }
 }

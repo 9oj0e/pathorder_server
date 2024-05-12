@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import shop.project.pathorderserver._core.utils.ApiUtil;
+import shop.project.pathorderserver.user.SessionUser;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -72,6 +73,23 @@ public class StoreOwnerController {
 
     /*------------------------------------------------------------------------------------- 메인 페이지 -----------------*/
 
+//    @ResponseBody
+//    @GetMapping("/stores/{sessionStoreId}")
+//    public ResponseEntity<?> getSessionStoreId(@PathVariable int sessionStoreId) {
+//        SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
+//        sessionStoreId = sessionStore.getId();
+//
+//        return ResponseEntity.ok(new ApiUtil<>(sessionStoreId));
+//    }
+
+    @ResponseBody
+    @GetMapping("/stores/{sessionStoreId}/pending-order-count")
+    public ResponseEntity<?> getPendingOrderCount(@PathVariable int sessionStoreId) {
+
+        int pendingOrderCount = storeService.getPendingOrderCount(sessionStoreId);
+        return ResponseEntity.ok(new ApiUtil<>(pendingOrderCount));
+    }
+
     @GetMapping("/stores/{storeId}/orders") // 매장 관리자 - 처리중인 주문
     private String orders(@PathVariable int storeId, Model model) {
         HashMap<String, Object> respDTO = storeService.getOrders(storeId);
@@ -110,13 +128,12 @@ public class StoreOwnerController {
 
     @GetMapping("/stores/{storeId}/orders/history/date") // 매장 관리자 - 주문내역 날짜로 조회
     public ResponseEntity<?> orderListSortByDate(@PathVariable int storeId,
-                                      @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-                                      @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate, Model model) {
+                                                 @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+                                                 @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate, Model model) {
         // TODO: 권한 처리
         // TODO: 날짜로 검색하는 기능 구현
         StoreResponse.OrderListDTO respDTO = storeService.getOrderListByDate(storeId, startDate, endDate);
         model.addAttribute("orders", respDTO.getOrderList());
-        System.out.println("뭘 시켰나 함 보자"+respDTO);
 
         return ResponseEntity.ok().body(respDTO);
     }

@@ -53,6 +53,35 @@ $(document).ready(function () {
     storeStatus();
 });
 
+document.addEventListener("DOMContentLoaded", function (event) {
+    const sessionStoreId = document.getElementById('sessionStoreId').dataset.id;
+
+    function updatePendingOrderCount() {
+        fetch(`/stores/${sessionStoreId}/pending-order-count`)
+            .then(response => response.json())
+            .then(data => {
+                console.log("댄이야");
+                console.log(data);
+                const pendingOrderCountElement = document.getElementById('pendingOrderCount');
+
+                if (data.body === 0) {
+                    pendingOrderCountElement.classList.add('hidden-count');
+                } else {
+                    pendingOrderCountElement.classList.remove('hidden-count');
+                }
+
+                pendingOrderCountElement.innerHTML = data.body;
+            })
+            .catch(error => {
+                console.error('데이터 가져오기 오류:', error);
+            });
+    }
+
+    updatePendingOrderCount();
+
+    setInterval(updatePendingOrderCount, 50000);
+});
+
 // 주문 상세 모달
 // $(document).ready(function () {
 //     $('#orderDetailModal').on('shown.bs.modal', function () {
