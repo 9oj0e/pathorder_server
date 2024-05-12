@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
+import org.springframework.web.multipart.MultipartFile;
+import shop.project.pathorderserver._core.DefaultFile;
 import shop.project.pathorderserver._core.utils.FileUtil;
 import shop.project.pathorderserver.store.Store;
 import shop.project.pathorderserver.store.StoreRequest;
@@ -44,26 +46,36 @@ public class Menu {
         this.price = reqDTO.getPrice();
         this.category = reqDTO.getCategory();
         this.name = reqDTO.getName();
+        setImgFilename(reqDTO.getImgFile());
         this.description = reqDTO.getDescription();
         this.store = store;
-
-        boolean hasNoImg = reqDTO.getImgFile() == null || reqDTO.getImgFile().isEmpty();
-        if (!hasNoImg) {
-            this.imgFilename = FileUtil.fileUpload(reqDTO.getImgFile(), store.getId());
-        }
     }
 
     public void update(StoreRequest.UpdateMenuDTO reqDTO) {
         setPrice(reqDTO.getPrice());
         setCategory(reqDTO.getCategory());
         setName(reqDTO.getName());
-
-        boolean hasNoImg = reqDTO.getImgFile() == null || reqDTO.getImgFile().isEmpty();
-        if (!hasNoImg) {
-            setImgFilename(
-                    FileUtil.fileUpload(reqDTO.getImgFile(), this.store.getId())
-            );
-        }
+        setImgFilename(reqDTO.getEncodedFile());
         setDescription(reqDTO.getDescription());
+    }
+
+    private void setImgFilename(String encodedFile) {
+        FileUtil.deleteFile(this.getImgFilename());
+        String imgFilename = FileUtil.uploadBase64(encodedFile, this.name);
+        if (imgFilename == null) {
+            this.imgFilename = DefaultFile.BEVERAGE.getPath();
+        } else {
+            this.imgFilename = imgFilename;
+        }
+    }
+
+    private void setImgFilename(MultipartFile imgFile) {
+        FileUtil.deleteFile(this.getImgFilename());
+        boolean hasNoImg = imgFile == null || imgFile.isEmpty();
+        if (!hasNoImg) {
+            this.imgFilename = FileUtil.uploadFile(imgFile);
+        } else {
+            this.imgFilename = DefaultFile.BEVERAGE.getPath();
+        }
     }
 }

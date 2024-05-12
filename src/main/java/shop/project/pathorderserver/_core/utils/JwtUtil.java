@@ -6,7 +6,6 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import shop.project.pathorderserver.user.SessionUser;
 import shop.project.pathorderserver.user.User;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 public class JwtUtil {

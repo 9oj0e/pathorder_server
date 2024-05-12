@@ -3,10 +3,7 @@ package shop.project.pathorderserver.menu;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 import shop.project.pathorderserver.store.StoreRequest;
-
-import java.sql.Timestamp;
 
 @NoArgsConstructor
 @Data

@@ -290,7 +290,7 @@ public class StoreResponse {
         private int price; // 메뉴 하나의 가격
         private String category; // 각 메뉴가 포함되는 카테고리, 점주가 직접 작성
         private String name; // 메뉴 이름
-        // private String imgFilename;
+        private String imgFilePath;
         private String description; // 메뉴 설명
         private String registeredAt; // 메뉴 등록일
         private List<MenuOptionDTO> menuOptionList = new ArrayList<>();
@@ -300,6 +300,7 @@ public class StoreResponse {
             this.price = menu.getPrice();
             this.category = menu.getCategory();
             this.name = menu.getName();
+            this.imgFilePath = FileUtil.getFilePath(menu.getImgFilename());
             this.description = menu.getDescription();
             this.registeredAt = FormatUtil.dateFormatter(menu.getRegisteredAt());
             // this.menuOptionList = menuOptions.stream().map(MenuOptionDTO::new).toList();
@@ -332,17 +333,16 @@ public class StoreResponse {
         private int price; // 메뉴 하나의 가격
         private String category; // 각 메뉴가 포함되는 카테고리, 점주가 직접 작성
         private String name; // 메뉴 이름
-        private String imgFilename;
+        private String imgFilePath;
         private String description; // 메뉴 설명
         private List<MenuOptionDTO> menuOptionList = new ArrayList<>();
-
 
         public UpdateMenuDTO(Menu menu, List<MenuOption> menuOptions) {
             this.id = menu.getId();
             this.price = menu.getPrice();
             this.category = menu.getCategory();
             this.name = menu.getName();
-            this.imgFilename = menu.getImgFilename();
+            this.imgFilePath = FileUtil.getFilePath(menu.getImgFilename());
             this.description = menu.getDescription();
             // this.menuOptionList = menuOptions.stream().map(MenuOptionDTO::new).toList();
             for (MenuOption menuOption : menuOptions) {

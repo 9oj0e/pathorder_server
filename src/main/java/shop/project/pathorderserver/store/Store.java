@@ -6,8 +6,11 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
+import shop.project.pathorderserver._core.DefaultFile;
+import shop.project.pathorderserver._core.utils.FileUtil;
 
 import java.sql.Timestamp;
+
 @NoArgsConstructor
 @Data
 @DynamicInsert
@@ -56,6 +59,7 @@ public class Store {
         this.name = reqDTO.getName();
         this.tel = reqDTO.getTel();
         this.intro = reqDTO.getIntro();
+        setImgFilename(reqDTO.getEncodedFile());
         this.openingTime = reqDTO.getOpeningTime();
         this.closingTime = reqDTO.getClosingTime();
         this.closedDay = reqDTO.getClosedDay();
@@ -68,38 +72,48 @@ public class Store {
         setOwnerTel(reqDTO.getOwnerTel());
         setOwnerEmail(reqDTO.getOwnerEmail());
         setBizNum(reqDTO.getBizNum());
-        setImgFilename(reqDTO.getImgFilename());
         setName(reqDTO.getName());
         setTel(reqDTO.getTel());
         setIntro(reqDTO.getIntro());
+        setImgFilename(reqDTO.getEncodedFile());
         setOpeningTime(reqDTO.getOpeningTime());
         setClosingTime(reqDTO.getClosingTime());
         setClosedDay(reqDTO.getClosedDay());
         setAddress(reqDTO.getAddress());
     }
 
+    private void setImgFilename(String encodedFile) {
+        boolean hasNoImg = encodedFile == null || encodedFile.isEmpty();
+        FileUtil.deleteFile(this.imgFilename);
+        if (!hasNoImg) {
+            this.imgFilename = FileUtil.uploadBase64(encodedFile, this.ownerName);
+        } else {
+            this.imgFilename = DefaultFile.STORE.getPath();
+        }
+    }
+
     @Override
     public String toString() {
         return "Store{" +
-               "id=" + id +
-               ", username='" + username + '\'' +
-               ", password='" + password + '\'' +
-               ", status=" + status +
-               ", ownerName='" + ownerName + '\'' +
-               ", ownerTel='" + ownerTel + '\'' +
-               ", ownerEmail='" + ownerEmail + '\'' +
-               ", bizNum='" + bizNum + '\'' +
-               ", name='" + name + '\'' +
-               ", tel='" + tel + '\'' +
-               ", intro='" + intro + '\'' +
-               ", imgFilename='" + imgFilename + '\'' +
-               ", openingTime='" + openingTime + '\'' +
-               ", closingTime='" + closingTime + '\'' +
-               ", closedDay='" + closedDay + '\'' +
-               ", address='" + address + '\'' +
-               ", latitude=" + latitude +
-               ", longitude=" + longitude +
-               ", registeredAt=" + registeredAt +
-               '}';
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", status=" + status +
+                ", ownerName='" + ownerName + '\'' +
+                ", ownerTel='" + ownerTel + '\'' +
+                ", ownerEmail='" + ownerEmail + '\'' +
+                ", bizNum='" + bizNum + '\'' +
+                ", name='" + name + '\'' +
+                ", tel='" + tel + '\'' +
+                ", intro='" + intro + '\'' +
+                ", imgFilename='" + imgFilename + '\'' +
+                ", openingTime='" + openingTime + '\'' +
+                ", closingTime='" + closingTime + '\'' +
+                ", closedDay='" + closedDay + '\'' +
+                ", address='" + address + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", registeredAt=" + registeredAt +
+                '}';
     }
 }

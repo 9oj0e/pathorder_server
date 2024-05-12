@@ -2,7 +2,6 @@ package shop.project.pathorderserver.store;
 
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
-import shop.project.pathorderserver.menu.MenuOption;
 import shop.project.pathorderserver.order.OrderStatus;
 
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ public class StoreRequest {
         private String ownerEmail;
         private String bizNum;
         // 매장 정보
-        private String imgFilename;
+        private String encodedFile;
         private String name;
         private String tel;
         private String intro;
@@ -46,7 +45,7 @@ public class StoreRequest {
         private String ownerEmail;
         private String bizNum;
         // 매장 정보
-        private String imgFilename;
+        private String encodedFile;
         private String name;
         private String tel;
         private String intro;
@@ -70,7 +69,7 @@ public class StoreRequest {
         private int price; // 메뉴 하나의 가격
         private String category; // 각 메뉴가 포함되는 카테고리, 점주가 직접 작성
         private String name; // 메뉴 이름
-        private MultipartFile imgFile;
+        private String encodedFile;
         private String description; // 메뉴 설명
         private List<MenuOptionDTO> menuOptions = new ArrayList<>();
 
@@ -81,6 +80,7 @@ public class StoreRequest {
             private boolean isRequired;
         }
     }
+
     /*
     @Data
     public static class CreateMenuOptionDTO {

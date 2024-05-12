@@ -38,8 +38,8 @@ public class OrderMenuOption {
 
     public String toStringWithoutOrderMenu() {
         return "OrderMenuOption{" +
-               "price=" + price +
-               ", name='" + name + '\'' +
-               '}';
+                "price=" + price +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
