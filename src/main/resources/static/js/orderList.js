@@ -37,12 +37,14 @@ document.querySelector("#searchOrders").addEventListener("click", function (even
     xhr.send();
 });
 
-function renderOrderHistories(orders) {
+function renderOrderHistories(order) {
     let html = "";
-    if (orders.length > 0) {
-        orders.forEach(order => {
+    if (order.orderList.length > 0) {
+        order.orderList.forEach(order => {
             html += `
                 <tr>
+                    <!-- TODO: 주문번호 로직 짜서 그거 적용시켜야 함. -->
+                    <td>${order.orderId}</td>
                     <td>${order.status}</td>
                     <td>${order.createdAt}</td>
                     <td>${order.totalPrice}</td>

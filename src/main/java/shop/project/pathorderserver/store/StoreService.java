@@ -272,10 +272,6 @@ public class StoreService {
         LocalDateTime endDateTime = endDate.atTime(23, 59, 59);
         List<Order> orderList = orderRepository.findAllByStoreIdAndCreatedAtBetween(storeId, startDateTime, endDateTime);
 
-        System.out.println("여긴 서비스야.");
-        System.out.println(startDateTime);
-        System.out.println(endDateTime);
-//        System.out.println(orderList);
         orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.PENDING)).toList().forEach(orderList::remove);
         orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.PREPARING)).toList().forEach(orderList::remove);
         orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.PREPARED)).toList().forEach(orderList::remove);
