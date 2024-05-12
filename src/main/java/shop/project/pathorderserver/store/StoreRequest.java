@@ -2,7 +2,6 @@ package shop.project.pathorderserver.store;
 
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
-import shop.project.pathorderserver.menu.MenuOption;
 import shop.project.pathorderserver.order.OrderStatus;
 
 import java.util.ArrayList;
@@ -81,6 +80,7 @@ public class StoreRequest {
             private boolean isRequired;
         }
     }
+
     /*
     @Data
     public static class CreateMenuOptionDTO {

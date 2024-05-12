@@ -1,8 +1,6 @@
 package shop.project.pathorderserver.store;
 
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.ast.Or;
-import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.project.pathorderserver._core.errors.exception.Exception401;

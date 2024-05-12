@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import shop.project.pathorderserver._core.errors.exception.Exception400;
 import shop.project.pathorderserver._core.errors.exception.Exception401;
 import shop.project.pathorderserver._core.errors.exception.Exception404;
-import shop.project.pathorderserver._core.utils.FileUtil;
 import shop.project.pathorderserver._core.utils.JwtUtil;
 import shop.project.pathorderserver.order.*;
 import shop.project.pathorderserver.store.Store;

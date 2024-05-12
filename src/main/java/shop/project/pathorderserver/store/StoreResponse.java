@@ -337,7 +337,6 @@ public class StoreResponse {
         private String description; // 메뉴 설명
         private List<MenuOptionDTO> menuOptionList = new ArrayList<>();
 
-
         public UpdateMenuDTO(Menu menu, List<MenuOption> menuOptions) {
             this.id = menu.getId();
             this.price = menu.getPrice();

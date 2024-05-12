@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import shop.project.pathorderserver._core.utils.ApiUtil;
-import shop.project.pathorderserver.user.SessionUser;
 
 import java.time.LocalDate;
 import java.util.HashMap;
