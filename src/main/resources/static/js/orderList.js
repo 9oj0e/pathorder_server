@@ -102,24 +102,24 @@ function searchOrders() {
 }
 
 // 오늘, 어제, 그제
-$(document).ready(function () {
-    $(".2daysAgo, .1daysAgo, .today").click(function () {
-        let dateOffset = $(this).hasClass("2daysAgo") ? 2 : ($(this).hasClass("1daysAgo") ? 1 : 0);
-        let today = new Date();
-        let targetDate = new Date(today);
-        targetDate.setDate(today.getDate() - dateOffset);
+$(".towDaysAgo, .yesterday, .today").click(function (event) {
+    event.preventDefault();
 
-        let year = targetDate.getFullYear();
-        let month = ('0' + (targetDate.getMonth() + 1)).slice(-2);
-        let day = ('0' + targetDate.getDate()).slice(-2);
+    let dateOffset = $(this).hasClass("towDaysAgo") ? 2 : ($(this).hasClass("yesterday") ? 1 : 0);
+    let today = new Date();
+    let targetDate = new Date(today);
+    targetDate.setDate(today.getDate() - dateOffset);
 
-        // 시작 날짜와 종료 날짜 설정
-        $("#startDate").val(year + '-' + month + '-' + day);
-        $("#endDate").val(year + '-' + month + '-' + day);
+    let year = targetDate.getFullYear();
+    let month = ('0' + (targetDate.getMonth() + 1)).slice(-2);
+    let day = ('0' + targetDate.getDate()).slice(-2);
 
-        // 페이지의 다른 부분에 날짜 표시
-        $("#startYear, #endYear").text(year);
-        $("#startMonth, #endMonth").text(month);
-        $("#startDay, #endDay").text(day);
-    });
+    // 시작 날짜와 종료 날짜 설정
+    $("#startDate").val(year + '-' + month + '-' + day);
+    $("#endDate").val(year + '-' + month + '-' + day);
+
+    // 페이지의 다른 부분에 날짜 표시
+    $("#startYear, #endYear").text(year);
+    $("#startMonth, #endMonth").text(month);
+    $("#startDay, #endDay").text(day);
 });

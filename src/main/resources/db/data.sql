@@ -249,35 +249,35 @@ VALUES
 -- order_id: 1
 INSERT INTO order_tb
 (store_id, store_name, customer_id, customer_nickname, request, total_price, status, created_at)
-VALUES (1, '단밤 카페', 1, '성재', '바닐라라떼 얼음 많이 넣어주세요.', (3000 + (3000 + 500) + 4500), 'PREPARING', '2024-05-10 15:45:30');
+VALUES (1, '단밤 카페', 1, '성재', '바닐라라떼 얼음 많이 넣어주세요.', (3000 + (3000 + 500) + 4500), 'PREPARING', now());
 INSERT INTO order_menu_tb(order_id, name, qty, price, total_price, created_at)
-VALUES (1, '아메리카노', 1, 3000, 3000, '2024-05-10 15:45:30'),       -- id: 1
-       (1, '아메리카노', 1, 3000, 3000 + 500, '2024-05-10 15:45:30'), -- id: 2
-       (1, '바닐라라떼', 1, 4500, 4500, '2024-05-10 15:45:30'); -- id: 3
+VALUES (1, '아메리카노', 1, 3000, 3000, now()),       -- id: 1
+       (1, '아메리카노', 1, 3000, 3000 + 500, now()), -- id: 2
+       (1, '바닐라라떼', 1, 4500, 4500, now()); -- id: 3
 INSERT INTO order_menu_option_tb(order_id, order_menu_id, name, price, created_at)
-VALUES (1, 1, 'ICE', 0, '2024-05-10 15:45:30'),
-       (1, 2, 'HOT', 0, '2024-05-10 15:45:30'),
-       (1, 2, 'vanilla syrup', 500, '2024-05-10 15:45:30'),
-       (1, 3, 'ICE', 0, '2024-05-10 15:45:30');
+VALUES (1, 1, 'ICE', 0, now()),
+       (1, 2, 'HOT', 0, now()),
+       (1, 2, 'vanilla syrup', 500, now()),
+       (1, 3, 'ICE', 0, now());
 
 -- order_id: 2
 INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, created_at)
 VALUES (1, '단밤 카페', 2, '정현', '카라멜 마끼아또 얼음은 적게 넣어주세요.', ((4000) + (4500 + 500) + (4500 + 500) + (5000 + 500)),
-        '2024-04-30 15:45:30');
+        '2024-05-11 15:45:30');
 INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
-VALUES (2, '카페 라떼', 1, 4000, 4000, '2024-04-30 15:45:30'),       -- id: 4
-       (2, '카페 모카', 1, 4500, 4500 + 500, '2024-04-30 15:45:30'), -- id: 5
-       (2, '카페 모카', 1, 4500, 4500 + 500, '2024-04-30 15:45:30'), -- id: 6
-       (2, '카라멜 마끼아또', 1, 5000, 5000 + 500, '2024-04-30 15:45:30'); -- id: 7
+VALUES (2, '카페 라떼', 1, 4000, 4000, '2024-05-11 15:45:30'),       -- id: 4
+       (2, '카페 모카', 1, 4500, 4500 + 500, '2024-05-11 15:45:30'), -- id: 5
+       (2, '카페 모카', 1, 4500, 4500 + 500, '2024-05-11 15:45:30'), -- id: 6
+       (2, '카라멜 마끼아또', 1, 5000, 5000 + 500, '2024-05-11 15:45:30'); -- id: 7
 INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
-VALUES (2, 4, 'HOT', 0, '2024-04-30 15:45:30'),
-       (2, 4, 'sugar syrup', 0, '2024-04-30 15:45:30'),
-       (2, 5, 'ICE', 0, '2024-04-30 15:45:30'),
-       (2, 5, 'shot', 500, '2024-04-30 15:45:30'),
-       (2, 6, 'ICE', 0, '2024-04-30 15:45:30'),
-       (2, 6, 'vanilla syrup', 500, '2024-04-30 15:45:30'),
-       (2, 7, 'ICE', 0, '2024-04-30 15:45:30'),
-       (2, 7, 'hazelnut syrup', 500, '2024-04-30 15:45:30');
+VALUES (2, 4, 'HOT', 0, '2024-05-11 15:45:30'),
+       (2, 4, 'sugar syrup', 0, '2024-05-11 15:45:30'),
+       (2, 5, 'ICE', 0, '2024-05-11 15:45:30'),
+       (2, 5, 'shot', 500, '2024-05-11 15:45:30'),
+       (2, 6, 'ICE', 0, '2024-05-11 15:45:30'),
+       (2, 6, 'vanilla syrup', 500, '2024-05-11 15:45:30'),
+       (2, 7, 'ICE', 0, '2024-05-11 15:45:30'),
+       (2, 7, 'hazelnut syrup', 500, '2024-05-11 15:45:30');
 
 -- order_id: 3
 INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, created_at)
