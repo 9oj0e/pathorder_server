@@ -52,6 +52,7 @@ public class Order {
         this.storeName = reqDTO.getStoreName();
         this.customerNickname = reqDTO.getCustomerNickname();
         this.request = reqDTO.getRequest();
+        this.status = (reqDTO.getStatus() != null) ? reqDTO.getStatus() : OrderStatus.PENDING;
     }
 
     public void updateTotalPrice() {
