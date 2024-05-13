@@ -44,6 +44,7 @@ public class Order {
 
     @CreationTimestamp
     private Timestamp createdAt; // 주문 시간
+    // private LocalDateTime 수령시각;
 
     public Order(UserRequest.OrderDTO reqDTO, User customer, Store store) {
         this.customer = customer;
