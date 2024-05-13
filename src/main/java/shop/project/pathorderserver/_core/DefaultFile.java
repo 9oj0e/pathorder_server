@@ -5,8 +5,8 @@ import lombok.Getter;
 @Getter
 public enum DefaultFile {
     AVATAR("default/avatar.png"),
-    STORE("default/store.jpeg"),
-    BEVERAGE("default/beverage.png");
+    STORE("default/cafe.png"),
+    BEVERAGE("default/coffee.jpeg");
 
     private final String path;
 
