@@ -6,7 +6,11 @@ import lombok.Getter;
 public enum DefaultFile {
     AVATAR("default/avatar.png"),
     STORE("default/cafe.png"),
-    BEVERAGE("default/coffee.jpeg");
+    AMERICANO("default/americano.png"),
+    LATTE("default/latte.png"),
+    MACCHIATO("default/macchiato.png"),
+    MOCHA("default/mocha.png"),
+    COFFEE("default/coffee.jpeg");
 
     private final String path;
 

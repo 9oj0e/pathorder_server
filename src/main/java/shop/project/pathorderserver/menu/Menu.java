@@ -63,7 +63,7 @@ public class Menu {
         FileUtil.deleteFile(this.getImgFilename());
         String imgFilename = FileUtil.uploadBase64(encodedFile, this.name);
         if (imgFilename.equals("default")) { // TODO: 삭제 로직 분리하기, 사진 유지 추가
-            this.imgFilename = DefaultFile.BEVERAGE.getPath();
+            this.imgFilename = DefaultFile.COFFEE.getPath();
         } else {
             this.imgFilename = imgFilename;
         }
@@ -75,7 +75,7 @@ public class Menu {
         if (!hasNoImg) {
             this.imgFilename = FileUtil.uploadFile(imgFile);
         } else {
-            this.imgFilename = DefaultFile.BEVERAGE.getPath();
+            this.imgFilename = DefaultFile.COFFEE.getPath();
         }
     }
 }
