@@ -1,6 +1,7 @@
 package shop.project.pathorderserver.user;
 
 import lombok.Data;
+import shop.project.pathorderserver.order.OrderStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,7 @@ public class UserRequest {
         private int customerId;
         private String customerNickname;
         private String request;
+        private OrderStatus status;
         private List<OrderMenuDTO> orderMenuList;
 
         @Data
