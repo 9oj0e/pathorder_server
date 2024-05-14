@@ -1,23 +1,23 @@
-package shop.project.pathorderserver.favorite;
+package shop.project.pathorderserver.like;
 
 import lombok.Data;
 import shop.project.pathorderserver.store.Store;
 
-public class FavoriteRequest {
+public class LikeResponse {
     @Data
-    public static class FavoriteListDTO{
+    public static class LikeListDTO{
         private int storeId;
         private String storeName;
         private String storeAddress;
         private String storeImgFilename;
-        private boolean isFavorite;
+        private boolean isLike;
 
-        public FavoriteListDTO(Store store, boolean isFavorite) {
+        public LikeListDTO(Store store, boolean isLike) {
             this.storeId = store.getId();
             this.storeName = store.getName();
             this.storeAddress = store.getAddress();
             this.storeImgFilename = store.getImgFilename();
-            this.isFavorite = isFavorite;
+            this.isLike = isLike;
         }
     }
 }
