@@ -124,10 +124,10 @@ $("button[type='submit']").click(function () {
 });
 
 // 오늘, 어제, 그제
-$(".towDaysAgo, .yesterday, .today").click(function (event) {
+$(".twoDaysAgo, .yesterday, .today").click(function (event) {
     event.preventDefault();
 
-    let dateOffset = $(this).hasClass("towDaysAgo") ? 2 : ($(this).hasClass("yesterday") ? 1 : 0);
+    let dateOffset = $(this).hasClass("twoDaysAgo") ? 2 : ($(this).hasClass("yesterday") ? 1 : 0);
     let today = new Date();
     let targetDate = new Date(today);
     targetDate.setDate(today.getDate() - dateOffset);
