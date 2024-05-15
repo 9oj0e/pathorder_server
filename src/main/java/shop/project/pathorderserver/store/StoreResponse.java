@@ -441,14 +441,15 @@ public class StoreResponse {
             private String customerNickname;
             // 주문 정보
             private int orderId;
-            private OrderStatus status;
+            //            private OrderStatus status;
+            private String status;
             private Timestamp createdAt;
             private List<OrderMenuDTO> orderMenus;
             private int totalPrice;
 
             public OrderDTO(Order order, List<OrderMenu> orderMenus) {
                 this.orderId = order.getId();
-                this.status = order.getStatus();
+                this.status = order.getStatus().getValue();
                 this.createdAt = order.getCreatedAt();
                 this.orderMenus = orderMenus.stream().map(OrderMenuDTO::new).toList();
                 this.totalPrice = order.getTotalPrice();

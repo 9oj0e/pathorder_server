@@ -182,6 +182,7 @@ public class StoreService {
         orderList.forEach(order -> {
             OrderStatus status = order.getStatus();
         });
+
         return new StoreResponse.OrderListDTO(orderList);
     }
 
