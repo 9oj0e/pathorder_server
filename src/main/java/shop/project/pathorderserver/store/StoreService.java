@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import shop.project.pathorderserver._core.errors.exception.Exception401;
 import shop.project.pathorderserver._core.errors.exception.Exception403;
 import shop.project.pathorderserver._core.errors.exception.Exception404;
+import shop.project.pathorderserver.like.LikeResponse;
+import shop.project.pathorderserver.like.LikeService;
 import shop.project.pathorderserver.menu.Menu;
 import shop.project.pathorderserver.menu.MenuOption;
 import shop.project.pathorderserver.menu.MenuOptionRepository;
@@ -26,12 +28,18 @@ public class StoreService {
     private final MenuOptionRepository menuOptionRepository;
     private final OrderRepository orderRepository;
     private final OrderMenuRepository orderMenuRepository;
+    private final LikeService likeService;
 
     // 매장 목록보기
     public List<StoreResponse.StoreListDTO> getStoreList() {
         List<Store> stores = storeRepository.findAll();
 
-        return stores.stream().map(StoreResponse.StoreListDTO::new).toList();
+        return stores.stream()
+                .map(store -> {
+                    LikeResponse.StoreLikeCountDTO likeCountDTO = likeService.getStoreLikeCount(store.getId());
+                    return new StoreResponse.StoreListDTO(store, likeCountDTO.getLikeCount());
+                })
+                .toList();
     }
 
     // 매장 상세보기
@@ -39,7 +47,8 @@ public class StoreService {
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 매장입니다."));
 
-        return new StoreResponse.StoreInfoDTO(store);
+        LikeResponse.StoreLikeCountDTO likeCountDTO = likeService.getStoreLikeCount(storeId);
+        return new StoreResponse.StoreInfoDTO(store, likeCountDTO.getLikeCount());
     }
 
     // 매장 상세보기 - 사업자 정보
@@ -173,6 +182,7 @@ public class StoreService {
         orderList.forEach(order -> {
             OrderStatus status = order.getStatus();
         });
+
         return new StoreResponse.OrderListDTO(orderList);
     }
 

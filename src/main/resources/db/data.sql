@@ -24,7 +24,7 @@ VALUES ('david1234', '1234', '조정현', '01012345678', 'david1234@gmail.com', 
 
 -- 매장 메뉴
 INSERT INTO menu_tb
-    (store_id, category, name, price, description, img_filename, registered_at)
+(store_id, category, name, price, description, img_filename, registered_at)
 VALUES
 -- 1번 매장 메뉴
 (1, 'coffee', '아메리카노', 3000, '현대인의 필수 카페인', 'default/americano.png', NOW()),
@@ -43,7 +43,7 @@ VALUES
 (3, 'coffee', '카페 라떼', 4500, '부드러운 우유와 풍부한 에스프레소의 조합, 라떼의 완성', 'default/latte.png', NOW()),
 (3, 'coffee', '카페 모카', 5000, '진한 초콜릿과 부드러운 우유, 에스프레소의 환상적인 만남', 'default/mocha.png', NOW()),
 (3, 'coffee', '바닐라 라떼', 4500, '달콤한 바닐라 향과 부드러운 우유가 어우러진 라떼', 'default/latte.png', NOW()),
-(3, 'coffee', '카라멜 마끼아또', 5000, '달콤한 카라멜과 진한 에스프레소의 환상적인 조화','default/macchiato.png', NOW()),
+(3, 'coffee', '카라멜 마끼아또', 5000, '달콤한 카라멜과 진한 에스프레소의 환상적인 조화', 'default/macchiato.png', NOW()),
 -- 4번 매장 메뉴
 (4, 'coffee', '아메리카노', 3600, '진하고 강렬한 아메리카노의 매력', 'default/americano.png', NOW()),
 (4, 'coffee', '카페 라떼', 4700, '부드러운 우유와 고소한 에스프레소의 만남, 라떼의 향연', 'default/latte.png', NOW()),
@@ -63,432 +63,539 @@ INSERT INTO menu_option_tb
     (menu_id, name, price, is_required)
 VALUES
 -- 아이스, 샷추가, 설탕시럽, 바닐라시럽, 헤이즐넛시럽
--- ice는 1이면 ice, 0이면 hot
+-- 아이스는 1이면 아이스, 0이면 hot
 -- 1번 가게
 -- 아메리카노
-(1, 'ice', 0, 1),
-(1, 'hot', 0, 1),
-(1, 'shot', 500, 0),
-(1, 'sugar syrup', 0, 0),
-(1, 'vanilla syrup', 500, 0),
-(1, 'hazelnut syrup', 500, 0),
+(1, '아이스', 0, 1),
+(1, '핫', 0, 1),
+(1, '샷추가', 500, 0),
+(1, '설탕시럽', 0, 0),
+(1, '바닐라시럽', 500, 0),
+(1, '헤이즐넛시럽', 500, 0),
 -- 카페라떼
-(2, 'ice', 0, 1),
-(2, 'hot', 0, 1),
-(2, 'shot', 500, 0),
-(2, 'sugar syrup', 0, 0),
-(2, 'vanilla syrup', 500, 0),
-(2, 'hazelnut syrup', 500, 0),
+(2, '아이스', 0, 1),
+(2, '핫', 0, 1),
+(2, '샷추가', 500, 0),
+(2, '설탕시럽', 0, 0),
+(2, '바닐라시럽', 500, 0),
+(2, '헤이즐넛시럽', 500, 0),
 -- 바닐라라떼
-(3, 'ice', 0, 1),
-(3, 'hot', 0, 1),
-(3, 'shot', 500, 0),
-(3, 'sugar syrup', 0, 0),
-(3, 'vanilla syrup', 500, 0),
-(3, 'hazelnut syrup', 500, 0),
+(3, '아이스', 0, 1),
+(3, '핫', 0, 1),
+(3, '샷추가', 500, 0),
+(3, '설탕시럽', 0, 0),
+(3, '바닐라시럽', 500, 0),
+(3, '헤이즐넛시럽', 500, 0),
 -- 카페모가
-(4, 'ice', 0, 1),
-(4, 'hot', 0, 1),
-(4, 'shot', 500, 0),
-(4, 'sugar syrup', 0, 0),
-(4, 'vanilla syrup', 500, 0),
-(4, 'hazelnut syrup', 500, 0),
+(4, '아이스', 0, 1),
+(4, '핫', 0, 1),
+(4, '샷추가', 500, 0),
+(4, '설탕시럽', 0, 0),
+(4, '바닐라시럽', 500, 0),
+(4, '헤이즐넛시럽', 500, 0),
 -- 카라멜마키아토
-(5, 'ice', 0, 1),
-(5, 'hot', 0, 1),
-(5, 'shot', 500, 0),
-(5, 'sugar syrup', 0, 0),
-(5, 'vanilla syrup', 500, 0),
-(5, 'hazelnut syrup', 500, 0),
+(5, '아이스', 0, 1),
+(5, '핫', 0, 1),
+(5, '샷추가', 500, 0),
+(5, '설탕시럽', 0, 0),
+(5, '바닐라시럽', 500, 0),
+(5, '헤이즐넛시럽', 500, 0),
 -- 2번 가게
 -- 아메리카노
-(6, 'ice', 0, 1),
-(6, 'hot', 0, 1),
-(6, 'shot', 500, 0),
-(6, 'sugar syrup', 0, 0),
-(6, 'vanilla syrup', 500, 0),
-(6, 'hazelnut syrup', 500, 0),
+(6, '아이스', 0, 1),
+(6, '핫', 0, 1),
+(6, '샷추가', 500, 0),
+(6, '설탕시럽', 0, 0),
+(6, '바닐라시럽', 500, 0),
+(6, '헤이즐넛시럽', 500, 0),
 -- 카페라떼
-(7, 'ice', 0, 1),
-(7, 'hot', 0, 1),
-(7, 'shot', 500, 0),
-(7, 'sugar syrup', 0, 0),
-(7, 'vanilla syrup', 500, 0),
-(7, 'hazelnut syrup', 500, 0),
+(7, '아이스', 0, 1),
+(7, '핫', 0, 1),
+(7, '샷추가', 500, 0),
+(7, '설탕시럽', 0, 0),
+(7, '바닐라시럽', 500, 0),
+(7, '헤이즐넛시럽', 500, 0),
 -- 바닐라라떼
-(8, 'ice', 0, 1),
-(8, 'hot', 0, 1),
-(8, 'shot', 500, 0),
-(8, 'sugar syrup', 0, 0),
-(8, 'vanilla syrup', 500, 0),
-(8, 'hazelnut syrup', 500, 0),
+(8, '아이스', 0, 1),
+(8, '핫', 0, 1),
+(8, '샷추가', 500, 0),
+(8, '설탕시럽', 0, 0),
+(8, '바닐라시럽', 500, 0),
+(8, '헤이즐넛시럽', 500, 0),
 -- 카페모가
-(9, 'ice', 0, 1),
-(9, 'hot', 0, 1),
-(9, 'shot', 500, 0),
-(9, 'sugar syrup', 0, 0),
-(9, 'vanilla syrup', 500, 0),
-(9, 'hazelnut syrup', 500, 0),
+(9, '아이스', 0, 1),
+(9, '핫', 0, 1),
+(9, '샷추가', 500, 0),
+(9, '설탕시럽', 0, 0),
+(9, '바닐라시럽', 500, 0),
+(9, '헤이즐넛시럽', 500, 0),
 -- 카라멜마키아토
-(10, 'ice', 0, 1),
-(10, 'hot', 0, 1),
-(10, 'shot', 500, 0),
-(10, 'sugar syrup', 0, 0),
-(10, 'vanilla syrup', 500, 0),
-(10, 'hazelnut syrup', 500, 0),
+(10, '아이스', 0, 1),
+(10, '핫', 0, 1),
+(10, '샷추가', 500, 0),
+(10, '설탕시럽', 0, 0),
+(10, '바닐라시럽', 500, 0),
+(10, '헤이즐넛시럽', 500, 0),
 -- 3번 가게
 -- 아메리카노
-(11, 'ice', 0, 1),
-(11, 'hot', 0, 1),
-(11, 'shot', 500, 0),
-(11, 'sugar syrup', 0, 0),
-(11, 'vanilla syrup', 500, 0),
-(11, 'hazelnut syrup', 500, 0),
+(11, '아이스', 0, 1),
+(11, '핫', 0, 1),
+(11, '샷추가', 500, 0),
+(11, '설탕시럽', 0, 0),
+(11, '바닐라시럽', 500, 0),
+(11, '헤이즐넛시럽', 500, 0),
 -- 카페라떼
-(12, 'ice', 0, 1),
-(12, 'hot', 0, 1),
-(12, 'shot', 500, 0),
-(12, 'sugar syrup', 0, 0),
-(12, 'vanilla syrup', 500, 0),
-(12, 'hazelnut syrup', 500, 0),
+(12, '아이스', 0, 1),
+(12, '핫', 0, 1),
+(12, '샷추가', 500, 0),
+(12, '설탕시럽', 0, 0),
+(12, '바닐라시럽', 500, 0),
+(12, '헤이즐넛시럽', 500, 0),
 -- 바닐라라떼
-(13, 'ice', 0, 1),
-(13, 'hot', 0, 1),
-(13, 'shot', 500, 0),
-(13, 'sugar syrup', 0, 0),
-(13, 'vanilla syrup', 500, 0),
-(13, 'hazelnut syrup', 500, 0),
+(13, '아이스', 0, 1),
+(13, '핫', 0, 1),
+(13, '샷추가', 500, 0),
+(13, '설탕시럽', 0, 0),
+(13, '바닐라시럽', 500, 0),
+(13, '헤이즐넛시럽', 500, 0),
 -- 카페모가
-(14, 'ice', 0, 1),
-(14, 'hot', 0, 1),
-(14, 'shot', 500, 0),
-(14, 'sugar syrup', 0, 0),
-(14, 'vanilla syrup', 500, 0),
-(14, 'hazelnut syrup', 500, 0),
+(14, '아이스', 0, 1),
+(14, '핫', 0, 1),
+(14, '샷추가', 500, 0),
+(14, '설탕시럽', 0, 0),
+(14, '바닐라시럽', 500, 0),
+(14, '헤이즐넛시럽', 500, 0),
 -- 카라멜마키아토
-(15, 'ice', 0, 1),
-(15, 'hot', 0, 1),
-(15, 'shot', 500, 0),
-(15, 'sugar syrup', 0, 0),
-(15, 'vanilla syrup', 500, 0),
-(15, 'hazelnut syrup', 500, 0),
+(15, '아이스', 0, 1),
+(15, '핫', 0, 1),
+(15, '샷추가', 500, 0),
+(15, '설탕시럽', 0, 0),
+(15, '바닐라시럽', 500, 0),
+(15, '헤이즐넛시럽', 500, 0),
 -- 4번 가게
 -- 아메리카노
-(16, 'ice', 0, 1),
-(16, 'hot', 0, 1),
-(16, 'shot', 500, 0),
-(16, 'sugar syrup', 0, 0),
-(16, 'vanilla syrup', 500, 0),
-(16, 'hazelnut syrup', 500, 0),
+(16, '아이스', 0, 1),
+(16, '핫', 0, 1),
+(16, '샷추가', 500, 0),
+(16, '설탕시럽', 0, 0),
+(16, '바닐라시럽', 500, 0),
+(16, '헤이즐넛시럽', 500, 0),
 -- 카페라떼
-(17, 'ice', 0, 1),
-(17, 'hot', 0, 1),
-(17, 'shot', 500, 0),
-(17, 'sugar syrup', 0, 0),
-(17, 'vanilla syrup', 500, 0),
-(17, 'hazelnut syrup', 500, 0),
+(17, '아이스', 0, 1),
+(17, '핫', 0, 1),
+(17, '샷추가', 500, 0),
+(17, '설탕시럽', 0, 0),
+(17, '바닐라시럽', 500, 0),
+(17, '헤이즐넛시럽', 500, 0),
 -- 바닐라라떼
-(18, 'ice', 0, 1),
-(18, 'hot', 0, 1),
-(18, 'shot', 500, 0),
-(18, 'sugar syrup', 0, 0),
-(18, 'vanilla syrup', 500, 0),
-(18, 'hazelnut syrup', 500, 0),
+(18, '아이스', 0, 1),
+(18, '핫', 0, 1),
+(18, '샷추가', 500, 0),
+(18, '설탕시럽', 0, 0),
+(18, '바닐라시럽', 500, 0),
+(18, '헤이즐넛시럽', 500, 0),
 -- 카페모가
-(19, 'ice', 0, 1),
-(19, 'hot', 0, 1),
-(19, 'shot', 500, 0),
-(19, 'sugar syrup', 0, 0),
-(19, 'vanilla syrup', 500, 0),
-(19, 'hazelnut syrup', 500, 0),
+(19, '아이스', 0, 1),
+(19, '핫', 0, 1),
+(19, '샷추가', 500, 0),
+(19, '설탕시럽', 0, 0),
+(19, '바닐라시럽', 500, 0),
+(19, '헤이즐넛시럽', 500, 0),
 -- 카라멜마키아토
-(20, 'ice', 0, 1),
-(20, 'hot', 0, 1),
-(20, 'shot', 500, 0),
-(20, 'sugar syrup', 0, 0),
-(20, 'vanilla syrup', 500, 0),
-(20, 'hazelnut syrup', 500, 0),
+(20, '아이스', 0, 1),
+(20, '핫', 0, 1),
+(20, '샷추가', 500, 0),
+(20, '설탕시럽', 0, 0),
+(20, '바닐라시럽', 500, 0),
+(20, '헤이즐넛시럽', 500, 0),
 -- 4번 가게
 -- 아메리카노
-(21, 'ice', 0, 1),
-(21, 'hot', 0, 1),
-(21, 'shot', 500, 0),
-(21, 'sugar syrup', 0, 0),
-(21, 'vanilla syrup', 500, 0),
-(21, 'hazelnut syrup', 500, 0),
+(21, '아이스', 0, 1),
+(21, '핫', 0, 1),
+(21, '샷추가', 500, 0),
+(21, '설탕시럽', 0, 0),
+(21, '바닐라시럽', 500, 0),
+(21, '헤이즐넛시럽', 500, 0),
 -- 카페라떼
-(22, 'ice', 0, 1),
-(22, 'hot', 0, 1),
-(22, 'shot', 500, 0),
-(22, 'sugar syrup', 0, 0),
-(22, 'vanilla syrup', 500, 0),
-(22, 'hazelnut syrup', 500, 0),
+(22, '아이스', 0, 1),
+(22, '핫', 0, 1),
+(22, '샷추가', 500, 0),
+(22, '설탕시럽', 0, 0),
+(22, '바닐라시럽', 500, 0),
+(22, '헤이즐넛시럽', 500, 0),
 -- 바닐라라떼
-(23, 'ice', 0, 1),
-(23, 'hot', 0, 1),
-(23, 'shot', 500, 0),
-(23, 'sugar syrup', 0, 0),
-(23, 'vanilla syrup', 500, 0),
-(23, 'hazelnut syrup', 500, 0),
+(23, '아이스', 0, 1),
+(23, '핫', 0, 1),
+(23, '샷추가', 500, 0),
+(23, '설탕시럽', 0, 0),
+(23, '바닐라시럽', 500, 0),
+(23, '헤이즐넛시럽', 500, 0),
 -- 카페모가
-(24, 'ice', 0, 1),
-(24, 'hot', 0, 1),
-(24, 'shot', 500, 0),
-(24, 'sugar syrup', 0, 0),
-(24, 'vanilla syrup', 500, 0),
-(24, 'hazelnut syrup', 500, 0),
+(24, '아이스', 0, 1),
+(24, '핫', 0, 1),
+(24, '샷추가', 500, 0),
+(24, '설탕시럽', 0, 0),
+(24, '바닐라시럽', 500, 0),
+(24, '헤이즐넛시럽', 500, 0),
 -- 카라멜마키아토
-(25, 'ice', 0, 1),
-(25, 'hot', 0, 1),
-(25, 'shot', 500, 0),
-(25, 'sugar syrup', 0, 0),
-(25, 'vanilla syrup', 500, 0),
-(25, 'hazelnut syrup', 500, 0);
+(25, '아이스', 0, 1),
+(25, '핫', 0, 1),
+(25, '샷추가', 500, 0),
+(25, '설탕시럽', 0, 0),
+(25, '바닐라시럽', 500, 0),
+(25, '헤이즐넛시럽', 500, 0);
 
 -- order_tb, order_menu_tb, order_menu_option_tb
+-- 과거의 주문
 -- order_id: 1
-INSERT INTO order_tb
-(store_id, store_name, customer_id, customer_nickname, request, total_price, status, created_at)
-VALUES (1, '단밤 카페', 1, '성재', '바닐라라떼 얼음 많이 넣어주세요.', (3000 + (3000 + 500) + 4500), 'PREPARING', now());
-INSERT INTO order_menu_tb(order_id, name, qty, price, total_price, created_at)
-VALUES (1, '아메리카노', 1, 3000, 3000, now()),       -- id: 1
-       (1, '아메리카노', 1, 3000, 3000 + 500, now()), -- id: 2
-       (1, '바닐라라떼', 1, 4500, 4500, now()); -- id: 3
-INSERT INTO order_menu_option_tb(order_id, order_menu_id, name, price, created_at)
-VALUES (1, 1, 'ICE', 0, now()),
-       (1, 2, 'HOT', 0, now()),
-       (1, 2, 'vanilla syrup', 500, now()),
-       (1, 3, 'ICE', 0, now());
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, status, created_at)
+VALUES (1, '단밤 카페', 5, '찬혁', '아이스 아메리카노 엄청 뜨겁게 해주세요.', ((3600) + (3600) + (4700 + 500) + (5200 + 500) + (5200)),
+        'SERVED',
+        DATEADD('DAY', -2, CURRENT_TIMESTAMP));
+INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
+VALUES (1, '아메리카노', 1, 3600, 3600, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),        -- id: 1
+       (1, '아메리카노', 1, 3600, 3600, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),        -- id: 2
+       (1, '바닐라 라떼', 1, 4700, 4700 + 500, DATEADD('DAY', -2, CURRENT_TIMESTAMP)), -- id: 3
+       (1, '카페 모카', 1, 5200, 5200 + 500, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),  -- id: 4
+       (1, '카페 모카', 1, 5200, 5200, DATEADD('DAY', -2, CURRENT_TIMESTAMP)); -- id: 5
+INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (1, 1, '아이스', 0, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
+       (1, 2, '핫', 0, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
+       (1, 3, '아이스', 0, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
+       (1, 3, '바닐라시럽', 500, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
+       (1, 4, '아이스', 0, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
+       (1, 4, '헤이즐넛시럽', 500, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
+       (1, 5, '아이스', 0, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
+       (1, 5, '설탕시럽', 0, DATEADD('DAY', -2, CURRENT_TIMESTAMP));
 
 -- order_id: 2
-INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, created_at)
-VALUES (1, '단밤 카페', 2, '정현', '카라멜 마끼아또 얼음은 적게 넣어주세요.', ((4000) + (4500 + 500) + (4500 + 500) + (5000 + 500)),
-        '2024-05-11 15:45:30');
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, status, created_at)
+VALUES (1, '단밤 카페', 2, '정현', '아이스 아메리카노 엄청 뜨겁게 해주세요.', ((3600) + (3600) + (4700 + 500) + (5200 + 500) + (5200)),
+        'SERVED',
+        DATEADD('DAY', -2, CURRENT_TIMESTAMP));
 INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
-VALUES (2, '카페 라떼', 1, 4000, 4000, '2024-05-11 15:45:30'),       -- id: 4
-       (2, '카페 모카', 1, 4500, 4500 + 500, '2024-05-11 15:45:30'), -- id: 5
-       (2, '카페 모카', 1, 4500, 4500 + 500, '2024-05-11 15:45:30'), -- id: 6
-       (2, '카라멜 마끼아또', 1, 5000, 5000 + 500, '2024-05-11 15:45:30'); -- id: 7
+VALUES (2, '아메리카노', 1, 3600, 3600, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),        -- id: 6
+       (2, '아메리카노', 1, 3600, 3600, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),        -- id: 7
+       (2, '바닐라 라떼', 1, 4700, 4700 + 500, DATEADD('DAY', -2, CURRENT_TIMESTAMP)), -- id: 8
+       (2, '카페 모카', 1, 5200, 5200 + 500, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),  -- id: 9
+       (2, '카페 모카', 1, 5200, 5200, DATEADD('DAY', -2, CURRENT_TIMESTAMP)); -- id: 10
 INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
-VALUES (2, 4, 'HOT', 0, '2024-05-11 15:45:30'),
-       (2, 4, 'sugar syrup', 0, '2024-05-11 15:45:30'),
-       (2, 5, 'ICE', 0, '2024-05-11 15:45:30'),
-       (2, 5, 'shot', 500, '2024-05-11 15:45:30'),
-       (2, 6, 'ICE', 0, '2024-05-11 15:45:30'),
-       (2, 6, 'vanilla syrup', 500, '2024-05-11 15:45:30'),
-       (2, 7, 'ICE', 0, '2024-05-11 15:45:30'),
-       (2, 7, 'hazelnut syrup', 500, '2024-05-11 15:45:30');
+VALUES (2, 6, '아이스', 0, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
+       (2, 7, '핫', 0, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
+       (2, 8, '아이스', 0, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
+       (2, 8, '바닐라시럽', 500, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
+       (2, 9, '아이스', 0, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
+       (2, 9, '헤이즐넛시럽', 500, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
+       (2, 10, '아이스', 0, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
+       (2, 10, '설탕시럽', 0, DATEADD('DAY', -2, CURRENT_TIMESTAMP));
 
 -- order_id: 3
-INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, created_at)
-VALUES (2, '꿀밤 카페', 3, '현정', '후기 남길게요. 무료로 샷 추가해주세요.', ((3500 + 500) + (3500) + (4500 + 500) + (5000 + 500)),
-        '2024-04-29 12:30:25');
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, status, created_at)
+VALUES (1, '단밤 카페', 3, '현정', '아이스 아메리카노 엄청 뜨겁게 해주세요.', ((3600) + (3600) + (4700 + 500) + (5200 + 500) + (5200)),
+        'SERVED',
+        DATEADD('DAY', -2, CURRENT_TIMESTAMP));
 INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
-VALUES (3, '아메리카노', 1, 3500, 3500 + 500, '2024-04-29 12:30:25'),  -- id: 8
-       (3, '아메리카노', 1, 3500, 3500, '2024-04-29 12:30:25'),        -- id: 9
-       (3, '바닐라 라떼', 1, 4500, 4500 + 500, '2024-04-29 12:30:25'), -- id: 10
-       (3, '카페 모카', 1, 5000, 5000 + 500, '2024-04-29 12:30:25'); -- id: 11
+VALUES (3, '아메리카노', 1, 3600, 3600, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),        -- id: 11
+       (3, '아메리카노', 1, 3600, 3600, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),        -- id: 12
+       (3, '바닐라 라떼', 1, 4700, 4700 + 500, DATEADD('DAY', -2, CURRENT_TIMESTAMP)), -- id: 13
+       (3, '카페 모카', 1, 5200, 5200 + 500, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),  -- id: 14
+       (3, '카페 모카', 1, 5200, 5200, DATEADD('DAY', -2, CURRENT_TIMESTAMP)); -- id: 15
 INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
-VALUES (3, 8, 'ICE', 0, '2024-04-29 12:30:25'),
-       (3, 8, 'shot', 500, '2024-04-29 12:30:25'),
-       (3, 9, 'HOT', 0, '2024-04-29 12:30:25'),
-       (3, 9, 'sugar syrup', 0, '2024-04-29 12:30:25'),
-       (3, 10, 'ICE', 0, '2024-04-29 12:30:25'),
-       (3, 10, 'vanilla syrup', 500, '2024-04-29 12:30:25'),
-       (3, 11, 'HOT', 0, '2024-04-29 12:30:25'),
-       (3, 11, 'hazelnut syrup', 500, '2024-04-29 12:30:25');
+VALUES (3, 11, '아이스', 0, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
+       (3, 12, '핫', 0, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
+       (3, 13, '아이스', 0, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
+       (3, 13, '바닐라시럽', 500, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
+       (3, 14, '아이스', 0, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
+       (3, 14, '헤이즐넛시럽', 500, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
+       (3, 15, '핫', 0, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
+       (3, 15, '설탕시럽', 0, DATEADD('DAY', -2, CURRENT_TIMESTAMP));
 
--- order_id: 4
-INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, created_at)
-VALUES (3, '유자 카페', 4, '윤정', '후기 쓸게요. 에스프레소 샷 추가해주삼.', ((3500 + 500) + (3500 + 500) + (3500) + (4500 + 500) + (5000)),
-        '2024-04-28 09:20:15');
-INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
-VALUES (4, '아메리카노', 1, 3500, 3500 + 500, '2024-04-28 09:20:15'), -- id: 12
-       (4, '아메리카노', 1, 3500, 3500 + 500, '2024-04-28 09:20:15'), -- id: 13
-       (4, '아메리카노', 1, 3500, 3500, '2024-04-28 09:20:15'),       -- id: 14
-       (4, '카페 라떼', 1, 4500, 4500 + 500, '2024-04-28 09:20:15'), -- id: 15
-       (4, '카페 모카', 1, 5000, 5000, '2024-04-28 09:20:15'); -- id: 16
-INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
-VALUES (4, 12, 'ICE', 0, '2024-04-28 09:20:15'),
-       (4, 12, 'vanilla syrup', 500, '2024-04-28 09:20:15'),
-       (4, 13, 'ICE', 0, '2024-04-28 09:20:15'),
-       (4, 13, 'hazelnut syrup', 500, '2024-04-28 09:20:15'),
-       (4, 14, 'ICE', 0, '2024-04-28 09:20:15'),
-       (4, 15, 'HOT', 0, '2024-04-28 09:20:15'),
-       (4, 15, 'shot', 500, '2024-04-28 09:20:15'),
-       (4, 16, 'HOT', 0, '2024-04-28 09:20:15');
-
--- order_id: 5
-INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, created_at)
-VALUES (4, '오렌지 카페', 5, '찬혁', '뜨거운 아메리카노 엄청 뜨겁게 해주세요.', ((3600) + (3600) + (4700 + 500) + (5200 + 500) + (5200)),
-        '2024-04-27 17:55:45');
-INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
-VALUES (5, '아메리카노', 1, 3600, 3600, '2024-04-27 17:55:45'),        -- id: 17
-       (5, '아메리카노', 1, 3600, 3600, '2024-04-27 17:55:45'),        -- id: 18
-       (5, '바닐라 라떼', 1, 4700, 4700 + 500, '2024-04-27 17:55:45'), -- id: 19
-       (5, '카페 모카', 1, 5200, 5200 + 500, '2024-04-27 17:55:45'),  -- id: 20
-       (5, '카페 모카', 1, 5200, 5200, '2024-04-27 17:55:45'); -- id: 21
-INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
-VALUES (5, 17, 'ICE', 0, '2024-04-27 17:55:45'),
-       (5, 18, 'HOT', 0, '2024-04-27 17:55:45'),
-       (5, 19, 'ICE', 0, '2024-04-27 17:55:45'),
-       (5, 19, 'vanilla syrup', 500, '2024-04-27 17:55:45'),
-       (5, 20, 'ICE', 0, '2024-04-27 17:55:45'),
-       (5, 20, 'hazelnut syrup', 500, '2024-04-27 17:55:45'),
-       (5, 21, 'ICE', 0, '2024-04-27 17:55:45'),
-       (5, 21, 'sugar syrup', 0, '2024-04-27 17:55:45');
-
--- order_id: 6
-INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, created_at)
-VALUES (1, '단밤 카페', 4, '윤정', '뜨거운 아메리카노 반 샷만 넣어주세요.', ((3000 + 500) + (3000 + 500) + (4500 + 500)),
-        '2024-04-26 08:05:05');
-INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
-VALUES (6, '아메리카노', 1, 3000, 3000 + 500, '2024-04-26 08:05:05'), -- id: 22
-       (6, '아메리카노', 1, 3000, 3000 + 500, '2024-04-26 08:05:05'), -- id: 23
-       (6, '바닐라라떼', 1, 4500, 4500 + 500, '2024-04-26 08:05:05'); -- id: 24
-INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
-VALUES (6, 22, 'HOT', 0, '2024-04-26 08:05:05'),
-       (6, 22, 'vanilla syrup', 500, '2024-04-26 08:05:05'),
-       (6, 23, 'ICE', 0, '2024-04-26 08:05:05'),
-       (6, 23, 'vanilla syrup', 500, '2024-04-26 08:05:05'),
-       (6, 24, 'ICE', 0, '2024-04-26 08:05:05'),
-       (6, 24, 'vanilla syrup', 500, '2024-04-26 08:05:05');
-
--- order_id: 7(request 없음)
-INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, total_price, created_at)
-VALUES (1, '단밤 카페', 5, '찬혁', ((3000 + 500) + (3000) + (4500 + 500)), '2024-04-25 22:15:55');
-INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
-VALUES (7, '아메리카노', 1, 3000, 3000 + 500, '2024-04-25 22:15:55'), -- id: 25
-       (7, '아메리카노', 1, 3000, 3000, '2024-04-25 22:15:55'),       -- id: 26
-       (7, '바닐라 라떼', 1, 4500, 4500 + 500, '2024-04-25 22:15:55'); -- id: 27
-INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
-VALUES (7, 25, 'ice', 0, '2024-04-25 22:15:55'),
-       (7, 25, 'shot', 500, '2024-04-25 22:15:55'),
-       (7, 26, 'HOT', 0, '2024-04-25 22:15:55'),
-       (7, 26, 'sugar syrup', 0, '2024-04-25 22:15:55'),
-       (7, 27, 'ice', 0, '2024-04-25 22:15:55'),
-       (7, 27, 'vanilla syrup', 500, '2024-04-25 22:15:55');
-
--- order_id: 8
-INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, created_at)
-VALUES (1, '단밤 카페', 3, '현정', '캐리어에 담아주세요.', ((3000 + 500) + (3000 + 500) + (3000 + 500) + (4500 + 500)),
-        '2024-04-24 14:45:40');
-INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
-VALUES (8, '아메리카노', 1, 3000, 3000 + 500, '2024-04-24 14:45:40'), -- id: 28
-       (8, '아메리카노', 1, 3000, 3000 + 500, '2024-04-24 14:45:40'), -- id: 29
-       (8, '아메리카노', 1, 3000, 3000 + 500, '2024-04-24 14:45:40'), -- id: 30
-       (8, '바닐라라떼', 1, 4500, 4500 + 500, '2024-04-24 14:45:40'); -- id: 31
-INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
-VALUES (8, 28, 'ICE', 0, '2024-04-24 14:45:40'),
-       (8, 28, 'vanilla syrup', 500, '2024-04-24 14:45:40'),
-       (8, 29, 'ICE', 0, '2024-04-24 14:45:40'),
-       (8, 29, 'vanilla syrup', 500, '2024-04-24 14:45:40'),
-       (8, 30, 'hot', 0, '2024-04-24 14:45:40'),
-       (8, 30, 'vanilla syrup', 500, '2024-04-24 14:45:40'),
-       (8, 31, 'ICE', 0, '2024-04-24 14:45:40'),
-       (8, 31, 'vanilla syrup', 500, '2024-04-24 14:45:40');
-
--- order_id: 9(request 없음)
-INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, total_price, created_at)
-VALUES (4, '오렌지 카페', 2, '정현', ((3000 + 500) + (3000) + (4500 + 500)), '2024-04-23 20:30:30');
-INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
-VALUES (9, '아메리카노', 1, 3000, 3000 + 500, '2024-04-23 20:30:30'), -- id: 32
-       (9, '아메리카노', 1, 3000, 3000, '2024-04-23 20:30:30'),       -- id: 33
-       (9, '바닐라 라떼', 1, 4500, 4500 + 500, '2024-04-23 20:30:30'); -- id: 34
-INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
-VALUES (9, 32, 'ICE', 0, '2024-04-23 20:30:30'),
-       (9, 32, 'shot', 500, '2024-04-23 20:30:30'),
-       (9, 33, 'HOT', 0, '2024-04-23 20:30:30'),
-       (9, 33, 'sugar syrup', 0, '2024-04-23 20:30:30'),
-       (9, 34, 'ICE', 0, '2024-04-23 20:30:30'),
-       (9, 34, 'vanilla syrup', 500, '2024-04-23 20:30:30');
-
--- order_id: 10(request 없음)
-INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, total_price, created_at)
-VALUES (3, '유자 카페', 5, '찬혁', ((3000 + 500) + (3000) + (4500 + 500)), '2024-04-22 11:11:11');
-INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
-VALUES (10, '아메리카노', 1, 3000, 3000 + 500, '2024-04-22 11:11:11'), -- id: 35
-       (10, '아메리카노', 1, 3000, 3000, '2024-04-22 11:11:11'),       -- id: 36
-       (10, '바닐라 라떼', 1, 4500, 4500 + 500, '2024-04-22 11:11:11'); -- id: 37
-INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
-VALUES (10, 35, 'ICE', 0, '2024-04-22 11:11:11'),
-       (10, 35, 'shot', 500, '2024-04-22 11:11:11'),
-       (10, 36, 'HOT', 0, '2024-04-22 11:11:11'),
-       (10, 36, 'sugar syrup', 0, '2024-04-22 11:11:11'),
-       (10, 37, 'ICE', 0, '2024-04-22 11:11:11'),
-       (10, 37, 'vanilla syrup', 500, '2024-04-22 11:11:11');
-
--- order_id: 11(request 없음)
-INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, total_price, created_at)
-VALUES (2, '꿀밤 카페', 5, '찬혁', ((3500 + 500) + (3500) + (5000 + 500)), '2024-04-21 19:19:19');
-INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
-VALUES (11, '아메리카노', 1, 3500, 3500 + 500, '2024-04-21 19:19:19'), -- id: 38
-       (11, '아메리카노', 1, 3500, 3500, '2024-04-21 19:19:19'),       -- id: 39
-       (11, '카페 모카', 1, 5000, 5000 + 500, '2024-04-21 19:19:19'); -- id: 40
-INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
-VALUES (11, 38, 'ICE', 0, '2024-04-21 19:19:19'),
-       (11, 38, 'shot', 500, '2024-04-21 19:19:19'),
-       (11, 39, 'HOT', 0, '2024-04-21 19:19:19'),
-       (11, 39, 'sugar syrup', 0, '2024-04-21 19:19:19'),
-       (11, 40, 'HOT', 0, '2024-04-21 19:19:19'),
-       (11, 40, 'vanilla syrup', 500, '2024-04-21 19:19:19');
 
 -- 더미 더 만드는 중
--- order_id: 12
+-- order_id: 4
 INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, status, created_at)
 VALUES (1, '단밤 카페', 3, '현정', '후기 남길게요. 무료로 샷 추가해주세요.', ((3500 + 500) + (3500) + (4500 + 500) + (5000 + 500)), 'SERVED',
-        '2024-04-29 12:30:25');
+        DATEADD('DAY', -1, CURRENT_TIMESTAMP));
 INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
-VALUES (12, '아메리카노', 1, 3500, 3500 + 500, '2024-04-29 12:30:25'),  -- id: 41
-       (12, '아메리카노', 1, 3500, 3500, '2024-04-29 12:30:25'),        -- id: 42
-       (12, '바닐라 라떼', 1, 4500, 4500 + 500, '2024-04-29 12:30:25'), -- id: 43
-       (12, '카페 모카', 1, 5000, 5000 + 500, '2024-04-29 12:30:25'); -- id: 44
+VALUES (4, '아메리카노', 1, 3500, 3500 + 500, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),  -- id: 16
+       (4, '아메리카노', 1, 3500, 3500, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),        -- id: 17
+       (4, '바닐라 라떼', 1, 4500, 4500 + 500, DATEADD('DAY', -1, CURRENT_TIMESTAMP)), -- id: 18
+       (4, '카페 모카', 1, 5000, 5000 + 500, DATEADD('DAY', -1, CURRENT_TIMESTAMP)); -- id: 19
 INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
-VALUES (12, 41, 'ICE', 0, '2024-04-29 12:30:25'),
-       (12, 41, 'shot', 500, '2024-04-29 12:30:25'),
-       (12, 42, 'HOT', 0, '2024-04-29 12:30:25'),
-       (12, 42, 'sugar syrup', 0, '2024-04-29 12:30:25'),
-       (12, 43, 'ICE', 0, '2024-04-29 12:30:25'),
-       (12, 43, 'vanilla syrup', 500, '2024-04-29 12:30:25'),
-       (12, 44, 'HOT', 0, '2024-04-29 12:30:25'),
-       (12, 44, 'hazelnut syrup', 500, '2024-04-29 12:30:25');
+VALUES (4, 16, '아이스', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (4, 16, '샷추가', 500, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (4, 17, '핫', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (4, 17, '설탕시럽', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (4, 18, '아이스', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (4, 18, '바닐라시럽', 500, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (4, 19, '핫', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (4, 19, '헤이즐넛시럽', 500, DATEADD('DAY', -1, CURRENT_TIMESTAMP));
+
+-- order_id: 5
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, status, created_at)
+VALUES (1, '단밤 카페', 4, '윤정', '후기 쓸게요. 에스프레소 샷 추가해주삼.', ((3500 + 500) + (3500 + 500) + (3500) + (4500 + 500) + (5000)),
+        'SERVED',
+        DATEADD('DAY', -1, CURRENT_TIMESTAMP));
+INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
+VALUES (5, '아메리카노', 1, 3500, 3500 + 500, DATEADD('DAY', -1, CURRENT_TIMESTAMP)), -- id: 20
+       (5, '아메리카노', 1, 3500, 3500 + 500, DATEADD('DAY', -1, CURRENT_TIMESTAMP)), -- id: 21
+       (5, '아메리카노', 1, 3500, 3500, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),       -- id: 22
+       (5, '카페 라떼', 1, 4500, 4500 + 500, DATEADD('DAY', -1, CURRENT_TIMESTAMP)), -- id: 23
+       (5, '카페 모카', 1, 5000, 5000, DATEADD('DAY', -1, CURRENT_TIMESTAMP)); -- id: 24
+INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (5, 20, '아이스', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (5, 20, '바닐라시럽', 500, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (5, 21, '아이스', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (5, 21, '헤이즐넛시럽', 500, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (5, 22, '아이스', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (5, 23, '핫', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (5, 23, '샷추가', 500, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (5, 24, '핫', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP));
+
+-- order_id: 6
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, status, created_at)
+VALUES (1, '단밤 카페', 5, '찬혁', '아이스 아메리카노 엄청 뜨겁게 해주세요.', ((3600) + (3600) + (4700 + 500) + (5200 + 500) + (5200)),
+        'SERVED',
+        DATEADD('DAY', -1, CURRENT_TIMESTAMP));
+INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
+VALUES (6, '아메리카노', 1, 3600, 3600, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),        -- id: 25
+       (6, '아메리카노', 1, 3600, 3600, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),        -- id: 26
+       (6, '바닐라 라떼', 1, 4700, 4700 + 500, DATEADD('DAY', -1, CURRENT_TIMESTAMP)), -- id: 27
+       (6, '카페 모카', 1, 5200, 5200 + 500, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),  -- id: 28
+       (6, '카페 모카', 1, 5200, 5200, DATEADD('DAY', -1, CURRENT_TIMESTAMP)); -- id: 29
+INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (6, 25, '아이스', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (6, 26, '핫', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (6, 27, '아이스', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (6, 27, '바닐라시럽', 500, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (6, 28, '아이스', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (6, 28, '헤이즐넛시럽', 500, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (6, 29, '아이스', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (6, 29, '설탕시럽', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP));
+
+-- order_id: 7
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, status, created_at)
+VALUES (1, '단밤 카페', 1, '성재', '아이스 아메리카노 엄청 뜨겁게 해주세요.', ((3600) + (3600) + (4700 + 500) + (5200 + 500) + (5200)),
+        'SERVED',
+        DATEADD('DAY', -1, CURRENT_TIMESTAMP));
+INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
+VALUES (7, '아메리카노', 1, 3600, 3600, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),        -- id: 30
+       (7, '아메리카노', 1, 3600, 3600, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),        -- id: 31
+       (7, '바닐라 라떼', 1, 4700, 4700 + 500, DATEADD('DAY', -1, CURRENT_TIMESTAMP)), -- id: 32
+       (7, '카페 모카', 1, 5200, 5200 + 500, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),  -- id: 33
+       (7, '카페 모카', 1, 5200, 5200, DATEADD('DAY', -1, CURRENT_TIMESTAMP)); -- id: 34
+INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (7, 30, '아이스', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (7, 31, '핫', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (7, 32, '아이스', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (7, 32, '바닐라시럽', 500, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (7, 33, '아이스', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (7, 33, '헤이즐넛시럽', 500, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (7, 34, '아이스', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+       (7, 34, '설탕시럽', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP));
+
+--  오늘의 주문
+-- order_id: 8
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, created_at)
+VALUES (1, '단밤 카페', 1, '성재', '바닐라라떼 얼음 많이 넣어주세요.', (3000 + (3000 + 500) + 4500), now());
+INSERT INTO order_menu_tb(order_id, name, qty, price, total_price, created_at)
+VALUES (8, '아메리카노', 1, 3000, 3000, now()),       -- id: 35
+       (8, '아메리카노', 1, 3000, 3000 + 500, now()), -- id: 36
+       (8, '바닐라라떼', 1, 4500, 4500, now()); -- id: 37
+INSERT INTO order_menu_option_tb(order_id, order_menu_id, name, price, created_at)
+VALUES (8, 35, '아이스', 0, now()),
+       (8, 36, '핫', 0, now()),
+       (8, 36, '바닐라시럽', 500, now()),
+       (8, 37, '아이스', 0, now());
+
+-- order_id: 9
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, created_at)
+VALUES (1, '단밤 카페', 2, '정현', '카라멜 마끼아또 얼음은 적게 넣어주세요.', ((4000) + (4500 + 500) + (4500 + 500) + (5000 + 500)),
+        now());
+INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
+VALUES (9, '카페 라떼', 1, 4000, 4000, now()),       -- id: 38
+       (9, '카페 모카', 1, 4500, 4500 + 500, now()), -- id: 39
+       (9, '카페 모카', 1, 4500, 4500 + 500, now()), -- id: 40
+       (9, '카라멜 마끼아또', 1, 5000, 5000 + 500, now()); -- id: 41
+INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (9, 38, '핫', 0, now()),
+       (9, 38, '설탕시럽', 0, now()),
+       (9, 39, '아이스', 0, now()),
+       (9, 39, '샷추가', 500, now()),
+       (9, 40, '아이스', 0, now()),
+       (9, 40, '바닐라시럽', 500, now()),
+       (9, 41, '아이스', 0, now()),
+       (9, 41, '헤이즐넛시럽', 500, now());
+
+-- order_id: 10
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, created_at)
+VALUES (2, '꿀밤 카페', 3, '현정', '후기 남길게요. 무료로 샷 추가해주세요.', ((3500 + 500) + (3500) + (4500 + 500) + (5000 + 500)),
+        now());
+INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
+VALUES (10, '아메리카노', 1, 3500, 3500 + 500, now()),  -- id: 42
+       (10, '아메리카노', 1, 3500, 3500, now()),        -- id: 43
+       (10, '바닐라 라떼', 1, 4500, 4500 + 500, now()), -- id: 44
+       (10, '카페 모카', 1, 5000, 5000 + 500, now()); -- id: 45
+INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (10, 42, '아이스', 0, now()),
+       (10, 42, '샷추가', 500, now()),
+       (10, 43, '핫', 0, now()),
+       (10, 43, '설탕시럽', 0, now()),
+       (10, 44, '아이스', 0, now()),
+       (10, 44, '바닐라시럽', 500, now()),
+       (10, 45, '핫', 0, now()),
+       (10, 45, '헤이즐넛시럽', 500, now());
+
+-- order_id: 11
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, created_at)
+VALUES (3, '유자 카페', 4, '윤정', '후기 쓸게요. 에스프레소 샷 추가해주삼.', ((3500 + 500) + (3500 + 500) + (3500) + (4500 + 500) + (5000)),
+        now());
+INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
+VALUES (11, '아메리카노', 1, 3500, 3500 + 500, now()), -- id: 46
+       (11, '아메리카노', 1, 3500, 3500 + 500, now()), -- id: 47
+       (11, '아메리카노', 1, 3500, 3500, now()),       -- id: 48
+       (11, '카페 라떼', 1, 4500, 4500 + 500, now()), -- id: 49
+       (11, '카페 모카', 1, 5000, 5000, now()); -- id: 50
+INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (11, 46, '아이스', 0, now()),
+       (11, 46, '바닐라시럽', 500, now()),
+       (11, 47, '아이스', 0, now()),
+       (11, 47, '헤이즐넛시럽', 500, now()),
+       (11, 48, '아이스', 0, now()),
+       (11, 49, '핫', 0, now()),
+       (11, 49, '샷추가', 500, now()),
+       (11, 50, '핫', 0, now());
+
+-- order_id: 12
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, created_at)
+VALUES (4, '오렌지 카페', 5, '찬혁', '뜨거운 아메리카노 엄청 뜨겁게 해주세요.', ((3600) + (3600) + (4700 + 500) + (5200 + 500) + (5200)),
+        now());
+INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
+VALUES (12, '아메리카노', 1, 3600, 3600, now()),        -- id: 51
+       (12, '아메리카노', 1, 3600, 3600, now()),        -- id: 52
+       (12, '바닐라 라떼', 1, 4700, 4700 + 500, now()), -- id: 53
+       (12, '카페 모카', 1, 5200, 5200 + 500, now()),  -- id: 54
+       (12, '카페 모카', 1, 5200, 5200, now()); -- id: 55
+INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (12, 51, '아이스', 0, now()),
+       (12, 52, '핫', 0, now()),
+       (12, 53, '아이스', 0, now()),
+       (12, 53, '바닐라시럽', 500, now()),
+       (12, 54, '아이스', 0, now()),
+       (12, 54, '헤이즐넛시럽', 500, now()),
+       (12, 55, '아이스', 0, now()),
+       (12, 55, '설탕시럽', 0, now());
 
 -- order_id: 13
-INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, status, created_at)
-VALUES (1, '단밤 카페', 4, '윤정', '후기 쓸게요. 에스프레소 샷 추가해주삼.', ((3500 + 500) + (3500 + 500) + (3500) + (4500 + 500) + (5000)), 'SERVED',
-        '2024-04-28 09:20:15');
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, created_at)
+VALUES (1, '단밤 카페', 4, '윤정', '뜨거운 아메리카노 반 샷만 넣어주세요.', ((3000 + 500) + (3000 + 500) + (4500 + 500)),
+        now());
 INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
-VALUES (13, '아메리카노', 1, 3500, 3500 + 500, '2024-04-28 09:20:15'), -- id: 45
-       (13, '아메리카노', 1, 3500, 3500 + 500, '2024-04-28 09:20:15'), -- id: 46
-       (13, '아메리카노', 1, 3500, 3500, '2024-04-28 09:20:15'),       -- id: 47
-       (13, '카페 라떼', 1, 4500, 4500 + 500, '2024-04-28 09:20:15'), -- id: 48
-       (13, '카페 모카', 1, 5000, 5000, '2024-04-28 09:20:15'); -- id: 49
+VALUES (13, '아메리카노', 1, 3000, 3000 + 500, now()), -- id: 56
+       (13, '아메리카노', 1, 3000, 3000 + 500, now()), -- id: 57
+       (13, '바닐라라떼', 1, 4500, 4500 + 500, now()); -- id: 58
 INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
-VALUES (13, 45, 'ICE', 0, '2024-04-28 09:20:15'),
-       (13, 45, 'vanilla syrup', 500, '2024-04-28 09:20:15'),
-       (13, 46, 'ICE', 0, '2024-04-28 09:20:15'),
-       (13, 46, 'hazelnut syrup', 500, '2024-04-28 09:20:15'),
-       (13, 47, 'ICE', 0, '2024-04-28 09:20:15'),
-       (13, 48, 'HOT', 0, '2024-04-28 09:20:15'),
-       (13, 48, 'shot', 500, '2024-04-28 09:20:15'),
-       (13, 49, 'HOT', 0, '2024-04-28 09:20:15');
+VALUES (13, 56, '핫', 0, now()),
+       (13, 56, '바닐라시럽', 500, now()),
+       (13, 57, '아이스', 0, now()),
+       (13, 57, '바닐라시럽', 500, now()),
+       (13, 58, '아이스', 0, now()),
+       (13, 58, '바닐라시럽', 500, now());
 
--- order_id: 14
-INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, status, created_at)
-VALUES (1, '단밤 카페', 5, '찬혁', '뜨거운 아메리카노 엄청 뜨겁게 해주세요.', ((3600) + (3600) + (4700 + 500) + (5200 + 500) + (5200)), 'SERVED',
-        '2024-04-27 17:55:45');
+-- order_id: 14(request 없음)
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, total_price, created_at)
+VALUES (1, '단밤 카페', 5, '찬혁', ((3000 + 500) + (3000) + (4500 + 500)), now());
 INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
-VALUES (14, '아메리카노', 1, 3600, 3600, '2024-04-27 17:55:45'),        -- id: 50
-       (14, '아메리카노', 1, 3600, 3600, '2024-04-27 17:55:45'),        -- id: 51
-       (14, '바닐라 라떼', 1, 4700, 4700 + 500, '2024-04-27 17:55:45'), -- id: 52
-       (14, '카페 모카', 1, 5200, 5200 + 500, '2024-04-27 17:55:45'),  -- id: 53
-       (14, '카페 모카', 1, 5200, 5200, '2024-04-27 17:55:45'); -- id: 54
+VALUES (14, '아메리카노', 1, 3000, 3000 + 500, now()), -- id: 59
+       (14, '아메리카노', 1, 3000, 3000, now()),       -- id: 60
+       (14, '바닐라 라떼', 1, 4500, 4500 + 500, now()); -- id: 61
 INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
-VALUES (14, 50, 'ICE', 0, '2024-04-27 17:55:45'),
-       (14, 51, 'HOT', 0, '2024-04-27 17:55:45'),
-       (14, 52, 'ICE', 0, '2024-04-27 17:55:45'),
-       (14, 52, 'vanilla syrup', 500, '2024-04-27 17:55:45'),
-       (14, 53, 'ICE', 0, '2024-04-27 17:55:45'),
-       (14, 53, 'hazelnut syrup', 500, '2024-04-27 17:55:45'),
-       (14, 54, 'ICE', 0, '2024-04-27 17:55:45'),
-       (14, 54, 'sugar syrup', 0, '2024-04-27 17:55:45');
+VALUES (14, 59, '아이스', 0, now()),
+       (14, 59, '샷추가', 500, now()),
+       (14, 60, '핫', 0, now()),
+       (14, 60, '설탕시럽', 0, now()),
+       (14, 61, '아이스', 0, now()),
+       (14, 61, '바닐라시럽', 500, now());
+
+-- order_id: 15
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, created_at)
+VALUES (1, '단밤 카페', 3, '현정', '캐리어에 담아주세요.', ((3000 + 500) + (3000 + 500) + (3000 + 500) + (4500 + 500)),
+        now());
+INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
+VALUES (15, '아메리카노', 1, 3000, 3000 + 500, now()), -- id: 62
+       (15, '아메리카노', 1, 3000, 3000 + 500, now()), -- id: 63
+       (15, '아메리카노', 1, 3000, 3000 + 500, now()), -- id: 64
+       (15, '바닐라라떼', 1, 4500, 4500 + 500, now()); -- id: 65
+INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (15, 62, '아이스', 0, now()),
+       (15, 62, '바닐라시럽', 500, now()),
+       (15, 63, '아이스', 0, now()),
+       (15, 63, '바닐라시럽', 500, now()),
+       (15, 64, '핫', 0, now()),
+       (15, 64, '바닐라시럽', 500, now()),
+       (15, 65, '아이스', 0, now()),
+       (15, 65, '바닐라시럽', 500, now());
+
+-- order_id: 16(request 없음)
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, total_price, created_at)
+VALUES (4, '오렌지 카페', 2, '정현', ((3000 + 500) + (3000) + (4500 + 500)), now());
+INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
+VALUES (16, '아메리카노', 1, 3000, 3000 + 500, now()), -- id: 66
+       (16, '아메리카노', 1, 3000, 3000, now()),       -- id: 67
+       (16, '바닐라 라떼', 1, 4500, 4500 + 500, now()); -- id: 68
+INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (16, 66, '아이스', 0, now()),
+       (16, 66, '샷추가', 500, now()),
+       (16, 67, '핫', 0, now()),
+       (16, 67, '설탕시럽', 0, now()),
+       (16, 68, '아이스', 0, now()),
+       (16, 68, '바닐라시럽', 500, now());
+
+-- order_id: 17(request 없음)
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, total_price, created_at)
+VALUES (3, '유자 카페', 5, '찬혁', ((3000 + 500) + (3000) + (4500 + 500)), now());
+INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
+VALUES (17, '아메리카노', 1, 3000, 3000 + 500, now()), -- id: 69
+       (17, '아메리카노', 1, 3000, 3000, now()),       -- id: 70
+       (17, '바닐라 라떼', 1, 4500, 4500 + 500, now()); -- id: 71
+INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (17, 69, '아이스', 0, now()),
+       (17, 69, '샷추가', 500, now()),
+       (17, 70, '핫', 0, now()),
+       (17, 70, '설탕시럽', 0, now()),
+       (17, 71, '아이스', 0, now()),
+       (17, 71, '바닐라시럽', 500, now());
+
+-- order_id: 18(request 없음)
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, total_price, created_at)
+VALUES (2, '꿀밤 카페', 5, '찬혁', ((3500 + 500) + (3500) + (5000 + 500)), now());
+INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
+VALUES (18, '아메리카노', 1, 3500, 3500 + 500, now()), -- id: 72
+       (18, '아메리카노', 1, 3500, 3500, now()),       -- id: 73
+       (18, '카페 모카', 1, 5000, 5000 + 500, now()); -- id: 74
+INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (18, 72, '아이스', 0, now()),
+       (18, 72, '샷추가', 500, now()),
+       (18, 73, '핫', 0, now()),
+       (18, 73, '설탕시럽', 0, now()),
+       (18, 74, '핫', 0, now()),
+       (18, 74, '바닐라시럽', 500, now());
+
+
+-- 유저가 좋아요 한 데이터
+INSERT INTO like_tb (user_id, store_id, created_at)
+VALUES (1, 1, NOW()),
+       (1, 2, NOW()),
+       (1, 3, NOW()),
+       (2, 2, NOW()),
+       (2, 3, NOW()),
+       (2, 4, NOW()),
+       (3, 1, NOW()),
+       (3, 3, NOW()),
+       (3, 5, NOW()),
+       (4, 2, NOW()),
+       (4, 4, NOW()),
+       (4, 5, NOW()),
+       (5, 1, NOW()),
+       (5, 3, NOW()),
+       (5, 4, NOW());
