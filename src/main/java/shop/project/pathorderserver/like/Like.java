@@ -27,6 +27,7 @@ public class Like {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private Store store;
+
     @CreationTimestamp
     private Timestamp createdAt; // 좋아요 한 시간
 }
