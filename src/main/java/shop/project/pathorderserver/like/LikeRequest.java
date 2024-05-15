@@ -1,5 +1,17 @@
 package shop.project.pathorderserver.like;
 
-public class LikeRequest {
+import lombok.Data;
 
+public class LikeRequest {
+    @Data
+    public static class AddLikeDTO {
+        private int userId;
+        private int storeId;
+    }
+
+    @Data
+    public static class RemoveLikeDTO {
+        private int userId;
+        private int storeId;
+    }
 }

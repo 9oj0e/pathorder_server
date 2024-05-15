@@ -37,20 +37,29 @@ public class StoreResponse {
         }
     }
 
-    @Data // 매장 목록보기
+    @Data // 매장
     public static class StoreListDTO {
         private int id;
         private String imgFilename;
         private String name;
-        private int distance; // 거리 계산 TODO: 지도 api
+        private int distance; // 거리 계산 TODO: 지도 API
         private int likeCount;
 
-        public StoreListDTO(Store store) {
+        @Builder
+        public StoreListDTO(int id, String imgFilename, String name, int distance, int likeCount) {
+            this.id = id;
+            this.imgFilename = imgFilename;
+            this.name = name;
+            this.distance = distance;
+            this.likeCount = likeCount;
+        }
+
+        public StoreListDTO(Store store, int likeCount) {
             this.id = store.getId();
             this.imgFilename = store.getImgFilename();
             this.name = store.getName();
-            this.distance = 163;
-            this.likeCount = 181;
+            this.distance = 163; // 예시 값, 실제로는 지도 API로 계산
+            this.likeCount = likeCount;
         }
     }
 
@@ -64,8 +73,22 @@ public class StoreResponse {
         private String closingTime;
         private String closedDay;
         private String address;
+        private int likeCount;
 
-        public StoreInfoDTO(Store store) {
+        @Builder
+        public StoreInfoDTO(int id, String imgFilename, String name, String intro, String openingTime, String closingTime, String closedDay, String address, int likeCount) {
+            this.id = id;
+            this.imgFilename = imgFilename;
+            this.name = name;
+            this.intro = intro;
+            this.openingTime = openingTime;
+            this.closingTime = closingTime;
+            this.closedDay = closedDay;
+            this.address = address;
+            this.likeCount = likeCount;
+        }
+
+        public StoreInfoDTO(Store store, int likeCount) {
             this.id = store.getId();
             this.imgFilename = store.getImgFilename();
             this.name = store.getName();
@@ -74,6 +97,7 @@ public class StoreResponse {
             this.closingTime = store.getClosingTime();
             this.closedDay = store.getClosedDay();
             this.address = store.getAddress();
+            this.likeCount = likeCount;
         }
     }
 
