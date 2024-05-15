@@ -58,11 +58,11 @@ public class Store {
         this.bizNum = reqDTO.getBizNum();
         this.name = reqDTO.getName();
         this.tel = reqDTO.getTel();
-        this.intro = reqDTO.getIntro();
+//        this.intro = reqDTO.getIntro();
         // setImgFilename(reqDTO.getEncodedFile()); TODO: 이미지 업로드
-        this.openingTime = reqDTO.getOpeningTime();
-        this.closingTime = reqDTO.getClosingTime();
-        this.closedDay = reqDTO.getClosedDay();
+//        this.openingTime = reqDTO.getOpeningTime();
+//        this.closingTime = reqDTO.getClosingTime();
+//        this.closedDay = reqDTO.getClosedDay();
         this.address = reqDTO.getAddress();
         this.latitude = reqDTO.getLatitude();
         this.longitude = reqDTO.getLongitude();
