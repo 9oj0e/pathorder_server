@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>패스오더</title>
+    <title>패스오더 회원가입</title>
     <link rel="stylesheet" href="/css/joinForm.css"/>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -21,114 +21,86 @@
                 <div class="form-group form-floating m-3 mx-auto">
                     <div class="px-5 mt-5">
                         <div class="form-group form-floating m-3 mx-auto">
-                            <input type="text" name="username" class="form-control" value="jhjhjhjhjh" id="" required>
-                            <label for="">아이디</label>
+                            <input type="text" name="username" class="form-control" value="jhjhjhjhjh" required>
+                            <label for="username">아이디</label>
                         </div>
                         <div class="person-password">
                             <div class="form-group form-floating m-3 mx-auto">
-                                <input type="password" name="password" class="form-control" id="" value="1234" required>
-                                <label for="">비밀번호</label>
+                                <input type="password" name="password" class="form-control" value="1234" required>
+                                <label for="password">비밀번호</label>
                             </div>
                         </div>
                         <h4 class="border-bottom pb-4">사업자 정보</h4>
                         <div class="form-group form-floating m-3 mx-auto">
-                            <input type="text" name="ownerName" class="form-control" value="정현정" id="ownerName"
-                                   required>
-                            <label for="">사용자 이름</label>
+                            <input type="text" name="ownerName" class="form-control" value="정현정" id="ownerName" required>
+                            <label for="ownerName">사용자 이름</label>
                         </div>
                         <div class="form-group form-floating m-3 mx-auto">
-                            <input type="tel" name="ownerTel" class="form-control" id="tel" value="01012345678"
-                                   required>
-                            <label for="">전화번호</label>
+                            <input type="tel" name="ownerTel" class="form-control" id="ownerTel" value="01012345678" required>
+                            <label for="ownerTel">전화번호</label>
                         </div>
                         <div class="form-group form-floating m-3 mx-auto">
-                            <input type="email" name="ownerEmail" class="form-control" value="jhjhjhjhj@nate.com"
-                                   id="email"
-                                   required>
-                            <label for="">Email</label>
+                            <input type="email" name="ownerEmail" class="form-control" value="jhjhjhjhj@nate.com" id="ownerEmail" required>
+                            <label for="ownerEmail">Email</label>
                         </div>
                         <div class="form-group form-floating m-3 mx-auto">
-                            <input type="text" name="bizNum" class="form-control" id="bizNum" value="123-12-12345"
-                                   required>
-                            <label for="">사업자번호</label>
+                            <input type="text" name="bizNum" class="form-control" id="bizNum" value="123-12-12345" required>
+                            <label for="bizNum">사업자번호</label>
                         </div>
                         <h4 class="border-bottom pb-4">매장 정보</h4>
                         <div class="form-group form-floating m-3 mx-auto">
-                            <input type="text" name="name" class="form-control" value="단팥 카페" id="name"
-                                   required>
-                            <label for="">매장 이름</label>
+                            <input type="text" name="name" class="form-control" value="단팥 카페" id="storeName" required>
+                            <label for="storeName">매장 이름</label>
                         </div>
                         <div class="form-group form-floating m-3 mx-auto">
-                            <input type="tel" name="tel" class="form-control" id="tel" value="01012345678" required>
-                            <label for="">전화번호</label>
+                            <input type="tel" name="tel" class="form-control" id="storeTel" value="01012345678" required>
+                            <label for="storeTel">전화번호</label>
                         </div>
-                        <div class="form-group form-floating m-3 mx-auto addr_li">
-                            <input type="text" name="address" class="form-control" id="address" value="부산광역시" required>
-                            <label class="title" for="user_addr">주소</label>
-                            <div class="post_code d-flex justify-content-start">
-                                <input
-                                        class="form-control"
-                                        type="text"
-                                        id="sample4_postcode"
-                                        placeholder=" 우편번호"
-                                />
-                                <input
-                                        class="search_btn btn btn-outline-primary"
-                                        type="button"
-                                        onclick="sample4_execDaumPostcode()"
-                                        value=" 우편번호 찾기"
-                                /><br/>
+                        <div class="form-group form-floating m-3 mx-auto">
+                            <input type="text" name="address" class="form-control" id="storeAddress" value="부산광역시" required>
+                            <label for="storeAddress">주소</label>
+                            <div class="post-code d-flex justify-content-start">
+                                <input type="text" class="form-control" id="postcode" placeholder="우편번호"/>
+                                <input type="button" class="search-btn btn btn-outline-primary" onclick="execDaumPostcode()" value="우편번호 찾기"/>
                             </div>
                             <div class="address">
                                 <div class="d-flex justify-content-start">
-                                    <input
-                                            class="form-control"
-                                            type="text"
-                                            id="sample4_roadAddress"
-                                            placeholder=" 도로명주소"
-                                    />
-                                    <input
-                                            class="form-control"
-                                            type="text"
-                                            id="sample4_detailAddress"
-                                            placeholder=" 상세주소"
-                                    />
+                                    <input type="text" class="form-control" id="roadAddress" placeholder="도로명주소"/>
+                                    <input type="text" class="form-control" id="detailAddress" placeholder="상세주소"/>
                                 </div>
-                               <div>
-                                   <input
-                                           class="form-control"
-                                           type="text"
-                                           id="sample4_jibunAddress"
-                                           placeholder=" 지번주소"
-                                   />
-                                   <span id="guide" style="color: #999; display: none"></span>
-                                   <input
-                                           class="form-control"
-                                           type="text"
-                                           id="sample4_extraAddress"
-                                           placeholder=" 참고항목"
-                                   />
-                               </div>
+                                <div>
+                                    <input type="text" class="form-control" id="jibunAddress" placeholder="지번주소"/>
+                                    <span id="guide" style="color: #999; display: none"></span>
+                                    <input type="text" class="form-control" id="extraAddress" placeholder="참고항목"/>
+                                </div>
                             </div>
+                            <input type="hidden" name="latitude" id="latitude" />
+                            <input type="hidden" name="longitude" id="longitude" />
                         </div>
                         <div style="width: 100%;">
-                            <button type="submit" href="#" class="btn btn-outline-success mb-3" style="width: 100%">가입하기
-                            </button>
+                            <button type="submit" class="btn btn-outline-success mb-3" style="width: 100%">가입하기</button>
                         </div>
                     </div>
                 </div>
             </form>
-            <div class="text-center sj_login_join">
+            <div class="text-center sj-login-join">
                 <p><a href="/person/login-form" style="color: #699b22;">이미 회원이신가요?</a></p>
             </div>
         </div>
     </div>
 </div>
-<script src="/js/joinForm.js"></script>
+
+<!-- Kakao Maps API 스크립트 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fefea0311294bbe35b45f365501d0605&libraries=services"></script>
+
+<!-- Daum Postcode API 스크립트 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<!-- 분리된 JavaScript 파일 -->
+<script src="/js/joinForm.js"></script>
+
 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
 </html>

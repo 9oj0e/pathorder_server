@@ -88,10 +88,10 @@ public class StoreService {
 
     /*------------------------------------------------------------------------------------- 매장 관리자 -----------------*/
     // 매장 관리자 등록
+    @Transactional
     public StoreResponse.JoinDTO createStore(StoreRequest.JoinDTO reqDTO) {
         Store store = new Store(reqDTO);
         storeRepository.save(store);
-
         return new StoreResponse.JoinDTO(store);
     }
 
