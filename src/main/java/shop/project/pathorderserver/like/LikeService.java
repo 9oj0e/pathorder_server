@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.project.pathorderserver._core.errors.exception.Exception404;
+import shop.project.pathorderserver._core.errors.exception.Exception400;
 import shop.project.pathorderserver.store.Store;
 import shop.project.pathorderserver.store.StoreRepository;
 import shop.project.pathorderserver.user.User;
@@ -22,8 +23,13 @@ public class LikeService {
 
     @Transactional
     public LikeResponse.LikeListDTO addLike(LikeRequest.AddLikeDTO reqDTO) {
-        User user = userRepository.findById(reqDTO.getUserId()).orElseThrow(() -> new Exception404("해당하는 유저가 없습니다."));
-        Store store = storeRepository.findById(reqDTO.getStoreId()).orElseThrow(() -> new Exception404("해당하는 가게가 없습니다."));
+        // 이미 좋아요가 존재하는지 확인
+        if (likeRepository.existsByCustomerIdAndStoreId(reqDTO.getUserId(), reqDTO.getStoreId())) {
+            throw new Exception400("이미 좋아요가 되어 있는 매장입니다.");
+        }
+
+        User user = userRepository.findById(reqDTO.getUserId()).orElseThrow(() -> new Exception404("해당하는 사용자를 찾을 수 없습니다."));
+        Store store = storeRepository.findById(reqDTO.getStoreId()).orElseThrow(() -> new Exception404("해당하는 매장을 찾을 수 없습니다."));
 
         Like like = new Like();
         like.setCustomer(user);
@@ -37,6 +43,8 @@ public class LikeService {
                 .storeName(store.getName())
                 .distance(163) // TODO: 실제 거리 계산 로직 추가
                 .isLike(true)
+                .latitude(store.getLatitude()) // 위도 설정
+                .longitude(store.getLongitude()) // 경도 설정
                 .build();
     }
 
@@ -56,16 +64,17 @@ public class LikeService {
                         .storeName((String) result[3])
                         .distance(163) // TODO: 실제 거리 계산 로직 추가
                         .isLike(true)
+                        .latitude((Double) result[4]) // 위도 설정
+                        .longitude((Double) result[5]) // 경도 설정
                         .build())
                 .toList();
     }
 
-    public LikeResponse.StoreLikeCountDTO getStoreLikeCount(int storeId) {
-        // 특정 카페의 좋아요 수 조회
-        int count = likeRepository.countByStoreId(storeId);
-        return LikeResponse.StoreLikeCountDTO.builder()
-                .storeId(storeId)
-                .likeCount(count)
-                .build();
+    public boolean isUserLikedStore(int userId, int storeId) {
+        return likeRepository.existsByCustomerIdAndStoreId(userId, storeId);
+    }
+
+    public int getStoreLikeCount(int storeId) {
+        return likeRepository.countByStoreId(storeId);
     }
 }

@@ -13,17 +13,21 @@ import shop.project.pathorderserver.menu.MenuOption;
 import shop.project.pathorderserver.menu.MenuOptionRepository;
 import shop.project.pathorderserver.menu.MenuRepository;
 import shop.project.pathorderserver.order.*;
+import shop.project.pathorderserver.user.User;
+import shop.project.pathorderserver.user.UserRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class StoreService {
     private final StoreRepository storeRepository;
+    private final UserRepository userRepository;
     private final MenuRepository menuRepository;
     private final MenuOptionRepository menuOptionRepository;
     private final OrderRepository orderRepository;
@@ -31,24 +35,27 @@ public class StoreService {
     private final LikeService likeService;
 
     // 매장 목록보기
-    public List<StoreResponse.StoreListDTO> getStoreList() {
+    public List<StoreResponse.StoreListDTO> getStoreList(int userId) {
         List<Store> stores = storeRepository.findAll();
-
         return stores.stream()
                 .map(store -> {
-                    LikeResponse.StoreLikeCountDTO likeCountDTO = likeService.getStoreLikeCount(store.getId());
-                    return new StoreResponse.StoreListDTO(store, likeCountDTO.getLikeCount());
+                    int likeCount = likeService.getStoreLikeCount(store.getId());
+                    boolean isLiked = likeService.isUserLikedStore(userId, store.getId());
+                    int reviewCount = getReviewCount(store.getId());
+                    return new StoreResponse.StoreListDTO(store, likeCount, isLiked, reviewCount);
                 })
                 .toList();
     }
 
     // 매장 상세보기
-    public StoreResponse.StoreInfoDTO getStoreInfo(int storeId) {
+    public StoreResponse.StoreInfoDTO getStoreInfo(int userId, int storeId) {
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 매장입니다."));
 
-        LikeResponse.StoreLikeCountDTO likeCountDTO = likeService.getStoreLikeCount(storeId);
-        return new StoreResponse.StoreInfoDTO(store, likeCountDTO.getLikeCount());
+        int likeCount = likeService.getStoreLikeCount(storeId);
+        boolean isLiked = likeService.isUserLikedStore(userId, storeId);
+        int reviewCount = getReviewCount(storeId);
+        return new StoreResponse.StoreInfoDTO(store, likeCount, isLiked, reviewCount);
     }
 
     // 매장 상세보기 - 사업자 정보
@@ -284,5 +291,11 @@ public class StoreService {
         }
 
         return pendingOrderCount;
+    }
+
+    // TODO: 육성재님, 댓글 카운트 이걸로 해놨는데 교체하세욤!!
+    private int getReviewCount(int storeId) {
+
+        return 17;
     }
 }
