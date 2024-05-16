@@ -52,6 +52,7 @@ public class Store {
     public Store(StoreRequest.JoinDTO reqDTO) {
         this.username = reqDTO.getUsername();
         this.password = reqDTO.getPassword();
+        this.status = true;
         this.ownerName = reqDTO.getOwnerName();
         this.ownerTel = reqDTO.getOwnerTel();
         this.ownerEmail = reqDTO.getOwnerEmail();
