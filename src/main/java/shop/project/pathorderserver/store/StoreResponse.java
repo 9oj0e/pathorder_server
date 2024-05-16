@@ -21,6 +21,7 @@ import java.util.StringJoiner;
 public class StoreResponse {
     @Data // 매장 등록
     public static class JoinDTO {
+        private int id;
         // 회원 정보
         private String username;
         // 사업자 정보
@@ -28,12 +29,19 @@ public class StoreResponse {
         private String bizNum;
         // 매장 정보
         private String name;
+        private String address;
+        private Double latitude;
+        private Double longitude;
 
         public JoinDTO(Store store) {
+            this.id = store.getId();
             this.username = store.getUsername();
             this.ownerName = store.getOwnerName();
             this.bizNum = store.getBizNum();
             this.name = store.getName();
+            this.address = store.getAddress();
+            this.latitude = store.getLatitude();
+            this.longitude = store.getLongitude();
         }
     }
 

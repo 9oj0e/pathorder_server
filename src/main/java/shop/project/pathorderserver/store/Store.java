@@ -58,12 +58,14 @@ public class Store {
         this.bizNum = reqDTO.getBizNum();
         this.name = reqDTO.getName();
         this.tel = reqDTO.getTel();
-        this.intro = reqDTO.getIntro();
+//        this.intro = reqDTO.getIntro();
         // setImgFilename(reqDTO.getEncodedFile()); TODO: 이미지 업로드
-        this.openingTime = reqDTO.getOpeningTime();
-        this.closingTime = reqDTO.getClosingTime();
-        this.closedDay = reqDTO.getClosedDay();
+//        this.openingTime = reqDTO.getOpeningTime();
+//        this.closingTime = reqDTO.getClosingTime();
+//        this.closedDay = reqDTO.getClosedDay();
         this.address = reqDTO.getAddress();
+        this.latitude = reqDTO.getLatitude();
+        this.longitude = reqDTO.getLongitude();
     }
 
     public void update(StoreRequest.UpdateDTO reqDTO) {
@@ -80,6 +82,8 @@ public class Store {
         setClosingTime(reqDTO.getClosingTime());
         setClosedDay(reqDTO.getClosedDay());
         setAddress(reqDTO.getAddress());
+        setLatitude(reqDTO.getLatitude());
+        setLongitude(reqDTO.getLongitude());
     }
 
     private void setImgFilename(String encodedFile) {
@@ -95,25 +99,25 @@ public class Store {
     @Override
     public String toString() {
         return "Store{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", status=" + status +
-                ", ownerName='" + ownerName + '\'' +
-                ", ownerTel='" + ownerTel + '\'' +
-                ", ownerEmail='" + ownerEmail + '\'' +
-                ", bizNum='" + bizNum + '\'' +
-                ", name='" + name + '\'' +
-                ", tel='" + tel + '\'' +
-                ", intro='" + intro + '\'' +
-                ", imgFilename='" + imgFilename + '\'' +
-                ", openingTime='" + openingTime + '\'' +
-                ", closingTime='" + closingTime + '\'' +
-                ", closedDay='" + closedDay + '\'' +
-                ", address='" + address + '\'' +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
-                ", registeredAt=" + registeredAt +
-                '}';
+               "id=" + id +
+               ", username='" + username + '\'' +
+               ", password='" + password + '\'' +
+               ", status=" + status +
+               ", ownerName='" + ownerName + '\'' +
+               ", ownerTel='" + ownerTel + '\'' +
+               ", ownerEmail='" + ownerEmail + '\'' +
+               ", bizNum='" + bizNum + '\'' +
+               ", name='" + name + '\'' +
+               ", tel='" + tel + '\'' +
+               ", intro='" + intro + '\'' +
+               ", imgFilename='" + imgFilename + '\'' +
+               ", openingTime='" + openingTime + '\'' +
+               ", closingTime='" + closingTime + '\'' +
+               ", closedDay='" + closedDay + '\'' +
+               ", address='" + address + '\'' +
+               ", latitude=" + latitude +
+               ", longitude=" + longitude +
+               ", registeredAt=" + registeredAt +
+               '}';
     }
 }

@@ -22,11 +22,13 @@ public class StoreRequest {
         // private String encodedFile; TODO: 이미지 업로드
         private String name;
         private String tel;
-        private String intro;
-        private String openingTime;
-        private String closingTime;
-        private String closedDay;
+//        private String intro;
+//        private String openingTime;
+//        private String closingTime;
+//        private String closedDay;
         private String address;
+        private Double latitude;
+        private Double longitude;
     }
 
     @Data // 매장 관리자 로그인
@@ -53,6 +55,8 @@ public class StoreRequest {
         private String closingTime;
         private String closedDay;
         private String address;
+        private Double latitude; // 추가된 필드
+        private Double longitude; // 추가된 필드
     }
 
     @Data
@@ -87,14 +91,14 @@ public class StoreRequest {
         // 옵션 정보
         private int price;
         private String name;
-        private boolean isRequired;
+        private boolean isRequired.
     }
 
     @Data
     public static class UpdateMenuOptionDTO {
         private int price;
         private String name;
-        private boolean isRequired;
+        private boolean isRequired.
     }
     */
     @Data // TODO: 매장 관리자 - 주문 업데이트
