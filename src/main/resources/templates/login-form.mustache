@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -33,9 +34,9 @@
                 </div>
             </form>
             <div class="text-center sj_login_join">
-                <form id="joinForm" action="/stores/join-form" method="post">
+                <form id="joinForm" action="/stores/join-form" method="get">
                     <input type="hidden" name="termsAgreed" value="false">
-                    <a style="color: #699b22" onclick="toJoin()" onmouseover="this.style.cursor='hand'">아직 회원이 아니신가요?</a>
+                    <a style="color: #699b22" onclick="toJoin()" onmouseover="this.style.cursor='pointer'">아직 회원이 아니신가요?</a>
                 </form>
                 <script>
                     function toJoin() {
