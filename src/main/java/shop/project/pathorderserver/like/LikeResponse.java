@@ -30,6 +30,8 @@ public class LikeResponse {
         private String storeName;
         private int distance;
         private boolean isLike;
+        private Double latitude;
+        private Double longitude;
     }
 
     @Data

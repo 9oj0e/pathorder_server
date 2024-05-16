@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface LikeRepository extends JpaRepository<Like, Integer> {
     // 특정 사용자가 좋아요한 목록 조회
     @Query("""
-            SELECT l.id as id, s.id as storeId, s.imgFilename as storeImgFilename, s.name as storeName
+            SELECT l.id as id, s.id as storeId, s.imgFilename as storeImgFilename, s.name as storeName, s.latitude as latitude, s.longitude as longitude
             FROM Like l 
             JOIN l.store s 
             WHERE l.customer.id = :userId

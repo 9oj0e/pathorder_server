@@ -41,9 +41,10 @@ public class StoreService {
                 .map(store -> {
                     int likeCount = likeService.getStoreLikeCount(store.getId());
                     boolean isLiked = likeService.isUserLikedStore(userId, store.getId());
-                    return new StoreResponse.StoreListDTO(store, likeCount, isLiked);
+                    int reviewCount = getReviewCount(store.getId());
+                    return new StoreResponse.StoreListDTO(store, likeCount, isLiked, reviewCount);
                 })
-                .collect(Collectors.toList());
+                .toList();
     }
 
     // 매장 상세보기
@@ -53,7 +54,8 @@ public class StoreService {
 
         int likeCount = likeService.getStoreLikeCount(storeId);
         boolean isLiked = likeService.isUserLikedStore(userId, storeId);
-        return new StoreResponse.StoreInfoDTO(store, likeCount, isLiked);
+        int reviewCount = getReviewCount(storeId);
+        return new StoreResponse.StoreInfoDTO(store, likeCount, isLiked, reviewCount);
     }
 
     // 매장 상세보기 - 사업자 정보
@@ -289,5 +291,11 @@ public class StoreService {
         }
 
         return pendingOrderCount;
+    }
+
+    // TODO: 육성재님, 댓글 카운트 이걸로 해놨는데 교체하세욤!!
+    private int getReviewCount(int storeId) {
+
+        return 17;
     }
 }

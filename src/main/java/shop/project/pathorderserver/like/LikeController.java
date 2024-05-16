@@ -19,13 +19,9 @@ public class LikeController {
     @PostMapping("/api/users/{userId}/likes")
     public ResponseEntity<?> addLike(@PathVariable int userId, @RequestBody LikeRequest.AddLikeDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-
-        // 요청 DTO에 userId를 설정합니다.
-        reqDTO.setUserId(userId);
-
+        reqDTO.setUserId(sessionUser.getId());
         LikeResponse.LikeListDTO respDTO = likeService.addLike(reqDTO);
-        System.out.println("우왓");
-        System.out.println(respDTO);
+
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
@@ -33,10 +29,10 @@ public class LikeController {
     @DeleteMapping("/api/users/{userId}/likes")
     public ResponseEntity<?> removeLike(@PathVariable int userId, @RequestBody LikeRequest.RemoveLikeDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        reqDTO.setUserId(userId);
+        reqDTO.setUserId(sessionUser.getId());
 
         likeService.removeLike(reqDTO);
-        LikeResponse.RemoveLikeDTO respDTO = new LikeResponse.RemoveLikeDTO(userId, reqDTO.getStoreId());
+        LikeResponse.RemoveLikeDTO respDTO = new LikeResponse.RemoveLikeDTO(sessionUser.getId(), reqDTO.getStoreId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
@@ -48,11 +44,4 @@ public class LikeController {
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
-
-//    // 특정 카페의 좋아요 수 조회
-//    @GetMapping("/api/stores/{storeId}/likes/count")
-//    public ResponseEntity<?> getStoreLikeCount(@PathVariable int storeId) {
-//        LikeResponse.StoreLikeCountDTO respDTO = likeService.getStoreLikeCount(storeId);
-//        return ResponseEntity.ok(new ApiUtil<>(respDTO));
-//    }
 }
