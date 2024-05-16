@@ -27,6 +27,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/api/**");
         registry.addInterceptor(new SSRLoginInterceptor())
                 .addPathPatterns("/stores/**")
-                .excludePathPatterns("/stores/login", "/stores/login-form", "stores/join", "/stores/join-form");
+                .excludePathPatterns("/stores/login", "/stores/login-form", "/stores/join", "/stores/join-form");
     }
 }
