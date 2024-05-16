@@ -22,13 +22,13 @@ public class StoreRequest {
         // private String encodedFile; TODO: 이미지 업로드
         private String name;
         private String tel;
-        private String intro;
-        private String openingTime;
-        private String closingTime;
-        private String closedDay;
+//        private String intro;
+//        private String openingTime;
+//        private String closingTime;
+//        private String closedDay;
         private String address;
-        private Double latitude; // 추가된 필드
-        private Double longitude; // 추가된 필드
+        private Double latitude;
+        private Double longitude;
     }
 
     @Data // 매장 관리자 로그인

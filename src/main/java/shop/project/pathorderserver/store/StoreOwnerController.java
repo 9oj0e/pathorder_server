@@ -45,6 +45,8 @@ public class StoreOwnerController {
     @PostMapping("/stores/join") // 매장 관리자 회원가입
     public String join(StoreRequest.JoinDTO reqDTO) {
         storeService.createStore(reqDTO);
+        System.out.println("뭔라고 적어니");
+        System.out.println(reqDTO);
         return "redirect:/stores/login-form";
     }
 
