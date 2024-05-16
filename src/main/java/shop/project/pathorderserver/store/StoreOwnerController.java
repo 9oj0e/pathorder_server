@@ -30,8 +30,6 @@ public class StoreOwnerController {
         }
     }
 
-    /*------------------------------------------------------------------------------------- 회원가입 -------------------*/
-
     @GetMapping("/stores/join-form") // 매장 관리자 - 회원 가입 폼
     public String joinForm(@RequestParam(name = "termsAgreed", required = false, defaultValue = "false") boolean termsAgreed) {
         if (termsAgreed) { // 약관 동의
