@@ -42,10 +42,10 @@ public class LikeController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    // 특정 카페의 좋아요 수 조회
-    @GetMapping("/api/stores/{storeId}/likes/count")
-    public ResponseEntity<?> getStoreLikeCount(@PathVariable int storeId) {
-        LikeResponse.StoreLikeCountDTO respDTO = likeService.getStoreLikeCount(storeId);
-        return ResponseEntity.ok(new ApiUtil<>(respDTO));
-    }
+//    // 특정 카페의 좋아요 수 조회
+//    @GetMapping("/api/stores/{storeId}/likes/count")
+//    public ResponseEntity<?> getStoreLikeCount(@PathVariable int storeId) {
+//        LikeResponse.StoreLikeCountDTO respDTO = likeService.getStoreLikeCount(storeId);
+//        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+//    }
 }

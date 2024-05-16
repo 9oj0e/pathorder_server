@@ -60,12 +60,20 @@ public class LikeService {
                 .toList();
     }
 
-    public LikeResponse.StoreLikeCountDTO getStoreLikeCount(int storeId) {
-        // 특정 카페의 좋아요 수 조회
-        int count = likeRepository.countByStoreId(storeId);
-        return LikeResponse.StoreLikeCountDTO.builder()
-                .storeId(storeId)
-                .likeCount(count)
-                .build();
+//    public LikeResponse.StoreLikeCountDTO getStoreLikeCount(int storeId) {
+//        // 특정 카페의 좋아요 수 조회
+//        int count = likeRepository.countByStoreId(storeId);
+//        return LikeResponse.StoreLikeCountDTO.builder()
+//                .storeId(storeId)
+//                .likeCount(count)
+//                .build();
+//    }
+
+    public boolean isUserLikedStore(int userId, int storeId) {
+        return likeRepository.existsByCustomerIdAndStoreId(userId, storeId);
+    }
+
+    public int getStoreLikeCount(int storeId) {
+        return likeRepository.countByStoreId(storeId);
     }
 }

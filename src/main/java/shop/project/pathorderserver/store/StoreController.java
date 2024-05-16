@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import shop.project.pathorderserver._core.utils.ApiUtil;
 
@@ -15,16 +16,14 @@ public class StoreController {
     private final StoreService storeService;
 
     @GetMapping("/api/stores")
-    public ResponseEntity<?> storeList() { // 매장 목록보기
-        List<StoreResponse.StoreListDTO> respDTO = storeService.getStoreList();
-
+    public ResponseEntity<?> storeList(@RequestParam int userId) { // 매장 목록보기
+        List<StoreResponse.StoreListDTO> respDTO = storeService.getStoreList(userId);
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
     @GetMapping("/api/stores/{storeId}") // 매장 상세보기
-    public ResponseEntity<?> storeInfo(@PathVariable int storeId) {
-        StoreResponse.StoreInfoDTO respDTO = storeService.getStoreInfo(storeId);
-
+    public ResponseEntity<?> storeInfo(@RequestParam int userId, @PathVariable int storeId) {
+        StoreResponse.StoreInfoDTO respDTO = storeService.getStoreInfo(userId, storeId);
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 

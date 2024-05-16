@@ -52,22 +52,25 @@ public class StoreResponse {
         private String name;
         private int distance; // 거리 계산 TODO: 지도 API
         private int likeCount;
+        private boolean isLiked;
 
         @Builder
-        public StoreListDTO(int id, String imgFilename, String name, int distance, int likeCount) {
+        public StoreListDTO(int id, String imgFilename, String name, int distance, int likeCount, boolean isLiked) {
             this.id = id;
             this.imgFilename = imgFilename;
             this.name = name;
             this.distance = distance;
             this.likeCount = likeCount;
+            this.isLiked = isLiked;
         }
 
-        public StoreListDTO(Store store, int likeCount) {
+        public StoreListDTO(Store store, int likeCount, boolean isLiked) {
             this.id = store.getId();
             this.imgFilename = store.getImgFilename();
             this.name = store.getName();
             this.distance = 163; // 예시 값, 실제로는 지도 API로 계산
             this.likeCount = likeCount;
+            this.isLiked = isLiked;
         }
     }
 
@@ -82,9 +85,10 @@ public class StoreResponse {
         private String closedDay;
         private String address;
         private int likeCount;
+        private boolean isLiked;
 
         @Builder
-        public StoreInfoDTO(int id, String imgFilename, String name, String intro, String openingTime, String closingTime, String closedDay, String address, int likeCount) {
+        public StoreInfoDTO(int id, String imgFilename, String name, String intro, String openingTime, String closingTime, String closedDay, String address, int likeCount, boolean isLiked) {
             this.id = id;
             this.imgFilename = imgFilename;
             this.name = name;
@@ -94,9 +98,10 @@ public class StoreResponse {
             this.closedDay = closedDay;
             this.address = address;
             this.likeCount = likeCount;
+            this.isLiked = isLiked;
         }
 
-        public StoreInfoDTO(Store store, int likeCount) {
+        public StoreInfoDTO(Store store, int likeCount, boolean isLiked) {
             this.id = store.getId();
             this.imgFilename = store.getImgFilename();
             this.name = store.getName();
@@ -106,8 +111,10 @@ public class StoreResponse {
             this.closedDay = store.getClosedDay();
             this.address = store.getAddress();
             this.likeCount = likeCount;
+            this.isLiked = isLiked;
         }
     }
+
 
     @Data // 매장 상세보기 - 사업자 정보
     public static class StoreBizInfoDTO {
