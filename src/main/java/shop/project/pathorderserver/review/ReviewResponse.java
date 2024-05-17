@@ -2,6 +2,7 @@ package shop.project.pathorderserver.review;
 
 import lombok.Builder;
 import lombok.Data;
+import shop.project.pathorderserver._core.utils.FileUtil;
 import shop.project.pathorderserver._core.utils.FormatUtil;
 import shop.project.pathorderserver.store.Store;
 import shop.project.pathorderserver.user.User;
@@ -9,6 +10,8 @@ import shop.project.pathorderserver.user.User;
 import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import static shop.project.pathorderserver._core.utils.FileUtil.getFilePath;
 
 public class ReviewResponse {
     // 내 리뷰 보기
@@ -24,19 +27,19 @@ public class ReviewResponse {
         public static class ReviewDTO {
             private int userId;
             private String nickname;
-            private String usersImgFilename;
+            private String usersImgFilePath;
             private int reviewId;
             private String content;
-            private String imgFilename;
+            private String imgFilePath;
             private Timestamp createdAt;
 
             public ReviewDTO(Review review) {
                 this.userId = review.getUser().getId();
                 this.nickname = review.getUser().getNickname();
-                this.usersImgFilename = review.getUser().getImgFilename();
+                this.usersImgFilePath = getFilePath(review.getUser().getImgFilename());
                 this.reviewId = review.getId();
                 this.content = review.getContent();
-                this.imgFilename = review.getImgFilename();
+                this.imgFilePath = getFilePath(review.getImgFilename());
                 this.createdAt = review.getCreatedAt();
             }
 
@@ -59,19 +62,19 @@ public class ReviewResponse {
         public static class ReviewDTO {
             private int userId;
             private String nickname;
-            private String usersImgFilename;
+            private String usersImgFilePath;
             private int reviewId;
             private String content;
-            private String reviewsImgFilename;
+            private String reviewsImgFilePath;
             private Timestamp createdAt;
 
             public ReviewDTO(Review review) {
                 this.userId = review.getUser().getId();
                 this.nickname = review.getUser().getNickname();
-                this.usersImgFilename = review.getUser().getImgFilename();
+                this.usersImgFilePath = getFilePath(review.getUser().getImgFilename());
                 this.reviewId = review.getId();
                 this.content = review.getContent();
-                this.reviewsImgFilename = review.getImgFilename();
+                this.reviewsImgFilePath = getFilePath(review.getImgFilename());
                 this.createdAt = review.getCreatedAt();
             }
 

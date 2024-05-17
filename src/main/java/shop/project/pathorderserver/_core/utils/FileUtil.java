@@ -77,6 +77,9 @@ public class FileUtil {
     }
 
     public static String getFilePath(String filename) {
+        if (filename == null) {
+            return null;
+        }
         return "/upload/" + filename; // 파일 경로 return
     }
 }
