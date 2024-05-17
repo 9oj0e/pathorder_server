@@ -606,3 +606,12 @@ VALUES (1, 1, NOW()),
        (5, 1, NOW()),
        (5, 3, NOW()),
        (5, 4, NOW());
+
+INSERT INTO review_tb (user_id, store_id, content, created_at)
+VALUES (1, 1, '맛있어요', NOW());
+INSERT INTO review_tb (user_id, store_id, content, created_at)
+VALUES (1, 2, '맛있어요', NOW());
+INSERT INTO review_tb (user_id, store_id, content, created_at)
+VALUES (2, 1, '맛있어요', NOW());
+INSERT INTO review_tb (user_id, store_id, content, created_at)
+VALUES (2, 2, '맛있어요', NOW());
