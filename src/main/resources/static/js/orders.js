@@ -1,3 +1,10 @@
+// 주문 알림
+const evtSource = new EventSource("/connect");
+evtSource.onmessage = function(event) {
+    // let data = JSON.parse(event.data);
+    alert("새로운 주문이 도착했습니다");
+};
+
 // 주문 상세 모달
 $('button[data-order-id]').click(function () {
     let orderId = $(this).data('order-id');
