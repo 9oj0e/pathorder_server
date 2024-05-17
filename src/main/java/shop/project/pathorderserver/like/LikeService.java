@@ -21,7 +21,6 @@ public class LikeService {
     final private UserRepository userRepository;
     final private StoreRepository storeRepository;
     final private LikeRepository likeRepository;
-    final private StoreService storeService;
 
     @Transactional
     public LikeResponse.LikeListDTO addLike(LikeRequest.AddLikeDTO reqDTO) {
@@ -62,7 +61,7 @@ public class LikeService {
                 .map(result -> {
                     int storeId = (Integer) result[1];
                     int likeCount = getStoreLikeCount(storeId);
-                    int reviewCount = storeService.getReviewCount(storeId);
+                    int reviewCount = getReviewCount(storeId);
 
                     return LikeResponse.LikeListDTO.builder()
                             .id((Integer) result[0])
@@ -86,5 +85,10 @@ public class LikeService {
 
     public int getStoreLikeCount(int storeId) {
         return likeRepository.countByStoreId(storeId);
+    }
+
+    public int getReviewCount(int storeId) {
+
+        return 17;
     }
 }
