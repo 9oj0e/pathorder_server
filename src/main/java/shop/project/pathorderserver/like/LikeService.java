@@ -7,6 +7,7 @@ import shop.project.pathorderserver._core.errors.exception.Exception404;
 import shop.project.pathorderserver._core.errors.exception.Exception400;
 import shop.project.pathorderserver.store.Store;
 import shop.project.pathorderserver.store.StoreRepository;
+import shop.project.pathorderserver.store.StoreService;
 import shop.project.pathorderserver.user.User;
 import shop.project.pathorderserver.user.UserRepository;
 
@@ -20,6 +21,7 @@ public class LikeService {
     final private UserRepository userRepository;
     final private StoreRepository storeRepository;
     final private LikeRepository likeRepository;
+    final private StoreService storeService;
 
     @Transactional
     public LikeResponse.LikeListDTO addLike(LikeRequest.AddLikeDTO reqDTO) {
@@ -57,16 +59,24 @@ public class LikeService {
     public List<LikeResponse.LikeListDTO> getUserLikes(int userId) {
         List<Object[]> results = likeRepository.findLikesByUserId(userId);
         return results.stream()
-                .map(result -> LikeResponse.LikeListDTO.builder()
-                        .id((Integer) result[0])
-                        .storeId((Integer) result[1])
-                        .storeImgFilename((String) result[2])
-                        .storeName((String) result[3])
-                        .distance(163) // TODO: 실제 거리 계산 로직 추가
-                        .isLike(true)
-                        .latitude((Double) result[4]) // 위도 설정
-                        .longitude((Double) result[5]) // 경도 설정
-                        .build())
+                .map(result -> {
+                    int storeId = (Integer) result[1];
+                    int likeCount = getStoreLikeCount(storeId);
+                    int reviewCount = storeService.getReviewCount(storeId);
+
+                    return LikeResponse.LikeListDTO.builder()
+                            .id((Integer) result[0])
+                            .storeId(storeId)
+                            .storeImgFilename((String) result[2])
+                            .storeName((String) result[3])
+                            .distance(163) // TODO: 실제 거리 계산 로직 추가
+                            .isLike(true)
+                            .latitude((Double) result[4])
+                            .longitude((Double) result[5])
+                            .likeCount(likeCount)
+                            .reviewCount(reviewCount)
+                            .build();
+                })
                 .toList();
     }
 

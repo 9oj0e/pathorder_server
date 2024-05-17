@@ -30,6 +30,8 @@ public class LikeResponse {
         private String storeName;
         private int distance;
         private boolean isLike;
+        private int likeCount;
+        private int reviewCount;
         private Double latitude;
         private Double longitude;
     }
