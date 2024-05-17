@@ -1,11 +1,14 @@
 package shop.project.pathorderserver.review;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import shop.project.pathorderserver._core.errors.exception.Exception403;
 import shop.project.pathorderserver._core.errors.exception.Exception404;
 import shop.project.pathorderserver.store.Store;
 import shop.project.pathorderserver.store.StoreRepository;
+import shop.project.pathorderserver.user.SessionUser;
 import shop.project.pathorderserver.user.User;
 import shop.project.pathorderserver.user.UserRepository;
 
@@ -16,24 +19,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ReviewService {
     private final ReviewRepository reviewRepository;
-    private final UserRepository userRepository;
-    private final StoreRepository storeRepository;
-
-    // 리뷰 등록
-    public ReviewResponse.AddDTO createReview(ReviewRequest.AddDTO reqDTO) {
-        User user = userRepository.findById(reqDTO.getUserId())
-                .orElseThrow(() -> new Exception404("찾을 수 없는 유저입니다."));
-        Store store = storeRepository.findById(reqDTO.getStoreId())
-                .orElseThrow(() -> new Exception404("찾을 수 없는 매장입니다."));
-        Review review = new Review(reqDTO, user, store);
-        reviewRepository.save(review);
-
-        return ReviewResponse.AddDTO.builder()
-                .review(review)
-                .user(user)
-                .store(store)
-                .build();
-    }
 
     // 내 리뷰 보기
     public ReviewResponse.MyReviewListDTO myReviewList(int userId) {
@@ -41,5 +26,13 @@ public class ReviewService {
                 .orElseThrow(() -> new Exception403("리뷰를 확인할 권한이 없습니다."));
 
         return new ReviewResponse.MyReviewListDTO(reviewList);
+    }
+
+    // 매장 리뷰 보기
+    public ReviewResponse.StoreReviewListDTO storeReviewList(int storeId) {
+        List<Review> reviewList = reviewRepository.findByStoreId(storeId)
+                .orElseThrow(() -> new Exception404("찾을 수 없는 매장입니다."));
+
+        return new ReviewResponse.StoreReviewListDTO(reviewList);
     }
 }

@@ -20,9 +20,18 @@ class ReviewRepositoryTest {
         //given
         int userId = 1;
         //when
-        Optional<List<Review>> reviewListOP = reviewRepository.findByUserId(userId);
+        Optional<List<Review>> userReviewListOP = reviewRepository.findByUserId(userId);
         //then
-        Assertions.assertThat(reviewListOP.get().size()).isEqualTo(0);
+        Assertions.assertThat(userReviewListOP.get().size()).isEqualTo(0);
 
+    }
+
+    @Test
+    void findByStoreId() {
+        int storeId = 1;
+
+        Optional<List<Review>> storeReviewListOP = reviewRepository.findByStoreId(storeId);
+
+        Assertions.assertThat(storeReviewListOP.get().size()).isEqualTo(0);
     }
 }
