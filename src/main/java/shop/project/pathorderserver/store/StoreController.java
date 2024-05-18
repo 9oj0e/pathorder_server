@@ -19,10 +19,11 @@ public class StoreController {
     private final HttpSession session;
 
     @GetMapping("/api/stores")
-    public ResponseEntity<?> storeList() { // 매장 목록보기
+    public ResponseEntity<?> storeList(@RequestParam double latitude, @RequestParam double longitude) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
 
-        List<StoreResponse.StoreListDTO> respDTO = storeService.getStoreList(sessionUser.getId());
+        List<StoreResponse.StoreListDTO> respDTO = storeService.getStoreList(sessionUser.getId(), latitude, longitude);
+
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 

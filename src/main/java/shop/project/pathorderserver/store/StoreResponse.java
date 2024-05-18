@@ -2,6 +2,7 @@ package shop.project.pathorderserver.store;
 
 import lombok.Builder;
 import lombok.Data;
+import shop.project.pathorderserver._core.utils.DistanceUtil;
 import shop.project.pathorderserver._core.utils.FileUtil;
 import shop.project.pathorderserver._core.utils.FormatUtil;
 import shop.project.pathorderserver.menu.Menu;
@@ -45,12 +46,12 @@ public class StoreResponse {
         }
     }
 
-    @Data // 매장
+    @Data
     public static class StoreListDTO {
         private int id;
         private String imgFilename;
         private String name;
-        private int distance; // 거리 계산 TODO: 지도 API
+        private String distance; // 거리 계산 (미터 + 단위)
         private int likeCount;
         private boolean isLiked;
         private Double latitude;
@@ -58,7 +59,7 @@ public class StoreResponse {
         private int reviewCount;
 
         @Builder
-        public StoreListDTO(int id, String imgFilename, String name, int distance, int likeCount, boolean isLiked, Double latitude, Double longitude, int reviewCount) {
+        public StoreListDTO(int id, String imgFilename, String name, String distance, int likeCount, boolean isLiked, Double latitude, Double longitude, int reviewCount) {
             this.id = id;
             this.imgFilename = imgFilename;
             this.name = name;
@@ -70,11 +71,11 @@ public class StoreResponse {
             this.reviewCount = reviewCount;
         }
 
-        public StoreListDTO(Store store, int likeCount, boolean isLiked, int reviewCount) {
+        public StoreListDTO(Store store, int likeCount, boolean isLiked, int reviewCount, int distance) {
             this.id = store.getId();
             this.imgFilename = store.getImgFilename();
             this.name = store.getName();
-            this.distance = 163; // 예시 값, 실제로는 지도 API로 계산
+            this.distance = distance + "m"; // 거리 뒤에 "m"를 추가
             this.likeCount = likeCount;
             this.isLiked = isLiked;
             this.latitude = store.getLatitude();

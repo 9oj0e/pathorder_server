@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import shop.project.pathorderserver._core.errors.exception.Exception401;
 import shop.project.pathorderserver._core.errors.exception.Exception403;
 import shop.project.pathorderserver._core.errors.exception.Exception404;
+import shop.project.pathorderserver._core.utils.DistanceUtil;
 import shop.project.pathorderserver.like.LikeResponse;
 import shop.project.pathorderserver.like.LikeService;
 import shop.project.pathorderserver.menu.Menu;
@@ -35,17 +36,19 @@ public class StoreService {
     private final LikeService likeService;
 
     // 매장 목록보기
-    public List<StoreResponse.StoreListDTO> getStoreList(int userId) {
+    public List<StoreResponse.StoreListDTO> getStoreList(int userId, double customerLatitude, double customerLongitude) {
         List<Store> stores = storeRepository.findAll();
         return stores.stream()
                 .map(store -> {
                     int likeCount = likeService.getStoreLikeCount(store.getId());
                     boolean isLiked = likeService.isUserLikedStore(userId, store.getId());
                     int reviewCount = getReviewCount(store.getId());
-                    return new StoreResponse.StoreListDTO(store, likeCount, isLiked, reviewCount);
+                    int distance = DistanceUtil.calculateDistance(customerLatitude, customerLongitude, store.getLatitude(), store.getLongitude());
+                    return new StoreResponse.StoreListDTO(store, likeCount, isLiked, reviewCount, distance);
                 })
                 .toList();
     }
+
 
     // 매장 상세보기
     public StoreResponse.StoreInfoDTO getStoreInfo(int userId, int storeId) {
