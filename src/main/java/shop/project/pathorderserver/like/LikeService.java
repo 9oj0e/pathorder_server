@@ -23,7 +23,7 @@ public class LikeService {
     final private LikeRepository likeRepository;
 
     @Transactional
-    public LikeResponse.LikeListDTO addLike(LikeRequest.AddLikeDTO reqDTO) {
+    public LikeResponse.AddLikeDTO addLike(LikeRequest.AddLikeDTO reqDTO) {
         // 이미 좋아요가 존재하는지 확인
         if (likeRepository.existsByCustomerIdAndStoreId(reqDTO.getUserId(), reqDTO.getStoreId())) {
             throw new Exception400("이미 좋아요가 되어 있는 매장입니다.");
@@ -37,16 +37,7 @@ public class LikeService {
         like.setStore(store);
         likeRepository.save(like);
 
-        return LikeResponse.LikeListDTO.builder()
-                .id(like.getId())
-                .storeId(store.getId())
-                .storeImgFilename(store.getImgFilename())
-                .storeName(store.getName())
-                .distance(163) // TODO: 실제 거리 계산 로직 추가
-                .isLike(true)
-                .latitude(store.getLatitude()) // 위도 설정
-                .longitude(store.getLongitude()) // 경도 설정
-                .build();
+        return new LikeResponse.AddLikeDTO(reqDTO);
     }
 
     @Transactional

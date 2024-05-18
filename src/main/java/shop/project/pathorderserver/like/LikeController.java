@@ -20,7 +20,7 @@ public class LikeController {
     public ResponseEntity<?> addLike(@PathVariable int userId, @RequestBody LikeRequest.AddLikeDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         reqDTO.setUserId(sessionUser.getId());
-        LikeResponse.LikeListDTO respDTO = likeService.addLike(reqDTO);
+        LikeResponse.AddLikeDTO respDTO = likeService.addLike(reqDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }

@@ -12,6 +12,11 @@ public class LikeResponse {
     public static class AddLikeDTO {
         private int userId;
         private int storeId;
+
+        public AddLikeDTO(LikeRequest.AddLikeDTO reqDTO) {
+            this.userId = reqDTO.getUserId();
+            this.storeId = reqDTO.getStoreId();
+        }
     }
 
     @Data
