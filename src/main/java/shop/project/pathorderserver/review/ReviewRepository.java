@@ -9,10 +9,10 @@ import java.util.Optional;
 
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
     // 내 리뷰 보기
-    @Query("select r from Review r where r.user.id = :userId order by r.createdAt desc")
+    @Query("SELECT r FROM Review r WHERE r.user.id = :userId ORDER BY r.createdAt DESC")
     Optional<List<Review>> findByUserId(@Param("userId") int userId);
 
     // 매장 리뷰 보기
-    @Query("select r from Review r where r.store.id = :storeId order by r.createdAt desc")
+    @Query("SELECT r FROM Review r WHERE r.store.id = :storeId ORDER BY r.createdAt DESC")
     Optional<List<Review>> findByStoreId(@Param("storeId") int storeId);
 }
