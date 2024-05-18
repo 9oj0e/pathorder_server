@@ -256,7 +256,7 @@ VALUES
 -- 과거의 주문
 -- order_id: 1
 INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, status, created_at)
-VALUES (1, '단밤 카페', 5, '찬혁', '아이스 아메리카노 엄청 뜨겁게 해주세요.', ((3600) + (3600) + (4700 + 500) + (5200 + 500) + (5200)),
+VALUES (1, '연의양과', 5, '찬혁', '아이스 아메리카노 엄청 뜨겁게 해주세요.', ((3600) + (3600) + (4700 + 500) + (5200 + 500) + (5200)),
         'SERVED',
         DATEADD('DAY', -2, CURRENT_TIMESTAMP));
 INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
@@ -277,7 +277,7 @@ VALUES (1, 1, '아이스', 0, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
 
 -- order_id: 2
 INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, status, created_at)
-VALUES (1, '단밤 카페', 2, '정현', '아이스 아메리카노 엄청 뜨겁게 해주세요.', ((3600) + (3600) + (4700 + 500) + (5200 + 500) + (5200)),
+VALUES (1, '연의양과', 2, '정현', '아이스 아메리카노 엄청 뜨겁게 해주세요.', ((3600) + (3600) + (4700 + 500) + (5200 + 500) + (5200)),
         'SERVED',
         DATEADD('DAY', -2, CURRENT_TIMESTAMP));
 INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
@@ -298,7 +298,7 @@ VALUES (2, 6, '아이스', 0, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
 
 -- order_id: 3
 INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, status, created_at)
-VALUES (1, '단밤 카페', 3, '현정', '아이스 아메리카노 엄청 뜨겁게 해주세요.', ((3600) + (3600) + (4700 + 500) + (5200 + 500) + (5200)),
+VALUES (1, '연의양과', 3, '현정', '아이스 아메리카노 엄청 뜨겁게 해주세요.', ((3600) + (3600) + (4700 + 500) + (5200 + 500) + (5200)),
         'SERVED',
         DATEADD('DAY', -2, CURRENT_TIMESTAMP));
 INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
@@ -321,7 +321,7 @@ VALUES (3, 11, '아이스', 0, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
 -- 더미 더 만드는 중
 -- order_id: 4
 INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, status, created_at)
-VALUES (1, '단밤 카페', 3, '현정', '후기 남길게요. 무료로 샷 추가해주세요.', ((3500 + 500) + (3500) + (4500 + 500) + (5000 + 500)), 'SERVED',
+VALUES (1, '연의양과', 3, '현정', '후기 남길게요. 무료로 샷 추가해주세요.', ((3500 + 500) + (3500) + (4500 + 500) + (5000 + 500)), 'SERVED',
         DATEADD('DAY', -1, CURRENT_TIMESTAMP));
 INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
 VALUES (4, '아메리카노', 1, 3500, 3500 + 500, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),  -- id: 16
@@ -340,7 +340,7 @@ VALUES (4, 16, '아이스', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
 
 -- order_id: 5
 INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, status, created_at)
-VALUES (1, '단밤 카페', 4, '윤정', '후기 쓸게요. 에스프레소 샷 추가해주삼.', ((3500 + 500) + (3500 + 500) + (3500) + (4500 + 500) + (5000)),
+VALUES (1, '연의양과', 4, '윤정', '후기 쓸게요. 에스프레소 샷 추가해주삼.', ((3500 + 500) + (3500 + 500) + (3500) + (4500 + 500) + (5000)),
         'SERVED',
         DATEADD('DAY', -1, CURRENT_TIMESTAMP));
 INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
@@ -361,7 +361,7 @@ VALUES (5, 20, '아이스', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
 
 -- order_id: 6
 INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, status, created_at)
-VALUES (1, '단밤 카페', 5, '찬혁', '아이스 아메리카노 엄청 뜨겁게 해주세요.', ((3600) + (3600) + (4700 + 500) + (5200 + 500) + (5200)),
+VALUES (1, '연의양과', 5, '찬혁', '아이스 아메리카노 엄청 뜨겁게 해주세요.', ((3600) + (3600) + (4700 + 500) + (5200 + 500) + (5200)),
         'SERVED',
         DATEADD('DAY', -1, CURRENT_TIMESTAMP));
 INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
@@ -382,7 +382,7 @@ VALUES (6, 25, '아이스', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
 
 -- order_id: 7
 INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, status, created_at)
-VALUES (1, '단밤 카페', 1, '성재', '아이스 아메리카노 엄청 뜨겁게 해주세요.', ((3600) + (3600) + (4700 + 500) + (5200 + 500) + (5200)),
+VALUES (1, '연의양과', 1, '성재', '아이스 아메리카노 엄청 뜨겁게 해주세요.', ((3600) + (3600) + (4700 + 500) + (5200 + 500) + (5200)),
         'SERVED',
         DATEADD('DAY', -1, CURRENT_TIMESTAMP));
 INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
@@ -404,7 +404,7 @@ VALUES (7, 30, '아이스', 0, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
 --  오늘의 주문
 -- order_id: 8
 INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, created_at)
-VALUES (1, '단밤 카페', 1, '성재', '바닐라라떼 얼음 많이 넣어주세요.', (3000 + (3000 + 500) + 4500), now());
+VALUES (1, '연의양과', 1, '성재', '바닐라라떼 얼음 많이 넣어주세요.', (3000 + (3000 + 500) + 4500), now());
 INSERT INTO order_menu_tb(order_id, name, qty, price, total_price, created_at)
 VALUES (8, '아메리카노', 1, 3000, 3000, now()),       -- id: 35
        (8, '아메리카노', 1, 3000, 3000 + 500, now()), -- id: 36
@@ -417,7 +417,7 @@ VALUES (8, 35, '아이스', 0, now()),
 
 -- order_id: 9
 INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, created_at)
-VALUES (1, '단밤 카페', 2, '정현', '카라멜 마끼아또 얼음은 적게 넣어주세요.', ((4000) + (4500 + 500) + (4500 + 500) + (5000 + 500)),
+VALUES (1, '연의양과', 2, '정현', '카라멜 마끼아또 얼음은 적게 넣어주세요.', ((4000) + (4500 + 500) + (4500 + 500) + (5000 + 500)),
         now());
 INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
 VALUES (9, '카페 라떼', 1, 4000, 4000, now()),       -- id: 38
@@ -436,7 +436,7 @@ VALUES (9, 38, '핫', 0, now()),
 
 -- order_id: 10
 INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, created_at)
-VALUES (2, '꿀밤 카페', 3, '현정', '후기 남길게요. 무료로 샷 추가해주세요.', ((3500 + 500) + (3500) + (4500 + 500) + (5000 + 500)),
+VALUES (2, '커피스가모 인 서면', 3, '현정', '후기 남길게요. 무료로 샷 추가해주세요.', ((3500 + 500) + (3500) + (4500 + 500) + (5000 + 500)),
         now());
 INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
 VALUES (10, '아메리카노', 1, 3500, 3500 + 500, now()),  -- id: 42
@@ -455,7 +455,7 @@ VALUES (10, 42, '아이스', 0, now()),
 
 -- order_id: 11
 INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, created_at)
-VALUES (3, '유자 카페', 4, '윤정', '후기 쓸게요. 에스프레소 샷 추가해주삼.', ((3500 + 500) + (3500 + 500) + (3500) + (4500 + 500) + (5000)),
+VALUES (3, '노이알트', 4, '윤정', '후기 쓸게요. 에스프레소 샷 추가해주삼.', ((3500 + 500) + (3500 + 500) + (3500) + (4500 + 500) + (5000)),
         now());
 INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
 VALUES (11, '아메리카노', 1, 3500, 3500 + 500, now()), -- id: 46
@@ -475,7 +475,7 @@ VALUES (11, 46, '아이스', 0, now()),
 
 -- order_id: 12
 INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, created_at)
-VALUES (4, '오렌지 카페', 5, '찬혁', '뜨거운 아메리카노 엄청 뜨겁게 해주세요.', ((3600) + (3600) + (4700 + 500) + (5200 + 500) + (5200)),
+VALUES (4, '블랙업커피 서면본점', 5, '찬혁', '뜨거운 아메리카노 엄청 뜨겁게 해주세요.', ((3600) + (3600) + (4700 + 500) + (5200 + 500) + (5200)),
         now());
 INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
 VALUES (12, '아메리카노', 1, 3600, 3600, now()),        -- id: 51
@@ -495,7 +495,7 @@ VALUES (12, 51, '아이스', 0, now()),
 
 -- order_id: 13
 INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, created_at)
-VALUES (1, '단밤 카페', 4, '윤정', '뜨거운 아메리카노 반 샷만 넣어주세요.', ((3000 + 500) + (3000 + 500) + (4500 + 500)),
+VALUES (1, '연의양과', 4, '윤정', '뜨거운 아메리카노 반 샷만 넣어주세요.', ((3000 + 500) + (3000 + 500) + (4500 + 500)),
         now());
 INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
 VALUES (13, '아메리카노', 1, 3000, 3000 + 500, now()), -- id: 56
@@ -511,7 +511,7 @@ VALUES (13, 56, '핫', 0, now()),
 
 -- order_id: 14(request 없음)
 INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, total_price, created_at)
-VALUES (1, '단밤 카페', 5, '찬혁', ((3000 + 500) + (3000) + (4500 + 500)), now());
+VALUES (1, '연의양과', 5, '찬혁', ((3000 + 500) + (3000) + (4500 + 500)), now());
 INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
 VALUES (14, '아메리카노', 1, 3000, 3000 + 500, now()), -- id: 59
        (14, '아메리카노', 1, 3000, 3000, now()),       -- id: 60
@@ -526,7 +526,7 @@ VALUES (14, 59, '아이스', 0, now()),
 
 -- order_id: 15
 INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, request, total_price, created_at)
-VALUES (1, '단밤 카페', 3, '현정', '캐리어에 담아주세요.', ((3000 + 500) + (3000 + 500) + (3000 + 500) + (4500 + 500)),
+VALUES (1, '연의양과', 3, '현정', '캐리어에 담아주세요.', ((3000 + 500) + (3000 + 500) + (3000 + 500) + (4500 + 500)),
         now());
 INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
 VALUES (15, '아메리카노', 1, 3000, 3000 + 500, now()), -- id: 62
@@ -545,7 +545,7 @@ VALUES (15, 62, '아이스', 0, now()),
 
 -- order_id: 16(request 없음)
 INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, total_price, created_at)
-VALUES (4, '오렌지 카페', 2, '정현', ((3000 + 500) + (3000) + (4500 + 500)), now());
+VALUES (4, '블랙업커피 서면본점', 2, '정현', ((3000 + 500) + (3000) + (4500 + 500)), now());
 INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
 VALUES (16, '아메리카노', 1, 3000, 3000 + 500, now()), -- id: 66
        (16, '아메리카노', 1, 3000, 3000, now()),       -- id: 67
@@ -560,7 +560,7 @@ VALUES (16, 66, '아이스', 0, now()),
 
 -- order_id: 17(request 없음)
 INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, total_price, created_at)
-VALUES (3, '유자 카페', 5, '찬혁', ((3000 + 500) + (3000) + (4500 + 500)), now());
+VALUES (3, '노이알트', 5, '찬혁', ((3000 + 500) + (3000) + (4500 + 500)), now());
 INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
 VALUES (17, '아메리카노', 1, 3000, 3000 + 500, now()), -- id: 69
        (17, '아메리카노', 1, 3000, 3000, now()),       -- id: 70
@@ -575,7 +575,7 @@ VALUES (17, 69, '아이스', 0, now()),
 
 -- order_id: 18(request 없음)
 INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, total_price, created_at)
-VALUES (2, '꿀밤 카페', 5, '찬혁', ((3500 + 500) + (3500) + (5000 + 500)), now());
+VALUES (2, '커피스가모 인 서면', 5, '찬혁', ((3500 + 500) + (3500) + (5000 + 500)), now());
 INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
 VALUES (18, '아메리카노', 1, 3500, 3500 + 500, now()), -- id: 72
        (18, '아메리카노', 1, 3500, 3500, now()),       -- id: 73
@@ -588,6 +588,20 @@ VALUES (18, 72, '아이스', 0, now()),
        (18, 74, '핫', 0, now()),
        (18, 74, '바닐라시럽', 500, now());
 
+-- order_id: 19 (request 없음)
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, total_price, created_at)
+VALUES (5, '디저트 로지', 5, '찬혁', ((3500 + 500) + (3500) + (5000 + 500)), now());
+INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
+VALUES (19, '아메리카노', 1, 3500, 3500 + 500, now()), -- id: 75
+       (19, '아메리카노', 1, 3500, 3500, now()),       -- id: 76
+       (19, '카페 모카', 1, 5000, 5000 + 500, now()); -- id: 77
+INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (19, 75, '아이스', 0, now()),
+       (19, 75, '샷추가', 500, now()),
+       (19, 76, '핫', 0, now()),
+       (19, 76, '설탕시럽', 0, now()),
+       (19, 77, '핫', 0, now()),
+       (19, 77, '바닐라시럽', 500, now());
 
 -- 유저가 좋아요 한 데이터
 INSERT INTO like_tb (user_id, store_id, created_at)
