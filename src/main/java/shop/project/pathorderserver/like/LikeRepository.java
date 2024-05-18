@@ -22,4 +22,5 @@ public interface LikeRepository extends JpaRepository<Like, Integer> {
     boolean existsByCustomerIdAndStoreId(int customerId, int storeId);
 
     int countByStoreId(int storeId);
+
 }
