@@ -38,17 +38,18 @@ public class StoreService {
     // 매장 목록보기
     public List<StoreResponse.StoreListDTO> getStoreList(int userId, double customerLatitude, double customerLongitude) {
         List<Store> stores = storeRepository.findAll();
+
         return stores.stream()
                 .map(store -> {
                     int likeCount = likeService.getStoreLikeCount(store.getId());
                     boolean isLiked = likeService.isUserLikedStore(userId, store.getId());
                     int reviewCount = getReviewCount(store.getId());
                     int distance = DistanceUtil.calculateDistance(customerLatitude, customerLongitude, store.getLatitude(), store.getLongitude());
+
                     return new StoreResponse.StoreListDTO(store, likeCount, isLiked, reviewCount, distance);
                 })
                 .toList();
     }
-
 
     // 매장 상세보기
     public StoreResponse.StoreInfoDTO getStoreInfo(int userId, int storeId) {

@@ -16,11 +16,11 @@ public class StoreController {
     private final StoreService storeService;
     private final HttpSession session;
 
-    @PostMapping("/api/stores")
-    public ResponseEntity<?> storeList(@RequestBody UserRequest.LocationReqDTO reqDTO) { // 매장 목록보기
+    @GetMapping("/api/stores")
+    public ResponseEntity<?> storeList() { // 매장 목록보기
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        List<StoreResponse.StoreListDTO> respDTO = storeService.getStoreList(sessionUser.getId(), sessionUser.getLatitude(), sessionUser.getLongitude());
 
-        List<StoreResponse.StoreListDTO> respDTO = storeService.getStoreList(sessionUser.getId(), reqDTO.getLatitude(), reqDTO.getLongitude());
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
