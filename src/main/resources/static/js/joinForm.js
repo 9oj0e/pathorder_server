@@ -45,18 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log("위도: " + coords.getLat());
                 console.log("경도: " + coords.getLng());
 
-                var mapContainer = document.getElementById('map'),
-                    mapOption = {
-                        center: new daum.maps.LatLng(coords.getLat(), coords.getLng()),
-                        level: 3
-                    };
-
-                var map = new daum.maps.Map(mapContainer, mapOption);
-
-                var marker = new daum.maps.Marker({
-                    map: map,
-                    position: coords
-                });
+                document.getElementById('latitude').value = coords.getLat();
+                document.getElementById('longitude').value = coords.getLng();
             } else {
                 console.error("주소 검색에 실패했습니다: " + status);
             }

@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function fregister_submit(f) {
+    function fregister_submit(event) {
         if (terms_01.checked === false) {
             alert("이용약관에 동의해야 회원가입 하실 수 있습니다.");
             event.preventDefault();

@@ -15,7 +15,7 @@ VALUES ('david1234', '1234', '조정현', '01012345678', 'david1234@gmail.com', 
         '까눌레와 다쿠아즈를 전문으로 하며, 매일 아침 제품들을 구워냅니다.', '07:00', '20:00', '매주 월요일', '부산 부산진구 서전로37번길 20 연의양과',
         '35.1587487392983', '129.064002552455',
         'default/cafe1.png', NOW()),
-       ('jake1234', '1234', '김성', '01012345678', 'jake1234@gmail.com', '123-456-7890', '커피스가모 인 서면', '01012345678',
+       ('jake1234', '1234', '김성재', '01012345678', 'jake1234@gmail.com', '123-456-7890', '커피스가모 인 서면', '01012345678',
         '서면에 몇 없는 주차가능카페!', '07:00', '20:00', '매주 화요일', '부산 부산진구 가야대로755번길 23', '35.1588008058792', '129.054017961614',
         'default/cafe2.png', NOW()),
        ('hyeok1234', '1234', '박찬혁', '01012345678', 'hyeok1234@gmail.com', '123-456-7890', '노이알트', '01012345678',
@@ -606,3 +606,12 @@ VALUES (1, 1, NOW()),
        (5, 1, NOW()),
        (5, 3, NOW()),
        (5, 4, NOW());
+
+INSERT INTO review_tb (user_id, store_id, content, created_at)
+VALUES (1, 1, '맛있어요', NOW());
+INSERT INTO review_tb (user_id, store_id, content, created_at)
+VALUES (1, 2, '맛있어요', NOW());
+INSERT INTO review_tb (user_id, store_id, content, created_at)
+VALUES (2, 1, '맛있어요', NOW());
+INSERT INTO review_tb (user_id, store_id, content, created_at)
+VALUES (2, 2, '맛있어요', NOW());

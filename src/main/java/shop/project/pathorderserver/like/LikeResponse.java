@@ -12,6 +12,11 @@ public class LikeResponse {
     public static class AddLikeDTO {
         private int userId;
         private int storeId;
+
+        public AddLikeDTO(LikeRequest.AddLikeDTO reqDTO) {
+            this.userId = reqDTO.getUserId();
+            this.storeId = reqDTO.getStoreId();
+        }
     }
 
     @Data
@@ -30,6 +35,10 @@ public class LikeResponse {
         private String storeName;
         private int distance;
         private boolean isLike;
+        private int likeCount;
+        private int reviewCount;
+        private Double latitude;
+        private Double longitude;
     }
 
     @Data

@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import shop.project.pathorderserver._core.errors.exceptionssr.Exception403;
+import shop.project.pathorderserver._core.errors.exception.Exception403;
 import shop.project.pathorderserver._core.utils.ApiUtil;
 
 import java.time.LocalDate;
@@ -30,11 +30,8 @@ public class StoreOwnerController {
         }
     }
 
-    /*------------------------------------------------------------------------------------- 회원가입 -------------------*/
-
-    @GetMapping("/stores/join-form") // TODO: 매장 관리자 - 회원 가입 폼
-    public String joinForm(boolean termsAgreed) {
-
+    @GetMapping("/stores/join-form") // 매장 관리자 - 회원 가입 폼
+    public String joinForm(@RequestParam(name = "termsAgreed", required = false, defaultValue = "false") boolean termsAgreed) {
         if (termsAgreed) { // 약관 동의
             return "join-form";
         } else { // 약관 미 동의
@@ -45,15 +42,12 @@ public class StoreOwnerController {
     @PostMapping("/stores/join") // 매장 관리자 회원가입
     public String join(StoreRequest.JoinDTO reqDTO) {
         storeService.createStore(reqDTO);
-        System.out.println("뭔라고 적어니");
-        System.out.println(reqDTO);
         return "redirect:/stores/login-form";
     }
 
     /*------------------------------------------------------------------------------------- 로그인 --------------------*/
     @GetMapping("/stores/login-form") // 매장 관리자 - 로그인 폼
     public String loginForm() {
-
         return "login-form";
     }
 
@@ -61,14 +55,12 @@ public class StoreOwnerController {
     public String login(StoreRequest.LoginDTO reqDTO) {
         SessionStore sessionStore = storeService.getStore(reqDTO);
         session.setAttribute("sessionStore", sessionStore);
-
         return "redirect:/";
     }
 
     @GetMapping("stores/logout") // 매장 관리자 - 로그아웃
     public String logout() {
         session.invalidate();
-
         return "redirect:/";
     }
 
@@ -82,7 +74,6 @@ public class StoreOwnerController {
             throw new Exception403("권한이 없습니다.");
         }
         int pendingOrderCount = storeService.getPendingOrderCount(sessionStore.getId());
-
         return ResponseEntity.ok(new ApiUtil<>(pendingOrderCount));
     }
 
@@ -94,7 +85,6 @@ public class StoreOwnerController {
         }
         HashMap<String, Object> respDTO = storeService.getOrders(sessionStore.getId());
         model.addAttribute("orders", respDTO);
-
         return "orders";
     }
 
@@ -105,7 +95,6 @@ public class StoreOwnerController {
             throw new Exception403("권한이 없습니다.");
         }
         storeService.updateOrder(orderId, reqDTO); // 가게 아이디로 order를 찾아 reqDTO를 넣어 update.
-
         return "redirect:/stores/" + sessionStore.getId() + "/orders"; // TODO: ajax 가능?
     }
 
@@ -117,7 +106,6 @@ public class StoreOwnerController {
             throw new Exception403("권한이 없습니다.");
         }
         StoreResponse.OrderDetailDTO respDTO = storeService.getOrderDetail(orderId);
-
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
@@ -132,7 +120,6 @@ public class StoreOwnerController {
         StoreResponse.OrderListDTO respDTO = storeService.getOrderList(storeId);
         model.addAttribute("orders", respDTO.getOrderList());
         // model.addAttribute("storeId", storeId);
-
         return "order-list";
     }
 
@@ -146,7 +133,6 @@ public class StoreOwnerController {
         }
         StoreResponse.OrderListDTO respDTO = storeService.getOrderListByDate(storeId, startDate, endDate);
         model.addAttribute("orders", respDTO.getOrderList());
-
         return ResponseEntity.ok().body(respDTO);
     }
 
@@ -160,7 +146,6 @@ public class StoreOwnerController {
         }
         StoreResponse.MenuListDTO respDTO = storeService.getMenuList(storeId);
         model.addAttribute("menuList", respDTO.getMenuList());
-
         return "menus";
     }
 
@@ -173,7 +158,6 @@ public class StoreOwnerController {
         }
         StoreResponse.MenuDetailDTO respDTO = storeService.getMenuDetail(menuId);
         model.addAttribute("sessionStore", sessionStore);
-
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
@@ -185,7 +169,6 @@ public class StoreOwnerController {
             throw new Exception403("권한이 없습니다.");
         }
         StoreResponse.CreateMenuDTO respDTO = storeService.createMenu(sessionStore.getId(), reqDTO);
-
         return "redirect:/stores/" + sessionStore.getId() + "/menus";
     }
 
@@ -197,7 +180,6 @@ public class StoreOwnerController {
             throw new Exception403("권한이 없습니다.");
         }
         StoreResponse.UpdateMenuDTO respDTO = storeService.updateMenu(menuId, reqDTO);
-
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
@@ -211,7 +193,6 @@ public class StoreOwnerController {
         }
         StoreResponse.StoreDTO respDTO = storeService.getStoreDetail(sessionStore.getId());
         model.addAttribute("storeDetail", respDTO);
-
         return "store";
     }
 
@@ -223,7 +204,6 @@ public class StoreOwnerController {
         }
         StoreResponse.StoreDTO respDTO = storeService.getStoreDetail(sessionStore.getId());
         model.addAttribute("storeDetail", respDTO);
-
         return "store-update-form";
     }
 
@@ -235,7 +215,6 @@ public class StoreOwnerController {
         }
         SessionStore newSessionStore = storeService.updateStore(sessionStore.getId(), reqDTO);
         session.setAttribute("sessionStore", newSessionStore);
-
         return "redirect:/stores/" + sessionStore.getId();
     }
 }
