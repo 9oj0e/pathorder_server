@@ -10,13 +10,16 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 @RequiredArgsConstructor
 @RestController
 public class StoreSseController {
-    private final StoreSseService storeSSEService;
     private final HttpSession session;
+    private final StoreSseService storeSSEService;
 
     @GetMapping(value = "/connect", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter connect() {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
-
-        return storeSSEService.createConnection(sessionStore.getId());
+        if (sessionStore == null) {
+            return null;
+        } else {
+            return storeSSEService.createConnection(sessionStore.getId());
+        }
     }
 }

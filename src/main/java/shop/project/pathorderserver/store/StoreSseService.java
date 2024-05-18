@@ -17,18 +17,16 @@ public class StoreSseService {
     public SseEmitter createConnection(int storeId) {
         SseEmitter emitter = new SseEmitter(TIMEOUT);
         storeSSERepository.save(storeId, emitter);
-        emitter.onTimeout(() -> storeSSERepository.deleteById(storeId));
+        // emitter.onTimeout(() -> storeSSERepository.deleteById(storeId));
         createEvent(storeId, "EventStream 생성");
-        emitter.onCompletion(() -> storeSSERepository.deleteById(storeId));
+        // emitter.onCompletion(() -> storeSSERepository.deleteById(storeId));
         return emitter;
     }
 
     public void createOrderNotification(int orderId, int storeId) {
-        SseEmitter emitter = storeSSERepository.findById(storeId)
-                .orElseThrow(() -> new Exception400("서버가 비활성화 상태입니다."));
-        emitter.onTimeout(() -> storeSSERepository.deleteById(storeId));
-        createEvent(storeId, orderId + "번 주문이 생성되었습니다.");
-        emitter.onCompletion(() -> storeSSERepository.deleteById(storeId));
+        if (storeSSERepository.findById(storeId).isPresent()) {
+            createEvent(storeId, orderId + "번 주문이 생성되었습니다.");
+        }
     }
 
     public void createEvent(int storeId, String data) {
