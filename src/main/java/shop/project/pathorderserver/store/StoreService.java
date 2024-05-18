@@ -52,14 +52,16 @@ public class StoreService {
     }
 
     // 매장 상세보기
-    public StoreResponse.StoreInfoDTO getStoreInfo(int userId, int storeId) {
+    public StoreResponse.StoreInfoDTO getStoreInfo(int userId, int storeId, double customerLatitude, double customerLongitude) {
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 매장입니다."));
 
         int likeCount = likeService.getStoreLikeCount(storeId);
         boolean isLiked = likeService.isUserLikedStore(userId, storeId);
         int reviewCount = getReviewCount(storeId);
-        return new StoreResponse.StoreInfoDTO(store, likeCount, isLiked, reviewCount);
+        int distance = DistanceUtil.calculateDistance(customerLatitude, customerLongitude, store.getLatitude(), store.getLongitude());
+
+        return new StoreResponse.StoreInfoDTO(store, likeCount, isLiked, reviewCount, distance);
     }
 
     // 매장 상세보기 - 사업자 정보

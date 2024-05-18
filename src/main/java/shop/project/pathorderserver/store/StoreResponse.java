@@ -99,9 +99,10 @@ public class StoreResponse {
         private Double latitude;
         private Double longitude;
         private int reviewCount;
+        private String distance;
 
         @Builder
-        public StoreInfoDTO(int id, String imgFilename, String name, String intro, String openingTime, String closingTime, String closedDay, String address, int likeCount, boolean isLiked, Double latitude, Double longitude, int reviewCount) {
+        public StoreInfoDTO(int id, String imgFilename, String name, String intro, String openingTime, String closingTime, String closedDay, String address, int likeCount, boolean isLiked, Double latitude, Double longitude, int reviewCount, String distance) {
             this.id = id;
             this.imgFilename = imgFilename;
             this.name = name;
@@ -115,9 +116,10 @@ public class StoreResponse {
             this.latitude = latitude;
             this.longitude = longitude;
             this.reviewCount = reviewCount;
+            this.distance = distance;
         }
 
-        public StoreInfoDTO(Store store, int likeCount, boolean isLiked, int reviewCount) {
+        public StoreInfoDTO(Store store, int likeCount, boolean isLiked, int reviewCount, int distance) {
             this.id = store.getId();
             this.imgFilename = store.getImgFilename();
             this.name = store.getName();
@@ -131,6 +133,7 @@ public class StoreResponse {
             this.latitude = store.getLatitude();
             this.longitude = store.getLongitude();
             this.reviewCount = reviewCount;
+            this.distance = distance + "m";
         }
     }
 
