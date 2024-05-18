@@ -1,12 +1,15 @@
 package shop.project.pathorderserver.like;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.project.pathorderserver._core.errors.exception.Exception404;
 import shop.project.pathorderserver._core.errors.exception.Exception400;
+import shop.project.pathorderserver._core.utils.DistanceUtil;
 import shop.project.pathorderserver.store.Store;
 import shop.project.pathorderserver.store.StoreRepository;
+import shop.project.pathorderserver.user.SessionUser;
 import shop.project.pathorderserver.user.User;
 import shop.project.pathorderserver.user.UserRepository;
 
@@ -20,6 +23,7 @@ public class LikeService {
     final private UserRepository userRepository;
     final private StoreRepository storeRepository;
     final private LikeRepository likeRepository;
+    final private HttpSession session;
 
     @Transactional
     public LikeResponse.AddLikeDTO addLike(LikeRequest.AddLikeDTO reqDTO) {
@@ -46,18 +50,28 @@ public class LikeService {
     }
 
     public List<LikeResponse.LikeListDTO> getUserLikes(int userId) {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        double customerLatitude = sessionUser.getLatitude();
+        double customerLongitude = sessionUser.getLongitude();
+
         List<Object[]> results = likeRepository.findLikesByUserId(userId);
         return results.stream()
-                .map(result -> LikeResponse.LikeListDTO.builder()
-                        .id((Integer) result[0])
-                        .storeId((Integer) result[1])
-                        .storeImgFilename((String) result[2])
-                        .storeName((String) result[3])
-                        .distance(163) // TODO: 실제 거리 계산 로직 추가
-                        .isLike(true)
-                        .latitude((Double) result[4]) // 위도 설정
-                        .longitude((Double) result[5]) // 경도 설정
-                        .build())
+                .map(result -> {
+                    int storeId = (Integer) result[1];
+                    Store store = storeRepository.findById(storeId).orElseThrow(() -> new Exception404("해당하는 매장을 찾을 수 없습니다."));
+                    int distance = DistanceUtil.calculateDistance(customerLatitude, customerLongitude, store.getLatitude(), store.getLongitude());
+
+                    return LikeResponse.LikeListDTO.builder()
+                            .id((Integer) result[0])
+                            .storeId(storeId)
+                            .storeImgFilename((String) result[2])
+                            .storeName((String) result[3])
+                            .distance(distance + "m") // Calculate distance and add "m" unit
+                            .isLike(true)
+                            .latitude((Double) result[4]) // 위도 설정
+                            .longitude((Double) result[5]) // 경도 설정
+                            .build();
+                })
                 .toList();
     }
 

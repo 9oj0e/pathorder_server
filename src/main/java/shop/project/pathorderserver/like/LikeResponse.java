@@ -33,7 +33,7 @@ public class LikeResponse {
         private int storeId;
         private String storeImgFilename;
         private String storeName;
-        private int distance;
+        private String distance;
         private boolean isLike;
         private Double latitude;
         private Double longitude;
