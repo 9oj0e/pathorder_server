@@ -3,12 +3,10 @@ package shop.project.pathorderserver.store;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import shop.project.pathorderserver._core.utils.ApiUtil;
 import shop.project.pathorderserver.user.SessionUser;
+import shop.project.pathorderserver.user.UserRequest;
 
 import java.util.List;
 
@@ -18,12 +16,11 @@ public class StoreController {
     private final StoreService storeService;
     private final HttpSession session;
 
-    @GetMapping("/api/stores")
-    public ResponseEntity<?> storeList(@RequestParam double latitude, @RequestParam double longitude) {
+    @PostMapping("/api/stores")
+    public ResponseEntity<?> storeList(@RequestBody UserRequest.LocationReqDTO reqDTO) { // 매장 목록보기
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
 
-        List<StoreResponse.StoreListDTO> respDTO = storeService.getStoreList(sessionUser.getId(), latitude, longitude);
-
+        List<StoreResponse.StoreListDTO> respDTO = storeService.getStoreList(sessionUser.getId(), reqDTO.getLatitude(), reqDTO.getLongitude());
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
