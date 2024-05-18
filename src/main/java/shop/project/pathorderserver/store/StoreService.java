@@ -300,7 +300,7 @@ public class StoreService {
     }
 
     // TODO: 육성재님, 댓글 카운트 이걸로 해놨는데 교체하세욤!!
-    private int getReviewCount(int storeId) {
+    public int getReviewCount(int storeId) {
 
         return 17;
     }

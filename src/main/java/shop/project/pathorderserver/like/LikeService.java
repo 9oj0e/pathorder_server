@@ -1,6 +1,7 @@
 package shop.project.pathorderserver.like;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +11,7 @@ import shop.project.pathorderserver._core.utils.DistanceUtil;
 import shop.project.pathorderserver.store.Store;
 import shop.project.pathorderserver.store.StoreRepository;
 import shop.project.pathorderserver.user.SessionUser;
+import shop.project.pathorderserver.store.StoreService;
 import shop.project.pathorderserver.user.User;
 import shop.project.pathorderserver.user.UserRepository;
 
@@ -58,6 +60,8 @@ public class LikeService {
         return results.stream()
                 .map(result -> {
                     int storeId = (Integer) result[1];
+                    int likeCount = getStoreLikeCount(storeId);
+                    int reviewCount = getReviewCount(storeId);
                     Store store = storeRepository.findById(storeId).orElseThrow(() -> new Exception404("해당하는 매장을 찾을 수 없습니다."));
                     int distance = DistanceUtil.calculateDistance(customerLatitude, customerLongitude, store.getLatitude(), store.getLongitude());
 
@@ -70,6 +74,8 @@ public class LikeService {
                             .isLike(true)
                             .latitude((Double) result[4]) // 위도 설정
                             .longitude((Double) result[5]) // 경도 설정
+                            .likeCount(likeCount)
+                            .reviewCount(reviewCount)
                             .build();
                 })
                 .toList();
@@ -81,5 +87,10 @@ public class LikeService {
 
     public int getStoreLikeCount(int storeId) {
         return likeRepository.countByStoreId(storeId);
+    }
+
+    public int getReviewCount(int storeId) {
+
+        return 17;
     }
 }
