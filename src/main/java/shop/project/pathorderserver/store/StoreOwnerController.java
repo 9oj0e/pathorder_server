@@ -133,6 +133,8 @@ public class StoreOwnerController {
         }
         StoreResponse.OrderListDTO respDTO = storeService.getOrderListByDate(storeId, startDate, endDate);
         model.addAttribute("orders", respDTO.getOrderList());
+        model.addAttribute("storeId", sessionStore.getId());
+
         return ResponseEntity.ok().body(respDTO);
     }
 
