@@ -3,12 +3,10 @@ package shop.project.pathorderserver.store;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import shop.project.pathorderserver._core.utils.ApiUtil;
 import shop.project.pathorderserver.user.SessionUser;
+import shop.project.pathorderserver.user.UserRequest;
 
 import java.util.List;
 
@@ -21,16 +19,18 @@ public class StoreController {
     @GetMapping("/api/stores")
     public ResponseEntity<?> storeList() { // 매장 목록보기
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        List<StoreResponse.StoreListDTO> respDTO = storeService.getStoreList(sessionUser.getId(), sessionUser.getLatitude(), sessionUser.getLongitude());
 
-        List<StoreResponse.StoreListDTO> respDTO = storeService.getStoreList(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
     @GetMapping("/api/stores/{storeId}") // 매장 상세보기
     public ResponseEntity<?> storeInfo(@PathVariable int storeId) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        double customerLatitude = sessionUser.getLatitude();
+        double customerLongitude = sessionUser.getLongitude();
 
-        StoreResponse.StoreInfoDTO respDTO = storeService.getStoreInfo(sessionUser.getId(), storeId);
+        StoreResponse.StoreInfoDTO respDTO = storeService.getStoreInfo(sessionUser.getId(), storeId, customerLatitude, customerLongitude);
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 

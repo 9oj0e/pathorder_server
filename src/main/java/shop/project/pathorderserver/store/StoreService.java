@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import shop.project.pathorderserver._core.errors.exception.Exception401;
 import shop.project.pathorderserver._core.errors.exception.Exception403;
 import shop.project.pathorderserver._core.errors.exception.Exception404;
+import shop.project.pathorderserver._core.utils.DistanceUtil;
 import shop.project.pathorderserver.like.LikeResponse;
 import shop.project.pathorderserver.like.LikeService;
 import shop.project.pathorderserver.menu.Menu;
@@ -20,6 +21,7 @@ import shop.project.pathorderserver.user.UserRepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,27 +43,33 @@ public class StoreService {
     }
 
     // 매장 목록보기
-    public List<StoreResponse.StoreListDTO> getStoreList(int userId) {
+    public List<StoreResponse.StoreListDTO> getStoreList(int userId, double customerLatitude, double customerLongitude) {
         List<Store> stores = storeRepository.findAll();
+
         return stores.stream()
                 .map(store -> {
                     int likeCount = likeService.getStoreLikeCount(store.getId());
                     boolean isLiked = likeService.isUserLikedStore(userId, store.getId());
                     int reviewCount = getReviewCount(store.getId());
-                    return new StoreResponse.StoreListDTO(store, likeCount, isLiked, reviewCount);
+                    int distance = DistanceUtil.calculateDistance(customerLatitude, customerLongitude, store.getLatitude(), store.getLongitude());
+
+                    return new StoreResponse.StoreListDTO(store, likeCount, isLiked, reviewCount, distance);
                 })
+                .sorted(Comparator.comparingInt(StoreResponse.StoreListDTO::getDistance))
                 .toList();
     }
 
     // 매장 상세보기
-    public StoreResponse.StoreInfoDTO getStoreInfo(int userId, int storeId) {
+    public StoreResponse.StoreInfoDTO getStoreInfo(int userId, int storeId, double customerLatitude, double customerLongitude) {
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 매장입니다."));
 
         int likeCount = likeService.getStoreLikeCount(storeId);
         boolean isLiked = likeService.isUserLikedStore(userId, storeId);
         int reviewCount = getReviewCount(storeId);
-        return new StoreResponse.StoreInfoDTO(store, likeCount, isLiked, reviewCount);
+        int distance = DistanceUtil.calculateDistance(customerLatitude, customerLongitude, store.getLatitude(), store.getLongitude());
+
+        return new StoreResponse.StoreInfoDTO(store, likeCount, isLiked, reviewCount, distance);
     }
 
     // 매장 상세보기 - 사업자 정보
