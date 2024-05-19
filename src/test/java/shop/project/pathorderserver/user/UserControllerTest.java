@@ -11,8 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import shop.project.pathorderserver._core.utils.JwtUtil;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -253,5 +252,75 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.status").value(404));
         actions.andExpect(jsonPath("$.msg").value("찾을 수 없는 유저입니다."));
         actions.andExpect(jsonPath("$.body").isEmpty());
+    }
+
+    // 회원정보 수정 성공
+    @Test
+    public void update_user_info_test() throws Exception {
+        //given
+        int userId = 1;
+        UserRequest.UpdateDTO reqDTO = new UserRequest.UpdateDTO();
+        reqDTO.setNickname("재성");
+        reqDTO.setTel("010-9876-5432");
+        reqDTO.setEmail("ryu@nate.com");
+
+        String reqBody = om.writeValueAsString(reqDTO);
+
+        // when
+        ResultActions actions = mvc.perform(
+                put("/api/users/" + userId)
+                        .header("Authorization", "Bearer " + jwt)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(reqBody)
+        );
+
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println("respBody = " + respBody);
+
+        // then
+        actions.andExpect(status().isOk());
+        actions.andExpect(jsonPath("$.status").value(200));
+        actions.andExpect(jsonPath("$.msg").value("성공"));
+        actions.andExpect(jsonPath("$.body.id").value(1));
+        actions.andExpect(jsonPath("$.body.username").value("user1"));
+        actions.andExpect(jsonPath("$.body.nickname").value("재성"));
+        actions.andExpect(jsonPath("$.body.latitude").value(35.15743361723729));
+        actions.andExpect(jsonPath("$.body.longitude").value(129.0604337191542));
+    }
+
+    // 회원정보 수정 실패
+    @Test
+    public void update_user_info_validation_fail_test() throws Exception {
+        //given
+        int userId = 1;
+        UserRequest.UpdateDTO reqDTO = new UserRequest.UpdateDTO();
+        reqDTO.setNickname("재성");
+        reqDTO.setTel("010-9876-5432");
+        reqDTO.setEmail("ryu");
+
+        String reqBody = om.writeValueAsString(reqDTO);
+
+        // when
+        ResultActions actions = mvc.perform(
+                put("/api/users/" + userId)
+                        .header("Authorization", "Bearer " + jwt)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(reqBody)
+        );
+
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println("respBody = " + respBody);
+
+        // then
+//        actions.andExpect(status().isOk());
+//        actions.andExpect(jsonPath("$.status").value(200));
+//        actions.andExpect(jsonPath("$.msg").value("성공"));
+//        actions.andExpect(jsonPath("$.body.id").value(1));
+//        actions.andExpect(jsonPath("$.body.username").value("user1"));
+//        actions.andExpect(jsonPath("$.body.nickname").value("재성"));
+//        actions.andExpect(jsonPath("$.body.latitude").value(35.15743361723729));
+//        actions.andExpect(jsonPath("$.body.longitude").value(129.0604337191542));
     }
 }
