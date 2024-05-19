@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import shop.project.pathorderserver._core.utils.ApiUtil;
+import shop.project.pathorderserver.store.StoreSseService;
 
 import java.io.IOException;
 
@@ -13,6 +14,7 @@ import java.io.IOException;
 public class UserController {
     private final HttpSession session;
     private final UserService userService;
+    private final StoreSseService storeSseService;
 
     @PostMapping("/join") // 회원가입
     public ResponseEntity<?> join(@RequestBody UserRequest.JoinDTO reqDTO) {
@@ -43,7 +45,7 @@ public class UserController {
     }
 
     @PutMapping("/api/users/{userId}") // 회원정보 수정
-    public ResponseEntity<?> update(@RequestBody UserRequest.UpdateDTO reqDTO) {
+    public ResponseEntity<?> update(@PathVariable String userId, @RequestBody UserRequest.UpdateDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         SessionUser newSessionUser = userService.setUser(reqDTO, sessionUser.getId());
         session.setAttribute("sessionUser", newSessionUser);
@@ -59,23 +61,24 @@ public class UserController {
     }
 
     @PostMapping("/api/users/{userId}/orders") // 주문하기
-    public ResponseEntity<?> order(@RequestBody UserRequest.OrderDTO reqDTO) {
+    public ResponseEntity<?> order(@PathVariable String userId, @RequestBody UserRequest.OrderDTO reqDTO) {
         UserResponse.OrderDTO respDTO = userService.createOrder(reqDTO);
+        storeSseService.createOrderNotification(respDTO.getId(), respDTO.getStoreId());
 
-        return ResponseEntity.ok(new ApiUtil(respDTO));
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @GetMapping("/api/users/{userId}/orders") // 회원 주문내역 목록보기
     private ResponseEntity<?> orderList(@PathVariable int userId) {
         UserResponse.OrderListDTO respDTO = userService.getOrderList(userId);
 
-        return ResponseEntity.ok(new ApiUtil(respDTO));
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @GetMapping("/api/users/{userId}/orders/{orderId}") // 회원 주문내역 상세보기
-    private ResponseEntity<?> orderDetail(@PathVariable int orderId) {
+    private ResponseEntity<?> orderDetail(@PathVariable String userId, @PathVariable int orderId) {
         UserResponse.OrderDetailDTO respDTO = userService.getOrderDetail(orderId);
 
-        return ResponseEntity.ok(new ApiUtil(respDTO));
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 }
