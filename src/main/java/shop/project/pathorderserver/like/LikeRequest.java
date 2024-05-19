@@ -15,6 +15,7 @@ public class LikeRequest {
 
     @Data
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class RemoveLikeDTO {
         private int userId;
         private int storeId;

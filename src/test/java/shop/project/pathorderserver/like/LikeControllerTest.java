@@ -106,9 +106,65 @@ public class LikeControllerTest {
     }
 
     // 좋아요 삭제 성공
+    @Test
+    public void delete_like_success_test() throws Exception {
+        //given
+        LikeRequest.RemoveLikeDTO reqDTO = new LikeRequest.RemoveLikeDTO();
+        reqDTO.setStoreId(1);
 
+        String reqBody = om.writeValueAsString(reqDTO);
+
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+
+        // when
+        ResultActions actions = mvc.perform(
+                delete("/api/users/" + sessionUser.getId() + "/likes")
+                        .header("Authorization", "Bearer " + jwt)
+                        .content(reqBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println("respBody = " + respBody);
+
+        // then
+        actions.andExpect(status().isOk());
+        actions.andExpect(jsonPath("$.status").value(200));
+        actions.andExpect(jsonPath("$.msg").value("성공"));
+        actions.andExpect(jsonPath("$.body.userId").value(1));
+        actions.andExpect(jsonPath("$.body.storeId").value(1));
+    }
     // 좋아요 삭제 실패
+    @Test
+    public void delete_like_with_not_found_store_fail_test() throws Exception {
+        //given
+        LikeRequest.RemoveLikeDTO reqDTO = new LikeRequest.RemoveLikeDTO();
+        reqDTO.setStoreId(999);
 
+        String reqBody = om.writeValueAsString(reqDTO);
+
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+
+        // when
+        ResultActions actions = mvc.perform(
+                delete("/api/users/" + sessionUser.getId() + "/likes")
+                        .header("Authorization", "Bearer " + jwt)
+                        .content(reqBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println("respBody = " + respBody);
+
+        // then
+//        actions.andExpect(status().isOk());
+//        actions.andExpect(jsonPath("$.status").value(200));
+//        actions.andExpect(jsonPath("$.msg").value("성공"));
+//        actions.andExpect(jsonPath("$.body.userId").value(1));
+//        actions.andExpect(jsonPath("$.body.storeId").value(1));
+    }
 
     // 특정 사용자의 좋아요 목록 조회 성공
 
