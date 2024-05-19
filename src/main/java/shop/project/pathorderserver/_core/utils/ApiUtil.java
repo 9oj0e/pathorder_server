@@ -2,11 +2,14 @@ package shop.project.pathorderserver._core.utils;
 
 import lombok.Data;
 
+import java.util.Map;
+
 @Data
 public class ApiUtil<T> {
     private Integer status;
     private String msg;
     private T body;
+    private Map<String, String> errors;
 
     public ApiUtil(T body) {
         this.status = 200;
@@ -18,5 +21,11 @@ public class ApiUtil<T> {
         this.status = status;
         this.msg = msg;
         this.body = null;
+    }
+
+    public ApiUtil(Integer status, String msg, Map<String, String> errors) {
+        this.status = status;
+        this.msg = msg;
+        this.errors = errors;
     }
 }
