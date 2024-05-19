@@ -43,10 +43,11 @@ class StoreServiceTest {
         reqDTO.setBizNum("사업자번호");
         reqDTO.setName("매장이름");
         reqDTO.setTel("매장번호");
-        reqDTO.setIntro("매장소개");
-        reqDTO.setOpeningTime("개점시간");
-        reqDTO.setClosingTime("폐점시간");
-        reqDTO.setClosedDay("휴무일");
+        // TODO: 관리자 등록에 아래 네 개 필요 없나요? DTO에 주석처리 돼있어서 이것도 주석처리 해놓을게요
+//        reqDTO.setIntro("매장소개");
+//        reqDTO.setOpeningTime("개점시간");
+//        reqDTO.setClosingTime("폐점시간");
+//        reqDTO.setClosedDay("휴무일");
         reqDTO.setAddress("주소");
         // when
         StoreResponse.JoinDTO respDTO = storeService.createStore(reqDTO);

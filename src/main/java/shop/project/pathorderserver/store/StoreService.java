@@ -13,6 +13,7 @@ import shop.project.pathorderserver.menu.MenuOption;
 import shop.project.pathorderserver.menu.MenuOptionRepository;
 import shop.project.pathorderserver.menu.MenuRepository;
 import shop.project.pathorderserver.order.*;
+import shop.project.pathorderserver.review.ReviewRepository;
 import shop.project.pathorderserver.user.User;
 import shop.project.pathorderserver.user.UserRepository;
 
@@ -33,6 +34,11 @@ public class StoreService {
     private final OrderRepository orderRepository;
     private final OrderMenuRepository orderMenuRepository;
     private final LikeService likeService;
+    private final ReviewRepository reviewRepository;
+
+    public int getReviewCount(int storeId) {
+        return reviewRepository.findReviewCountByStoreId(storeId);
+    }
 
     // 매장 목록보기
     public List<StoreResponse.StoreListDTO> getStoreList(int userId) {
@@ -291,11 +297,5 @@ public class StoreService {
         }
 
         return pendingOrderCount;
-    }
-
-    // TODO: 육성재님, 댓글 카운트 이걸로 해놨는데 교체하세욤!!
-    public int getReviewCount(int storeId) {
-
-        return 17;
     }
 }
