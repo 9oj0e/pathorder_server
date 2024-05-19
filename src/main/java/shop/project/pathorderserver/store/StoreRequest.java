@@ -22,10 +22,6 @@ public class StoreRequest {
         // private String encodedFile; TODO: 이미지 업로드
         private String name;
         private String tel;
-//        private String intro;
-//        private String openingTime;
-//        private String closingTime;
-//        private String closedDay;
         private String address;
         private Double latitude;
         private Double longitude;
