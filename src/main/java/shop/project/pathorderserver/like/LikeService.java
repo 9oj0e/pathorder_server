@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import shop.project.pathorderserver._core.errors.exception.Exception404;
 import shop.project.pathorderserver._core.errors.exception.Exception400;
 import shop.project.pathorderserver._core.utils.DistanceUtil;
+import shop.project.pathorderserver.review.ReviewRepository;
 import shop.project.pathorderserver.store.Store;
 import shop.project.pathorderserver.store.StoreRepository;
 import shop.project.pathorderserver.user.SessionUser;
@@ -26,6 +27,7 @@ public class LikeService {
     final private StoreRepository storeRepository;
     final private LikeRepository likeRepository;
     final private HttpSession session;
+    private final ReviewRepository reviewRepository;
 
     @Transactional
     public LikeResponse.AddLikeDTO addLike(LikeRequest.AddLikeDTO reqDTO) {
@@ -90,7 +92,6 @@ public class LikeService {
     }
 
     public int getReviewCount(int storeId) {
-
-        return 17;
+        return reviewRepository.findReviewCountByStoreId(storeId);
     }
 }

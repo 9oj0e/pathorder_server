@@ -1,8 +1,12 @@
 {{>layout/header}}
 <style>
-    .table {
+    .table.list {
         --bs-table-color: white;
         --bs-table-bg: transparent;
+    }
+
+    .table.list tbody tr:hover {
+        background-color: #5cbfd9;
     }
 </style>
 <div id="layoutSidenav" style="display: flex">
@@ -42,7 +46,7 @@
                     </div>
                 </div>
 
-                <table class="table">
+                <table class="table list">
                     <thead>
                     <tr>
                         <th>주문번호</th>
@@ -61,5 +65,20 @@
         </form>
     </main>
 </div>
+
+<!-- 모달 시작 -->
+<div class="modal fade" tabindex="-1" id="orderDetailModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content" style="overflow-y: auto; height: 100%;">
+            <div class="modal-body" style="border-radius: 8px; background-color: #fff; padding: 0;">
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const storeId = {{storeId}};
+</script>
 <script src="/js/orderList.js"></script>
+<script src="/js/orders.js"></script>
 {{>layout/footer}}
