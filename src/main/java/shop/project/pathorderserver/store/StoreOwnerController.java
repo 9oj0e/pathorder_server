@@ -1,6 +1,7 @@
 package shop.project.pathorderserver.store;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +41,7 @@ public class StoreOwnerController {
     }
 
     @PostMapping("/stores/join") // 매장 관리자 회원가입
-    public String join(StoreRequest.JoinDTO reqDTO) {
+    public String join(@Valid StoreRequest.JoinDTO reqDTO) {
         storeService.createStore(reqDTO);
         return "redirect:/stores/login-form";
     }
@@ -52,7 +53,7 @@ public class StoreOwnerController {
     }
 
     @PostMapping("/stores/login") // 매장 관리자 - 로그인
-    public String login(StoreRequest.LoginDTO reqDTO) {
+    public String login(@Valid StoreRequest.LoginDTO reqDTO) {
         SessionStore sessionStore = storeService.getStore(reqDTO);
         session.setAttribute("sessionStore", sessionStore);
         return "redirect:/";
@@ -89,7 +90,7 @@ public class StoreOwnerController {
     }
 
     @PostMapping("/stores/{storeId}/orders/{orderId}/update") // 매장 관리자 - 주문 상태 업데이트(주문 접수하기 -> 조리완료)
-    private String updateOrder(@PathVariable int storeId, @PathVariable int orderId, StoreRequest.UpdateOrderDTO reqDTO) {
+    private String updateOrder(@PathVariable int storeId, @PathVariable int orderId, @Valid StoreRequest.UpdateOrderDTO reqDTO) {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         if (storeId != sessionStore.getId()) {
             throw new Exception403("권한이 없습니다.");
@@ -164,7 +165,7 @@ public class StoreOwnerController {
     }
 
     @PostMapping("/stores/{storeId}/menus") // 매장 관리자 - 메뉴 등록하기
-    private String addMenu(@PathVariable int storeId, StoreRequest.CreateMenuDTO reqDTO) {
+    private String addMenu(@PathVariable int storeId, @Valid StoreRequest.CreateMenuDTO reqDTO) {
         // TODO: 유효성 검사 (금액)
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         if (storeId != sessionStore.getId()) {
@@ -176,7 +177,7 @@ public class StoreOwnerController {
 
     @ResponseBody
     @PutMapping("/stores/{storeId}/menus/{menuId}") // 매장 관리자 - 메뉴 수정하기
-    private ResponseEntity<?> updateMenu(@PathVariable int storeId, @PathVariable int menuId, @RequestBody StoreRequest.UpdateMenuDTO reqDTO) {
+    private ResponseEntity<?> updateMenu(@PathVariable int storeId, @PathVariable int menuId, @RequestBody @Valid StoreRequest.UpdateMenuDTO reqDTO) {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         if (storeId != sessionStore.getId()) {
             throw new Exception403("권한이 없습니다.");
@@ -210,7 +211,7 @@ public class StoreOwnerController {
     }
 
     @PostMapping("/stores/{storeId}") // 매장 관리자 - 매장 정보 수정
-    public String update(@PathVariable int storeId, StoreRequest.UpdateDTO reqDTO) {
+    public String update(@PathVariable int storeId, @Valid StoreRequest.UpdateDTO reqDTO) {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         if (storeId != sessionStore.getId()) {
             throw new Exception403("권한이 없습니다.");
