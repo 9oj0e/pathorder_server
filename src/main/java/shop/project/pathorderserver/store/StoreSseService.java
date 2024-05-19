@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import shop.project.pathorderserver._core.errors.exceptionssr.Exception400;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class StoreSseService {
@@ -17,30 +19,32 @@ public class StoreSseService {
     public SseEmitter createConnection(int storeId) {
         SseEmitter emitter = new SseEmitter(TIMEOUT);
         storeSSERepository.save(storeId, emitter);
-        // emitter.onTimeout(() -> storeSSERepository.deleteById(storeId));
-        createEvent(storeId, "EventStream 생성");
-        // emitter.onCompletion(() -> storeSSERepository.deleteById(storeId));
+        createEvent(storeId, "실시간 Push 서비스 연결 완료"); // EventStream 생성
         return emitter;
     }
 
     public void createOrderNotification(int orderId, int storeId) {
         if (storeSSERepository.findById(storeId).isPresent()) {
-            createEvent(storeId, orderId + "번 주문이 생성되었습니다.");
+            createEvent(storeId, orderId + "번 주문 알림. 새로고침을 눌러 주문을 확인해주세요.");
         }
     }
 
     public void createEvent(int storeId, String data) {
-        SseEmitter emitter = storeSSERepository.findById(storeId)
-                .orElseThrow(() -> new Exception400("서버가 비활성화 상태입니다."));
-        SseEmitter.SseEventBuilder event = SseEmitter.event()
-                .name("sse")
-                .data(data)
-                .reconnectTime(RECONNECTION_TIMEOUT);
-        try {
-            emitter.send(event);
-        } catch (Exception e) {
-            storeSSERepository.deleteById(storeId);
-            emitter.completeWithError(e);
+        Optional<SseEmitter> opEmitter = storeSSERepository.findById(storeId);
+        if (opEmitter.isPresent()) {
+            SseEmitter emitter = opEmitter.get();
+            SseEmitter.SseEventBuilder event = SseEmitter.event()
+                    .name("sse")
+                    .data(data)
+                    .reconnectTime(RECONNECTION_TIMEOUT);
+            try {
+                emitter.send(event);
+                emitter.onTimeout(() -> storeSSERepository.deleteById(storeId));
+                emitter.onCompletion(() -> storeSSERepository.deleteById(storeId));
+            } catch (Exception e) {
+                storeSSERepository.deleteById(storeId);
+                emitter.completeWithError(e);
+            }
         }
     }
 }
