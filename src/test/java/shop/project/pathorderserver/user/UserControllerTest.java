@@ -95,4 +95,65 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.msg").value("중복된 유저입니다."));
         actions.andExpect(jsonPath("$.body").isEmpty());
     }
+    
+    // 로그인 성공
+    @Test
+    public void login_test() throws Exception {
+        //given
+        UserRequest.LoginDTO reqDTO = new UserRequest.LoginDTO();
+        reqDTO.setUsername("user1");
+        reqDTO.setPassword("1234");
+
+        String reqBody = om.writeValueAsString(reqDTO);
+
+        // when
+        ResultActions actions = mvc.perform(
+                post("/login")
+                        .content(reqBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println("respBody = " + respBody);
+
+        // then
+        actions.andExpect(status().isOk());
+        actions.andExpect(jsonPath("$.status").value(200));
+        actions.andExpect(jsonPath("$.msg").value("성공"));
+        actions.andExpect(jsonPath("$.body.id").value(1));
+        actions.andExpect(jsonPath("$.body.nickname").value("성재"));
+        actions.andExpect(jsonPath("$.body.name").value("김성재"));
+        actions.andExpect(jsonPath("$.body.tel").value("01012345555"));
+        actions.andExpect(jsonPath("$.body.email").value("user1@gmail.com"));
+        actions.andExpect(jsonPath("$.body.imgFilename").value("default/avatar.png"));
+    }
+
+    // 로그인 실패(유저네임 불일치)
+    @Test
+    public void login_username_not_found_fail_test() throws Exception {
+        //given
+        UserRequest.LoginDTO reqDTO = new UserRequest.LoginDTO();
+        reqDTO.setUsername("user99");
+        reqDTO.setPassword("1234");
+
+        String reqBody = om.writeValueAsString(reqDTO);
+
+        // when
+        ResultActions actions = mvc.perform(
+                post("/login")
+                        .content(reqBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println("respBody = " + respBody);
+
+        // then
+        actions.andExpect(status().isUnauthorized());
+        actions.andExpect(jsonPath("$.status").value(401));
+        actions.andExpect(jsonPath("$.msg").value("아이디 또는 비밀번호가 틀렸습니다."));
+        actions.andExpect(jsonPath("$.body").isEmpty());
+    }
 }
