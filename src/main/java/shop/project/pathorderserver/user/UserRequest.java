@@ -69,10 +69,4 @@ public class UserRequest {
             private int price;
         }
     }
-
-    @Data
-    public static class LocationReqDTO {
-        private double latitude;
-        private double longitude;
-    }
 }
