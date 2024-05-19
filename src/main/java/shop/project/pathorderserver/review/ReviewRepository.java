@@ -15,4 +15,8 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
     // 매장 리뷰 보기
     @Query("select r from Review r where r.store.id = :storeId order by r.createdAt desc")
     Optional<List<Review>> findByStoreId(@Param("storeId") int storeId);
+
+    // 매장별 리뷰 개수
+    @Query("select count(r.id) from Review r where r.store.id = :storeId")
+    int findReviewCountByStoreId(@Param("storeId") int storeId);
 }

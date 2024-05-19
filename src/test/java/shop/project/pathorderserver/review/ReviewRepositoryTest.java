@@ -34,4 +34,14 @@ class ReviewRepositoryTest {
 
         Assertions.assertThat(storeReviewListOP.get().size()).isEqualTo(0);
     }
+
+    // 매장별 리뷰 개수
+    @Test
+    void findReviewCountByStoreId() {
+        int storeId = 1;
+
+        int reviewCount = reviewRepository.findReviewCountByStoreId(storeId);
+
+        Assertions.assertThat(reviewCount).isEqualTo(2);
+    }
 }
