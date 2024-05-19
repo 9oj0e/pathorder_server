@@ -204,4 +204,54 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.msg").value("JWT 토큰을 찾을 수 없습니다."));
         actions.andExpect(jsonPath("$.body").isEmpty());
     }
+
+    // 회원정보조회 성공
+    @Test
+    public void get_user_info_test() throws Exception {
+        //given
+        int userId = 1;
+
+        // when
+        ResultActions actions = mvc.perform(
+                get("/api/users/" + userId)
+                        .header("Authorization", "Bearer " + jwt)
+        );
+
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println("respBody = " + respBody);
+
+        // then
+        actions.andExpect(status().isOk());
+        actions.andExpect(jsonPath("$.status").value(200));
+        actions.andExpect(jsonPath("$.msg").value("성공"));
+        actions.andExpect(jsonPath("$.body.id").value(1));
+        actions.andExpect(jsonPath("$.body.nickname").value("성재"));
+        actions.andExpect(jsonPath("$.body.email").value("user1@gmail.com"));
+        actions.andExpect(jsonPath("$.body.tel").value("010-1234-5555"));
+        actions.andExpect(jsonPath("$.body.imgFilename").value("default/avatar.png"));
+    }
+
+    // 회원정보조회 실패(존재하지 않는 유저 아이디)
+    @Test
+    public void get_user_info_not_found_fail_test() throws Exception {
+        //given
+        int userId = 999;
+
+        // when
+        ResultActions actions = mvc.perform(
+                get("/api/users/" + userId)
+                        .header("Authorization", "Bearer " + jwt)
+        );
+
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println("respBody = " + respBody);
+
+        // then
+        actions.andExpect(status().isNotFound());
+        actions.andExpect(jsonPath("$.status").value(404));
+        actions.andExpect(jsonPath("$.msg").value("찾을 수 없는 유저입니다."));
+        actions.andExpect(jsonPath("$.body").isEmpty());
+    }
 }
