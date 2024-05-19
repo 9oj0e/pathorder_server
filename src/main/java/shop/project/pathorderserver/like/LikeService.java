@@ -70,7 +70,7 @@ public class LikeService {
                             .storeId(storeId)
                             .storeImgFilename((String) result[2])
                             .storeName((String) result[3])
-                            .distance(distance + "m") // Calculate distance and add "m" unit
+                            .distance(distance)
                             .isLike(true)
                             .latitude((Double) result[4]) // 위도 설정
                             .longitude((Double) result[5]) // 경도 설정

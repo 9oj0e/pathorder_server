@@ -33,7 +33,7 @@ public class LikeResponse {
         private int storeId;
         private String storeImgFilename;
         private String storeName;
-        private String distance;
+        private int distance;
         private boolean isLike;
         private int likeCount;
         private int reviewCount;

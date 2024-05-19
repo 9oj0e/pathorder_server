@@ -51,7 +51,7 @@ public class StoreResponse {
         private int id;
         private String imgFilename;
         private String name;
-        private String distance; // 거리 계산 (미터 + 단위)
+        private int distance; // 거리 계산 (미터 + 단위)
         private int likeCount;
         private boolean isLiked;
         private Double latitude;
@@ -59,7 +59,7 @@ public class StoreResponse {
         private int reviewCount;
 
         @Builder
-        public StoreListDTO(int id, String imgFilename, String name, String distance, int likeCount, boolean isLiked, Double latitude, Double longitude, int reviewCount) {
+        public StoreListDTO(int id, String imgFilename, String name, int distance, int likeCount, boolean isLiked, Double latitude, Double longitude, int reviewCount) {
             this.id = id;
             this.imgFilename = imgFilename;
             this.name = name;
@@ -75,7 +75,7 @@ public class StoreResponse {
             this.id = store.getId();
             this.imgFilename = store.getImgFilename();
             this.name = store.getName();
-            this.distance = distance + "m"; // 거리 뒤에 "m"를 추가
+            this.distance = distance; // 거리 뒤에 "m"를 추가
             this.likeCount = likeCount;
             this.isLiked = isLiked;
             this.latitude = store.getLatitude();
@@ -99,10 +99,10 @@ public class StoreResponse {
         private Double latitude;
         private Double longitude;
         private int reviewCount;
-        private String distance;
+        private int distance;
 
         @Builder
-        public StoreInfoDTO(int id, String imgFilename, String name, String intro, String openingTime, String closingTime, String closedDay, String address, int likeCount, boolean isLiked, Double latitude, Double longitude, int reviewCount, String distance) {
+        public StoreInfoDTO(int id, String imgFilename, String name, String intro, String openingTime, String closingTime, String closedDay, String address, int likeCount, boolean isLiked, Double latitude, Double longitude, int reviewCount, int distance) {
             this.id = id;
             this.imgFilename = imgFilename;
             this.name = name;
@@ -133,7 +133,7 @@ public class StoreResponse {
             this.latitude = store.getLatitude();
             this.longitude = store.getLongitude();
             this.reviewCount = reviewCount;
-            this.distance = distance + "m";
+            this.distance = distance;
         }
     }
 
