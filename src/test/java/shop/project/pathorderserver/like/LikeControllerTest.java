@@ -10,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.transaction.annotation.Transactional;
+import shop.project.pathorderserver.MyRestDoc;
 import shop.project.pathorderserver._core.utils.JwtUtil;
 import shop.project.pathorderserver.user.SessionUser;
 import shop.project.pathorderserver.user.User;
@@ -18,13 +20,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Transactional
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class LikeControllerTest {
+public class LikeControllerTest extends MyRestDoc {
     private ObjectMapper om = new ObjectMapper();
-
-    @Autowired
-    private MockMvc mvc;
 
     private static String jwt;
     private static MockHttpSession session;
@@ -50,23 +50,15 @@ public class LikeControllerTest {
         //given
         LikeRequest.AddLikeDTO reqDTO = new LikeRequest.AddLikeDTO();
         reqDTO.setStoreId(5);
-
         String reqBody = om.writeValueAsString(reqDTO);
-
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-
         // when
-        ResultActions actions = mvc.perform(
+        ResultActions actions = mockMvc.perform(
                 post("/api/users/" + sessionUser.getId() + "/likes")
                         .header("Authorization", "Bearer " + jwt)
                         .content(reqBody)
                         .contentType(MediaType.APPLICATION_JSON)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
-
         // then
         actions.andExpect(status().isOk());
         actions.andExpect(jsonPath("$.status").value(200));
@@ -81,23 +73,15 @@ public class LikeControllerTest {
         //given
         LikeRequest.AddLikeDTO reqDTO = new LikeRequest.AddLikeDTO();
         reqDTO.setStoreId(999);
-
         String reqBody = om.writeValueAsString(reqDTO);
-
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-
         // when
-        ResultActions actions = mvc.perform(
+        ResultActions actions = mockMvc.perform(
                 post("/api/users/" + sessionUser.getId() + "/likes")
                         .header("Authorization", "Bearer " + jwt)
                         .content(reqBody)
                         .contentType(MediaType.APPLICATION_JSON)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
-
         // then
         actions.andExpect(status().isNotFound());
         actions.andExpect(jsonPath("$.status").value(404));
@@ -111,23 +95,15 @@ public class LikeControllerTest {
         //given
         LikeRequest.RemoveLikeDTO reqDTO = new LikeRequest.RemoveLikeDTO();
         reqDTO.setStoreId(1);
-
         String reqBody = om.writeValueAsString(reqDTO);
-
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-
         // when
-        ResultActions actions = mvc.perform(
+        ResultActions actions = mockMvc.perform(
                 delete("/api/users/" + sessionUser.getId() + "/likes")
                         .header("Authorization", "Bearer " + jwt)
                         .content(reqBody)
                         .contentType(MediaType.APPLICATION_JSON)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
-
         // then
         actions.andExpect(status().isOk());
         actions.andExpect(jsonPath("$.status").value(200));
@@ -142,23 +118,15 @@ public class LikeControllerTest {
         //given
         LikeRequest.RemoveLikeDTO reqDTO = new LikeRequest.RemoveLikeDTO();
         reqDTO.setStoreId(999);
-
         String reqBody = om.writeValueAsString(reqDTO);
-
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-
         // when
-        ResultActions actions = mvc.perform(
+        ResultActions actions = mockMvc.perform(
                 delete("/api/users/" + sessionUser.getId() + "/likes")
                         .header("Authorization", "Bearer " + jwt)
                         .content(reqBody)
                         .contentType(MediaType.APPLICATION_JSON)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
-
         // then
         actions.andExpect(status().isNotFound());
         actions.andExpect(jsonPath("$.status").value(404));
@@ -171,18 +139,12 @@ public class LikeControllerTest {
     public void get_users_like_success_test() throws Exception {
         //given
         int userId = 1;
-
         // when
-        ResultActions actions = mvc.perform(
+        ResultActions actions = mockMvc.perform(
                 get("/api/users/" + userId + "/likes")
                         .header("Authorization", "Bearer " + jwt)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
-
-//        // then
+        // then
         actions.andExpect(status().isOk());
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.msg").value("성공"));
@@ -203,17 +165,11 @@ public class LikeControllerTest {
     public void get_users_like_fail_test() throws Exception {
         //given
         int userId = 999;
-
         // when
-        ResultActions actions = mvc.perform(
+        ResultActions actions = mockMvc.perform(
                 get("/api/users/" + userId + "/likes")
                         .header("Authorization", "Bearer " + jwt)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
-
         // then
         actions.andExpect(status().isForbidden());
         actions.andExpect(jsonPath("$.status").value(403));
