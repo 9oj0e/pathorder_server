@@ -189,25 +189,6 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.body").value("로그아웃 완료"));
     }
 
-//    // 로그아웃 실패(JWT 토큰이 없음)
-//    @Test
-//    public void logout_without_jwt_fail_test() throws Exception {
-//        // when
-//        ResultActions actions = mvc.perform(
-//                get("/logout")
-//        );
-//
-//        // eye
-//        String respBody = actions.andReturn().getResponse().getContentAsString();
-//        System.out.println("respBody : " + respBody);
-//
-//        // then
-//        actions.andExpect(status().isUnauthorized()); // 401 Unauthorized
-//        actions.andExpect(jsonPath("$.status").value(401));
-//        actions.andExpect(jsonPath("$.msg").value("JWT 토큰을 찾을 수 없습니다."));
-//        actions.andExpect(jsonPath("$.body").isEmpty());
-//    }
-
     // 회원정보조회 성공
     @Test
     public void get_user_info_success_test() throws Exception {
@@ -330,11 +311,15 @@ public class UserControllerTest {
 ////        actions.andExpect(jsonPath("$.body.longitude").value(129.0604337191542));
 //    }
 
-    // 사진 등록
+    // 사진 등록 성공
+    // 사진 등록 실패
 
-    // 주문하기
+    // 주문하기 성공
+    // 주문하기 실패
 
-    // 회원 주문내역 목록보기
+    // 회원 주문내역 목록보기 성공
+    // 회원 주문내역 목록보기 실패
 
-    // 회원 주문내역 상세보기
+    // 회원 주문내역 상세보기 성공
+    // 회원 주문내역 상세보기 실패
 }
