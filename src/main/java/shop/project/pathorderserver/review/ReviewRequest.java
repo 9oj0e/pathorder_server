@@ -1,13 +1,8 @@
 package shop.project.pathorderserver.review;
 
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import shop.project.pathorderserver.store.Store;
-import shop.project.pathorderserver.user.User;
 
 public class ReviewRequest {
     // 리뷰 등록

@@ -1,16 +1,9 @@
 package shop.project.pathorderserver.review;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import lombok.Builder;
 import lombok.Data;
-import shop.project.pathorderserver._core.utils.FileUtil;
 import shop.project.pathorderserver._core.utils.FormatUtil;
-import shop.project.pathorderserver.store.Store;
-import shop.project.pathorderserver.user.User;
 
 import java.sql.Timestamp;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static shop.project.pathorderserver._core.utils.FileUtil.getFilePath;

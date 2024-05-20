@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import shop.project.pathorderserver.MyRestDoc;
 
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import java.util.List;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@Transactional
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 public class StoreOwnerControllerTest extends MyRestDoc {
@@ -41,7 +43,7 @@ public class StoreOwnerControllerTest extends MyRestDoc {
 
     @AfterAll
     public static void clean() {
-        session.clearAttributes();
+        session.invalidate();
     }
 
     @Test
@@ -85,7 +87,7 @@ public class StoreOwnerControllerTest extends MyRestDoc {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
         // then
-        actions.andExpect(jsonPath("$.body").value(4));
+        actions.andExpect(jsonPath("$.body").value(5));
     }
 
     @Test

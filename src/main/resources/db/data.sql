@@ -1,11 +1,11 @@
 -- 회원
 INSERT INTO user_tb
-    (username, password, nickname, name, tel, email, registered_at)
-VALUES ('user1', '1234', '성재', '김성재', '01012345555', 'user1@gmail.com', now()),
-       ('user2', '1234', '정현', '조정현', '01012346666', 'user2@gmail.com', now()),
-       ('user3', '1234', '현정', '장현정', '01012347777', 'user3@gmail.com', now()),
-       ('user4', '1234', '윤정', '최윤정', '01012348888', 'user4@gmail.com', now()),
-       ('user5', '1234', '찬혁', '박찬혁', '01012349999', 'user5@gmail.com', now());
+    (username, password, nickname, name, tel, email, registered_at, img_filename)
+VALUES ('user1', '1234', '성재', '김성재', '01012345555', 'user1@gmail.com', now(),'default/avatar.png'),
+       ('user2', '1234', '정현', '조정현', '01012346666', 'user2@gmail.com', now(),'default/user2.jpg'),
+       ('user3', '1234', '현정', '장현정', '01012347777', 'user3@gmail.com', now(),'default/avatar.png'),
+       ('user4', '1234', '윤정', '최윤정', '01012348888', 'user4@gmail.com', now(),'default/avatar.png'),
+       ('user5', '1234', '찬혁', '박찬혁', '01012349999', 'user5@gmail.com', now(),'default/user5.jpg');
 
 -- 매장 업주 회원
 INSERT INTO store_tb (username, password, owner_name, owner_tel, owner_email, biz_num, name, tel, intro, opening_time,
@@ -25,7 +25,10 @@ VALUES ('david1234', '1234', '조정현', '010-1234-5678', 'david1234@gmail.com'
        ('qty1234', '1234', '최윤정', '010-5678-9012', 'qty1234@gmail.com', '567-890-1234', '디저트 로지', '010-5678-9012',
         '전포 누리마을 뒷쪽 골목 안에 아담하게 자리잡고 있습니다.', '07:00', '20:00', '매주 금요일',
         '부산 부산진구 서전로38번길 43-13 105호(전포동, 성진전자 상가) 디저트로지', '35.1559460199003', '129.064563982545', 'default/cafe5.png',
-        NOW());
+        NOW()),
+       ('leetee1234', '1234', '박이태', '010-5184-7949', 'leetee1234@gmail.com', '507-209-4480', '카페이떼', '010-5184-7949',
+        'Take away 전문점 입니다. 맛있는 커피와 샐러드, 샌드위치, 디저트를 판매합니다.', '07:30', '19:00', '매주 일요일', '부산 부산진구 중앙대로743번길 11 카페이떼',
+        '35.1592549', '129.059527', 'default/cafe6.jpg', NOW());
 
 
 -- 매장 메뉴
@@ -61,7 +64,19 @@ VALUES
 (5, 'coffee', '카페 라떼', 4800, '우아한 우유의 춤과 함께하는 부드러운 에스프레소의 라떼, 여유로운 한잔.', 'default/latte.png', NOW()),
 (5, 'coffee', '카페 모카', 5300, '달콤한 초콜릿의 향과 고소한 우유, 그리고 진한 에스프레소가 어우러진 세상.', 'default/mocha.png', NOW()),
 (5, 'coffee', '바닐라 라떼', 4800, '부드러운 바닐라의 향과 우유의 깊은 맛이 담긴 라떼, 달콤한 여행의 시작.', 'default/latte.png', NOW()),
-(5, 'coffee', '카라멜 마끼아또', 5300, '달콤한 카라멜과 진한 에스프레소가 만나는 환상적인 순간, 취향을 자극하는 끝내주는 음료.', 'default/macchiato.png', NOW());
+(5, 'coffee', '카라멜 마끼아또', 5300, '달콤한 카라멜과 진한 에스프레소가 만나는 환상적인 순간, 취향을 자극하는 끝내주는 음료.', 'default/macchiato.png', NOW()),
+-- 6번 매장 메뉴
+(6, 'coffee', '아메리카노', 2000, '끊임없는 플로우와 함께하는 강렬한 아메리카노의 세계로 초대합니다.', 'default/itte1.jpg', NOW()),
+(6, 'coffee', '카페라떼', 2800, '끊임없는 플로우와 함께하는 강렬한 아메리카노의 세계로 초대합니다.', 'default/itte2.jpg', NOW()),
+(6, 'coffee', '바닐라라떼', 3500, '끊임없는 플로우와 함께하는 강렬한 아메리카노의 세계로 초대합니다.', 'default/itte3.jpg', NOW()),
+(6, 'coffee', '연유라뗴(돌체라떼)', 3500, '끊임없는 플로우와 함께하는 강렬한 아메리카노의 세계로 초대합니다.', 'default/itte4.jpg', NOW()),
+(6, 'coffee', '카라멜 마끼아또', 3500, '끊임없는 플로우와 함께하는 강렬한 아메리카노의 세계로 초대합니다.', 'default/itte5.jpg', NOW()),
+(6, 'coffee', '허니딸기라떼', 4000, '끊임없는 플로우와 함께하는 강렬한 아메리카노의 세계로 초대합니다.', 'default/itte6.jpg', NOW()),
+(6, 'coffee', '초콜릿라떼', 3500, '끊임없는 플로우와 함께하는 강렬한 아메리카노의 세계로 초대합니다.', 'default/itte7.jpg', NOW()),
+(6, 'coffee', '그린티라떼', 3500, '끊임없는 플로우와 함께하는 강렬한 아메리카노의 세계로 초대합니다.', 'default/itte8.jpg', NOW()),
+(6, 'coffee', '밀크티라떼', 3500, '끊임없는 플로우와 함께하는 강렬한 아메리카노의 세계로 초대합니다.', 'default/itte9.jpg', NOW()),
+(6, 'coffee', '복숭아 아이스티', 2800, '끊임없는 플로우와 함께하는 강렬한 아메리카노의 세계로 초대합니다.', 'default/itte10.jpg', NOW());
+
 
 
 -- 매장 메뉴 옵션
@@ -214,7 +229,7 @@ VALUES
 (20, '설탕시럽', 0, 0),
 (20, '바닐라시럽', 500, 0),
 (20, '헤이즐넛시럽', 500, 0),
--- 4번 가게
+-- 5번 가게
 -- 아메리카노
 (21, '아이스', 0, 1),
 (21, '핫', 0, 1),
@@ -249,7 +264,24 @@ VALUES
 (25, '샷추가', 500, 0),
 (25, '설탕시럽', 0, 0),
 (25, '바닐라시럽', 500, 0),
-(25, '헤이즐넛시럽', 500, 0);
+(25, '헤이즐넛시럽', 500, 0),
+-- 5번 가게
+-- 아이스 아메리카노
+(26, '아이스', 0,1),
+(26, '핫', 0, 1),
+(26, '사이즈업', 500, 0),
+-- 카페라떼
+(27, '아이스', 0,1),
+(27, '핫', 0,1),
+(27, '샷 추가', 500,0),
+-- 초콜릿라떼
+(32, '아이스', 0,1),
+(32, '핫', 0,1),
+(32, '사이즈 업', 500,0);
+
+
+
+
 
 -- order_tb, order_menu_tb, order_menu_option_tb
 -- 과거의 주문
@@ -602,23 +634,44 @@ VALUES (19, 75, '아이스', 0, now()),
        (19, 77, '핫', 0, now()),
        (19, 77, '바닐라시럽', 500, now());
 
+-- order_id: 20 (request 없음)
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, total_price, created_at)
+VALUES (6, '카페이떼', 5, '찬혁', 3500, now());
+INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
+VALUES (20, '아메리카노', 1, 3500, 3500, now()); -- id: 78
+INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (20, 78, '아이스', 0, now());
+
+-- order_id: 21 (request 없음)
+INSERT INTO order_tb (store_id, store_name, customer_id, customer_nickname, total_price, created_at)
+VALUES (6, '카페이떼', 2, '정현', 7000, now());
+INSERT INTO order_menu_tb (order_id, name, qty, price, total_price, created_at)
+VALUES (21, '아메리카노', 1, 3000, 3000 + 500, now()); -- id: 79
+INSERT INTO order_menu_option_tb (order_id, order_menu_id, name, price, created_at)
+VALUES (21, 79, '아이스', 0, now());
+
 -- 유저가 좋아요 한 데이터
 INSERT INTO like_tb (user_id, store_id, created_at)
 VALUES (1, 1, NOW()),
        (1, 2, NOW()),
        (1, 3, NOW()),
+       (1, 6, NOW()),
        (2, 2, NOW()),
        (2, 3, NOW()),
        (2, 4, NOW()),
+       (2, 6, NOW()),
        (3, 1, NOW()),
        (3, 3, NOW()),
        (3, 5, NOW()),
+       (3, 6, NOW()),
        (4, 2, NOW()),
        (4, 4, NOW()),
        (4, 5, NOW()),
+       (4, 6, NOW()),
        (5, 1, NOW()),
        (5, 3, NOW()),
-       (5, 4, NOW());
+       (5, 4, NOW()),
+       (5, 6, NOW());
 
 INSERT INTO review_tb (user_id, store_id, content, created_at)
 VALUES (1, 1, '맛있어요', NOW());
@@ -628,3 +681,8 @@ INSERT INTO review_tb (user_id, store_id, content, created_at)
 VALUES (2, 1, '맛있어요', NOW());
 INSERT INTO review_tb (user_id, store_id, content, created_at)
 VALUES (2, 2, '맛있어요', NOW());
+
+INSERT INTO review_tb (user_id, store_id, content, created_at, img_filename)
+VALUES (2, 6, '달달하고 너무 맛있어용', NOW(), 'default/ittereview2.jpg');
+INSERT INTO review_tb (user_id, store_id, content, created_at, img_filename)
+VALUES (5, 6, '사장님이 친절하고 커피가 맛있어요~', NOW(),'default/ittereview1.jpg');

@@ -3,7 +3,6 @@ package shop.project.pathorderserver.like;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import shop.project.pathorderserver.store.Store;
 
 public class LikeResponse {
 
@@ -28,7 +27,7 @@ public class LikeResponse {
 
     @Data
     @Builder
-    public static class LikeListDTO{
+    public static class LikeListDTO {
         private int id;
         private int storeId;
         private String storeImgFilename;
