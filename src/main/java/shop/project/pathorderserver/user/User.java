@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
@@ -19,11 +20,7 @@ import java.sql.Timestamp;
 @Data
 @DynamicInsert
 @Entity
-@Table(name = "user_tb", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "username"),
-        @UniqueConstraint(columnNames = "tel"),
-        @UniqueConstraint(columnNames = "email")
-})
+@Table(name = "user_tb")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,6 +62,20 @@ public class User {
     @CreationTimestamp
     private Timestamp registeredAt; // 가입일
 
+    @Builder
+    public User(int id, String username, String password, String nickname, boolean status, String name, String tel, String email, String imgFilename, Timestamp registeredAt) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.nickname = nickname;
+        this.status = status;
+        this.name = name;
+        this.tel = tel;
+        this.email = email;
+        this.imgFilename = imgFilename;
+        this.registeredAt = registeredAt;
+    }
+
     public User(UserRequest.JoinDTO reqDTO) {
         this.username = reqDTO.getUsername();
         this.password = reqDTO.getPassword();
@@ -89,7 +100,8 @@ public class User {
     public void setImgFilename(String encodedFile) {
         FileUtil.deleteFile(this.imgFilename);
         String imgFilename = FileUtil.uploadBase64Jpg(encodedFile, this.name);
-        if (imgFilename.equals("default")) {
+        // String imgFilename = FileUtil.uploadBase64(encodedFile, this.name); // 이외 확장자 처리 메서드
+        if (imgFilename.equals("default")) { // TODO: 삭제 로직 분리하기, 사진 유지 추가
             this.imgFilename = DefaultFile.AVATAR.getPath();
         } else {
             this.imgFilename = imgFilename;
