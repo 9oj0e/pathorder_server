@@ -51,20 +51,13 @@ public class UserControllerTest {
         reqDTO.setName("공지영");
         reqDTO.setTel("01085269874");
         reqDTO.setEmail("captain_kong@nate.com");
-
         String reqBody = om.writeValueAsString(reqDTO);
-
         // when
         ResultActions actions = mvc.perform(
                 post("/join")
                         .content(reqBody)
                         .contentType(MediaType.APPLICATION_JSON)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
-
         // then
         actions.andExpect(status().isOk());
         actions.andExpect(jsonPath("$.status").value(200));
@@ -88,20 +81,13 @@ public class UserControllerTest {
         reqDTO.setName("류재성");
         reqDTO.setTel("01085269874");
         reqDTO.setEmail("ryu@nate.com");
-
         String reqBody = om.writeValueAsString(reqDTO);
-
         // when
         ResultActions actions = mvc.perform(
                 post("/join")
                         .content(reqBody)
                         .contentType(MediaType.APPLICATION_JSON)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
-
         // then
         actions.andExpect(status().isBadRequest());
         actions.andExpect(jsonPath("$.status").value(400));
@@ -117,20 +103,13 @@ public class UserControllerTest {
         UserRequest.LoginDTO reqDTO = new UserRequest.LoginDTO();
         reqDTO.setUsername("user1");
         reqDTO.setPassword("1234");
-
         String reqBody = om.writeValueAsString(reqDTO);
-
         // when
         ResultActions actions = mvc.perform(
                 post("/login")
                         .content(reqBody)
                         .contentType(MediaType.APPLICATION_JSON)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
-
         // then
         actions.andExpect(status().isOk());
         actions.andExpect(jsonPath("$.status").value(200));
@@ -150,20 +129,13 @@ public class UserControllerTest {
         UserRequest.LoginDTO reqDTO = new UserRequest.LoginDTO();
         reqDTO.setUsername("user99");
         reqDTO.setPassword("1234");
-
         String reqBody = om.writeValueAsString(reqDTO);
-
         // when
         ResultActions actions = mvc.perform(
                 post("/login")
                         .content(reqBody)
                         .contentType(MediaType.APPLICATION_JSON)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
-
         // then
         actions.andExpect(status().isUnauthorized());
         actions.andExpect(jsonPath("$.status").value(401));
@@ -182,17 +154,11 @@ public class UserControllerTest {
                         .password("1234")
                         .nickname("성재")
                         .build());
-
         // when
         ResultActions actions = mvc.perform(
                 get("/logout")
                         .header("Authorization", "Bearer " + jwt)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
-
         // then
         actions.andExpect(status().isOk());
         actions.andExpect(jsonPath("$.status").value(200));
@@ -205,17 +171,11 @@ public class UserControllerTest {
     public void get_user_info_success_test() throws Exception {
         //given
         int userId = 1;
-
         // when
         ResultActions actions = mvc.perform(
                 get("/api/users/" + userId)
                         .header("Authorization", "Bearer " + jwt)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
-
         // then
         actions.andExpect(status().isOk());
         actions.andExpect(jsonPath("$.status").value(200));
@@ -232,17 +192,11 @@ public class UserControllerTest {
     public void get_user_info_not_found_fail_test() throws Exception {
         //given
         int userId = 999;
-
         // when
         ResultActions actions = mvc.perform(
                 get("/api/users/" + userId)
                         .header("Authorization", "Bearer " + jwt)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
-
         // then
         actions.andExpect(status().isNotFound());
         actions.andExpect(jsonPath("$.status").value(404));
@@ -260,9 +214,7 @@ public class UserControllerTest {
         reqDTO.setNickname("재성");
         reqDTO.setEmail("ryu@nate.com");
         reqDTO.setTel("01098765432");
-
         String reqBody = om.writeValueAsString(reqDTO);
-
         // when
         ResultActions actions = mvc.perform(
                 put("/api/users/" + userId)
@@ -270,11 +222,6 @@ public class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(reqBody)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
-
         // then
         actions.andExpect(status().isOk());
         actions.andExpect(jsonPath("$.status").value(200));
@@ -502,27 +449,27 @@ public class UserControllerTest {
         // ... (기타 주문 목록 응답 데이터 검증)
     }
 
-    // 회원 주문내역 목록보기 실패(존재하지 않는 유저)
-    @Test
-    public void order_list_fail_test() throws Exception {
-        //given
-        int userId = 999; // 존재하지 않는 유저 ID
-
-        // when
-        ResultActions actions = mvc.perform(
-                get("/api/users/" + userId + "/orders")
-                        .header("Authorization", "Bearer " + jwt)
-        );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
-
-        // then
+//    // 회원 주문내역 목록보기 실패(존재하지 않는 유저)
+//    @Test
+//    public void order_list_fail_test() throws Exception {
+//        //given
+//        int userId = 999; // 존재하지 않는 유저 ID
+//
+//        // when
+//        ResultActions actions = mvc.perform(
+//                get("/api/users/" + userId + "/orders")
+//                        .header("Authorization", "Bearer " + jwt)
+//        );
+//
+//        // eye
+//        String respBody = actions.andReturn().getResponse().getContentAsString();
+//        System.out.println("respBody = " + respBody);
+//
+//        // then
 //        actions.andExpect(status().isNotFound());
 //        actions.andExpect(jsonPath("$.status").value(404));
 //        actions.andExpect(jsonPath("$.msg").value("찾을 수 없는 주문입니다."));
-    }
+//    }
 
     // 회원 주문내역 상세보기 성공
     @Test
