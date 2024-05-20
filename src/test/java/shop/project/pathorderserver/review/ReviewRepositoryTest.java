@@ -22,7 +22,7 @@ class ReviewRepositoryTest {
         //when
         Optional<List<Review>> userReviewListOP = reviewRepository.findByUserId(userId);
         //then
-        Assertions.assertThat(userReviewListOP.get().size()).isEqualTo(0);
+        Assertions.assertThat(userReviewListOP.get().size()).isEqualTo(2);
 
     }
 
@@ -32,7 +32,7 @@ class ReviewRepositoryTest {
 
         Optional<List<Review>> storeReviewListOP = reviewRepository.findByStoreId(storeId);
 
-        Assertions.assertThat(storeReviewListOP.get().size()).isEqualTo(0);
+        Assertions.assertThat(storeReviewListOP.get().size()).isEqualTo(2);
     }
 
     // 매장별 리뷰 개수

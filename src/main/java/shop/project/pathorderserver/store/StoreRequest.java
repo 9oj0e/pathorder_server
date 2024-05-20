@@ -45,11 +45,6 @@ public class StoreRequest {
 
         @Pattern(regexp = "^\\d{2,3}\\d{3,4}\\d{4}$", message = "매장 전화번호는 숫자만 입력해주세요.")
         private String tel;
-
-        private String intro;
-        private String openingTime;
-        private String closingTime;
-        private String closedDay;
         private String address;
         private Double latitude;
         private Double longitude;

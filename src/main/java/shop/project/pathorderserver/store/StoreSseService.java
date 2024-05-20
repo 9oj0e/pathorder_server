@@ -19,7 +19,7 @@ public class StoreSseService {
     public SseEmitter createConnection(int storeId) {
         SseEmitter emitter = new SseEmitter(TIMEOUT);
         storeSSERepository.save(storeId, emitter);
-        createEvent(storeId, "실시간 Push 서비스 연결 완료"); // EventStream 생성
+        // createEvent(storeId, "실시간 Push 서비스 연결 완료"); // EventStream 생성
         return emitter;
     }
 

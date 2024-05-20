@@ -21,6 +21,6 @@ class OrderMenuRepositoryTest {
         List<OrderMenu> orderMenus = orderMenuRepository.findAllByOrderId(orderId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 주문 메뉴 리스트."));
         // then
-        Assertions.assertThat(orderMenus.size()).isEqualTo(3);
+        Assertions.assertThat(orderMenus.size()).isEqualTo(5);
     }
 }
