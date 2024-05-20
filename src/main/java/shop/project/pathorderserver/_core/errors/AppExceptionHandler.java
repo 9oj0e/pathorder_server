@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice //runtimeException 이 터지만 해당 파일로 오류가 모인다.
-public class MyExceptionHandler {
+public class AppExceptionHandler {
 
     @ExceptionHandler(Exception400.class)
     public ResponseEntity<?> ex400(Exception400 e) {

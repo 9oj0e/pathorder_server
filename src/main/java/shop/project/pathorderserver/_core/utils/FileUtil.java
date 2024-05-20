@@ -53,6 +53,9 @@ public class FileUtil {
 
     public static String uploadBase64Jpg(String encodedData, String filename) {
         // UUID_파일 이름.확장자 (* '.jpg'로 고정)
+        if (encodedData == null) { // 미확인 확장자 처리 TODO: 사진 유지 로직 추가하기
+            return "default";
+        }
         String newFilename = UUID.randomUUID() + "_" + filename + MimeType.JPEG.getExtension();
         Path newFilePath = Paths.get("./upload/" + newFilename);
         try {
