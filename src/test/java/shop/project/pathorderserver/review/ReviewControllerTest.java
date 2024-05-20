@@ -3,14 +3,14 @@ package shop.project.pathorderserver.review;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.transaction.annotation.Transactional;
+import shop.project.pathorderserver.MyRestDoc;
 import shop.project.pathorderserver._core.utils.JwtUtil;
 import shop.project.pathorderserver.user.User;
 
@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
-public class ReviewControllerTest {
+public class ReviewControllerTest extends MyRestDoc {
 
     private ObjectMapper om = new ObjectMapper();
     private static String jwt;
@@ -36,9 +36,6 @@ public class ReviewControllerTest {
         );
     }
 
-    @Autowired
-    private MockMvc mvc;
-
     // 리뷰 등록 성공
     @Test
     public void addReview_success_test() throws Exception {
@@ -47,24 +44,21 @@ public class ReviewControllerTest {
         ReviewRequest.AddDTO reqDTO = new ReviewRequest.AddDTO();
         reqDTO.setContent("맛있었어요");
         reqDTO.setEncodedData(null);
-
         String reqBody = om.writeValueAsString(reqDTO);
         System.out.println("reqBody : " + reqBody);
-
         //when
-        ResultActions actions = mvc.perform(
+        ResultActions actions = mockMvc.perform(
                 MockMvcRequestBuilders.post("/api/stores/" + storeId + "/reviews")
                         .header("Authorization", "Bearer " + jwt)
                         .content(reqBody)
                         .contentType(MediaType.APPLICATION_JSON)
         );
-
         //then
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.msg").value("성공"));
         actions.andExpect(jsonPath("$.body.content").value("맛있었어요"));
         actions.andExpect(jsonPath("$.body.encodedData").isEmpty());
-
+        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 리뷰 등록 실패 - 공백
@@ -78,7 +72,7 @@ public class ReviewControllerTest {
         System.out.println("reqBody : " + reqBody);
 
         //when
-        ResultActions actions = mvc.perform(
+        ResultActions actions = mockMvc.perform(
                 MockMvcRequestBuilders.post("/api/stores/" + storeId + "/reviews")
                         .header("Authorization", "Bearer " + jwt)
                         .content(reqBody)
@@ -89,6 +83,7 @@ public class ReviewControllerTest {
         actions.andExpect(jsonPath("$.status").value(400));
         actions.andExpect(jsonPath("$.msg").value("내용을 입력해주세요."));
         actions.andExpect(jsonPath("$.body").isEmpty());
+        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 리뷰 등록 실패 - 5자 미만
@@ -98,23 +93,20 @@ public class ReviewControllerTest {
         int storeId = 1;
         ReviewRequest.AddDTO reqDTO = new ReviewRequest.AddDTO();
         reqDTO.setContent("1234");
-
         String reqBody = om.writeValueAsString(reqDTO);
         System.out.println("reqBody : " + reqBody);
-
         //when
-        ResultActions actions = mvc.perform(
+        ResultActions actions = mockMvc.perform(
                 MockMvcRequestBuilders.post("/api/stores/" + storeId + "/reviews")
                         .header("Authorization", "Bearer " + jwt)
                         .content(reqBody)
                         .contentType(MediaType.APPLICATION_JSON)
         );
-
         //then
         actions.andExpect(jsonPath("$.status").value(400));
         actions.andExpect(jsonPath("$.msg").value("내용은 5자 이상 입력해주세요."));
         actions.andExpect(jsonPath("$.body").isEmpty());
-
+        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 내 리뷰 보기
@@ -123,7 +115,7 @@ public class ReviewControllerTest {
         //given
         int userId = 1;
         //when
-        ResultActions actions = mvc.perform(
+        ResultActions actions = mockMvc.perform(
                 get("/api/users/" + userId + "/reviews")
                         .header("Authorization", "Bearer " + jwt)
         );
@@ -137,6 +129,7 @@ public class ReviewControllerTest {
         actions.andExpect(jsonPath("$.body.reviewList.[0].content").value("맛있어요"));
         actions.andExpect(jsonPath("$.body.reviewList.[0].imgFilePath").isEmpty());
         actions.andExpect(jsonPath("$.body.reviewList.[0].createdAt").value("24/05/20"));
+        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 매장 리뷰 보기
@@ -145,7 +138,7 @@ public class ReviewControllerTest {
         //given
         int storeId = 1;
         //when
-        ResultActions actions = mvc.perform(
+        ResultActions actions = mockMvc.perform(
                 get("/api/stores/" + storeId + "/reviews")
                         .header("Authorization", "Bearer " + jwt)
         );
@@ -159,5 +152,6 @@ public class ReviewControllerTest {
         actions.andExpect(jsonPath("$.body.reviewList.[0].content").value("맛있어요"));
         actions.andExpect(jsonPath("$.body.reviewList.[0].reviewsImgFilePath").isEmpty());
         actions.andExpect(jsonPath("$.body.reviewList.[0].createdAt").value("24/05/20"));
+        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }

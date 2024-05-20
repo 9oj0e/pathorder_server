@@ -3,11 +3,10 @@ package shop.project.pathorderserver.store;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import shop.project.pathorderserver.MyRestDoc;
 import shop.project.pathorderserver._core.utils.JwtUtil;
 import shop.project.pathorderserver.user.User;
 
@@ -16,10 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
-public class StoreControllerTest {
-
-    @Autowired
-    private MockMvc mvc;
+public class StoreControllerTest extends MyRestDoc {
 
     private ObjectMapper om = new ObjectMapper();
     private static String jwt;
@@ -28,10 +24,10 @@ public class StoreControllerTest {
     public static void setUp() {
         jwt = JwtUtil.create(
                 User.builder()
-                       .id(1)
-                       .username("user1")
-                       .nickname("성재")
-                       .build()
+                        .id(1)
+                        .username("user1")
+                        .nickname("성재")
+                        .build()
         );
     }
 
@@ -39,17 +35,11 @@ public class StoreControllerTest {
     @Test
     public void storeList_test() throws Exception {
         //given
-
         //when
-        ResultActions actions = mvc.perform(
+        ResultActions actions = mockMvc.perform(
                 get("/api/stores")
                         .header("Authorization", "Bearer " + jwt)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody : " + respBody);
-
         //then
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.msg").value("성공"));
@@ -62,6 +52,7 @@ public class StoreControllerTest {
         actions.andExpect(jsonPath("$.body[0].longitude").value(129.059978704814));
         actions.andExpect(jsonPath("$.body[0].reviewCount").value(0));
         actions.andExpect(jsonPath("$.body[0].liked").value(false));
+        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 매장 상세보기
@@ -69,17 +60,11 @@ public class StoreControllerTest {
     public void storeInfo_test() throws Exception {
         //given
         int storeId = 1;
-
         //when
-        ResultActions actions = mvc.perform(
+        ResultActions actions = mockMvc.perform(
                 get("/api/stores/" + storeId)
                         .header("Authorization", "Bearer " + jwt)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody : " + respBody);
-
         //then
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.msg").value("성공"));
@@ -96,6 +81,7 @@ public class StoreControllerTest {
         actions.andExpect(jsonPath("$.body.reviewCount").value(2));
         actions.andExpect(jsonPath("$.body.distance").value("356"));
         actions.andExpect(jsonPath("$.body.liked").value(true));
+        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 매장 상세보기 - 사업자 정보
@@ -103,17 +89,11 @@ public class StoreControllerTest {
     public void storeBizInfo_test() throws Exception {
         //given
         int storeId = 1;
-
         //when
-        ResultActions actions = mvc.perform(
+        ResultActions actions = mockMvc.perform(
                 get("/api/stores/" + storeId + "/biz-info")
                         .header("Authorization", "Bearer " + jwt)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody : " + respBody);
-
         //then
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.msg").value("성공"));
@@ -121,6 +101,7 @@ public class StoreControllerTest {
         actions.andExpect(jsonPath("$.body.ownerTel").value("010-1234-5678"));
         actions.andExpect(jsonPath("$.body.ownerEmail").value("david1234@gmail.com"));
         actions.andExpect(jsonPath("$.body.bizNum").value("123-456-7890"));
+        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 매장 메뉴보기
@@ -128,17 +109,11 @@ public class StoreControllerTest {
     public void storeMenuList_test() throws Exception {
         //given
         int storeId = 1;
-
         //when
-        ResultActions actions = mvc.perform(
+        ResultActions actions = mockMvc.perform(
                 get("/api/stores/" + storeId + "/menus")
                         .header("Authorization", "Bearer " + jwt)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody : " + respBody);
-
         //then
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.msg").value("성공"));
@@ -150,6 +125,7 @@ public class StoreControllerTest {
         actions.andExpect(jsonPath("$.body.menuList.[0].imgFilename").value("default/americano.png"));
         actions.andExpect(jsonPath("$.body.menuList.[0].description").value("현대인의 필수 카페인"));
         actions.andExpect(jsonPath("$.body.menuList.[0].price").value(3000));
+        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 매장 메뉴 옵션보기
@@ -158,17 +134,11 @@ public class StoreControllerTest {
         //given
         int storeId = 1;
         int menuId = 1;
-
         //when
-        ResultActions actions = mvc.perform(
+        ResultActions actions = mockMvc.perform(
                 get("/api/stores/" + storeId + "/menus/" + menuId)
                         .header("Authorization", "Bearer " + jwt)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody : " + respBody);
-
         //then
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.msg").value("성공"));
@@ -182,6 +152,6 @@ public class StoreControllerTest {
         actions.andExpect(jsonPath("$.body.optionList.[0].name").value("아이스"));
         actions.andExpect(jsonPath("$.body.optionList.[0].price").value(0));
         actions.andExpect(jsonPath("$.body.optionList.[0].required").value(true));
-
+        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }

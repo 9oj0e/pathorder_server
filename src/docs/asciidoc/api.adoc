@@ -7,7 +7,6 @@ ifndef::snippets[]
 endif::[]
 
 :user: user-controller-test
-:storeOwner: store-owner-controller-test
 :store: store-controller-test
 :like: like-controller-test
 :review: review-controller-test
@@ -16,8 +15,25 @@ endif::[]
 :toclevels: 2
 :source-highlighter: highlightjs
 
-== 회원 (손님)
+== 회원
 === 회원가입
+=== 로그인
+=== 회원정보 보기
+=== 회원정보 수정
 
-== 회원 (매장)
-=== 회원가입
+== 매장
+=== 매장 목록보기
+=== 매장 상세보기
+=== 매장 상세보기 - 사업자 정보
+=== 매장 메뉴보기 - 매장 정보
+=== 매장 메뉴 옵션보기
+
+== 좋아요(즐겨찾는 매장)
+=== 좋아요 등록하기
+=== 좋아요 삭제하기
+=== 좋아요 목록보기
+
+== 리뷰
+=== 리뷰 등록하기
+=== 내 리뷰 보기
+=== 매장 리뷰 보기

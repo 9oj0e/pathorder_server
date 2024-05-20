@@ -177,7 +177,7 @@ public class StoreOwnerController {
 
     @ResponseBody
     @PutMapping("/stores/{storeId}/menus/{menuId}") // 매장 관리자 - 메뉴 수정하기
-    private ResponseEntity<?> updateMenu(@PathVariable int storeId, @PathVariable int menuId, @RequestBody @Valid StoreRequest.UpdateMenuDTO reqDTO) {
+    public ResponseEntity<?> updateMenu(@PathVariable int storeId, @PathVariable int menuId, @RequestBody @Valid StoreRequest.UpdateMenuDTO reqDTO) {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         if (storeId != sessionStore.getId()) {
             throw new Web403("권한이 없습니다.");
