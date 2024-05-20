@@ -1,6 +1,7 @@
 package shop.project.pathorderserver.user;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
@@ -36,6 +37,20 @@ public class User {
 
     @CreationTimestamp
     private Timestamp registeredAt; // 가입일
+
+    @Builder
+    public User(int id, String username, String password, String nickname, boolean status, String name, String tel, String email, String imgFilename, Timestamp registeredAt) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.nickname = nickname;
+        this.status = status;
+        this.name = name;
+        this.tel = tel;
+        this.email = email;
+        this.imgFilename = imgFilename;
+        this.registeredAt = registeredAt;
+    }
 
     public User(UserRequest.JoinDTO reqDTO) {
         this.username = reqDTO.getUsername();
