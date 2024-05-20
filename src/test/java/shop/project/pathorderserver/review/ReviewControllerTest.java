@@ -17,9 +17,9 @@ import shop.project.pathorderserver.user.User;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
+@Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
-@Transactional
 public class ReviewControllerTest {
 
     private ObjectMapper om = new ObjectMapper();
