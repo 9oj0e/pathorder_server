@@ -1,5 +1,7 @@
 package shop.project.pathorderserver.review;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
 import shop.project.pathorderserver._core.utils.FileUtil;
@@ -14,6 +16,18 @@ import java.util.List;
 import static shop.project.pathorderserver._core.utils.FileUtil.getFilePath;
 
 public class ReviewResponse {
+    // 리뷰 등록
+    @Data
+    public static class AddDTO {
+        private String content;
+        private String encodedData;
+
+        public AddDTO(Review review) {
+            this.content = review.getContent();
+            this.encodedData = review.getImgFilename();
+        }
+    }
+
     // 내 리뷰 보기
     @Data
     public static class MyReviewListDTO {
