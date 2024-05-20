@@ -19,12 +19,20 @@ public class UserResponse {
     public static class JoinDTO {
         // private int id;
         private String username;
+        private String password;
         private String nickname;
+        private String name;
+        private String tel;
+        private String email;
 
         @Builder
-        public JoinDTO(String username, String nickname) {
+        public JoinDTO(String username, String password, String nickname, String name, String tel, String email) {
             this.username = username;
+            this.password = password;
             this.nickname = nickname;
+            this.name = name;
+            this.tel = tel;
+            this.email = email;
         }
     }
 

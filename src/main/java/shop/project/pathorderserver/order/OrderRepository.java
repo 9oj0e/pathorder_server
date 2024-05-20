@@ -24,7 +24,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             WHERE s.id = :storeId
             """)
         // 주문보기 (점주)
-    Optional<List<Order>> findAllByStoreIdWithOrderMenu(int storeId);
+    Optional<List<Order>> findAllByStoreIdWithOrderMenu(@Param("storeId") int storeId);
 
     //    @Query("""
 //            SELECT o
@@ -41,5 +41,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             WHERE s.id = :storeId
             AND o.createdAt BETWEEN :startDate AND :endDate
             """)
-    List<Order> findAllByStoreIdAndCreatedAtBetween(@Param("storeId")int storeId, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+    List<Order> findAllByStoreIdAndCreatedAtBetween(@Param("storeId") int storeId,
+                                                    @Param("startDate") LocalDateTime startDate,
+                                                    @Param("endDate") LocalDateTime endDate);
 }

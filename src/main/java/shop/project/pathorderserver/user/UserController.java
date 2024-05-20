@@ -70,14 +70,14 @@ public class UserController {
     }
 
     @GetMapping("/api/users/{userId}/orders") // 회원 주문내역 목록보기
-    private ResponseEntity<?> orderList(@PathVariable int userId) {
+    public ResponseEntity<?> orderList(@PathVariable int userId) {
         UserResponse.OrderListDTO respDTO = userService.getOrderList(userId);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @GetMapping("/api/users/{userId}/orders/{orderId}") // 회원 주문내역 상세보기
-    private ResponseEntity<?> orderDetail(@PathVariable String userId, @PathVariable int orderId) {
+    public ResponseEntity<?> orderDetail(@PathVariable String userId, @PathVariable int orderId) {
         UserResponse.OrderDetailDTO respDTO = userService.getOrderDetail(orderId);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
