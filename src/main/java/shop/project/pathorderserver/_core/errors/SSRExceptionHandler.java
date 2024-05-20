@@ -1,9 +1,14 @@
 package shop.project.pathorderserver._core.errors;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import shop.project.pathorderserver._core.errors.exceptionssr.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @ControllerAdvice //runtimeException 이 터지만 해당 파일로 오류가 모인다.
 public class SSRExceptionHandler {
@@ -46,5 +51,17 @@ public class SSRExceptionHandler {
         request.setAttribute("status", 500);
 
         return "error";
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public String handleValidationExceptions(MethodArgumentNotValidException ex, HttpServletRequest request) {
+        Map<String, String> errors = new HashMap<>();
+        for (FieldError error : ex.getBindingResult().getFieldErrors()) {
+            errors.put(error.getField(), error.getDefaultMessage());
+        }
+        request.setAttribute("msg", "Validation failed");
+        request.setAttribute("status", 400);
+        request.setAttribute("errors", errors);
+        return "error"; // 적절한 뷰로 변경
     }
 }

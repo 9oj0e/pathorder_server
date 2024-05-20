@@ -1,6 +1,7 @@
 package shop.project.pathorderserver.user;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,14 +18,14 @@ public class UserController {
     private final StoreSseService storeSseService;
 
     @PostMapping("/join") // 회원가입
-    public ResponseEntity<?> join(@RequestBody UserRequest.JoinDTO reqDTO) {
+    public ResponseEntity<?> join(@RequestBody @Valid UserRequest.JoinDTO reqDTO) {
         UserResponse.JoinDTO respDTO = userService.createUser(reqDTO);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @PostMapping("/login") // 로그인 TODO: 비밀번호 암호화 하기
-    public ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO reqDTO) {
+    public ResponseEntity<?> login(@RequestBody @Valid UserRequest.LoginDTO reqDTO) {
         UserResponse.LoginDTO respDTO = userService.getUser(reqDTO);
 
         return ResponseEntity.ok().header("Authorization", "Bearer " + respDTO.getJwt()).body(new ApiUtil<>(respDTO.getUser()));
@@ -45,7 +46,7 @@ public class UserController {
     }
 
     @PutMapping("/api/users/{userId}") // 회원정보 수정
-    public ResponseEntity<?> update(@PathVariable String userId, @RequestBody UserRequest.UpdateDTO reqDTO) {
+    public ResponseEntity<?> update(@PathVariable String userId, @RequestBody @Valid UserRequest.UpdateDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         SessionUser newSessionUser = userService.setUser(reqDTO, sessionUser.getId());
         session.setAttribute("sessionUser", newSessionUser);
@@ -61,7 +62,7 @@ public class UserController {
     }
 
     @PostMapping("/api/users/{userId}/orders") // 주문하기
-    public ResponseEntity<?> order(@PathVariable String userId, @RequestBody UserRequest.OrderDTO reqDTO) {
+    public ResponseEntity<?> order(@PathVariable String userId, @RequestBody @Valid UserRequest.OrderDTO reqDTO) {
         UserResponse.OrderDTO respDTO = userService.createOrder(reqDTO);
         storeSseService.createOrderNotification(respDTO.getId(), respDTO.getStoreId());
 
