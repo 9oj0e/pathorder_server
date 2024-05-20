@@ -1,0 +1,23 @@
+= 패스오더 RestAPI
+9oj0e <war2290@gmail.com>
+1.0, 05.20, 2024: AsciiDoc article template
+
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+:user: user-controller-test
+:storeOwner: store-owner-controller-test
+:store: store-controller-test
+:like: like-controller-test
+:review: review-controller-test
+
+:toc: left
+:toclevels: 2
+:source-highlighter: highlightjs
+
+== 회원 (손님)
+=== 회원가입
+
+== 회원 (매장)
+=== 회원가입
