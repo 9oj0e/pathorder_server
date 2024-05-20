@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import shop.project.pathorderserver._core.errors.exception.Exception403;
+import shop.project.pathorderserver._core.errors.exception.App403;
 import shop.project.pathorderserver._core.utils.ApiUtil;
 
 import java.time.LocalDate;
@@ -72,7 +72,7 @@ public class StoreOwnerController {
     public ResponseEntity<?> getPendingOrderCount(@PathVariable int storeId) {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         if (storeId != sessionStore.getId()) {
-            throw new Exception403("권한이 없습니다.");
+            throw new App403("권한이 없습니다.");
         }
         int pendingOrderCount = storeService.getPendingOrderCount(sessionStore.getId());
         return ResponseEntity.ok(new ApiUtil<>(pendingOrderCount));
@@ -82,7 +82,7 @@ public class StoreOwnerController {
     private String orders(@PathVariable int storeId, Model model) {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         if (storeId != sessionStore.getId()) {
-            throw new Exception403("권한이 없습니다.");
+            throw new App403("권한이 없습니다.");
         }
         HashMap<String, Object> respDTO = storeService.getOrders(sessionStore.getId());
         model.addAttribute("orders", respDTO);
@@ -93,7 +93,7 @@ public class StoreOwnerController {
     private String updateOrder(@PathVariable int storeId, @PathVariable int orderId, @Valid StoreRequest.UpdateOrderDTO reqDTO) {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         if (storeId != sessionStore.getId()) {
-            throw new Exception403("권한이 없습니다.");
+            throw new App403("권한이 없습니다.");
         }
         storeService.updateOrder(orderId, reqDTO); // 가게 아이디로 order를 찾아 reqDTO를 넣어 update.
         return "redirect:/stores/" + sessionStore.getId() + "/orders"; // TODO: ajax 가능?
@@ -104,7 +104,7 @@ public class StoreOwnerController {
     private ResponseEntity<?> orderDetail(@PathVariable int storeId, @PathVariable int orderId) {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         if (storeId != sessionStore.getId()) {
-            throw new Exception403("권한이 없습니다.");
+            throw new App403("권한이 없습니다.");
         }
         StoreResponse.OrderDetailDTO respDTO = storeService.getOrderDetail(orderId);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
@@ -116,7 +116,7 @@ public class StoreOwnerController {
     private String orderList(@PathVariable int storeId, Model model) {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         if (storeId != sessionStore.getId()) {
-            throw new Exception403("권한이 없습니다.");
+            throw new App403("권한이 없습니다.");
         }
         StoreResponse.OrderListDTO respDTO = storeService.getOrderList(storeId);
         model.addAttribute("orders", respDTO.getOrderList());
@@ -130,7 +130,7 @@ public class StoreOwnerController {
                                                  @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate, Model model) {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         if (storeId != sessionStore.getId()) {
-            throw new Exception403("권한이 없습니다.");
+            throw new App403("권한이 없습니다.");
         }
         StoreResponse.OrderListDTO respDTO = storeService.getOrderListByDate(storeId, startDate, endDate);
         model.addAttribute("orders", respDTO.getOrderList());
@@ -145,7 +145,7 @@ public class StoreOwnerController {
     private String menuList(@PathVariable int storeId, Model model) {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         if (storeId != sessionStore.getId()) {
-            throw new Exception403("권한이 없습니다.");
+            throw new App403("권한이 없습니다.");
         }
         StoreResponse.MenuListDTO respDTO = storeService.getMenuList(storeId);
         model.addAttribute("menuList", respDTO.getMenuList());
@@ -157,7 +157,7 @@ public class StoreOwnerController {
     private ResponseEntity<?> menuDetail(@PathVariable int storeId, @PathVariable int menuId, Model model) {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         if (storeId != sessionStore.getId()) {
-            throw new Exception403("권한이 없습니다.");
+            throw new App403("권한이 없습니다.");
         }
         StoreResponse.MenuDetailDTO respDTO = storeService.getMenuDetail(menuId);
         model.addAttribute("sessionStore", sessionStore);
@@ -169,7 +169,7 @@ public class StoreOwnerController {
         // TODO: 유효성 검사 (금액)
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         if (storeId != sessionStore.getId()) {
-            throw new Exception403("권한이 없습니다.");
+            throw new App403("권한이 없습니다.");
         }
         StoreResponse.CreateMenuDTO respDTO = storeService.createMenu(sessionStore.getId(), reqDTO);
         return "redirect:/stores/" + sessionStore.getId() + "/menus";
@@ -180,7 +180,7 @@ public class StoreOwnerController {
     private ResponseEntity<?> updateMenu(@PathVariable int storeId, @PathVariable int menuId, @RequestBody @Valid StoreRequest.UpdateMenuDTO reqDTO) {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         if (storeId != sessionStore.getId()) {
-            throw new Exception403("권한이 없습니다.");
+            throw new App403("권한이 없습니다.");
         }
         StoreResponse.UpdateMenuDTO respDTO = storeService.updateMenu(menuId, reqDTO);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
@@ -192,7 +192,7 @@ public class StoreOwnerController {
     public String detail(@PathVariable int storeId, Model model) {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         if (storeId != sessionStore.getId()) {
-            throw new Exception403("권한이 없습니다.");
+            throw new App403("권한이 없습니다.");
         }
         StoreResponse.StoreDTO respDTO = storeService.getStoreDetail(sessionStore.getId());
         model.addAttribute("storeDetail", respDTO);
@@ -203,7 +203,7 @@ public class StoreOwnerController {
     public String updateForm(@PathVariable int storeId, Model model) {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         if (storeId != sessionStore.getId()) {
-            throw new Exception403("권한이 없습니다.");
+            throw new App403("권한이 없습니다.");
         }
         StoreResponse.StoreDTO respDTO = storeService.getStoreDetail(sessionStore.getId());
         model.addAttribute("storeDetail", respDTO);
@@ -214,7 +214,7 @@ public class StoreOwnerController {
     public String update(@PathVariable int storeId, @Valid StoreRequest.UpdateDTO reqDTO) {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         if (storeId != sessionStore.getId()) {
-            throw new Exception403("권한이 없습니다.");
+            throw new App403("권한이 없습니다.");
         }
         SessionStore newSessionStore = storeService.updateStore(sessionStore.getId(), reqDTO);
         session.setAttribute("sessionStore", newSessionStore);

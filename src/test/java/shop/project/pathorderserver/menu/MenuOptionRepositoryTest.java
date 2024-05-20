@@ -4,7 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import shop.project.pathorderserver._core.errors.exception.Exception404;
+import shop.project.pathorderserver._core.errors.exception.App404;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class MenuOptionRepositoryTest {
         Integer menuId = 1;
         // when
         List<MenuOption> menuOptions = menuOptionRepository.findByMenuId(menuId)
-                .orElseThrow(() -> new Exception404("찾을 수 없는 메뉴 옵션"));
+                .orElseThrow(() -> new App404("찾을 수 없는 메뉴 옵션"));
         // then
         Assertions.assertThat(menuOptions.size()).isEqualTo(6);
     }

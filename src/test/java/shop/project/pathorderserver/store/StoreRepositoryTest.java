@@ -4,7 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import shop.project.pathorderserver._core.errors.exception.Exception404;
+import shop.project.pathorderserver._core.errors.exception.App404;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ class StoreRepositoryTest {
         int storeId = 1;
         // when
         Store store = storeRepository.findById(storeId)
-                .orElseThrow(() -> new Exception404("찾을 수 없는 매장"));
+                .orElseThrow(() -> new App404("찾을 수 없는 매장"));
         // then
         Assertions.assertThat(store.getName()).isEqualTo("연의양과");
         Assertions.assertThat(store.getOwnerName()).isEqualTo("조정현");
@@ -41,7 +41,7 @@ class StoreRepositoryTest {
         String password = "1234";
         //when
         Store store = storeRepository.findByUsernameAndPassword(username, password)
-                .orElseThrow(() -> new Exception404("찾을 수 없는 계정"));
+                .orElseThrow(() -> new App404("찾을 수 없는 계정"));
         //then
         Assertions.assertThat(store.getUsername()).isEqualTo("jake1234");
     }

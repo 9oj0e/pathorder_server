@@ -1,24 +1,21 @@
 package shop.project.pathorderserver.like;
 
 import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import shop.project.pathorderserver._core.errors.exception.Exception404;
-import shop.project.pathorderserver._core.errors.exception.Exception400;
+import shop.project.pathorderserver._core.errors.exception.App404;
+import shop.project.pathorderserver._core.errors.exception.App400;
 import shop.project.pathorderserver._core.utils.DistanceUtil;
 import shop.project.pathorderserver.review.ReviewRepository;
 import shop.project.pathorderserver.store.Store;
 import shop.project.pathorderserver.store.StoreRepository;
 import shop.project.pathorderserver.user.SessionUser;
-import shop.project.pathorderserver.store.StoreService;
 import shop.project.pathorderserver.user.User;
 import shop.project.pathorderserver.user.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -33,11 +30,11 @@ public class LikeService {
     public LikeResponse.AddLikeDTO addLike(LikeRequest.AddLikeDTO reqDTO) {
         // 이미 좋아요가 존재하는지 확인
         if (likeRepository.existsByCustomerIdAndStoreId(reqDTO.getUserId(), reqDTO.getStoreId())) {
-            throw new Exception400("이미 좋아요가 되어 있는 매장입니다.");
+            throw new App400("이미 좋아요가 되어 있는 매장입니다.");
         }
 
-        User user = userRepository.findById(reqDTO.getUserId()).orElseThrow(() -> new Exception404("해당하는 사용자를 찾을 수 없습니다."));
-        Store store = storeRepository.findById(reqDTO.getStoreId()).orElseThrow(() -> new Exception404("해당하는 매장을 찾을 수 없습니다."));
+        User user = userRepository.findById(reqDTO.getUserId()).orElseThrow(() -> new App404("해당하는 사용자를 찾을 수 없습니다."));
+        Store store = storeRepository.findById(reqDTO.getStoreId()).orElseThrow(() -> new App404("해당하는 매장을 찾을 수 없습니다."));
 
         Like like = new Like();
         like.setCustomer(user);
@@ -53,7 +50,7 @@ public class LikeService {
         if (like.isPresent()) {
             likeRepository.delete(like.get());
         } else {
-            throw new Exception404("해당 좋아요가 존재하지 않습니다.");
+            throw new App404("해당 좋아요가 존재하지 않습니다.");
         }
     }
 
@@ -68,7 +65,7 @@ public class LikeService {
                     int storeId = (Integer) result[1];
                     int likeCount = getStoreLikeCount(storeId);
                     int reviewCount = getReviewCount(storeId);
-                    Store store = storeRepository.findById(storeId).orElseThrow(() -> new Exception404("해당하는 매장을 찾을 수 없습니다."));
+                    Store store = storeRepository.findById(storeId).orElseThrow(() -> new App404("해당하는 매장을 찾을 수 없습니다."));
                     int distance = DistanceUtil.calculateDistance(customerLatitude, customerLongitude, store.getLatitude(), store.getLongitude());
 
                     return LikeResponse.LikeListDTO.builder()

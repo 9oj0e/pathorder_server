@@ -4,11 +4,9 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import shop.project.pathorderserver._core.errors.exception.Exception404;
+import shop.project.pathorderserver._core.errors.exception.App404;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +24,7 @@ class OrderRepositoryTest {
         int userId = 1;
         // when
         List<Order> orders = orderRepository.findAllByUserId(userId)
-                .orElseThrow(() -> new Exception404("찾을 수 없는 주문입니다."));
+                .orElseThrow(() -> new App404("찾을 수 없는 주문입니다."));
         // then
         assertThat(orders.size()).isEqualTo(2);
     }
@@ -48,7 +46,7 @@ class OrderRepositoryTest {
         int storeId = 1;
         // when
         List<Order> orderList = orderRepository.findAllByStoreIdWithOrderMenu(storeId)
-                .orElseThrow(() -> new Exception404("찾을 수 없는 주문입니다."));
+                .orElseThrow(() -> new App404("찾을 수 없는 주문입니다."));
         // then
 //        System.out.println("findOrdersByStoreId_test: " + orderListOP);
         assertThat(orderList.getFirst().getStore().getUsername()).isEqualTo("david1234");

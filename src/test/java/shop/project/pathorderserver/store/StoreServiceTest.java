@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import shop.project.pathorderserver._core.errors.exception.Exception404;
+import shop.project.pathorderserver._core.errors.exception.App404;
 import shop.project.pathorderserver.menu.Menu;
 import shop.project.pathorderserver.menu.MenuOption;
 import shop.project.pathorderserver.menu.MenuOptionRepository;
@@ -152,9 +152,9 @@ class StoreServiceTest {
         // when
         StoreResponse.UpdateMenuDTO respDTO = storeService.updateMenu(menuId, reqDTO);
         Menu menu = menuRepository.findById(menuId)
-                .orElseThrow(() -> new Exception404("찾을 수 없는 메뉴입니다."));
+                .orElseThrow(() -> new App404("찾을 수 없는 메뉴입니다."));
         List<MenuOption> menuOptions = menuOptionRepository.findByMenuId(menuId)
-                .orElseThrow(() -> new Exception404("찾을 수 없는 메뉴 옵션입니다."));
+                .orElseThrow(() -> new App404("찾을 수 없는 메뉴 옵션입니다."));
         // then
         Assertions.assertThat(respDTO.getPrice()).isEqualTo(10000);
         Assertions.assertThat(menu.getPrice()).isEqualTo(10000);
