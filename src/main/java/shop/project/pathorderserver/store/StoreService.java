@@ -3,9 +3,10 @@ package shop.project.pathorderserver.store;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import shop.project.pathorderserver._core.errors.exception.App401;
-import shop.project.pathorderserver._core.errors.exception.App403;
 import shop.project.pathorderserver._core.errors.exception.App404;
+import shop.project.pathorderserver._core.errors.exception.Web401;
+import shop.project.pathorderserver._core.errors.exception.Web403;
+import shop.project.pathorderserver._core.errors.exception.Web404;
 import shop.project.pathorderserver._core.utils.DistanceUtil;
 import shop.project.pathorderserver.like.LikeService;
 import shop.project.pathorderserver.menu.Menu;
@@ -14,7 +15,6 @@ import shop.project.pathorderserver.menu.MenuOptionRepository;
 import shop.project.pathorderserver.menu.MenuRepository;
 import shop.project.pathorderserver.order.*;
 import shop.project.pathorderserver.review.ReviewRepository;
-import shop.project.pathorderserver.user.UserRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -27,7 +27,6 @@ import java.util.List;
 @Service
 public class StoreService {
     private final StoreRepository storeRepository;
-    private final UserRepository userRepository;
     private final MenuRepository menuRepository;
     private final MenuOptionRepository menuOptionRepository;
     private final OrderRepository orderRepository;
@@ -116,7 +115,7 @@ public class StoreService {
     // 매장 관리자 로그인
     public SessionStore getStore(StoreRequest.LoginDTO reqDTO) {
         Store store = storeRepository.findByUsernameAndPassword(reqDTO.getUsername(), reqDTO.getPassword())
-                .orElseThrow(() -> new App401("유저네임 또는 패스워드가 일치하지 않습니다."));
+                .orElseThrow(() -> new Web401("유저네임 또는 패스워드가 일치하지 않습니다."));
 
         return new SessionStore(store);
     }
@@ -124,7 +123,7 @@ public class StoreService {
     // TODO: 매장 관리자 - 매장 정보 보기
     public StoreResponse.StoreDTO getStoreDetail(int storeId) {
         Store store = storeRepository.findById(storeId)
-                .orElseThrow(() -> new App403("조회할 권한이 없습니다."));
+                .orElseThrow(() -> new Web403("조회할 권한이 없습니다."));
 
         return new StoreResponse.StoreDTO(store);
     }
@@ -132,7 +131,7 @@ public class StoreService {
     @Transactional // 매장 관리자 - 매장 정보 수정하기
     public SessionStore updateStore(int sessionStoreId, StoreRequest.UpdateDTO reqDTO) {
         Store store = storeRepository.findById(sessionStoreId)
-                .orElseThrow(() -> new App403("수정할 권한이 없습니다."));
+                .orElseThrow(() -> new Web403("수정할 권한이 없습니다."));
         store.update(reqDTO);
 
         return new SessionStore(store);
@@ -141,7 +140,7 @@ public class StoreService {
     @Transactional // 매장 관리자 - 매장 메뉴 등록하기
     public StoreResponse.CreateMenuDTO createMenu(int storeId, StoreRequest.CreateMenuDTO reqDTO) {
         Store store = storeRepository.findById(storeId)
-                .orElseThrow(() -> new App404("찾을 수 없는 매장입니다."));
+                .orElseThrow(() -> new Web404("찾을 수 없는 매장입니다."));
         Menu menu = new Menu(reqDTO, store);
 
         return new StoreResponse.CreateMenuDTO(menuRepository.save(menu));
@@ -150,7 +149,7 @@ public class StoreService {
     // 매장 관리자 - 메뉴 목록보기
     public StoreResponse.MenuListDTO getMenuList(int storeId) {
         List<Menu> menus = menuRepository.findAllByStoreId(storeId)
-                .orElseThrow(() -> new App404("메뉴를 찾을 수 없습니다."));
+                .orElseThrow(() -> new Web404("메뉴를 찾을 수 없습니다."));
 
         return new StoreResponse.MenuListDTO(menus);
     }
@@ -158,7 +157,7 @@ public class StoreService {
     // 매장 관리자 - 메뉴 정보 및 옵션 보기
     public StoreResponse.MenuDetailDTO getMenuDetail(int menuId) {
         Menu menu = menuRepository.findById(menuId)
-                .orElseThrow(() -> new App404("찾을 수 없는 메뉴입니다."));
+                .orElseThrow(() -> new Web404("찾을 수 없는 메뉴입니다."));
         List<MenuOption> menuOptions = menuOptionRepository.findByMenuId(menuId)
                 .orElse(new ArrayList<>());
 
@@ -168,7 +167,7 @@ public class StoreService {
     @Transactional // 매장 관리자 - 메뉴 & 메뉴 옵션 수정하기
     public StoreResponse.UpdateMenuDTO updateMenu(int menuId, StoreRequest.UpdateMenuDTO reqDTO) {
         Menu menu = menuRepository.findById(menuId)
-                .orElseThrow(() -> new App404("찾을 수 없는 메뉴입니다."));
+                .orElseThrow(() -> new Web404("찾을 수 없는 메뉴입니다."));
         menu.update(reqDTO);
         menuOptionRepository.deleteByMenuId(menuId);
 
@@ -191,7 +190,7 @@ public class StoreService {
     // 매장 관리자 - 주문내역 목록보기
     public StoreResponse.OrderListDTO getOrderList(int storeId) {
         List<Order> orderList = orderRepository.findAllByStoreId(storeId)
-                .orElseThrow(() -> new App404("주문 내역이 없습니다."));
+                .orElseThrow(() -> new Web404("주문 내역이 없습니다."));
         orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.PENDING)).toList().forEach(orderList::remove);
         orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.PREPARING)).toList().forEach(orderList::remove);
         orderList.stream().filter(order -> order.getStatus().equals(OrderStatus.PREPARED)).toList().forEach(orderList::remove);
@@ -207,9 +206,9 @@ public class StoreService {
     @Transactional(readOnly = true)// 매장 관리자 - 주문내역 상세보기
     public StoreResponse.OrderDetailDTO getOrderDetail(int orderId) {
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new App404("찾을 수 없는 주문입니다."));
+                .orElseThrow(() -> new Web404("찾을 수 없는 주문입니다."));
         List<OrderMenu> orderMenuList = orderMenuRepository.findAllByOrderId(orderId)
-                .orElseThrow(() -> new App404("찾을 수 없는 메뉴입니다."));
+                .orElseThrow(() -> new Web404("찾을 수 없는 메뉴입니다."));
 
         return new StoreResponse.OrderDetailDTO(order, orderMenuList);
     }
@@ -217,7 +216,7 @@ public class StoreService {
     @Transactional // TODO: 매장 관리자 - 주문 업데이트
     public StoreResponse.UpdateOrderDTO updateOrder(int orderId, StoreRequest.UpdateOrderDTO reqDTO) {
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new App404("찾을 수 없는 주문입니다."));
+                .orElseThrow(() -> new Web404("찾을 수 없는 주문입니다."));
         if (reqDTO.getStatus().equals(OrderStatus.PENDING)) {
             order.setStatus(OrderStatus.PREPARING);
         }
@@ -234,7 +233,7 @@ public class StoreService {
     public HashMap<String, Object> getOrders(int storeId) {
         // 전체 오더 리스트
         List<Order> orders = orderRepository.findAllByStoreIdWithOrderMenu(storeId)
-                .orElseThrow(() -> new App404("찾을 수 없는 주문입니다."));
+                .orElseThrow(() -> new Web404("찾을 수 없는 주문입니다."));
         // 응답할 오더 리스트
         List<StoreResponse.OrdersDTO> orderList = new ArrayList<>();
         orders.forEach(order ->
@@ -286,21 +285,18 @@ public class StoreService {
         orderList.forEach(order -> {
             OrderStatus status = order.getStatus();
         });
-
         return new StoreResponse.OrderListDTO(orderList);
     }
 
     public int getPendingOrderCount(int storeId) {
         List<Order> orders = orderRepository.findAllByStoreId(storeId)
-                .orElseThrow(() -> new App404("찾을 수 없는 주문입니다."));
-
+                .orElseThrow(() -> new Web404("찾을 수 없는 주문입니다."));
         int pendingOrderCount = 0;
         for (int i = 0; i < orders.size(); i++) {
             if (orders.get(i).getStatus() == OrderStatus.PENDING) {
                 pendingOrderCount++;
             }
         }
-
         return pendingOrderCount;
     }
 }

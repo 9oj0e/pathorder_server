@@ -11,7 +11,7 @@ import shop.project.pathorderserver._core.errors.exception.App500;
 import shop.project.pathorderserver._core.utils.JwtUtil;
 import shop.project.pathorderserver.user.SessionUser;
 
-public class LoginInterceptor implements HandlerInterceptor {
+public class AppLoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // Bearer JWT

@@ -21,7 +21,7 @@ public class AppValidationHandler {
                 Errors errors = (Errors) arg;
                 if (errors.hasErrors()) {
                     for (FieldError error : errors.getFieldErrors()) {
-                        throw new App400(error.getDefaultMessage() + " : " + error.getField());
+                        throw new App400(error.getDefaultMessage()); // + error.getField()
                     }
                 }
             }

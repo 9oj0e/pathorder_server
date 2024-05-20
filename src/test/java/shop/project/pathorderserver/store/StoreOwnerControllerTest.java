@@ -41,7 +41,7 @@ public class StoreOwnerControllerTest extends MyRestDoc {
 
     @AfterAll
     public static void clean() {
-        session.clearAttributes();
+        session.invalidate();
     }
 
     @Test

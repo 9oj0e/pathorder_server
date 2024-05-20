@@ -2,7 +2,6 @@ package shop.project.pathorderserver.review;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -11,12 +10,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 import shop.project.pathorderserver._core.utils.JwtUtil;
 import shop.project.pathorderserver.user.User;
 
-import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -92,7 +89,6 @@ public class ReviewControllerTest {
         actions.andExpect(jsonPath("$.status").value(400));
         actions.andExpect(jsonPath("$.msg").value("내용을 입력해주세요."));
         actions.andExpect(jsonPath("$.body").isEmpty());
-
     }
 
     // 리뷰 등록 실패 - 5자 미만
@@ -126,20 +122,18 @@ public class ReviewControllerTest {
     public void myReviewList_test() throws Exception {
         //given
         int userId = 1;
-
         //when
         ResultActions actions = mvc.perform(
                 get("/api/users/" + userId + "/reviews")
                         .header("Authorization", "Bearer " + jwt)
         );
-
         //then
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.msg").value("성공"));
         actions.andExpect(jsonPath("$.body.reviewList.[0].userId").value(1));
         actions.andExpect(jsonPath("$.body.reviewList.[0].nickname").value("성재"));
         actions.andExpect(jsonPath("$.body.reviewList.[0].usersImgFilePath").value("/upload/default/avatar.png"));
-        actions.andExpect(jsonPath("$.body.reviewList.[0].reviewId").value(1));
+        actions.andExpect(jsonPath("$.body.reviewList.[0].reviewId").value(2));
         actions.andExpect(jsonPath("$.body.reviewList.[0].content").value("맛있어요"));
         actions.andExpect(jsonPath("$.body.reviewList.[0].imgFilePath").isEmpty());
         actions.andExpect(jsonPath("$.body.reviewList.[0].createdAt").value("24/05/20"));
@@ -150,20 +144,18 @@ public class ReviewControllerTest {
     public void storeReviewList_test() throws Exception {
         //given
         int storeId = 1;
-
         //when
         ResultActions actions = mvc.perform(
                 get("/api/stores/" + storeId + "/reviews")
                         .header("Authorization", "Bearer " + jwt)
         );
-
         //then
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.msg").value("성공"));
-        actions.andExpect(jsonPath("$.body.reviewList.[0].userId").value(1));
-        actions.andExpect(jsonPath("$.body.reviewList.[0].nickname").value("성재"));
+        actions.andExpect(jsonPath("$.body.reviewList.[0].userId").value(2));
+        actions.andExpect(jsonPath("$.body.reviewList.[0].nickname").value("정현"));
         actions.andExpect(jsonPath("$.body.reviewList.[0].usersImgFilePath").value("/upload/default/avatar.png"));
-        actions.andExpect(jsonPath("$.body.reviewList.[0].reviewId").value(1));
+        actions.andExpect(jsonPath("$.body.reviewList.[0].reviewId").value(3));
         actions.andExpect(jsonPath("$.body.reviewList.[0].content").value("맛있어요"));
         actions.andExpect(jsonPath("$.body.reviewList.[0].reviewsImgFilePath").isEmpty());
         actions.andExpect(jsonPath("$.body.reviewList.[0].createdAt").value("24/05/20"));

@@ -21,7 +21,7 @@ public class WebValidationHandler {
                 Errors errors = (Errors) arg;
                 if(errors.hasErrors()){
                     for (FieldError error : errors.getFieldErrors()){
-                        throw new Web400(error.getDefaultMessage()+" : "+error.getField());
+                        throw new Web400(error.getDefaultMessage()); // + error.getField()
                     }
                 }
             }

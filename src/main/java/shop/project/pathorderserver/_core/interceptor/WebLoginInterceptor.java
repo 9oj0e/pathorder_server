@@ -7,7 +7,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import shop.project.pathorderserver._core.errors.exception.Web401;
 import shop.project.pathorderserver.store.SessionStore;
 
-public class SSRLoginInterceptor implements HandlerInterceptor {
+public class WebLoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
