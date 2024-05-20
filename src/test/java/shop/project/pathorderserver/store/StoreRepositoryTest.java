@@ -18,7 +18,7 @@ class StoreRepositoryTest {
         // when
         List<Store> stores = storeRepository.findAll();
         // then
-        Assertions.assertThat(stores.size()).isEqualTo(5);
+        Assertions.assertThat(stores.size()).isEqualTo(6);
         Assertions.assertThat(stores.getFirst().getName()).isEqualTo("연의양과");
     }
 

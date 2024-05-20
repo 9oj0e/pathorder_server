@@ -2,10 +2,10 @@
 INSERT INTO user_tb
     (username, password, nickname, name, tel, email, registered_at, img_filename)
 VALUES ('user1', '1234', '성재', '김성재', '01012345555', 'user1@gmail.com', now(),'default/avatar.png'),
-       ('user2', '1234', '정현', '조정현', '01012346666', 'user2@gmail.com', now(),'default/user2.jfif'),
+       ('user2', '1234', '정현', '조정현', '01012346666', 'user2@gmail.com', now(),'default/user2.jpg'),
        ('user3', '1234', '현정', '장현정', '01012347777', 'user3@gmail.com', now(),'default/avatar.png'),
        ('user4', '1234', '윤정', '최윤정', '01012348888', 'user4@gmail.com', now(),'default/avatar.png'),
-       ('user5', '1234', '찬혁', '박찬혁', '01012349999', 'user5@gmail.com', now(),'default/user5.jfif');
+       ('user5', '1234', '찬혁', '박찬혁', '01012349999', 'user5@gmail.com', now(),'default/user5.jpg');
 
 -- 매장 업주 회원
 INSERT INTO store_tb (username, password, owner_name, owner_tel, owner_email, biz_num, name, tel, intro, opening_time, closing_time, closed_day, address, latitude, longitude, img_filename, registered_at) VALUES
@@ -14,7 +14,7 @@ INSERT INTO store_tb (username, password, owner_name, owner_tel, owner_email, bi
                                                                                                                                                                                                                 ('hyeok1234', '1234', '박찬혁', '010-3456-7890', 'hyeok1234@gmail.com', '345-678-9012', '노이알트', '010-3456-7890', '계절의 색을 담은 디저트를 만듭니다.', '07:00', '20:00', '매주 수요일', '부산 부산진구 전포대로246번길 23 1층', '35.1586966174166', '129.06686313812', 'default/cafe3.png', NOW()),
                                                                                                                                                                                                                 ('hana1234', '1234', '장현정', '010-4567-8901', 'hana1234@gmail.com', '456-789-0123', '블랙업커피 서면본점', '010-4567-8901', '블랙업커피 서면점은 2007년에 오픈하여 10년째 운영중인 메인 스토어 입니다.', '07:00', '20:00', '매주 목요일', '부산 부산진구 서전로10번길 41', '35.1560557306354', '129.059978704814', 'default/cafe4.png', NOW()),
                                                                                                                                                                                                                 ('qty1234', '1234', '최윤정', '010-5678-9012', 'qty1234@gmail.com', '567-890-1234', '디저트 로지', '010-5678-9012', '전포 누리마을 뒷쪽 골목 안에 아담하게 자리잡고 있습니다.', '07:00', '20:00', '매주 금요일', '부산 부산진구 서전로38번길 43-13 105호(전포동, 성진전자 상가) 디저트로지', '35.1559460199003', '129.064563982545', 'default/cafe5.png', NOW()),
-                                                                                                                                                                                                                ('leetee1234', '1234', '박이태', '010-5184-7949', 'leetee1234@gmail.com', '507-209-4480', '카페이떼', '010-5184-7949', 'Take away 전문점 입니다. 맛있는 커피와 샐러드, 샌드위치, 디저트를 판매합니다.', '07:30', '19:00', '매주 일요일', '부산 부산진구 중앙대로743번길 11 카페이떼', '35.1592549', '129.059527', 'default/cafe6.jfif', NOW());
+                                                                                                                                                                                                                ('leetee1234', '1234', '박이태', '010-5184-7949', 'leetee1234@gmail.com', '507-209-4480', '카페이떼', '010-5184-7949', 'Take away 전문점 입니다. 맛있는 커피와 샐러드, 샌드위치, 디저트를 판매합니다.', '07:30', '19:00', '매주 일요일', '부산 부산진구 중앙대로743번길 11 카페이떼', '35.1592549', '129.059527', 'default/cafe6.jpg', NOW());
 
 
 -- 매장 메뉴
@@ -669,6 +669,6 @@ INSERT INTO review_tb (user_id, store_id, content, created_at)
 VALUES (2, 2, '맛있어요', NOW());
 
 INSERT INTO review_tb (user_id, store_id, content, created_at, img_filename)
-VALUES (2, 6, '달달하고 너무 맛있어용', NOW(), 'default/ittereview2.jfif');
+VALUES (2, 6, '달달하고 너무 맛있어용', NOW(), 'default/ittereview2.jpg');
 INSERT INTO review_tb (user_id, store_id, content, created_at, img_filename)
-VALUES (5, 6, '사장님이 친절하고 커피가 맛있어요~', NOW(),'default/ittereview1.jfif');
+VALUES (5, 6, '사장님이 친절하고 커피가 맛있어요~', NOW(),'default/ittereview1.jpg');

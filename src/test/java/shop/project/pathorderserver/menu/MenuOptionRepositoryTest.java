@@ -32,6 +32,6 @@ public class MenuOptionRepositoryTest {
         menuOptionRepository.deleteByMenuId(menuId);
         List<MenuOption> menuOptionList = menuOptionRepository.findAll();
         // then
-        Assertions.assertThat(menuOptionList.size()).isEqualTo(144);
+        Assertions.assertThat(menuOptionList.size()).isEqualTo(153); //144
     }
 }
