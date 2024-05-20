@@ -36,6 +36,11 @@ public class Review {
     }
 
     public void setImgFilename(String encodedFile) {
-        this.imgFilename = FileUtil.uploadBase64Jpg(encodedFile, "review");
+        String imgFilename = FileUtil.uploadBase64Jpg(encodedFile, "review");
+        if (imgFilename.equals("default")) {
+            this.imgFilename = null;
+        } else {
+            this.imgFilename = imgFilename;
+        }
     }
 }

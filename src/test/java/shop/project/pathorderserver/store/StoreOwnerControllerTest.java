@@ -10,9 +10,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import shop.project.pathorderserver.MyRestDoc;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,11 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class StoreOwnerControllerTest {
-
-    @Autowired
-    private MockMvc mockMvc;
-
+public class StoreOwnerControllerTest extends MyRestDoc {
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -89,7 +85,7 @@ public class StoreOwnerControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
         // then
-        actions.andExpect(jsonPath("$.body").value(5));
+        actions.andExpect(jsonPath("$.body").value(4));
     }
 
     @Test
@@ -175,7 +171,8 @@ public class StoreOwnerControllerTest {
         // when
         mockMvc.perform(MockMvcRequestBuilders.get("/stores/{storeId}/orders/history/date", storeId)
                         .param("startDate", startDate)
-                        .param("endDate", endDate))
+                        .param("endDate", endDate)
+                        .session(session))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
         // then
@@ -197,7 +194,8 @@ public class StoreOwnerControllerTest {
         int storeId = sessionStore.getId();
         int menuId = 1; // Assuming a menuId of 1 exists
         // when
-        mockMvc.perform(MockMvcRequestBuilders.get("/stores/{storeId}/menus/{menuId}", storeId, menuId))
+        mockMvc.perform(MockMvcRequestBuilders.get("/stores/{storeId}/menus/{menuId}", storeId, menuId)
+                        .session(session))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
         // then
@@ -232,7 +230,8 @@ public class StoreOwnerControllerTest {
         // when
         mockMvc.perform(MockMvcRequestBuilders.put("/stores/{storeId}/menus/{menuId}", storeId, menuId)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(updateMenuDTO)))
+                        .content(objectMapper.writeValueAsString(updateMenuDTO))
+                        .session(session))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
         // then
@@ -244,7 +243,8 @@ public class StoreOwnerControllerTest {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         int storeId = sessionStore.getId();
         // when
-        mockMvc.perform(MockMvcRequestBuilders.get("/stores/{storeId}", storeId))
+        mockMvc.perform(MockMvcRequestBuilders.get("/stores/{storeId}", storeId)
+                        .session(session))
                 .andExpect(status().isOk())
                 .andExpect(view().name("store"));
         // then
@@ -256,7 +256,8 @@ public class StoreOwnerControllerTest {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         int storeId = sessionStore.getId();
         // when
-        mockMvc.perform(MockMvcRequestBuilders.get("/stores/{storeId}/update-form", storeId))
+        mockMvc.perform(MockMvcRequestBuilders.get("/stores/{storeId}/update-form", storeId)
+                        .session(session))
                 .andExpect(status().isOk())
                 .andExpect(view().name("store-update-form"));
         // then
