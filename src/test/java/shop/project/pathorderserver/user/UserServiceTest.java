@@ -29,8 +29,8 @@ class UserServiceTest {
         // when
         UserResponse.JoinDTO respDTO = userService.createUser(reqDTO);
         // then
-        Assertions.assertThat(respDTO.getUsername()).isEqualTo("ssar");
-        Assertions.assertThat(respDTO.getNickname()).isEqualTo("ssarman");
+        Assertions.assertThat(respDTO.getUsername()).isEqualTo("username1234");
+        Assertions.assertThat(respDTO.getNickname()).isEqualTo("NAME");
     }
 
     @Test // 로그인
@@ -96,6 +96,6 @@ class UserServiceTest {
         UserResponse.OrderDetailDTO respDTO = userService.getOrderDetail(orderId);
         // then
         // System.out.println("test: " + respDTO.getTotalPrice());
-        Assertions.assertThat(respDTO.getTotalPrice()).isEqualTo(10000);
+        Assertions.assertThat(respDTO.getTotalPrice()).isEqualTo("23,300");
     }
 }
