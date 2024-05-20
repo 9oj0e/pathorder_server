@@ -35,14 +35,14 @@ class StoreServiceTest {
     void createStore_test() {
         // given
         StoreRequest.JoinDTO reqDTO = new StoreRequest.JoinDTO();
-        reqDTO.setUsername("username1234");
+        reqDTO.setUsername("username123");
         reqDTO.setPassword("1234");
         reqDTO.setOwnerName("홍길동");
-        reqDTO.setOwnerTel("01012345678");
+        reqDTO.setOwnerTel("01012340000");
         reqDTO.setOwnerEmail("username@email.com");
         reqDTO.setBizNum("123-12-12345");
         reqDTO.setName("매장이름");
-        reqDTO.setTel("0511234567");
+        reqDTO.setTel("0510001234");
         reqDTO.setAddress("주소");
         // when
         StoreResponse.JoinDTO respDTO = storeService.createStore(reqDTO);
@@ -89,7 +89,7 @@ class StoreServiceTest {
     }
 
     @Test // 매장 관리자 - 메뉴 등록하기
-    void createMenu_Test() {
+    void createMenu_test() {
         // given
         int storeId = 1;
         StoreRequest.CreateMenuDTO reqDTO = new StoreRequest.CreateMenuDTO();
@@ -97,7 +97,7 @@ class StoreServiceTest {
         reqDTO.setCategory("과일 음료");
         reqDTO.setName("자몽에이드");
         reqDTO.setDescription("내가 제일 좋아함");
-        reqDTO.setImgFile(null);
+        // reqDTO.setImgFile(null);
         // when
         StoreResponse.CreateMenuDTO respDTO = storeService.createMenu(storeId, reqDTO);
         // then
@@ -148,7 +148,7 @@ class StoreServiceTest {
         menuOptionList.add(option1);
         menuOptionList.add(option2);
         menuOptionList.add(option3);
-        reqDTO.getMenuOptions();
+        reqDTO.setMenuOptions(menuOptionList);
         // when
         StoreResponse.UpdateMenuDTO respDTO = storeService.updateMenu(menuId, reqDTO);
         Menu menu = menuRepository.findById(menuId)
