@@ -3,9 +3,9 @@ package shop.project.pathorderserver.user;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import shop.project.pathorderserver._core.errors.exception.Exception400;
-import shop.project.pathorderserver._core.errors.exception.Exception401;
-import shop.project.pathorderserver._core.errors.exception.Exception404;
+import shop.project.pathorderserver._core.errors.exception.App400;
+import shop.project.pathorderserver._core.errors.exception.App401;
+import shop.project.pathorderserver._core.errors.exception.App404;
 import shop.project.pathorderserver._core.utils.JwtUtil;
 import shop.project.pathorderserver.order.*;
 import shop.project.pathorderserver.store.Store;
@@ -28,7 +28,7 @@ public class UserService {
     public UserResponse.JoinDTO createUser(UserRequest.JoinDTO reqDTO) {
         Optional<User> userOp = userRepository.findByUsername(reqDTO.getUsername());
         if (userOp.isPresent()) {
-            throw new Exception400("중복된 유저입니다.");
+            throw new App400("중복된 유저입니다.");
         }
         User user = new User(reqDTO);
         userRepository.save(user);
@@ -43,7 +43,7 @@ public class UserService {
     // 로그인 TODO: 암호화
     public UserResponse.LoginDTO getUser(UserRequest.LoginDTO reqDTO) {
         User user = userRepository.findByUsernameAndPassword(reqDTO.getUsername(), reqDTO.getPassword())
-                .orElseThrow(() -> new Exception401("아이디 또는 비밀번호가 틀렸습니다."));
+                .orElseThrow(() -> new App401("아이디 또는 비밀번호가 틀렸습니다."));
         String jwt = JwtUtil.create(user);
 
         return new UserResponse.LoginDTO(user, jwt);
@@ -52,7 +52,7 @@ public class UserService {
     // 회원정보 보기
     public UserResponse.UserDTO getUser(int sessionUserId) {
         User user = userRepository.findById(sessionUserId)
-                .orElseThrow(() -> new Exception404("찾을 수 없는 유저입니다."));
+                .orElseThrow(() -> new App404("찾을 수 없는 유저입니다."));
 
         return UserResponse.UserDTO
                 .builder()
@@ -67,7 +67,7 @@ public class UserService {
     @Transactional // 회원정보 수정
     public SessionUser setUser(UserRequest.UpdateDTO reqDTO, int sessionUserId) {
         User user = userRepository.findById(sessionUserId)
-                .orElseThrow(() -> new Exception404("회원 정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new App404("회원 정보를 찾을 수 없습니다."));
         user.update(reqDTO);
 
         return new SessionUser(user);
@@ -76,7 +76,7 @@ public class UserService {
     @Transactional // 사진 업로드
     public UserResponse.ImgDTO setImg(UserRequest.ImgDTO reqDTO, int sessionUserId) {
         User user = userRepository.findById(sessionUserId)
-                .orElseThrow(() -> new Exception404("찾을 수 없는 유저입니다."));
+                .orElseThrow(() -> new App404("찾을 수 없는 유저입니다."));
         user.setImgFilename(reqDTO.getEncodedImg());
 
         return new UserResponse.ImgDTO(user.getImgFilename());
@@ -86,10 +86,10 @@ public class UserService {
     public UserResponse.OrderDTO createOrder(UserRequest.OrderDTO reqDTO) {
         User customer // 유저 번호로 유저 조회
                 = userRepository.findById(reqDTO.getCustomerId())
-                .orElseThrow(() -> new Exception404("찾을 수 없는 유저입니다."));
+                .orElseThrow(() -> new App404("찾을 수 없는 유저입니다."));
         Store store // 매장 번호로 업주 조회
                 = storeRepository.findById(reqDTO.getStoreId())
-                .orElseThrow(() -> new Exception404("찾을 수 없는 매장 번호입니다."));
+                .orElseThrow(() -> new App404("찾을 수 없는 매장 번호입니다."));
         Order order // 주문 생성 TODO: status 기본 값 'null'
                 = new Order(reqDTO, customer, store);
 
@@ -125,7 +125,7 @@ public class UserService {
     // 주문내역 목록보기 (손님)
     public UserResponse.OrderListDTO getOrderList(int userId) {
         List<Order> orders = orderRepository.findAllByUserId(userId)
-                .orElseThrow(() -> new Exception404("찾을 수 없는 주문입니다."));
+                .orElseThrow(() -> new App404("찾을 수 없는 주문입니다."));
 
         return new UserResponse.OrderListDTO(orders);
     }
@@ -134,10 +134,10 @@ public class UserService {
     public UserResponse.OrderDetailDTO getOrderDetail(int orderId) {
         Order order // 단일 주문 내역 조회
                 = orderRepository.findById(orderId)
-                .orElseThrow(() -> new Exception404("찾을 수 없는 주문입니다."));
+                .orElseThrow(() -> new App404("찾을 수 없는 주문입니다."));
         List<OrderMenu> orderMenus // 주문 내역의 메뉴 목록.
                 = orderMenuRepository.findAllByOrderId(orderId)
-                .orElseThrow(() -> new Exception404("찾을 수 없는 주문입니다."));
+                .orElseThrow(() -> new App404("찾을 수 없는 주문입니다."));
         /* 양방향 매핑으로 변경.
         List<Integer> orderMenuIdList; // 34, 35, 36
         orderMenuIdList // 주문 메뉴별 Id 추출

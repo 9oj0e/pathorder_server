@@ -5,8 +5,8 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
-import shop.project.pathorderserver._core.interceptor.LoginInterceptor;
-import shop.project.pathorderserver._core.interceptor.SSRLoginInterceptor;
+import shop.project.pathorderserver._core.interceptor.AppLoginInterceptor;
+import shop.project.pathorderserver._core.interceptor.WebLoginInterceptor;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
@@ -23,9 +23,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginInterceptor())
+        registry.addInterceptor(new AppLoginInterceptor())
                 .addPathPatterns("/api/**");
-        registry.addInterceptor(new SSRLoginInterceptor())
+        registry.addInterceptor(new WebLoginInterceptor())
                 .addPathPatterns("/stores/**")
                 .excludePathPatterns("/stores/login", "/stores/login-form", "/stores/join", "/stores/join-form");
     }

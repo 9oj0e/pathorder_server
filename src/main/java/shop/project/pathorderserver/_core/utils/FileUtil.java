@@ -3,8 +3,8 @@ package shop.project.pathorderserver._core.utils;
 import org.springframework.web.multipart.MultipartFile;
 import shop.project.pathorderserver._core.DefaultFile;
 import shop.project.pathorderserver._core.MimeType;
-import shop.project.pathorderserver._core.errors.exception.Exception400;
-import shop.project.pathorderserver._core.errors.exception.Exception500;
+import shop.project.pathorderserver._core.errors.exception.App400;
+import shop.project.pathorderserver._core.errors.exception.App500;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -22,7 +22,7 @@ public class FileUtil {
             Files.write(newFilePath, file.getBytes());
             return newFilename; // 생성된 파일 이름 return
         } catch (Exception e) {
-            throw new Exception400(e.getMessage());
+            throw new App400(e.getMessage());
         }
     }
 
@@ -47,7 +47,7 @@ public class FileUtil {
             Files.write(newFilePath, decodedByte);
             return newFilename; // 생성된 파일 이름 return
         } catch (Exception e) {
-            throw new Exception400(e.getMessage());
+            throw new App400(e.getMessage());
         }
     }
 
@@ -64,7 +64,7 @@ public class FileUtil {
             Files.write(newFilePath, decodedByte);
             return newFilename; // 생성된 파일 이름 return
         } catch (Exception e) {
-            throw new Exception400(e.getMessage());
+            throw new App400(e.getMessage());
         }
     }
 
@@ -74,7 +74,7 @@ public class FileUtil {
                 Path filePath = Paths.get("." + getFilePath(filename));
                 Files.delete(filePath);
             } catch (Exception e) {
-                throw new Exception500(e.getMessage());
+                throw new App500(e.getMessage());
             }
         }
     }

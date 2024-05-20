@@ -3,7 +3,6 @@ package shop.project.pathorderserver.store;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-import shop.project.pathorderserver._core.errors.exceptionssr.Exception400;
 
 import java.util.Optional;
 

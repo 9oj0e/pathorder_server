@@ -3,10 +3,11 @@ package shop.project.pathorderserver.store;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 import shop.project.pathorderserver._core.utils.ApiUtil;
 import shop.project.pathorderserver.user.SessionUser;
-import shop.project.pathorderserver.user.UserRequest;
 
 import java.util.List;
 
@@ -42,14 +43,14 @@ public class StoreController {
     }
 
     @GetMapping("/api/stores/{storeId}/menus") // 매장 메뉴보기
-    private ResponseEntity<?> storeMenuList(@PathVariable int storeId) {
+    public ResponseEntity<?> storeMenuList(@PathVariable int storeId) {
         StoreResponse.StoreMenuListDTO respDTO = storeService.getStoreMenuList(storeId);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     @GetMapping("/api/stores/{storeId}/menus/{menuId}") // 매장 메뉴 옵션보기
-    private ResponseEntity<?> storeMenuDetail(@PathVariable int storeId, @PathVariable int menuId) {
+    public ResponseEntity<?> storeMenuDetail(@PathVariable int storeId, @PathVariable int menuId) {
         StoreResponse.StoreMenuOptionDTO respDTO = storeService.getStoreMenuDetail(storeId, menuId);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));

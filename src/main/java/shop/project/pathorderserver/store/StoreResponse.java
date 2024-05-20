@@ -2,7 +2,6 @@ package shop.project.pathorderserver.store;
 
 import lombok.Builder;
 import lombok.Data;
-import shop.project.pathorderserver._core.utils.DistanceUtil;
 import shop.project.pathorderserver._core.utils.FileUtil;
 import shop.project.pathorderserver._core.utils.FormatUtil;
 import shop.project.pathorderserver.menu.Menu;
