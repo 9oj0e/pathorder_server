@@ -50,7 +50,11 @@ public class LikeService {
     @Transactional
     public void removeLike(LikeRequest.RemoveLikeDTO reqDTO) {
         Optional<Like> like = likeRepository.findByCustomerIdAndStoreId(reqDTO.getUserId(), reqDTO.getStoreId());
-        like.ifPresent(likeRepository::delete);
+        if (like.isPresent()) {
+            likeRepository.delete(like.get());
+        } else {
+            throw new Exception404("해당 좋아요가 존재하지 않습니다.");
+        }
     }
 
     public List<LikeResponse.LikeListDTO> getUserLikes(int userId) {
