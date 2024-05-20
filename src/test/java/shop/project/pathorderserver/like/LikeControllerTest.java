@@ -214,19 +214,10 @@ public class LikeControllerTest {
         String respBody = actions.andReturn().getResponse().getContentAsString();
         System.out.println("respBody = " + respBody);
 
-//        // then
-        actions.andExpect(status().isOk());
-        actions.andExpect(jsonPath("$.status").value(200));
-        actions.andExpect(jsonPath("$.msg").value("성공"));
-        actions.andExpect(jsonPath("$.body[0].id").value(1));
-        actions.andExpect(jsonPath("$.body[0].storeId").value(1));
-        actions.andExpect(jsonPath("$.body[0].storeImgFilename").value("default/cafe1.png"));
-        actions.andExpect(jsonPath("$.body[0].storeName").value("연의양과"));
-        actions.andExpect(jsonPath("$.body[0].distance").value(356));
-        actions.andExpect(jsonPath("$.body[0].likeCount").value(3));
-        actions.andExpect(jsonPath("$.body[0].reviewCount").value(2));
-        actions.andExpect(jsonPath("$.body[0].latitude").value(35.1587487392983));
-        actions.andExpect(jsonPath("$.body[0].longitude").value(129.064002552455));
-        actions.andExpect(jsonPath("$.body[0].like").value(true));
+        // then
+        actions.andExpect(status().isForbidden());
+        actions.andExpect(jsonPath("$.status").value(403));
+        actions.andExpect(jsonPath("$.msg").value("해당 좋아요 리스트를 열람하실 수 없습니다."));
+        actions.andExpect(jsonPath("$.body").isEmpty());
     }
 }

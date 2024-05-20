@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import shop.project.pathorderserver._core.errors.exception.Exception403;
 import shop.project.pathorderserver._core.utils.ApiUtil;
 import shop.project.pathorderserver.user.SessionUser;
 
@@ -40,6 +41,9 @@ public class LikeController {
     @GetMapping("/api/users/{userId}/likes")
     public ResponseEntity<?> getUserLikes(@PathVariable int userId) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        if (userId!= sessionUser.getId()) {
+            throw new Exception403("해당 좋아요 리스트를 열람하실 수 없습니다.");
+        }
         List<LikeResponse.LikeListDTO> respDTO = likeService.getUserLikes(sessionUser.getId());
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
