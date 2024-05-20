@@ -36,15 +36,17 @@ public class UserControllerTest {
                         .build());
     }
 
-    // TODO: 유효성 검사 체크해서 다시
     // 회원가입 성공
     @Test
     public void join_success_test() throws Exception {
         //given
         UserRequest.JoinDTO reqDTO = new UserRequest.JoinDTO();
-        reqDTO.setUsername("user6");
+        reqDTO.setUsername("captainkong");
         reqDTO.setPassword("1234");
-        reqDTO.setNickname("지영");
+        reqDTO.setNickname("지영잉");
+        reqDTO.setName("공지영");
+        reqDTO.setTel("01085269874");
+        reqDTO.setEmail("captain_kong@nate.com");
 
         String reqBody = om.writeValueAsString(reqDTO);
 
@@ -63,11 +65,14 @@ public class UserControllerTest {
         actions.andExpect(status().isOk());
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.msg").value("성공"));
-        actions.andExpect(jsonPath("$.body.username").value("user6"));
-        actions.andExpect(jsonPath("$.body.nickname").value("지영"));
+        actions.andExpect(jsonPath("$.body.username").value("captainkong"));
+        actions.andExpect(jsonPath("$.body.password").value("1234"));
+        actions.andExpect(jsonPath("$.body.nickname").value("지영잉"));
+        actions.andExpect(jsonPath("$.body.name").value("공지영"));
+        actions.andExpect(jsonPath("$.body.tel").value("01085269874"));
+        actions.andExpect(jsonPath("$.body.email").value("captain_kong@nate.com"));
     }
 
-    // TODO: 유효성 검사 체크해서 다시
     // 회원가입 실패(중복되는 유저네임 존재)
     @Test
     public void join_username_same_fail_test() throws Exception {
@@ -75,7 +80,10 @@ public class UserControllerTest {
         UserRequest.JoinDTO reqDTO = new UserRequest.JoinDTO();
         reqDTO.setUsername("user1");
         reqDTO.setPassword("1234");
-        reqDTO.setNickname("성재");
+        reqDTO.setNickname("재성");
+        reqDTO.setName("류재성");
+        reqDTO.setTel("01085269874");
+        reqDTO.setEmail("ryu@nate.com");
 
         String reqBody = om.writeValueAsString(reqDTO);
 
@@ -131,7 +139,6 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.body.imgFilename").value("default/avatar.png"));
     }
 
-    // TODO: 유효성 검사 체크해서 다시
     // 로그인 실패(유저네임 불일치)
     @Test
     public void login_username_not_found_fail_test() throws Exception {

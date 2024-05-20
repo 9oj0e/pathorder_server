@@ -36,7 +36,11 @@ public class UserService {
         return UserResponse.JoinDTO
                 .builder()
                 .username(user.getUsername())
+                .password(user.getPassword())
                 .nickname(user.getNickname())
+                .name(user.getName())
+                .tel(user.getTel())
+                .email(user.getEmail())
                 .build();
     }
 
