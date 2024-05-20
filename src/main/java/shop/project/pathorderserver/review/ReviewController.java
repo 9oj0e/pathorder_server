@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import shop.project.pathorderserver._core.utils.ApiUtil;
 import shop.project.pathorderserver.user.SessionUser;
@@ -16,11 +17,13 @@ public class ReviewController {
 
     // 리뷰 등록
     @PostMapping("/api/stores/{storeId}/reviews")
-    public ResponseEntity<?> addReview(@PathVariable int storeId, @RequestBody @Valid ReviewRequest.AddDTO reqDTO) {
+    public ResponseEntity<?> addReview(@PathVariable int storeId, @Valid @RequestBody ReviewRequest.AddDTO reqDTO, Errors errors) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        reviewService.addReview(reqDTO, storeId, sessionUser.getId());
+        ReviewResponse.AddDTO respDTO = reviewService.addReview(reqDTO, storeId, sessionUser.getId());
 
-        return ResponseEntity.ok(new ApiUtil<>(null));
+        System.out.println(errors);
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     // 내 리뷰 보기

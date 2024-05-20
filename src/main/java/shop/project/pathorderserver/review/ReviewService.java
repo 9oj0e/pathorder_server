@@ -25,7 +25,7 @@ public class ReviewService {
 
     // 리뷰 등록
     @Transactional
-    public void addReview(ReviewRequest.AddDTO reqDTO, int storeId, int userId) {
+    public ReviewResponse.AddDTO addReview(ReviewRequest.AddDTO reqDTO, int storeId, int userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new Exception403("권한 없는 유저입니다."));
 
@@ -37,6 +37,8 @@ public class ReviewService {
 
         Review review = new Review(reqDTO, user, store);
         reviewRepository.save(review);
+
+        return new ReviewResponse.AddDTO(review);
     }
 
     // 내 리뷰 보기
