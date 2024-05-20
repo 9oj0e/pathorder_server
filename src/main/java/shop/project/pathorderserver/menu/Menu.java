@@ -60,7 +60,9 @@ public class Menu {
     }
 
     private void setImgFilename(String encodedFile) {
-        FileUtil.deleteFile(this.getImgFilename());
+        if (this.imgFilename != null) {
+            FileUtil.deleteFile(this.imgFilename);
+        }
         String imgFilename = FileUtil.uploadBase64(encodedFile, this.name);
         if (imgFilename.equals("default")) { // TODO: 삭제 로직 분리하기, 사진 유지 추가
             this.imgFilename = DefaultFile.COFFEE.getPath();
@@ -70,7 +72,7 @@ public class Menu {
     }
 
     private void setImgFilename(MultipartFile imgFile) {
-        FileUtil.deleteFile(this.getImgFilename());
+        // FileUtil.deleteFile(this.getImgFilename());
         boolean hasNoImg = imgFile == null || imgFile.isEmpty();
         if (!hasNoImg) {
             this.imgFilename = FileUtil.uploadFile(imgFile);
