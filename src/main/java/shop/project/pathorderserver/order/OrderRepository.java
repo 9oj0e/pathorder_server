@@ -41,5 +41,5 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             WHERE s.id = :storeId
             AND o.createdAt BETWEEN :startDate AND :endDate
             """)
-    List<Order> findAllByStoreIdAndCreatedAtBetween(int storeId, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+    List<Order> findAllByStoreIdAndCreatedAtBetween(@Param("storeId")int storeId, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 }

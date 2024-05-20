@@ -35,24 +35,19 @@ class StoreServiceTest {
     void createStore_test() {
         // given
         StoreRequest.JoinDTO reqDTO = new StoreRequest.JoinDTO();
-        reqDTO.setUsername("아이디");
+        reqDTO.setUsername("username123");
         reqDTO.setPassword("1234");
-        reqDTO.setOwnerName("김성재");
-        reqDTO.setOwnerTel("전화번호");
-        reqDTO.setOwnerEmail("이메일");
-        reqDTO.setBizNum("사업자번호");
+        reqDTO.setOwnerName("홍길동");
+        reqDTO.setOwnerTel("01012340000");
+        reqDTO.setOwnerEmail("username@email.com");
+        reqDTO.setBizNum("123-12-12345");
         reqDTO.setName("매장이름");
-        reqDTO.setTel("매장번호");
-        // TODO: 관리자 등록에 아래 네 개 필요 없나요? DTO에 주석처리 돼있어서 이것도 주석처리 해놓을게요
-//        reqDTO.setIntro("매장소개");
-//        reqDTO.setOpeningTime("개점시간");
-//        reqDTO.setClosingTime("폐점시간");
-//        reqDTO.setClosedDay("휴무일");
+        reqDTO.setTel("0510001234");
         reqDTO.setAddress("주소");
         // when
         StoreResponse.JoinDTO respDTO = storeService.createStore(reqDTO);
         // then
-        Assertions.assertThat(respDTO.getOwnerName()).isEqualTo("김성재");
+        Assertions.assertThat(respDTO.getOwnerName()).isEqualTo("홍길동");
     }
 
     @Test // 매장 관리자 - 로그인
@@ -74,7 +69,7 @@ class StoreServiceTest {
         // when
         StoreResponse.StoreDTO respDTO = storeService.getStoreDetail(storeId);
         // then
-        Assertions.assertThat(respDTO.getName()).isEqualTo("단밤 카페");
+        Assertions.assertThat(respDTO.getName()).isEqualTo("연의양과");
     }
 
     @Test // 매장 관리자 - 매장 정보 수정하기
@@ -82,18 +77,19 @@ class StoreServiceTest {
         // given
         int sessionId = 1;
         StoreRequest.UpdateDTO reqDTO = new StoreRequest.UpdateDTO();
-        reqDTO.setPassword("1234");
+        // reqDTO.setPassword("1234");
+        reqDTO.setOwnerName("매장 정리");
         // when
         // 변경 전 확인
         // Store store = storeRepository.findById(sessionId).get();
         // System.out.println("_test: " + store.getUsername());
         SessionStore sessionStore = storeService.updateStore(sessionId, reqDTO);
         // then
-        Assertions.assertThat(sessionStore.getUsername()).isEqualTo("1234");
+        Assertions.assertThat(sessionStore.getOwnerName()).isEqualTo("매장 정리");
     }
 
     @Test // 매장 관리자 - 메뉴 등록하기
-    void createMenu_Test() {
+    void createMenu_test() {
         // given
         int storeId = 1;
         StoreRequest.CreateMenuDTO reqDTO = new StoreRequest.CreateMenuDTO();
@@ -101,6 +97,7 @@ class StoreServiceTest {
         reqDTO.setCategory("과일 음료");
         reqDTO.setName("자몽에이드");
         reqDTO.setDescription("내가 제일 좋아함");
+        // reqDTO.setImgFile(null);
         // when
         StoreResponse.CreateMenuDTO respDTO = storeService.createMenu(storeId, reqDTO);
         // then
@@ -151,7 +148,7 @@ class StoreServiceTest {
         menuOptionList.add(option1);
         menuOptionList.add(option2);
         menuOptionList.add(option3);
-        reqDTO.getMenuOptions();
+        reqDTO.setMenuOptions(menuOptionList);
         // when
         StoreResponse.UpdateMenuDTO respDTO = storeService.updateMenu(menuId, reqDTO);
         Menu menu = menuRepository.findById(menuId)
@@ -242,8 +239,8 @@ class StoreServiceTest {
                 .orElse(new ArrayList<>());
         StoreResponse.OrderListDTO respDTO = storeService.getOrderList(storeId);
         // then
-        Assertions.assertThat(orders.size()).isEqualTo(5);
-        Assertions.assertThat(respDTO.getOrderList().size()).isEqualTo(0); // 수령완료가 된 것만 응답된다.
+        Assertions.assertThat(orders.size()).isEqualTo(12);
+        Assertions.assertThat(respDTO.getOrderList().size()).isEqualTo(7); // 수령완료가 된 것만 응답된다.
 
     }
 
@@ -254,6 +251,6 @@ class StoreServiceTest {
         // when
         StoreResponse.OrderDetailDTO respDTO = storeService.getOrderDetail(orderId);
         // then
-        Assertions.assertThat(respDTO.getOrderMenuList().size()).isEqualTo(3);
+        Assertions.assertThat(respDTO.getOrderMenuList().size()).isEqualTo(5);
     }
 }

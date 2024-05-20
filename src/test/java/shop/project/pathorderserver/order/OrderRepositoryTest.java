@@ -28,7 +28,7 @@ class OrderRepositoryTest {
         List<Order> orders = orderRepository.findAllByUserId(userId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 주문입니다."));
         // then
-        assertThat(orders.size()).isEqualTo(1);
+        assertThat(orders.size()).isEqualTo(2);
     }
 
     @Test
@@ -39,7 +39,7 @@ class OrderRepositoryTest {
         // when
         Optional<List<Order>> orderList = orderRepository.findAllByStoreId(storeId);
         // then
-        assertThat(orderList.get().size()).isEqualTo(5);
+        assertThat(orderList.get().size()).isEqualTo(12);
     }
 
     @Test
@@ -52,7 +52,7 @@ class OrderRepositoryTest {
         // then
 //        System.out.println("findOrdersByStoreId_test: " + orderListOP);
         assertThat(orderList.getFirst().getStore().getUsername()).isEqualTo("david1234");
-        assertThat(orderList.getFirst().getStatus()).isEqualTo(OrderStatus.PREPARING);
+        assertThat(orderList.getFirst().getStatus()).isEqualTo(OrderStatus.SERVED);
 
     }
 
@@ -60,14 +60,13 @@ class OrderRepositoryTest {
     public void findAllByStoreIdAndCreatedAtBetween_test() {
         //given
         int storeId = 1;
-        LocalDate startDate = LocalDate.of(2024, 4, 21);
-        LocalDate endDate = LocalDate.of(2024, 4, 28);
+        LocalDate startDate = LocalDate.of(2024, 1, 21);
+        LocalDate endDate = LocalDate.of(2024, 5, 20);
 
         // when
         List<Order> orderList = orderRepository.findAllByStoreIdAndCreatedAtBetween(storeId, startDate.atStartOfDay(), endDate.atTime(23, 59, 59));
         // then
         Assertions.assertThat(orderList.getFirst().getOrderMenus().getFirst().getName()).isEqualTo("아메리카노");
-        Assertions.assertThat(orderList.getFirst().getCustomerNickname()).isEqualTo("윤정");
-        System.out.println("findAllByStoreIdAndCreatedAtBetween_test: " + orderList);
+        Assertions.assertThat(orderList.getFirst().getCustomerNickname()).isEqualTo("찬혁");
     }
 }

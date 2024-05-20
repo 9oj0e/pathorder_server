@@ -91,10 +91,6 @@ public class Store {
         this.bizNum = reqDTO.getBizNum();
         this.name = reqDTO.getName();
         this.tel = reqDTO.getTel();
-        this.intro = reqDTO.getIntro();
-        this.openingTime = reqDTO.getOpeningTime();
-        this.closingTime = reqDTO.getClosingTime();
-        this.closedDay = reqDTO.getClosedDay();
         this.address = reqDTO.getAddress();
         this.latitude = reqDTO.getLatitude();
         this.longitude = reqDTO.getLongitude();

@@ -19,7 +19,7 @@ class StoreRepositoryTest {
         List<Store> stores = storeRepository.findAll();
         // then
         Assertions.assertThat(stores.size()).isEqualTo(5);
-        Assertions.assertThat(stores.getFirst().getName()).isEqualTo("단밤 카페");
+        Assertions.assertThat(stores.getFirst().getName()).isEqualTo("연의양과");
     }
 
     @Test // 매장 정보보기
@@ -30,7 +30,7 @@ class StoreRepositoryTest {
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new Exception404("찾을 수 없는 매장"));
         // then
-        Assertions.assertThat(store.getName()).isEqualTo("단밤 카페");
+        Assertions.assertThat(store.getName()).isEqualTo("연의양과");
         Assertions.assertThat(store.getOwnerName()).isEqualTo("조정현");
     }
 

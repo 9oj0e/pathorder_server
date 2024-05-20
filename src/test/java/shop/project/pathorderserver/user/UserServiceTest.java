@@ -20,15 +20,17 @@ class UserServiceTest {
     void createUser_test() {
         // given
         UserRequest.JoinDTO reqDTO = new UserRequest.JoinDTO();
-        reqDTO.setUsername("ssar");
+        reqDTO.setUsername("username1234");
         reqDTO.setPassword("1234");
-        reqDTO.setNickname("ssarman");
+        reqDTO.setNickname("NAME");
+        reqDTO.setName("홍길동");
+        reqDTO.setTel("01012345678");
         reqDTO.setEmail("ssar@nate.com");
         // when
         UserResponse.JoinDTO respDTO = userService.createUser(reqDTO);
         // then
-        Assertions.assertThat(respDTO.getUsername()).isEqualTo("ssar");
-        Assertions.assertThat(respDTO.getNickname()).isEqualTo("ssarman");
+        Assertions.assertThat(respDTO.getUsername()).isEqualTo("username1234");
+        Assertions.assertThat(respDTO.getNickname()).isEqualTo("NAME");
     }
 
     @Test // 로그인
@@ -87,12 +89,13 @@ class UserServiceTest {
     void getOrderDetail_test() {
         // given
         int orderId = 1;
-        Order order = new Order();
-        List<OrderMenu> orderMenus = new ArrayList<>();
-        UserResponse.OrderDetailDTO respDTO = new UserResponse.OrderDetailDTO(order, orderMenus);
+        // Order order = new Order();
+        // List<OrderMenu> orderMenus = new ArrayList<>();
+        // UserResponse.OrderDetailDTO respDTO = new UserResponse.OrderDetailDTO(order, orderMenus);
         // when
-        userService.getOrderDetail(orderId);
+        UserResponse.OrderDetailDTO respDTO = userService.getOrderDetail(orderId);
         // then
-        System.out.println("_test: " + respDTO.getTotalPrice());
+        // System.out.println("test: " + respDTO.getTotalPrice());
+        Assertions.assertThat(respDTO.getTotalPrice()).isEqualTo("23,300");
     }
 }
