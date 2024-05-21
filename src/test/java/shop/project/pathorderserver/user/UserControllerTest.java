@@ -70,7 +70,7 @@ public class UserControllerTest extends MyRestDoc {
 
     // 회원가입 실패(중복되는 유저네임 존재)
     @Test
-    public void join_username_same_fail_test() throws Exception {
+    public void join_fail_test() throws Exception {
         //given
         UserRequest.JoinDTO reqDTO = new UserRequest.JoinDTO();
         reqDTO.setUsername("user1");

@@ -69,7 +69,7 @@ public class LikeControllerTest extends MyRestDoc {
 
     // 좋아요 추가 실패(존재하지 않는 스토어)
     @Test
-    public void add_like_with_not_found_store_fail_test() throws Exception {
+    public void add_like_fail_test() throws Exception {
         //given
         LikeRequest.AddLikeDTO reqDTO = new LikeRequest.AddLikeDTO();
         reqDTO.setStoreId(999);
@@ -114,7 +114,7 @@ public class LikeControllerTest extends MyRestDoc {
 
     // 좋아요 삭제 실패
     @Test
-    public void delete_like_with_not_found_store_fail_test() throws Exception {
+    public void delete_like_fail_test() throws Exception {
         //given
         LikeRequest.RemoveLikeDTO reqDTO = new LikeRequest.RemoveLikeDTO();
         reqDTO.setStoreId(999);
