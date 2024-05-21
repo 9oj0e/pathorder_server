@@ -38,7 +38,7 @@ public class ReviewControllerTest extends MyRestDoc {
 
     // 리뷰 등록 성공
     @Test
-    public void addReview_success_test() throws Exception {
+    public void add_review_success_test() throws Exception {
         //given
         int storeId = 1;
         ReviewRequest.AddDTO reqDTO = new ReviewRequest.AddDTO();
@@ -63,7 +63,7 @@ public class ReviewControllerTest extends MyRestDoc {
 
     // 리뷰 등록 실패 - 공백
     @Test
-    public void addReview_content_blank_fail_test() throws Exception {
+    public void add_review_content_blank_fail_test() throws Exception {
         //given
         int storeId = 1;
         ReviewRequest.AddDTO reqDTO = new ReviewRequest.AddDTO();
@@ -88,7 +88,7 @@ public class ReviewControllerTest extends MyRestDoc {
 
     // 리뷰 등록 실패 - 5자 미만
     @Test
-    public void addReview_content_size_fail_test() throws Exception {
+    public void add_review_content_size_fail_test() throws Exception {
         //given
         int storeId = 1;
         ReviewRequest.AddDTO reqDTO = new ReviewRequest.AddDTO();
@@ -111,7 +111,7 @@ public class ReviewControllerTest extends MyRestDoc {
 
     // 내 리뷰 보기
     @Test
-    public void myReviewList_test() throws Exception {
+    public void my_review_list_test() throws Exception {
         //given
         int userId = 1;
         //when
@@ -134,7 +134,7 @@ public class ReviewControllerTest extends MyRestDoc {
 
     // 매장 리뷰 보기
     @Test
-    public void storeReviewList_test() throws Exception {
+    public void store_review_list_test() throws Exception {
         //given
         int storeId = 1;
         //when

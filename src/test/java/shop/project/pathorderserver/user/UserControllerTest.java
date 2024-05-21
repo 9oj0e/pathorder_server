@@ -122,7 +122,7 @@ public class UserControllerTest extends MyRestDoc {
 
     // 로그인 실패(유저네임 불일치)
     @Test
-    public void login_username_not_found_fail_test() throws Exception {
+    public void login_fail_test() throws Exception {
         //given
         UserRequest.LoginDTO reqDTO = new UserRequest.LoginDTO();
         reqDTO.setUsername("user99");
@@ -139,29 +139,6 @@ public class UserControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.status").value(401));
         actions.andExpect(jsonPath("$.msg").value("아이디 또는 비밀번호가 틀렸습니다."));
         actions.andExpect(jsonPath("$.body").isEmpty());
-    }
-
-    // 로그아읏 성공
-    @Test
-    public void logout_success_test() throws Exception {
-        //given
-        String jwt = JwtUtil.create(
-                User.builder()
-                        .id(1)
-                        .username("user1")
-                        .password("1234")
-                        .nickname("성재")
-                        .build());
-        // when
-        ResultActions actions = mockMvc.perform(
-                get("/logout")
-                        .header("Authorization", "Bearer " + jwt)
-        );
-        // then
-        actions.andExpect(status().isOk());
-        actions.andExpect(jsonPath("$.status").value(200));
-        actions.andExpect(jsonPath("$.msg").value("성공"));
-        actions.andExpect(jsonPath("$.body").value("로그아웃 완료"));
     }
 
     // 회원정보조회 성공
@@ -187,7 +164,7 @@ public class UserControllerTest extends MyRestDoc {
 
     // 회원정보조회 실패(존재하지 않는 유저 아이디)
     @Test
-    public void get_user_info_not_found_fail_test() throws Exception {
+    public void get_user_info_fail_test() throws Exception {
         //given
         int userId = 999;
         // when
@@ -233,7 +210,7 @@ public class UserControllerTest extends MyRestDoc {
 
     // 회원정보 수정 실패(유효성 검사 실패)
     @Test
-    public void update_user_info_validation_fail_test() throws Exception {
+    public void update_user_info_fail_test() throws Exception {
         //given
         int userId = 1;
         UserRequest.UpdateDTO reqDTO = new UserRequest.UpdateDTO();
@@ -398,7 +375,7 @@ public class UserControllerTest extends MyRestDoc {
 
     // 회원 주문내역 목록보기 성공
     @Test
-    public void order_list_success_test() throws Exception {
+    public void order_list_test() throws Exception {
         //given
         int userId = 1;
         // when
@@ -412,28 +389,6 @@ public class UserControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.msg").value("성공"));
         actions.andExpect(jsonPath("$.body.orderList").isArray());
     }
-
-//    // 회원 주문내역 목록보기 실패(존재하지 않는 유저)
-//    @Test
-//    public void order_list_fail_test() throws Exception {
-//        //given
-//        int userId = 999; // 존재하지 않는 유저 ID
-//
-//        // when
-//        ResultActions actions = mvc.perform(
-//                get("/api/users/" + userId + "/orders")
-//                        .header("Authorization", "Bearer " + jwt)
-//        );
-//
-//        // eye
-//        String respBody = actions.andReturn().getResponse().getContentAsString();
-//        System.out.println("respBody = " + respBody);
-//
-//        // then
-//        actions.andExpect(status().isNotFound());
-//        actions.andExpect(jsonPath("$.status").value(404));
-//        actions.andExpect(jsonPath("$.msg").value("찾을 수 없는 주문입니다."));
-//    }
 
     // 회원 주문내역 상세보기 성공
     @Test

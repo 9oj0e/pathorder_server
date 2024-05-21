@@ -23,7 +23,7 @@ public class StoreOwnerController {
     private final StoreService storeService;
 
     @GetMapping("/") // index
-    private String index() {
+    public String index() {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
 
         if (sessionStore != null) {
@@ -60,6 +60,7 @@ public class StoreOwnerController {
     public String login(@Valid StoreRequest.LoginDTO reqDTO, Errors errors) {
         SessionStore sessionStore = storeService.getStore(reqDTO);
         session.setAttribute("sessionStore", sessionStore);
+
         return "redirect:/";
     }
 

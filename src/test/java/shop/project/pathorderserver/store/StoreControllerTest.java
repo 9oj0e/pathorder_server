@@ -35,7 +35,7 @@ public class StoreControllerTest extends MyRestDoc {
 
     // 매장 목록보기
     @Test
-    public void storeList_test() throws Exception {
+    public void store_list_test() throws Exception {
         //given
         //when
         ResultActions actions = mockMvc.perform(
@@ -59,7 +59,7 @@ public class StoreControllerTest extends MyRestDoc {
 
     // 매장 상세보기
     @Test
-    public void storeInfo_test() throws Exception {
+    public void store_info_test() throws Exception {
         //given
         int storeId = 1;
         //when
@@ -88,7 +88,7 @@ public class StoreControllerTest extends MyRestDoc {
 
     // 매장 상세보기 - 사업자 정보
     @Test
-    public void storeBizInfo_test() throws Exception {
+    public void store_biz_info_test() throws Exception {
         //given
         int storeId = 1;
         //when
@@ -108,7 +108,7 @@ public class StoreControllerTest extends MyRestDoc {
 
     // 매장 메뉴보기
     @Test
-    public void storeMenuList_test() throws Exception {
+    public void store_menu_list_test() throws Exception {
         //given
         int storeId = 1;
         //when
@@ -132,7 +132,7 @@ public class StoreControllerTest extends MyRestDoc {
 
     // 매장 메뉴 옵션보기
     @Test
-    public void storeMenuDetail_test() throws Exception {
+    public void store_menu_detail_test() throws Exception {
         //given
         int storeId = 1;
         int menuId = 1;
