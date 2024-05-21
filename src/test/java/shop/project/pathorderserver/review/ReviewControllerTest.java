@@ -58,7 +58,7 @@ public class ReviewControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.msg").value("성공"));
         actions.andExpect(jsonPath("$.body.content").value("맛있었어요"));
         actions.andExpect(jsonPath("$.body.encodedData").isEmpty());
-        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 리뷰 등록 실패 - 공백
@@ -83,7 +83,7 @@ public class ReviewControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.status").value(400));
         actions.andExpect(jsonPath("$.msg").value("내용을 입력해주세요."));
         actions.andExpect(jsonPath("$.body").isEmpty());
-        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 리뷰 등록 실패 - 5자 미만
@@ -106,7 +106,7 @@ public class ReviewControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.status").value(400));
         actions.andExpect(jsonPath("$.msg").value("내용은 5자 이상 입력해주세요."));
         actions.andExpect(jsonPath("$.body").isEmpty());
-        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 내 리뷰 보기
@@ -129,7 +129,7 @@ public class ReviewControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.body.reviewList.[0].content").value("맛있어요"));
         actions.andExpect(jsonPath("$.body.reviewList.[0].imgFilePath").isEmpty());
         // actions.andExpect(jsonPath("$.body.reviewList.[0].createdAt").value("24/05/21")); 날짜 매번 터짐.
-        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 매장 리뷰 보기
@@ -152,6 +152,6 @@ public class ReviewControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.body.reviewList.[0].content").value("맛있어요"));
         actions.andExpect(jsonPath("$.body.reviewList.[0].reviewsImgFilePath").isEmpty());
         // actions.andExpect(jsonPath("$.body.reviewList.[0].createdAt").value("24/05/20")); 날짜 터짐
-        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }

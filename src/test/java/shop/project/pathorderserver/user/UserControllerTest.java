@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.transaction.annotation.Transactional;
 import shop.project.pathorderserver.MyRestDoc;
 import shop.project.pathorderserver._core.utils.JwtUtil;
@@ -91,6 +92,7 @@ public class UserControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.status").value(400));
         actions.andExpect(jsonPath("$.msg").value("중복된 유저입니다."));
         actions.andExpect(jsonPath("$.body").isEmpty());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // TODO: 유효성 검사 체크해서 다시
@@ -118,6 +120,7 @@ public class UserControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.body.tel").value("01012345555"));
         actions.andExpect(jsonPath("$.body.email").value("user1@gmail.com"));
         actions.andExpect(jsonPath("$.body.imgFilename").value("default/avatar.png"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 로그인 실패(유저네임 불일치)
@@ -139,6 +142,7 @@ public class UserControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.status").value(401));
         actions.andExpect(jsonPath("$.msg").value("아이디 또는 비밀번호가 틀렸습니다."));
         actions.andExpect(jsonPath("$.body").isEmpty());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 회원정보조회 성공
@@ -160,6 +164,7 @@ public class UserControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.body.email").value("user1@gmail.com"));
         actions.andExpect(jsonPath("$.body.tel").value("010-1234-5555"));
         actions.andExpect(jsonPath("$.body.imgFilename").value("default/avatar.png"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 회원정보조회 실패(존재하지 않는 유저 아이디)
@@ -177,6 +182,7 @@ public class UserControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.status").value(404));
         actions.andExpect(jsonPath("$.msg").value("찾을 수 없는 유저입니다."));
         actions.andExpect(jsonPath("$.body").isEmpty());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // TODO: 유효성 검사 체크해서 다시
@@ -206,6 +212,7 @@ public class UserControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.body.nickname").value("재성"));
         actions.andExpect(jsonPath("$.body.latitude").value(35.15743361723729));
         actions.andExpect(jsonPath("$.body.longitude").value(129.0604337191542));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 회원정보 수정 실패(유효성 검사 실패)
@@ -230,6 +237,7 @@ public class UserControllerTest extends MyRestDoc {
         actions.andExpect(status().isBadRequest());
         actions.andExpect(jsonPath("$.status").value(400));
         actions.andExpect(jsonPath("$.msg").value("유효한 이메일 형식이어야 합니다."));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
 //    // TODO: 사진 업로드?
@@ -338,12 +346,13 @@ public class UserControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.body.orderMenuList[0].totalPrice").value(6000));
         actions.andExpect(jsonPath("$.body.orderMenuList[0].orderMenuOptionList[0].name").value("아이스"));
         actions.andExpect(jsonPath("$.body.orderMenuList[0].orderMenuOptionList[0].price").value("0"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 주문하기 실패(이상한 메뉴)
     @Test
     public void order_fail_test() throws Exception {
-        // given
+        // given (주문 + 유효하지 않은 메뉴)
         UserRequest.OrderDTO reqDTO = new UserRequest.OrderDTO();
         reqDTO.setStoreId(1);
         reqDTO.setStoreName("스타벅스");
@@ -351,16 +360,12 @@ public class UserControllerTest extends MyRestDoc {
         reqDTO.setCustomerNickname("성재");
         reqDTO.setRequest("날아오세요.");
         reqDTO.setOrderMenuList(new ArrayList<>());
-
-        // 유효하지 않은 주문 메뉴 추가
         UserRequest.OrderDTO.OrderMenuDTO orderMenu = new UserRequest.OrderDTO.OrderMenuDTO();
         orderMenu.setName("아메리카노");
         orderMenu.setPrice(-3000); // Invalid price
         orderMenu.setQty(1); // Valid quantity
-
         reqDTO.getOrderMenuList().add(orderMenu);
         String reqBody = om.writeValueAsString(reqDTO);
-
         // when
         ResultActions actions = mockMvc.perform(
                 post("/api/users/" + 1 + "/orders")
@@ -371,6 +376,7 @@ public class UserControllerTest extends MyRestDoc {
         // then
         actions.andExpect(status().isBadRequest());
         actions.andExpect(jsonPath("$.msg").value("가격은 음수일 수 없습니다."));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 회원 주문내역 목록보기 성공
@@ -388,6 +394,7 @@ public class UserControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.msg").value("성공"));
         actions.andExpect(jsonPath("$.body.orderList").isArray());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 회원 주문내역 상세보기 성공
@@ -405,6 +412,7 @@ public class UserControllerTest extends MyRestDoc {
         actions.andExpect(status().isOk());
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.msg").value("성공"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 회원 주문내역 상세보기 실패(존재하지 않는 주문)
@@ -422,5 +430,6 @@ public class UserControllerTest extends MyRestDoc {
         actions.andExpect(status().isNotFound());
         actions.andExpect(jsonPath("$.status").value(404));
         actions.andExpect(jsonPath("$.msg").value("찾을 수 없는 주문입니다."));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }

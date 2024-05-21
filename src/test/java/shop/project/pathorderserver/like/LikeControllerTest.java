@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.transaction.annotation.Transactional;
 import shop.project.pathorderserver.MyRestDoc;
 import shop.project.pathorderserver._core.utils.JwtUtil;
@@ -65,6 +66,7 @@ public class LikeControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.msg").value("성공"));
         actions.andExpect(jsonPath("$.body.userId").value(1));
         actions.andExpect(jsonPath("$.body.storeId").value(5));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 좋아요 추가 실패(존재하지 않는 스토어)
@@ -87,6 +89,7 @@ public class LikeControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.status").value(404));
         actions.andExpect(jsonPath("$.msg").value("해당하는 매장을 찾을 수 없습니다."));
         actions.andExpect(jsonPath("$.body").isEmpty());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 좋아요 삭제 성공
@@ -110,6 +113,7 @@ public class LikeControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.msg").value("성공"));
         actions.andExpect(jsonPath("$.body.userId").value(1));
         actions.andExpect(jsonPath("$.body.storeId").value(1));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 좋아요 삭제 실패
@@ -132,6 +136,7 @@ public class LikeControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.status").value(404));
         actions.andExpect(jsonPath("$.msg").value("해당 좋아요가 존재하지 않습니다."));
         actions.andExpect(jsonPath("$.body").isEmpty());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 특정 사용자의 좋아요 목록 조회 성공
@@ -158,6 +163,7 @@ public class LikeControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.body[0].latitude").value(35.1587487392983));
         actions.andExpect(jsonPath("$.body[0].longitude").value(129.064002552455));
         actions.andExpect(jsonPath("$.body[0].like").value(true));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 특정 사용자의 좋아요 목록 조회 실패
@@ -175,5 +181,6 @@ public class LikeControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.status").value(403));
         actions.andExpect(jsonPath("$.msg").value("해당 좋아요 리스트를 열람하실 수 없습니다."));
         actions.andExpect(jsonPath("$.body").isEmpty());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }
