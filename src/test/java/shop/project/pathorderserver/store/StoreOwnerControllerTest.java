@@ -47,7 +47,7 @@ public class StoreOwnerControllerTest extends MyRestDoc {
     }
 
     @Test
-    public void joinAndLogin_test() throws Exception {
+    public void join_and_login_test() throws Exception {
         // join (given+when)
         ResultActions joinActions = mockMvc.perform(MockMvcRequestBuilders.post("/stores/join")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -77,7 +77,7 @@ public class StoreOwnerControllerTest extends MyRestDoc {
     }
 
     @Test
-    public void getPendingOrderCount_test() throws Exception {
+    public void get_pending_order_count_test() throws Exception {
         // given
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         int storeId = sessionStore.getId();
@@ -113,7 +113,7 @@ public class StoreOwnerControllerTest extends MyRestDoc {
     }
 
     @Test
-    public void updateOrder_test() throws Exception {
+    public void update_order_test() throws Exception {
         // given
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         int storeId = sessionStore.getId();
@@ -145,7 +145,7 @@ public class StoreOwnerControllerTest extends MyRestDoc {
     }
 
     @Test
-    public void orderDetail_test() throws Exception {
+    public void order_detail_test() throws Exception {
         // given
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         int storeId = sessionStore.getId();
@@ -155,7 +155,7 @@ public class StoreOwnerControllerTest extends MyRestDoc {
     }
 
     @Test
-    public void orderList_test() throws Exception {
+    public void order_list_test() throws Exception {
         // given
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         int storeId = sessionStore.getId();
@@ -164,7 +164,7 @@ public class StoreOwnerControllerTest extends MyRestDoc {
     }
 
     @Test
-    public void orderListSortByDate_test() throws Exception {
+    public void order_list_sort_by_date_test() throws Exception {
         // given
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         int storeId = sessionStore.getId();
@@ -181,7 +181,7 @@ public class StoreOwnerControllerTest extends MyRestDoc {
     }
 
     @Test
-    public void menuList_test() throws Exception {
+    public void menu_list_test() throws Exception {
         // given
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         int storeId = sessionStore.getId();
@@ -190,7 +190,7 @@ public class StoreOwnerControllerTest extends MyRestDoc {
     }
 
     @Test
-    public void menuDetail_test() throws Exception {
+    public void menu_detail_test() throws Exception {
         // given
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         int storeId = sessionStore.getId();
@@ -204,7 +204,7 @@ public class StoreOwnerControllerTest extends MyRestDoc {
     }
 
     @Test
-    public void addMenu_test() throws Exception {
+    public void add_menu_test() throws Exception {
         // given
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         int storeId = sessionStore.getId();
@@ -221,7 +221,7 @@ public class StoreOwnerControllerTest extends MyRestDoc {
     }
 
     @Test
-    public void updateMenu_test() throws Exception {
+    public void update_menu_test() throws Exception {
         // given
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         int storeId = sessionStore.getId();
@@ -255,7 +255,7 @@ public class StoreOwnerControllerTest extends MyRestDoc {
     }
 
     @Test
-    public void updateForm_test() throws Exception {
+    public void update_form_test() throws Exception {
         // given
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         int storeId = sessionStore.getId();

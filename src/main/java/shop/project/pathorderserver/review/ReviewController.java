@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import shop.project.pathorderserver._core.errors.AppRequest;
 import shop.project.pathorderserver._core.utils.ApiUtil;
 import shop.project.pathorderserver.user.SessionUser;
 
@@ -16,6 +17,7 @@ public class ReviewController {
     private final HttpSession session;
 
     // 리뷰 등록
+    @AppRequest
     @PostMapping("/api/stores/{storeId}/reviews")
     public ResponseEntity<?> addReview(@PathVariable int storeId, @Valid @RequestBody ReviewRequest.AddDTO reqDTO, Errors errors) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");

@@ -38,7 +38,7 @@ public class ReviewControllerTest extends MyRestDoc {
 
     // 리뷰 등록 성공
     @Test
-    public void addReview_success_test() throws Exception {
+    public void add_review_success_test() throws Exception {
         //given
         int storeId = 1;
         ReviewRequest.AddDTO reqDTO = new ReviewRequest.AddDTO();
@@ -58,12 +58,12 @@ public class ReviewControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.msg").value("성공"));
         actions.andExpect(jsonPath("$.body.content").value("맛있었어요"));
         actions.andExpect(jsonPath("$.body.encodedData").isEmpty());
-        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 리뷰 등록 실패 - 공백
     @Test
-    public void addReview_content_blank_fail_test() throws Exception {
+    public void add_review_content_blank_fail_test() throws Exception {
         //given
         int storeId = 1;
         ReviewRequest.AddDTO reqDTO = new ReviewRequest.AddDTO();
@@ -83,12 +83,12 @@ public class ReviewControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.status").value(400));
         actions.andExpect(jsonPath("$.msg").value("내용을 입력해주세요."));
         actions.andExpect(jsonPath("$.body").isEmpty());
-        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 리뷰 등록 실패 - 5자 미만
     @Test
-    public void addReview_content_size_fail_test() throws Exception {
+    public void add_review_content_size_fail_test() throws Exception {
         //given
         int storeId = 1;
         ReviewRequest.AddDTO reqDTO = new ReviewRequest.AddDTO();
@@ -106,12 +106,12 @@ public class ReviewControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.status").value(400));
         actions.andExpect(jsonPath("$.msg").value("내용은 5자 이상 입력해주세요."));
         actions.andExpect(jsonPath("$.body").isEmpty());
-        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 내 리뷰 보기
     @Test
-    public void myReviewList_test() throws Exception {
+    public void my_review_list_test() throws Exception {
         //given
         int userId = 1;
         //when
@@ -129,12 +129,12 @@ public class ReviewControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.body.reviewList.[0].content").value("맛있어요"));
         actions.andExpect(jsonPath("$.body.reviewList.[0].imgFilePath").isEmpty());
         // actions.andExpect(jsonPath("$.body.reviewList.[0].createdAt").value("24/05/21")); 날짜 매번 터짐.
-        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 매장 리뷰 보기
     @Test
-    public void storeReviewList_test() throws Exception {
+    public void store_review_list_test() throws Exception {
         //given
         int storeId = 1;
         //when
@@ -152,6 +152,6 @@ public class ReviewControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.body.reviewList.[0].content").value("맛있어요"));
         actions.andExpect(jsonPath("$.body.reviewList.[0].reviewsImgFilePath").isEmpty());
         // actions.andExpect(jsonPath("$.body.reviewList.[0].createdAt").value("24/05/20")); 날짜 터짐
-        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }

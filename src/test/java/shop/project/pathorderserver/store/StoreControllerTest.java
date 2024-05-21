@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.transaction.annotation.Transactional;
 import shop.project.pathorderserver.MyRestDoc;
 import shop.project.pathorderserver._core.utils.JwtUtil;
@@ -35,7 +36,7 @@ public class StoreControllerTest extends MyRestDoc {
 
     // 매장 목록보기
     @Test
-    public void storeList_test() throws Exception {
+    public void store_list_test() throws Exception {
         //given
         //when
         ResultActions actions = mockMvc.perform(
@@ -54,12 +55,12 @@ public class StoreControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.body[0].longitude").value(129.059978704814));
         actions.andExpect(jsonPath("$.body[0].reviewCount").value(0));
         actions.andExpect(jsonPath("$.body[0].liked").value(false));
-        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 매장 상세보기
     @Test
-    public void storeInfo_test() throws Exception {
+    public void store_info_test() throws Exception {
         //given
         int storeId = 1;
         //when
@@ -83,12 +84,12 @@ public class StoreControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.body.reviewCount").value(2));
         actions.andExpect(jsonPath("$.body.distance").value("356"));
         actions.andExpect(jsonPath("$.body.liked").value(true));
-        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 매장 상세보기 - 사업자 정보
     @Test
-    public void storeBizInfo_test() throws Exception {
+    public void store_biz_info_test() throws Exception {
         //given
         int storeId = 1;
         //when
@@ -103,12 +104,12 @@ public class StoreControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.body.ownerTel").value("010-1234-5678"));
         actions.andExpect(jsonPath("$.body.ownerEmail").value("david1234@gmail.com"));
         actions.andExpect(jsonPath("$.body.bizNum").value("123-456-7890"));
-        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 매장 메뉴보기
     @Test
-    public void storeMenuList_test() throws Exception {
+    public void store_menu_list_test() throws Exception {
         //given
         int storeId = 1;
         //when
@@ -127,12 +128,12 @@ public class StoreControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.body.menuList.[0].imgFilename").value("default/americano.png"));
         actions.andExpect(jsonPath("$.body.menuList.[0].description").value("현대인의 필수 카페인"));
         actions.andExpect(jsonPath("$.body.menuList.[0].price").value(3000));
-        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 매장 메뉴 옵션보기
     @Test
-    public void storeMenuDetail_test() throws Exception {
+    public void store_menu_detail_test() throws Exception {
         //given
         int storeId = 1;
         int menuId = 1;
@@ -154,6 +155,6 @@ public class StoreControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.body.optionList.[0].name").value("아이스"));
         actions.andExpect(jsonPath("$.body.optionList.[0].price").value(0));
         actions.andExpect(jsonPath("$.body.optionList.[0].required").value(true));
-        // actions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }

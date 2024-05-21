@@ -16,24 +16,81 @@ endif::[]
 :source-highlighter: highlightjs
 
 == 회원
-=== 회원가입
-=== 로그인
-=== 회원정보 보기
-=== 회원정보 수정
+=== 회원가입 성공
+include::{snippets}/{user}/join_success_test/http-request.adoc[]
+include::{snippets}/{user}/join_success_test/http-response.adoc[]
+=== 회원가입 실패
+include::{snippets}/{user}/join_fail_test/http-request.adoc[]
+include::{snippets}/{user}/join_fail_test/http-response.adoc[]
+=== 로그인 성공
+include::{snippets}/{user}/login_success_test/http-request.adoc[]
+include::{snippets}/{user}/login_success_test/http-response.adoc[]
+=== 로그인 실패
+include::{snippets}/{user}/login_fail_test/http-request.adoc[]
+include::{snippets}/{user}/login_fail_test/http-response.adoc[]
+=== 회원정보 보기 성공
+include::{snippets}/{user}/get_user_info_success_test/http-request.adoc[]
+include::{snippets}/{user}/get_user_info_success_test/http-response.adoc[]
+=== 회원정보 보기 실패
+include::{snippets}/{user}/get_user_info_fail_test/http-request.adoc[]
+include::{snippets}/{user}/get_user_info_fail_test/http-response.adoc[]
+=== 회원정보 수정 성공
+include::{snippets}/{user}/update_user_info_success_test/http-request.adoc[]
+include::{snippets}/{user}/update_user_info_success_test/http-response.adoc[]
+=== 회원정보 수정 실패
+include::{snippets}/{user}/update_user_info_fail_test/http-request.adoc[]
+include::{snippets}/{user}/update_user_info_fail_test/http-response.adoc[]
 
 == 매장
 === 매장 목록보기
+include::{snippets}/{store}/store_list_test/http-request.adoc[]
+include::{snippets}/{store}/store_list_test/http-response.adoc[]
 === 매장 상세보기
+include::{snippets}/{store}/store_info_test/http-request.adoc[]
+include::{snippets}/{store}/store_info_test/http-response.adoc[]
 === 매장 상세보기 - 사업자 정보
-=== 매장 메뉴보기 - 매장 정보
+include::{snippets}/{store}/store_biz_info_test/http-request.adoc[]
+include::{snippets}/{store}/store_biz_info_test/http-response.adoc[]
+=== 매장 메뉴 목록보기
+include::{snippets}/{store}/store_menu_list_test/http-request.adoc[]
+include::{snippets}/{store}/store_menu_list_test/http-response.adoc[]
 === 매장 메뉴 옵션보기
+include::{snippets}/{store}/store_menu_detail_test/http-request.adoc[]
+include::{snippets}/{store}/store_menu_detail_test/http-response.adoc[]
 
 == 좋아요(즐겨찾는 매장)
-=== 좋아요 등록하기
-=== 좋아요 삭제하기
-=== 좋아요 목록보기
+=== 좋아요 등록하기 (성공)
+include::{snippets}/{like}/add_like_success_test/http-request.adoc[]
+include::{snippets}/{like}/add_like_success_test/http-response.adoc[]
+=== 좋아요 등록하기 (실패)
+include::{snippets}/{like}/add_like_fail_test/http-request.adoc[]
+include::{snippets}/{like}/add_like_fail_test/http-response.adoc[]
+=== 좋아요 삭제하기 (성공)
+include::{snippets}/{like}/delete_like_success_test/http-request.adoc[]
+include::{snippets}/{like}/delete_like_success_test/http-response.adoc[]
+=== 좋아요 삭제하기 (실패)
+include::{snippets}/{like}/delete_like_fail_test/http-request.adoc[]
+include::{snippets}/{like}/delete_like_fail_test/http-response.adoc[]
+=== 좋아요 목록보기 (성공)
+include::{snippets}/{like}/get_users_like_success_test/http-request.adoc[]
+include::{snippets}/{like}/get_users_like_success_test/http-response.adoc[]
+=== 좋아요 목록보기 (실패)
+include::{snippets}/{like}/get_users_like_fail_test/http-request.adoc[]
+include::{snippets}/{like}/get_users_like_fail_test/http-response.adoc[]
 
 == 리뷰
-=== 리뷰 등록하기
+=== 리뷰 등록하기 (성공)
+include::{snippets}/{review}/add_review_success_test/http-request.adoc[]
+include::{snippets}/{review}/add_review_success_test/http-response.adoc[]
+=== 리뷰 등록하기 (실패1)
+include::{snippets}/{review}/add_review_content_blank_fail_test/http-request.adoc[]
+include::{snippets}/{review}/add_review_content_blank_fail_test/http-response.adoc[]
+=== 리뷰 등록하기 (실패2)
+include::{snippets}/{review}/add_review_content_size_fail_test/http-request.adoc[]
+include::{snippets}/{review}/add_review_content_size_fail_test/http-response.adoc[]
 === 내 리뷰 보기
+include::{snippets}/{review}/my_review_list_test/http-request.adoc[]
+include::{snippets}/{review}/my_review_list_test/http-response.adoc[]
 === 매장 리뷰 보기
+include::{snippets}/{review}/store_review_list_test/http-request.adoc[]
+include::{snippets}/{review}/store_review_list_test/http-response.adoc[]

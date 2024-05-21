@@ -7,7 +7,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import shop.project.pathorderserver._core.errors.WebRequest;
 import shop.project.pathorderserver._core.errors.exception.Web403;
 import shop.project.pathorderserver._core.utils.ApiUtil;
 
@@ -21,7 +23,7 @@ public class StoreOwnerController {
     private final StoreService storeService;
 
     @GetMapping("/") // index
-    private String index() {
+    public String index() {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
 
         if (sessionStore != null) {
@@ -40,8 +42,9 @@ public class StoreOwnerController {
         }
     }
 
+    @WebRequest
     @PostMapping("/stores/join") // 매장 관리자 회원가입
-    public String join(@Valid StoreRequest.JoinDTO reqDTO) {
+    public String join(@Valid StoreRequest.JoinDTO reqDTO, Errors errors) {
         storeService.createStore(reqDTO);
         return "redirect:/stores/login-form";
     }
@@ -52,10 +55,12 @@ public class StoreOwnerController {
         return "login-form";
     }
 
+    @WebRequest
     @PostMapping("/stores/login") // 매장 관리자 - 로그인
-    public String login(@Valid StoreRequest.LoginDTO reqDTO) {
+    public String login(@Valid StoreRequest.LoginDTO reqDTO, Errors errors) {
         SessionStore sessionStore = storeService.getStore(reqDTO);
         session.setAttribute("sessionStore", sessionStore);
+
         return "redirect:/";
     }
 
@@ -89,8 +94,9 @@ public class StoreOwnerController {
         return "orders";
     }
 
+    @WebRequest
     @PostMapping("/stores/{storeId}/orders/{orderId}/update") // 매장 관리자 - 주문 상태 업데이트(주문 접수하기 -> 조리완료)
-    public String updateOrder(@PathVariable int storeId, @PathVariable int orderId, @Valid StoreRequest.UpdateOrderDTO reqDTO) {
+    public String updateOrder(@PathVariable int storeId, @PathVariable int orderId, @Valid StoreRequest.UpdateOrderDTO reqDTO, Errors errors) {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         if (storeId != sessionStore.getId()) {
             throw new Web403("권한이 없습니다.");
@@ -164,8 +170,9 @@ public class StoreOwnerController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    @WebRequest
     @PostMapping("/stores/{storeId}/menus") // 매장 관리자 - 메뉴 등록하기
-    public String addMenu(@PathVariable int storeId, @Valid StoreRequest.CreateMenuDTO reqDTO) {
+    public String addMenu(@PathVariable int storeId, @Valid StoreRequest.CreateMenuDTO reqDTO, Errors errors) {
         // TODO: 유효성 검사 (금액)
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         if (storeId != sessionStore.getId()) {
@@ -175,9 +182,10 @@ public class StoreOwnerController {
         return "redirect:/stores/" + sessionStore.getId() + "/menus";
     }
 
+    @WebRequest
     @ResponseBody
     @PutMapping("/stores/{storeId}/menus/{menuId}") // 매장 관리자 - 메뉴 수정하기
-    public ResponseEntity<?> updateMenu(@PathVariable int storeId, @PathVariable int menuId, @RequestBody @Valid StoreRequest.UpdateMenuDTO reqDTO) {
+    public ResponseEntity<?> updateMenu(@PathVariable int storeId, @PathVariable int menuId, @RequestBody @Valid StoreRequest.UpdateMenuDTO reqDTO, Errors errors) {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         if (storeId != sessionStore.getId()) {
             throw new Web403("권한이 없습니다.");
@@ -210,8 +218,9 @@ public class StoreOwnerController {
         return "store-update-form";
     }
 
+    @WebRequest
     @PostMapping("/stores/{storeId}") // 매장 관리자 - 매장 정보 수정
-    public String update(@PathVariable int storeId, @Valid StoreRequest.UpdateDTO reqDTO) {
+    public String update(@PathVariable int storeId, @Valid StoreRequest.UpdateDTO reqDTO, Errors errors) {
         SessionStore sessionStore = (SessionStore) session.getAttribute("sessionStore");
         if (storeId != sessionStore.getId()) {
             throw new Web403("권한이 없습니다.");
