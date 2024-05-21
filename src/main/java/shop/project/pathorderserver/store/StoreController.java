@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import shop.project.pathorderserver._core.utils.ApiUtil;
 import shop.project.pathorderserver.user.SessionUser;
@@ -46,6 +47,12 @@ public class StoreController {
     public ResponseEntity<?> storeMenuList(@PathVariable int storeId) {
         StoreResponse.StoreMenuListDTO respDTO = storeService.getStoreMenuList(storeId);
 
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
+
+    @GetMapping("/api/stores/{storeId}/menus/search") // Search store menu
+    public ResponseEntity<?> searchStoreMenus(@PathVariable int storeId, @RequestParam String keyword) {
+        StoreResponse.StoreMenuListDTO respDTO = storeService.getStoreMenuListSearch(storeId, keyword);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 

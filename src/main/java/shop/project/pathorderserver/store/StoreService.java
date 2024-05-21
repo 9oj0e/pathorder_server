@@ -88,6 +88,17 @@ public class StoreService {
         return new StoreResponse.StoreMenuListDTO(store, menus);
     }
 
+    // 매장 메뉴 검색하기
+    public StoreResponse.StoreMenuListDTO getStoreMenuListSearch(int storeId, String keyword) {
+        Store store // 매장 정보
+                = storeRepository.findById(storeId)
+                .orElseThrow(() -> new App404("찾을 수 없는 매장입니다."));
+        List<Menu> menus // 매장 메뉴 정보
+                = menuRepository.searchMenuByKeyword(storeId, keyword);
+
+        return new StoreResponse.StoreMenuListDTO(store, menus);
+    }
+
     // 매장 메뉴 옵션보기
     public StoreResponse.StoreMenuOptionDTO getStoreMenuDetail(int storeId, int menuId) {
         Store store // 매장 정보
