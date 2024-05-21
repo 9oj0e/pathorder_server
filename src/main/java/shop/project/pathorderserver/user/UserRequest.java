@@ -1,5 +1,6 @@
 package shop.project.pathorderserver.user;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import shop.project.pathorderserver.order.OrderStatus;
@@ -51,7 +52,12 @@ public class UserRequest {
     @Data // 회원 정보 수정
     public static class UpdateDTO {
         private String nickname;
+        @NotBlank(message = "전화번호는 필수 항목입니다.")
+        @Size(max = 11, message = "전화번호는 최대 11자까지 가능합니다.")
+        @Pattern(regexp = "^[0-9]+$", message = "전화번호는 숫자만 포함할 수 있습니다.")
         private String tel;
+        @NotBlank(message = "이메일은 필수 항목입니다.")
+        @Email(message = "유효한 이메일 형식이어야 합니다.")
         private String email;
     }
 
@@ -69,6 +75,7 @@ public class UserRequest {
         private String customerNickname;
         private String request;
         private OrderStatus status;
+        @Valid
         private List<OrderMenuDTO> orderMenuList;
 
         @Data

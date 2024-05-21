@@ -19,8 +19,7 @@ public class AppValidationHandler {
         System.out.println("AppValidationHandler.validCheck() 호출");
         Object[] args = jp.getArgs(); // 파라메터(매개변수)
         for (Object arg : args) {
-            if (arg instanceof Errors) {
-                Errors errors = (Errors) arg;
+            if (arg instanceof Errors errors) {
                 if (errors.hasErrors()) {
                     for (FieldError error : errors.getFieldErrors()) {
                         throw new App400(error.getDefaultMessage()); // + error.getField()

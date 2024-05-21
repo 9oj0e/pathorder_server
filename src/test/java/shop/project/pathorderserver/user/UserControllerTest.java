@@ -239,10 +239,9 @@ public class UserControllerTest extends MyRestDoc {
         UserRequest.UpdateDTO reqDTO = new UserRequest.UpdateDTO();
         reqDTO.setNickname("재성");
         reqDTO.setEmail("invalid-email");
-        reqDTO.setTel("010-9876-5432");
+        reqDTO.setTel("01098765432");
 
         String reqBody = om.writeValueAsString(reqDTO);
-
         // when
         ResultActions actions = mockMvc.perform(
                 put("/api/users/" + userId)
@@ -250,21 +249,13 @@ public class UserControllerTest extends MyRestDoc {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(reqBody)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
-
-//        // then
-//        actions.andExpect(status().isBadRequest());
-//        actions.andExpect(jsonPath("$.status").value(400));
-//        actions.andExpect(jsonPath("$.msg").value("Validation failed"));
-//        actions.andExpect(jsonPath("$.errors.email").value("유효한 이메일 형식이어야 합니다."));
-//        actions.andExpect(jsonPath("$.errors.tel").value("전화번호는 숫자만 포함할 수 있습니다."));
+        // then
+        actions.andExpect(status().isBadRequest());
+        actions.andExpect(jsonPath("$.status").value(400));
+        actions.andExpect(jsonPath("$.msg").value("유효한 이메일 형식이어야 합니다."));
     }
 
-
-    // TODO: 사진 업로드가 안 보임
+//    // TODO: 사진 업로드?
 //    // 사진 등록 성공
 //    @Test
 //    public void upload_img_success_test() throws Exception {
@@ -323,11 +314,10 @@ public class UserControllerTest extends MyRestDoc {
 //        actions.andExpect(jsonPath("$.status").value(400));
 //    }
 
-
     // 주문하기 성공
     @Test
     public void order_success_test() throws Exception {
-        //given
+        //given (주문, 메뉴, 메뉴옵션)
         UserRequest.OrderDTO reqDTO = new UserRequest.OrderDTO();
         reqDTO.setStoreId(1);
         reqDTO.setStoreName("아리수");
@@ -335,23 +325,17 @@ public class UserControllerTest extends MyRestDoc {
         reqDTO.setCustomerNickname("현정");
         reqDTO.setRequest("30분 뒤에 찾으러 갈게요.");
         reqDTO.setOrderMenuList(new ArrayList<>());
-
-        // 주문 메뉴 추가
         UserRequest.OrderDTO.OrderMenuDTO orderMenu = new UserRequest.OrderDTO.OrderMenuDTO();
         orderMenu.setName("아메리카노");
         orderMenu.setPrice(3000);
         orderMenu.setQty(2);
-
-        // 주문 메뉴 옵션 추가
         UserRequest.OrderDTO.OrderMenuOptionDTO orderMenuOption = new UserRequest.OrderDTO.OrderMenuOptionDTO();
         orderMenuOption.setName("아이스");
         orderMenuOption.setPrice(0);
         orderMenu.getOrderMenuOptionList().add(orderMenuOption);
-
         reqDTO.getOrderMenuList().add(orderMenu);
 
         String reqBody = om.writeValueAsString(reqDTO);
-
         // when
         ResultActions actions = mockMvc.perform(
                 post("/api/users/" + 1 + "/orders")
@@ -359,11 +343,6 @@ public class UserControllerTest extends MyRestDoc {
                         .content(reqBody)
                         .contentType(MediaType.APPLICATION_JSON)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
-
         // then
         actions.andExpect(status().isOk());
         actions.andExpect(jsonPath("$.status").value(200));
@@ -372,10 +351,10 @@ public class UserControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.body.customerNickname").value("현정"));
         actions.andExpect(jsonPath("$.body.storeId").value(1));
         actions.andExpect(jsonPath("$.body.storeName").value("아리수"));
-        // actions.andExpect(jsonPath("$.body.id").value(23)); 22 ~ 23
+        actions.andExpect(jsonPath("$.body.id").value(22)); //22 ~ 23
         actions.andExpect(jsonPath("$.body.request").value("30분 뒤에 찾으러 갈게요."));
         actions.andExpect(jsonPath("$.body.status").value("PENDING"));
-        // actions.andExpect(jsonPath("$.body.orderMenuList[0].id").value(78)); 78 ~ 80
+        actions.andExpect(jsonPath("$.body.orderMenuList[0].id").value(80)); //78 ~ 80
         actions.andExpect(jsonPath("$.body.orderMenuList[0].name").value("아메리카노"));
         actions.andExpect(jsonPath("$.body.orderMenuList[0].price").value("3,000"));
         actions.andExpect(jsonPath("$.body.orderMenuList[0].qty").value(2));
@@ -398,7 +377,7 @@ public class UserControllerTest extends MyRestDoc {
 
         // 유효하지 않은 주문 메뉴 추가
         UserRequest.OrderDTO.OrderMenuDTO orderMenu = new UserRequest.OrderDTO.OrderMenuDTO();
-        orderMenu.setName(""); // Invalid name
+        orderMenu.setName("아메리카노");
         orderMenu.setPrice(-3000); // Invalid price
         orderMenu.setQty(1); // Valid quantity
 
@@ -412,13 +391,9 @@ public class UserControllerTest extends MyRestDoc {
                         .content(reqBody)
                         .contentType(MediaType.APPLICATION_JSON)
         );
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
-        // then TODO: 유효성 검사 추가
-        // actions.andExpect(status().isBadRequest());
-//        actions.andExpect(jsonPath("$.body").value("메뉴 이름은 필수 항목입니다."));
-//        actions.andExpect(jsonPath("$.body").value("가격은 음수일 수 없습니다."));
+        // then
+        actions.andExpect(status().isBadRequest());
+        actions.andExpect(jsonPath("$.msg").value("가격은 음수일 수 없습니다."));
     }
 
     // 회원 주문내역 목록보기 성공
@@ -426,23 +401,16 @@ public class UserControllerTest extends MyRestDoc {
     public void order_list_success_test() throws Exception {
         //given
         int userId = 1;
-
         // when
         ResultActions actions = mockMvc.perform(
                 get("/api/users/" + userId + "/orders")
                         .header("Authorization", "Bearer " + jwt)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
-
         // then
-//        actions.andExpect(status().isOk());
-//        actions.andExpect(jsonPath("$.status").value(200));
-//        actions.andExpect(jsonPath("$.msg").value("성공"));
-//        actions.andExpect(jsonPath("$.body.orders").isArray());
-        // ... (기타 주문 목록 응답 데이터 검증)
+        actions.andExpect(status().isOk());
+        actions.andExpect(jsonPath("$.status").value(200));
+        actions.andExpect(jsonPath("$.msg").value("성공"));
+        actions.andExpect(jsonPath("$.body.orderList").isArray());
     }
 
 //    // 회원 주문내역 목록보기 실패(존재하지 않는 유저)
@@ -473,21 +441,15 @@ public class UserControllerTest extends MyRestDoc {
         //given
         int userId = 1;
         int orderId = 1;
-
         // when
         ResultActions actions = mockMvc.perform(
                 get("/api/users/" + userId + "/orders/" + orderId)
                         .header("Authorization", "Bearer " + jwt)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
-
         // then
-//        actions.andExpect(status().isOk());
-//        actions.andExpect(jsonPath("$.status").value(200));
-//        actions.andExpect(jsonPath("$.msg").value("성공"));
+        actions.andExpect(status().isOk());
+        actions.andExpect(jsonPath("$.status").value(200));
+        actions.andExpect(jsonPath("$.msg").value("성공"));
     }
 
     // 회원 주문내역 상세보기 실패(존재하지 않는 주문)
@@ -496,17 +458,11 @@ public class UserControllerTest extends MyRestDoc {
         //given
         int userId = 1;
         int orderId = 999; // 존재하지 않는 주문 ID
-
         // when
         ResultActions actions = mockMvc.perform(
                 get("/api/users/" + userId + "/orders/" + orderId)
                         .header("Authorization", "Bearer " + jwt)
         );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
-
         // then
         actions.andExpect(status().isNotFound());
         actions.andExpect(jsonPath("$.status").value(404));
