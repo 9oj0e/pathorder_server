@@ -13,14 +13,15 @@ import shop.project.pathorderserver._core.errors.exception.Web400;
 public class WebValidationHandler {
     // Advice (부가 로직 hello 메서드)
     // Advice가 수행될 위치 == PointCut
-    @Before("@annotation(org.springframework.web.bind.annotation.PostMapping) || @annotation(org.springframework.web.bind.annotation.PutMapping)")
+    @Before("@annotation(shop.project.pathorderserver._core.errors.WebRequest)")
     public void validCheck(JoinPoint jp) {
+        System.out.println("webValidationHandler.validCheck() 호출");
         Object[] args = jp.getArgs(); // 파라메터(매개변수)
-        for(Object arg : args){
-            if(arg instanceof Errors){
+        for (Object arg : args) {
+            if (arg instanceof Errors) {
                 Errors errors = (Errors) arg;
-                if(errors.hasErrors()){
-                    for (FieldError error : errors.getFieldErrors()){
+                if (errors.hasErrors()) {
+                    for (FieldError error : errors.getFieldErrors()) {
                         throw new Web400(error.getDefaultMessage()); // + error.getField()
                     }
                 }

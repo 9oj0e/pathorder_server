@@ -1,9 +1,6 @@
 package shop.project.pathorderserver.user;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import shop.project.pathorderserver.order.OrderStatus;
 
@@ -76,7 +73,9 @@ public class UserRequest {
 
         @Data
         public static class OrderMenuDTO {
+            @NotBlank(message = "메뉴 이름을 필수 항목입니다.")
             private String name;
+            @Positive(message = "가격은 음수일 수 없습니다.")
             private int price;
             private int qty;
             private List<OrderMenuOptionDTO> orderMenuOptionList = new ArrayList<>();

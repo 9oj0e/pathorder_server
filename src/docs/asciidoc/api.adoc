@@ -17,6 +17,7 @@ endif::[]
 
 == 회원
 === 회원가입
+// include::{snippets}/{user}/join_test/http-request.adoc[];
 === 로그인
 === 회원정보 보기
 === 회원정보 수정
